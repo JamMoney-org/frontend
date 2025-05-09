@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>JamMoney - 기본 레이아웃</title>
+    <link rel="stylesheet" href="../css/style.css">
+    <link rel="stylesheet" href="../css/news_style.css">
+</head>
+<body>
+    <!-- 메인 콘텐츠 영역 -->
+    <div class="main-content">  
+        
+        <!-- 헤더 영역 -->
+        <header>
+            <button class="back-button" onclick="history.back();">
+                <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                    <path d="M15 19L8 12L15 5" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                </svg>
+            </button>
+            JamMoney
+        </header>
+
+        <!-- 구현 영역 -->
+        <div class="content">
+            <article>
+                <!-- 동적 -->
+                <h2 class="article-title">하나·KB국민은행서 총 85억 금융사고..."외부인 의한 사기"</h2>
+                <p id="source">출처: News1 · 2025.05.04</p>
+                <br>
+                <hr>
+                <div class="ai-summary">
+                    <h4 style="font-size: 13px;">AI 요약</h4>
+                    <!-- 동적 -->
+                    <ul>
+                        <li>하나은행과 KB국민은행에서 외부인에 의한 사기로 총 85억 원 규모의 금융사고가 발생했다.</li>
+                        <li>하나은행은 3건, KB국민은행은 1건의 사기를 공시했으며, 모두 허위 서류 제출 등의 방식으로 발생했다.</li>
+                        <li>사고는 조사·제보·수사기관 등을 통해 발견되었으며, 최소 조치 및 형사 고소가 진행 중이다.</li>
+                    </ul>
+                </div>
+                <!-- 기사 내용 동적 -->
+                <div class="article-content">
+                    Lorem ipsum dolor sit amet consectetur adipisicing elit. Ad earum fuga, culpa suscipit numquam ullam eos quaerat voluptatem officiis non architecto dolore quis distinctio. Sed provident sint eveniet totam quae!
+                    Lorem ipsum dolor sit amet consectetur adipisicing elit. In sit cumque iure, saepe, quis illum sed odio quisquam quae quod eum aliquam deserunt adipisci maiores perspiciatis odit ducimus rem. Dolorem?
+                    Lorem ipsum dolor sit amet consectetur adipisicing elit. Odio illum deleniti possimus exercitationem! Iusto mollitia accusamus ea quo quasi minus voluptatum officiis ipsum ex quas voluptate, laborum veniam at neque!
+                    Lorem ipsum dolor sit amet consectetur adipisicing elit. Iste, nostrum ad qui quos velit nesciunt a accusantium, deserunt saepe blanditiis pariatur quasi quis expedita rerum debitis! Exercitationem itaque distinctio repellendus.
+                </div>
+            </article>
+            <br>
+            <hr>
+            
+            <div class="quiz-container">
+                <h4>관련 퀴즈</h4>
+                <!-- 동적 -->
+                <p id="question">Q. "금융사고"는 어떤 상황일까요?</p>
+                <!-- 나중에 스크립트로 가져올 때 번호 동적으로 붙이기 -->
+                <button>은행에서 돈과 관련된 문제가 생긴 일</button>    
+                <button>은행에서 돈과 관련된 문제가 생긴 일</button>
+                <button>은행에서 돈과 관련된 문제가 생긴 일</button>
+            </div>
+        </div>
+        
+    </div>
+
+    <div id="navbar"></div>
+    <script src="../js/script.js"></script>
+</body>
+</html>
