@@ -15,8 +15,10 @@
 }
 
 .carousel-item img{
-  width: 170px;
-  height: 170px;
+  max-width: 170px;
+  max-height: 170px;
+  width: 28vw;
+  aspect-ratio: 1/1;
   border-radius: 10px;
   cursor: pointer;
 }
@@ -79,7 +81,8 @@
   display: flex;
   align-items: center;
   box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
-  width: 550px;
+  max-width: 550px;
+  width: 90vw;
   box-sizing: border-box;
 }
 
