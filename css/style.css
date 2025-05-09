@@ -33,6 +33,7 @@ body {
     display: flex;
     flex-direction: column;
     justify-content: flex-start;
+    min-height: calc(100vh - 40px);
 }
 
 /* 헤더 스타일 */
@@ -124,5 +125,6 @@ header {
 
     .content {
         flex-grow: 1;
+        padding: 16px;
     }
 }
