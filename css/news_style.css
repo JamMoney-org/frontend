@@ -1,0 +1,82 @@
+.article-title {
+    display: block;
+    width: 100%; /* 제목이 부모 요소에 꽉 차도록 설정 */
+    font-weight: bold;
+    font-size: 1.2rem;
+    margin-bottom: 5px;
+}
+
+/* 출처 */
+#source {
+    font-size: 11px;
+    color: #808080;
+    line-height: 10px;
+}
+
+/* ai 요약 */
+.ai-summary {
+    margin: 30px 20px 15px 20px ;
+    padding: 20px 25px;
+    background-color: #F5F5F5;
+    border-radius: 8px;
+    text-decoration: none;
+}
+
+.ai-summary h4 {
+    margin-bottom: 8px; /* h4와 ul 사이 간격 */
+}
+
+.ai-summary ul {
+    padding-left: 20px;
+    font-size: 14px;
+}
+
+.ai-summary ul li {
+    margin-bottom: 7px;
+}
+
+/* 기사 본문 */
+.article-content {
+    padding: 10px;
+    line-height: 1.6;
+    color: #333;
+    font-size: 15px;
+}
+
+.quiz-container {
+    margin: 20px 20px;
+}
+
+.quiz-container button {
+    margin: 5px 0;
+    padding: 10px;
+    width: 100%;
+    background-color: #BEE7D8;
+    border: none;
+    border-radius: 5px;
+    text-align: left;
+}
+
+
+#question {
+    font-size: 14px;
+    font-weight: bold;
+    margin-top: 15px;
+    margin-bottom: 5px;
+}
+
+hr {
+    border: none;
+    border-top: 1px solid #DDDDDD; 
+    margin: 10px 0; 
+}
+
+.content {
+    padding: 10px 30px;
+}
+
+button {
+    height: 40px;
+    font-size: 13px;
+}
+
