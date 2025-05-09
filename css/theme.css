@@ -111,3 +111,33 @@
   font-size: 16px;
   margin: 0;
 }
+
+.leaning-wrapper{
+  padding: 20px;
+  background-color: #f5faf7;
+ font-size: 15px;
+}
+
+.leaning-title {
+  font-size: 18px;
+  margin-bottom: 10px;
+}
+.section {
+  background-color: white;
+  border-radius: 10px;
+  padding: 16px;
+  margin: 16px 0;
+  box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+}
+.section h2 {
+  font-size: 16px;
+  margin-bottom: 8px;
+}
+.section ul {
+  padding-left: 20px;
+  margin: 0;
+}
+.section li {
+  margin-bottom: 6px;
+}
+
