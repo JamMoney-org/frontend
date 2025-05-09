@@ -28,6 +28,9 @@
   background-color: white;
   position: relative;
   padding-top: 5px;
+  position: sticky;
+  top: 45px;
+  z-index: 10px;
 }
 
 .tab {
