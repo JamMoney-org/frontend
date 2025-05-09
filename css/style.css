@@ -28,8 +28,8 @@ body {
     box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
     border-radius: 10px;
     height: auto;
-    padding-top: 60px;
-    padding-bottom: 60px;
+    padding-top: 49.99px;
+    padding-bottom: 43.99px;
     display: flex;
     flex-direction: column;
     justify-content: flex-start;
@@ -124,6 +124,5 @@ header {
 
     .content {
         flex-grow: 1;
-        padding: 16px;
     }
 }
