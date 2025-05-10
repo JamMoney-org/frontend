@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>JamMoney - 기본 레이아웃</title>
+    <link rel="stylesheet" href="../css/style.css">
+    <link rel="stylesheet" href="../css/vocabulary.css">
+</head>
+<body>
+    <!-- 메인 콘텐츠 영역 -->
+    <div class="main-content">
+        
+        <!-- 헤더 영역 -->
+        <header>
+            <button class="back-button" onclick="history.back();">
+                <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                    <path d="M15 19L8 12L15 5" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                </svg>
+            </button>
+            단어장
+        </header>
+
+        <!-- 구현 영역 -->
+       <div class="content">
+            <h3 id="category-title">투자</h3>
+
+            <div class="word-list" id="word-list">
+                <div class="word-item" data-day="1" data-word="돈을 빌리거나 예금을 했을 때 붙는 추가 금액">
+                    <div class="word-info">
+                        <p class="day-label">DAY1</p>
+                        <p class="word-desc">돈을 빌리거나 예금을 했을 때 붙는 추가 금액</p>
+                    </div>
+                    <button class="bookmark"></button>
+                </div>
+
+                <div class="word-item" data-day="2" data-word="금융 상품의 수익률을 나타내는 비율">
+                    <div class="word-info">
+                        <p class="day-label">DAY2</p>
+                        <p class="word-desc">금융 상품의 수익률을 나타내는 비율</p>
+                    </div>
+                    <button class="bookmark"></button>
+                </div>
+
+                <div class="word-item" data-day="3" data-word="일정 기간마다 발생하는 이자 지급">
+                    <div class="word-info">
+                        <p class="day-label">DAY3</p>
+                        <p class="word-desc">일정 기간마다 발생하는 이자 지급</p>
+                    </div>
+                    <button class="bookmark"></button>
+                </div>
+
+                <div class="word-item" data-day="4" data-word="장기적인 금융 목표를 위한 자산 축적">
+                    <div class="word-info">
+                        <p class="day-label">DAY4</p>
+                        <p class="word-desc">장기적인 금융 목표를 위한 자산 축적</p>
+                    </div>
+                    <button class="bookmark"></button>
+                </div>
+
+                <div class="word-item" data-day="5" data-word="소득 대비 지출을 분석하는 재정 계획">
+                    <div class="word-info">
+                        <p class="day-label">DAY5</p>
+                        <p class="word-desc">소득 대비 지출을 분석하는 재정 계획</p>
+                    </div>
+                    <button class="bookmark"></button>
+                </div>
+            </div>
+        </div>
+        
+    </div>
+
+    <div id="navbar"></div>
+    <script src="../js/script.js"></script>
+</body>
+</html>
