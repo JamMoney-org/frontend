@@ -10,21 +10,6 @@ body {
   padding: 20px;
 }
 
-/* 헤더 */
-header {
-  display: flex;
-  align-items: center;
-  font-size: 20px;
-  font-weight: bold;
-  padding: 10px 0;
-}
-
-.back-button {
-  background: none;
-  border: none;
-  margin-right: 10px;
-}
-
 /* 상단 버튼 영역 */
 .top-button {
   display: flex;
