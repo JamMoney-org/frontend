@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html lang="ko">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>JamMoney - 캐릭터</title>
+    <link rel="stylesheet" href="../css/style.css" />
+    <link rel="stylesheet" href="../css/character_main.css" />
+  </head>
+  <body>
+    <!-- 메인 콘텐츠 영역 -->
+    <div class="main-content">
+      <!-- 헤더 영역 -->
+      <header>
+        <button class="back-button" onclick="history.back();">
+          <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+            <path d="M15 19L8 12L15 5" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" />
+          </svg>
+        </button>
+        JamMoney
+      </header>
+
+      <!-- 구현 영역 -->
+      <div class="content">
+        <!-- 상단 버튼 영역 -->
+        <div class="top-button">
+          <button class="learning-button" onclick="location.href='#'">공룡과 함께 성장하기</button>
+          <button class="shop-button" onclick="location.href='../pages/character_shop.html'">
+            🛒 캐릭터 상점
+          </button>
+        </div>
+
+        <!-- 캐릭터 공간 -->
+        <div class="character-area">
+          <img src="../assets/images/background_default.svg" alt="배경 이미지" class="background-img" id="bgImage" />
+          <img src="../assets/images/character_egg.png" alt="캐릭터 이미지" class="character-img" id="characterImage" />
+        </div>
+
+        <!-- 캐릭터 정보 -->
+        <div class="status-box">
+          <div class="name-stage">
+            <span class="character-name" id="characterName">공룡 이름</span>
+            <button class="edit-button" onclick="document.querySelector('.name-edit-box').style.display = 'flex'">✏️</button>
+            <span class="growth-stage" id="growthStage">성장 단계 : 공룡 알</span>
+          </div>
+
+          <!-- 이름 수정 (처음에는 숨김) -->
+          <div class="name-edit-box" id="nameEditBox">
+            <input type="text" id="nameInput" placeholder="이름을 입력하세요" />
+            <button onclick="saveName()">저장</button>
+          </div>
+
+          <div class="level-bar-box">
+            <span class="level">Lv.<span id="level">1</span></span>
+            <div class="progress-bar">
+              <div class="progress" id="progressBar"></div>
+            </div>
+            <span class="xp"><span id="xpNow">40</span> / <span id="xpMax">50</span> POINT</span>
+            <!--예시값-->
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div id="navbar"></div>
+    <script src="../js/script.js"></script>
+  </body>
+</html>
