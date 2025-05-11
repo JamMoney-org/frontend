@@ -6,25 +6,25 @@ html, body {
 
 .main-content {
     display: flex;
-    flex-direction: column; /* 위에서 아래로 쌓기 */
+    flex-direction: column; 
     height: 100%;
   }
   
-
-  .content { /*중앙 정렬*/
+/*중앙 정렬*/
+  .content { 
     flex: 1; 
     display: flex;
     flex-direction: column;
     align-items: center;      
     justify-content: center;   
-    position: relative; /* 로고 절대 위치용 기준 */
+    position: relative; 
   }
   
 
   .logo {
     position: absolute;
     top: calc(50% - 100px); 
-    transform: translateY(-400%); /*로고 띄우기*/
+    transform: translateY(-400%); 
     
     color: #5DC29E;
   }
@@ -32,9 +32,9 @@ html, body {
 
   .login-form {
     display: flex;
-    flex-direction: column; /*세로로 정렬*/
+    flex-direction: column; 
     align-items: center;
-    gap: 10px;
+    /*gap: 10px;*/
     
   }
   
@@ -60,7 +60,7 @@ html, body {
   .submit-button {
     background-color: #5DC29E;
     color: #ffffff;
-    border: none; /* 테두리 제거 */
+    border: none; 
     cursor: pointer;
   }
   
@@ -70,4 +70,22 @@ html, body {
     color: #333333;
   }
 
-  
+  /*아이콘*/
+  .input {
+  position: relative;
+  margin-bottom: 1rem;
+}
+
+.input-icon {
+  position: absolute;
+  top: 50%;
+  left: 10px;
+  transform: translateY(-50%);
+  width: 20px;
+  height: 20px;
+  pointer-events: none;
+}
+
+.input input {
+  padding-left: 35px; 
+}
