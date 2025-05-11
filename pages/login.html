@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>JamMoney - 로그인</title>
+    <link rel="stylesheet" href="../css/style.css">
+    <link rel="stylesheet" href="../css/login.css">
+
+</head>
+<body>
+    <!-- 메인 콘텐츠 영역 -->
+    <div class="main-content">
+        
+        <!-- 헤더 영역 -->
+        <header>
+            <button class="back-button" onclick="history.back();">
+                <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                    <path d="M15 19L8 12L15 5" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                </svg>
+            </button>
+            로그인
+        </header>
+
+        <!-- 구현 영역 -->
+        <div class="content">
+            <h3 class="logo">JamMoney</h3>
+            <form class="login-form">
+              <div class="input">
+                <input type="text" class="form-element" placeholder="아이디" required />
+              </div>
+              <div class="input">
+                <input type="password" class="form-element" placeholder="비밀번호" required />
+              </div>
+              <button type="submit" class="form-element submit-button">로그인</button>
+              <a href="#" class="signup-link">회원 가입</a>
+            </form>
+            
+
+        </div>
+        
+    </div>
+
+    <div id="navbar"></div>
+    <script src="script.js"></script>
+</body>
+</html>
