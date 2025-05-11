@@ -53,7 +53,6 @@ html, body {
   
   .input input {
     background-color: #ffffff;
-    color: #333333;
   }
   
 
@@ -67,7 +66,6 @@ html, body {
   .signup-link {
     font-size: 15px;
     text-decoration: none;
-    color: #333333;
   }
 
   /*아이콘*/
