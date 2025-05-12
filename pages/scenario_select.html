@@ -1,0 +1,111 @@
+<!DOCTYPE html>
+<html lang="ko">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>JamMoney - 기본 레이아웃</title>
+    <link rel="stylesheet" href="../css/style.css" />
+    <link rel="stylesheet" href="../css/scenario.css" />
+  </head>
+  <body>
+    <!-- 메인 콘텐츠 영역 -->
+    <div class="main-content">
+      <!-- 헤더 영역 -->
+      <header>
+        <button class="back-button" onclick="history.back();">
+          <svg
+            width="24"
+            height="24"
+            viewBox="0 0 24 24"
+            fill="none"
+            xmlns="http://www.w3.org/2000/svg"
+          >
+            <path
+              d="M15 19L8 12L15 5"
+              stroke="currentColor"
+              stroke-width="2"
+              stroke-linecap="round"
+              stroke-linejoin="round"
+            />
+          </svg>
+        </button>
+        JamMoney
+      </header>
+
+      <!-- 구현 영역 -->
+      <div class="content">
+        <h3>투자 - 상황선택</h3>
+        <div class="scenario-list">
+          <div class="scenario-item">
+            <div class="scenario-header">
+              <div class="scenario-title">첫 주식 투자</div>
+              <div class="star">⭐</div>
+            </div>
+            <div class="scenario-desc">
+              주식 투자의 기본 개념과 리스크 배우기
+            </div>
+          </div>
+          <div class="scenario-item">
+            <div class="scenario-header">
+              <div class="scenario-title">소액 투자 연습</div>
+              <div class="star">⭐</div>
+            </div>
+            <div class="scenario-desc">10만 원 이하로 투자 연습하기</div>
+          </div>
+          <div class="scenario-item">
+            <div class="scenario-header">
+              <div class="scenario-title">펀드란 무엇인가?</div>
+              <div class="star">⭐</div>
+            </div>
+            <div class="scenario-desc">펀드의 기본 구조와 특징 배우기</div>
+          </div>
+
+          <div class="scenario-item locked">
+            <div class="scenario-header">
+              <div class="scenario-title">급락장 대응</div>
+              <div class="star">⭐⭐</div>
+            </div>
+            <div class="scenario-desc">주식 시장 폭락 시 대처 방법</div>
+          </div>
+
+          <div class="scenario-item locked">
+            <div class="scenario-header">
+              <div class="scenario-title">포트폴리오 관리</div>
+              <div class="star">⭐⭐</div>
+            </div>
+            <div class="scenario-desc">
+              자산을 주식, 채권, 예금으로 분산하기
+            </div>
+          </div>
+
+          <div class="scenario-item locked">
+            <div class="scenario-header">
+              <div class="scenario-title">주식 심리 극복법</div>
+              <div class="star">⭐⭐</div>
+            </div>
+            <div class="scenario-desc">공포와 탐욕을 이겨내는 방법</div>
+          </div>
+
+          <div class="scenario-item locked">
+            <div class="scenario-header">
+              <div class="scenario-title">실시간 데이터 분석</div>
+              <div class="star">⭐⭐⭐</div>
+            </div>
+            <div class="scenario-desc">실시간 데이터로 투자 분석하기</div>
+          </div>
+
+          <div class="scenario-item locked">
+            <div class="scenario-header">
+              <div class="scenario-title">실시간 데이터 분석</div>
+              <div class="star">⭐⭐⭐</div>
+            </div>
+            <div class="scenario-desc">실시간 데이터로 투자 분석하기</div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div id="navbar"></div>
+    <script src="../js/script.js"></script>
+  </body>
+</html>
