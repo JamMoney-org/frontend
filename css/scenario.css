@@ -113,7 +113,7 @@
   color: #fff;
   cursor: pointer;
   transition: background-color 0.2s ease;
-  width: 150px;
+  width: 110px;
   position: relative;
   left: 50%;
   transform: translateX(-50%);
@@ -154,7 +154,7 @@
 }
 
 .dialogue-text {
-  font-size: 15px;
+  font-size: 14px;
   line-height: 1.6;
 }
 
@@ -178,4 +178,22 @@
 .choice-btn:hover {
   background: #f0f0f0;
   transform: translateY(-2px);
+}
+
+.next-btn {
+  background-color: #5DC29E;
+  border: none;
+  padding: 0.6rem 1.8rem;
+  border-radius: 20px;
+  font-size: 0.95rem;
+  color: #fff;
+  transition: background-color 0.2s ease;
+  width: 110px;
+  margin: 10px 0;
+  float: right;
+  
+}
+
+.next-btn:hover {
+  background-color: #53b38e;
 }

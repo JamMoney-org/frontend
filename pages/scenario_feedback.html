@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html lang="ko">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>JamMoney - 시나리오 학습 AI 피드백</title>
+    <link rel="stylesheet" href="../css/style.css" />
+    <link rel="stylesheet" href="../css/scenario.css" />
+  </head>
+  <body>
+    <!-- 메인 콘텐츠 영역 -->
+    <div class="main-content">
+      <!-- 헤더 영역 -->
+      <header>
+        <button class="back-button" onclick="history.back();">
+          <svg
+            width="24"
+            height="24"
+            viewBox="0 0 24 24"
+            fill="none"
+            xmlns="http://www.w3.org/2000/svg"
+          >
+            <path
+              d="M15 19L8 12L15 5"
+              stroke="currentColor"
+              stroke-width="2"
+              stroke-linecap="round"
+              stroke-linejoin="round"
+            />
+          </svg>
+        </button>
+        시나리오 학습
+      </header>
+
+      <!-- 구현 영역 -->
+      <div class="content simul-wrapper">
+        <h3 class="simul-title">자취방 계약 시뮬레이션</h3>
+        <img src="../assets/images/dinosaur_broker.png" alt="" width="45%" />
+        <div class="dialogue-box">
+          <div class="character-name">공룡 중개사</div>
+          <div class="dialogue-text">
+            좋은 질문이에요! 햇빛이 중요하죠. 반지하는 곰팡이나 벌레 문제가 있을
+            수 있어요.
+          </div>
+        </div>
+        <button class="next-btn">다음</button>
+      </div>
+    </div>
+
+    <div id="navbar"></div>
+    <script src="../js/script.js"></script>
+  </body>
+</html>
