@@ -1,9 +1,9 @@
 .content {
-  padding: 2.5rem 2rem;
+  padding: 1.5rem 1.2rem;
 }
 
 .category-label {
-  margin-bottom: 1rem;
+  margin: 1.5rem 0;
   color: #333333;
   padding-left: 0.2rem;
 }
@@ -72,8 +72,6 @@
 }
 
 .simul-title {
-  font-size: 1.5rem;
-  font-weight: bold;
   margin: 2rem 0;
 }
 
