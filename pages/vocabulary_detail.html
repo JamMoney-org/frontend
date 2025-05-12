@@ -21,32 +21,33 @@
             단어장
         </header>
 
+        <!-- 프로그래스바 -->
+            <div class="progress-container">
+                <div class="progress-bar" id="progress-bar"></div>
+            </div>
+            
         <!-- 구현 영역 -->
         <div class="content">
+            
+
             <!-- 단어 카드 -->
             <div class="word-card">
-                
-                <!-- 단어 제목과 북마크 -->
-                <div class="word-header">
-                    <h3 id="word-title">이자란?</h3>
-                    <button class="bookmark"></button>
-                </div>
+                <button class="bookmark"></button>
 
-                <!-- 단어 설명 -->
-                <p class="word-desc" id="word-desc">돈을 빌리거나 예금을 했을 때 붙는 추가 금액</p>
+                <p class="word-title">이자란?</p>
+                <p class="word-desc">돈을 빌리거나 예금을 했을 때 붙는 추가 금액</p>
 
                 <!-- 예시 문장 -->
-                <div class="example">
-                    <span>예시</span>
-                    <p id="word-example">정기예금의 이자율이 연 3%라면, 100만원을 예금했을 때 1년 후 3만원을 받을 수 있어요.</p>
+                <div class="example-box">
+                    <div class="example-tag">예시</div>
+                    <p class="example-text">
+                        정기예금의 이자율이 연 3%라면, 100만원을 예금했을 때<br>
+                        1년 후 3만원을 받을 수 있어요.
+                    </p>
                 </div>
 
                 <!-- 단어 퀴즈 버튼 -->
-                <button class="quiz-button" id="quiz-button">단어 퀴즈 풀어보기</button>
-
-                <!-- 캐릭터 이미지 -->
-                <img src="../assets/images/dino_word_learning.png" alt="캐릭터" id="character-img">
-
+                <button class="next-button" id="next-button">다음</button>
             </div>
         </div>
         
