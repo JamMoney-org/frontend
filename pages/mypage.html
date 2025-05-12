@@ -1,0 +1,86 @@
+<!DOCTYPE html>
+<html lang="ko">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>JamMoney - 마이페이지</title>
+  <link rel="stylesheet" href="../css/style.css">
+  <link rel="stylesheet" href="../css/mypage.css">
+</head>
+
+<body>
+  <!-- 메인 콘텐츠 영역 -->
+  <div class="main-content">
+
+    <!-- 헤더 영역 -->
+    <header>
+      <button class="back-button" onclick="history.back();">
+        <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+          <path d="M15 19L8 12L15 5" stroke="currentColor" stroke-width="2" stroke-linecap="round"
+            stroke-linejoin="round" />
+        </svg>
+      </button>
+      JamMoney
+    </header>
+
+    <!-- 구현 영역 -->
+    <div class="content">
+      <!-- 회원 정보 수정 -->
+      <section class="section">
+        <h4>회원 정보 수정</h4>
+        <a href="/edit-profile" class="profile-card">
+          <img src="../assets/images/character_egg.png" alt="캐릭터 이미지" class="character-img" />
+          <div class="profile-text">
+            <p class="nickname">공룡 엄마님</p>
+            <p class="email">dinomom@naver.com</p>
+          </div>
+          <span class="arrow">›</span>
+        </a>
+      </section>
+
+      <!-- 보유 자산 -->
+      <section class="section">
+        <div class="divider"></div>
+        <h4>보유 자산</h4>
+        <a href="/my-assets" class="asset-card">
+          <div class="asset-text">
+            <div class="asset-label">현재 보유 자산 💰</div>
+            <div class="asset-value">5,855,000</div>
+          </div>
+          <span class="arrow">›</span>
+        </a>
+
+        <div class="divider"></div>
+      </section>
+
+      <!-- 학습 현황 -->
+      <section class="section">
+        <h4>학습 현황</h4>
+        <div class="learning-list">
+          <a href="/my-words" class="learning-item">
+            <span>내가 저장한 단어 🔤</span>
+            <span class="arrow">›</span>
+          </a>
+          <div class="learning-item">
+            <span>내가 학습한 퀴즈 🧩</span>
+            <span class="count green">32개</span>
+          </div>
+          <div class="learning-item">
+            <span>내가 학습한 시나리오 🎬</span>
+            <span class="count green">5개</span>
+          </div>
+        </div>
+      </section>
+
+      <!-- 로그아웃 -->
+      <a href="#" class="logout">로그아웃</a>
+    </div>
+
+  </div>
+
+  <div id="navbar"></div>
+  <script src="../js/script.js"></script>
+</body>
+
+</html>
