@@ -1,57 +1,80 @@
 <!DOCTYPE html>
 <html lang="ko">
-  <head>
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>JamMoney - 캐릭터 상점</title>
-    <link rel="stylesheet" href="../css/style.css" />
-    <link rel="stylesheet" href="../css/character_shop.css" />
-  </head>
-  <body>
-    <!-- 메인 콘텐츠 영역 -->
-    <div class="main-content">
-      <!-- 헤더 영역 -->
-      <header>
-        <button class="back-button" onclick="history.back();">
-          <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
-            <path d="M15 19L8 12L15 5" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" />
-          </svg>
-        </button>
-        JamMoney
-      </header>
 
-      <!-- 구현 영역 -->
-      <div class="content">
-        <!-- 상단 캐릭터 공간 -->
-        <div class="character-area">
-          <img src="../assets/images/background_default.svg" alt="배경 이미지" class="background-img" />
-          <img src="../assets/images/character_egg.png" alt="캐릭터" class="character-img" />
-        </div>
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>JamMoney - 캐릭터 상점</title>
+  <link rel="stylesheet" href="../css/style.css" />
+  <link rel="stylesheet" href="../css/character_shop.css" />
+</head>
 
-        <!-- 상단 카테고리 버튼 -->
-        <div class="category-buttons">
-          <button class="category" data-filter="전체">전체</button>
-          <button class="category" data-filter="가구">가구</button>
-          <button class="category" data-filter="장식">장식</button>
-          <button class="category" data-filter="조형">조형</button>
-          <button class="category" data-filter="배경">배경</button>
-          <button class="category" data-filter="기타">기타</button>
-        </div>
+<body>
+  <!-- 메인 콘텐츠 영역 -->
+  <div class="main-content">
+    <!-- 헤더 영역 -->
+    <header>
+      <button class="back-button" onclick="history.back();">
+        <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+          <path d="M15 19L8 12L15 5" stroke="currentColor" stroke-width="2" stroke-linecap="round"
+            stroke-linejoin="round" />
+        </svg>
+      </button>
+      JamMoney
+    </header>
 
-        <!-- 상품 리스트 -->
-        <div class="item-grid">
-          <div class="item-box" data-category="장식">
-            <img src="../assets/images/bunny-doll.png" alt="토끼 인형" class="item-img" data-category="장식" />
+    <!-- 구현 영역 -->
+    <div class="content">
+      <!-- 상단 캐릭터 공간 -->
+      <div class="character-area">
+        <img src="../assets/images/background_default.svg" alt="배경 이미지" class="background-img" />
+        <img src="../assets/images/character_egg.png" alt="캐릭터" class="character-img" />
+
+        <!-- 선택된 아이템 정보 영역 -->
+        <div class="selected-item-info" id="selectedItemInfo">
+          <div class="item-preview">
+            <img src="" alt="선택된 아이템" class="selected-item-img" id="selectedItemImage" />
           </div>
-          <div class="item-box" data-category="가구"></div>
-          <div class="item-box" data-category="조형"></div>
-          <div class="item-box" data-category="배경"></div>
-          <div class="item-box" data-category="기타"></div>
+          <div class="item-meta">
+            <span class="item-name" id="selectedItemName">아이템 이름</span>
+            <span class="item-price" id="selectedItemPrice">🪙300p</span>
+            <button class="buy-button">구매하기</button>
+
+          </div>
         </div>
       </div>
-    </div>
 
-    <div id="navbar"></div>
-    <script src="../js/script.js"></script>
-  </body>
+      <!-- 상단 카테고리 버튼 -->
+      <div class="category-buttons">
+        <button class="category" data-filter="전체">전체</button>
+        <button class="category" data-filter="가구">가구</button>
+        <button class="category" data-filter="장식">장식</button>
+        <button class="category" data-filter="조형">조형</button>
+        <button class="category" data-filter="배경">배경</button>
+        <button class="category" data-filter="기타">기타</button>
+      </div>
+
+
+
+      <!-- 상품 리스트 -->
+      <div class="item-grid">
+        <div class="item-box" data-category="장식" data-name="토끼 인형" data-price="300"
+          data-image="../assets/images/bunny-doll.png">
+          <img src="../assets/images/bunny-doll.png" alt="토끼 인형" class="item-img" data-category="장식" />
+        </div>
+        <div class="item-box" data-category="가구"></div>
+        <div class="item-box" data-category="조형"></div>
+        <div class="item-box" data-category="배경"></div>
+        <div class="item-box" data-category="기타"></div>
+      </div>
+
+
+
+    </div>
+  </div>
+
+  <div id="navbar"></div>
+  <script src="../js/script.js"></script>
+</body>
+
 </html>
