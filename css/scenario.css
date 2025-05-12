@@ -74,7 +74,7 @@
 .simul-title {
   font-size: 1.5rem;
   font-weight: bold;
-  margin: 3rem 0;
+  margin: 2rem 0;
 }
 
 .simul-card {
@@ -124,4 +124,60 @@
 
 .start-btn:hover {
   background-color: #53b38e;
+}
+
+.dialogue-box {
+  background: #ffffff;
+  border-radius: 20px;
+  padding: 20px;
+  margin-bottom: 20px;
+  box-shadow: 0 6px 20px rgba(0, 0, 0, 0.3);
+  text-align: left;
+  position: relative;
+}
+
+.dialogue-box::before {
+  content: '';
+  position: absolute;
+  top: -20px;      /* 위쪽으로 꼬리 이동 */
+  left: 50px;      /* 원하는 위치 조정 (가운데로 하고 싶으면 50% + transform) */
+  width: 0;
+  height: 0;
+  border: 10px solid transparent;
+  border-bottom-color: #ffffff; /* 꼬리가 아래를 향하게 */
+  filter: drop-shadow(0px -4px 6px rgba(0, 0, 0, 0.2));
+} 
+
+.character-name {
+  font-weight: bold;
+  font-size: 16px;
+  color: #5DC29E;
+  margin-bottom: 10px;
+}
+
+.dialogue-text {
+  font-size: 15px;
+  line-height: 1.6;
+}
+
+.choices {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+.choice-btn {
+  background: rgba(255, 255, 255, 0.9);
+  border: 2px solid #888;
+  border-radius: 20px;
+  padding: 12px 16px;
+  cursor: pointer;
+  font-size: 14px;
+  text-align: center;
+  transition: background 0.2s, transform 0.2s;
+}
+
+.choice-btn:hover {
+  background: #f0f0f0;
+  transform: translateY(-2px);
 }
