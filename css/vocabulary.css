@@ -1,15 +1,17 @@
 /*vocabulary_category 스타일링*/
 h3 {
-    margin: 20px;
+    margin-top: 20px;
+    margin-bottom: 4px;
     font-size: 1.5em;
     font-weight: bold;
 }
 
 .category-grid {
     display: grid;
-    grid-template-columns: repeat(2, 1fr);
-    gap: 20px;
-    padding: 20px;
+    grid-template-columns: repeat(2, 0.7fr); 
+    gap: 12px; 
+    padding: 15px;
+    margin: 15px;
 }
 
 .category-item {
@@ -17,31 +19,30 @@ h3 {
     flex-direction: column;
     align-items: center;
     justify-content: center;
-    padding: 70px 5px;
-    background-color: #fff;
+    padding: 35px 10px;
+    background-color: rgba(93, 194, 158, 0.5); /* 투명도 추가 */
     border: 1px solid #D9D9D9;
     border-radius: 8px;
     box-sizing: border-box;
     text-align: center;
     font-size: 1.1em;
+    font-weight: 600;
     cursor: pointer;
     transition: background-color 0.3s ease;
 }
 
 .category-item:hover {
-    background-color: #f4f4f4;
+    background-color: rgba(93, 194, 158, 0.9); /* 더 밝고 진한 배경색 */
 }
 
-.category-item img {
-    width: 40px;
-    height: 40px;
-    margin-bottom: 10px;
+.category-icon {
+    width: 30px;
+    height: 30px;
 }
 
 .category-item p {
-    margin: 5px 0;
+    margin: 6px 0;
     font-size: 0.9em;
-    color: #666;
 }
 
 h2 {
