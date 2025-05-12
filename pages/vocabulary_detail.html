@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>단어 카드</title>
+    <link rel="stylesheet" href="../css/style.css">
+    <link rel="stylesheet" href="../css/vocabulary.css">
+</head>
+<body>
+    <!-- 메인 콘텐츠 영역 -->
+    <div class="main-content">
+
+        <!-- 헤더 영역 -->
+        <header>
+            <button class="back-button" onclick="history.back();">
+                <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                    <path d="M15 19L8 12L15 5" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                </svg>
+            </button>
+            단어장
+        </header>
+
+        <!-- 구현 영역 -->
+        <div class="content">
+            <!-- 단어 카드 -->
+            <div class="word-card">
+                
+                <!-- 단어 제목과 북마크 -->
+                <div class="word-header">
+                    <h3 id="word-title">이자란?</h3>
+                    <button class="bookmark"></button>
+                </div>
+
+                <!-- 단어 설명 -->
+                <p class="word-desc" id="word-desc">돈을 빌리거나 예금을 했을 때 붙는 추가 금액</p>
+
+                <!-- 예시 문장 -->
+                <div class="example">
+                    <span>예시</span>
+                    <p id="word-example">정기예금의 이자율이 연 3%라면, 100만원을 예금했을 때 1년 후 3만원을 받을 수 있어요.</p>
+                </div>
+
+                <!-- 단어 퀴즈 버튼 -->
+                <button class="quiz-button" id="quiz-button">단어 퀴즈 풀어보기</button>
+
+                <!-- 캐릭터 이미지 -->
+                <img src="../assets/images/dino_word_learning.png" alt="캐릭터" id="character-img">
+
+            </div>
+        </div>
+        
+    </div>
+
+    <div id="navbar"></div>
+    <script src="../js/script.js"></script>
+</body>
+</html>
