@@ -1,0 +1,105 @@
+/* 기본 설정 */
+html,
+body {
+    margin: 0;
+    padding: 0;
+    height: 100%;
+    font-family: 'Pretendard', sans-serif;
+    background-color: #ffffff;
+}
+
+/* 메인 컨테이너 */
+.main-content {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    padding: 40px 20px;
+}
+
+
+.back-button {
+    background: none;
+    border: none;
+    margin-right: 8px;
+    cursor: pointer;
+}
+
+/* 로고 */
+.logo {
+    font-size: 24px;
+    font-weight: bold;
+    color: #5DC29E;
+    text-align: center;
+    margin-bottom: 50px;
+}
+
+/* 폼 */
+.edit-form {
+    display: flex;
+    flex-direction: column;
+    width: 100%;
+    max-width: 400px;
+}
+
+/* 각 입력 필드 묶음 */
+.input {
+  display: flex;
+  align-items: center; /* 수직 가운데 정렬 */
+  margin-bottom: 12px;
+  gap: 8px; /* 아이콘 ~ 라벨 ~ input 간격 */
+}
+
+/* 아이콘 */
+.input-icon {
+    width: 18px;
+    height: 18px;
+    margin-right: 12px;
+}
+
+/* 라벨 */
+.input-label {
+    font-size: 15px;
+    width: 75px;
+    flex-shrink: 0;
+}
+
+/* 인풋 필드 */
+.form-element {
+    border: none;
+    outline: none;
+    background: transparent;
+    font-size: 15px;
+    flex: 1;
+    border: 1px solid #ccc;
+    border-radius: 12px;
+    padding: 5px;
+}
+
+.form-element:disabled {
+    background-color: #f0f0f0;
+    color: #777;
+}
+
+/* 셀렉트 */
+select.form-element {
+    appearance: none;
+    background: transparent;
+}
+
+/* 버튼 */
+.submit-button {
+    width: 100%;
+    max-width: 400px;
+    padding: 10px;
+    margin-top: 30px;
+    background-color: #5DC29E;
+    color: white;
+    border: none;
+    border-radius: 999px;
+    font-size: 15px;
+    cursor: pointer;
+}
+
+.submit-button:hover {
+    background-color: #5DC29E;
+}
