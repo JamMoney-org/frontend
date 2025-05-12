@@ -214,3 +214,93 @@ h2 {
 .next-button:hover {
     background-color: #326c58;
 }
+
+/* vocabulary_quiz 스타일링 */
+.quiz-card {
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    background-color: #fff;
+    padding: 30px 30px;
+    margin: 70px 30px;
+    border: 1px solid #D9D9D9;
+    border-radius: 8px;
+    box-sizing: border-box;
+    text-align: center;
+}
+
+.quiz-title {
+    font-size: 1.4em;
+    font-weight: bold;
+    margin: 40px 0 0 0;
+    text-align: center; /* 중앙 정렬 */
+}
+
+
+.quiz-box {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-direction: column;
+    width: fit-content;
+    padding: 30px 20px;
+    margin: 60px auto 100px auto;
+    border: 2px solid #5DC29E;
+    border-radius: 12px;
+    position: relative;
+    text-align: center;
+}
+
+.quiz-tag {
+    position: absolute;
+    top: -10px;
+    left: 20px;
+    background-color: #5DC29E;
+    color: #fff;
+    padding: 4px 12px;
+    border-radius: 12px 12px 12px 12px;
+    font-size: 0.7em;
+}
+
+.quiz-option {
+    width: 100%;
+    padding: 10px 20px;
+    margin: 5px 0;
+    background-color: #f5f5f5;
+    border: 1px solid #d9d9d9;
+    border-radius: 8px;
+    text-align: left;
+    font-size: 0.8em;
+    color: #333;
+    cursor: pointer;
+    transition: background-color 0.2s ease;
+}
+
+.quiz-option:hover {
+    background-color: #e0e0e0;
+}
+
+.quiz-option.selected {
+    background-color: #9B59B6;
+    color: #fff;
+    border: 1px solid #9B59B6;
+}
+
+/* 단어 퀴즈 버튼 스타일 */
+.next-button {
+    margin: 30px 0;
+    padding: 8px 30px;
+    background-color: #5DC29E;
+    color: white;
+    border-radius: 20px;
+    border: none;
+    cursor: pointer;
+    font-size: 1em;
+    transition: background-color 0.3s ease;
+}
+
+.next-button:hover {
+    background-color: #326c58;
+}
