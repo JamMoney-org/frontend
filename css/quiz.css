@@ -1,0 +1,213 @@
+/*vocabulary_list 스타일링*/
+#category-title {
+    margin-top: 60px;
+    font-size: 1.4em;
+    font-weight: bold;
+    margin-left: 30px;
+}
+
+.quiz-list {
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+    margin: 20px;
+}
+
+.quiz-item {
+    position: relative; /* 자식 요소의 절대 위치를 기준으로 함 */
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    background-color: #5DC29E;
+    padding: 20px;
+    border-radius: 8px;
+    border: 1px solid #D9D9D9;
+    box-sizing: border-box;
+}
+.quiz-info {
+    display: flex;
+    flex-direction: column;
+}
+
+.day-label {
+    font-weight: bold;
+    font-size: 1em;
+}
+
+.daily-topic {
+    font-size: 15px;
+    color: #333;
+    margin-top: 5px;
+    margin-bottom: 30px;
+}
+
+.quiz-item-lock {
+    background-color: #BEE7D8;
+}
+
+
+/* quiz_detail 스타일링 */
+/* 프로그래스바 */
+.progress-container {
+    position: fixed; 
+    top: 50px;      
+    left: 50%;
+    transform: translateX(-50%);
+    width: 100%;
+    max-width: 600px;
+    height: 7px;
+    background-color: #e0e0e0;
+    border-radius: 2px;
+    margin: 0;
+    z-index: 15;  /* 헤더보다 아래에 위치 */
+}
+
+.progress-bar {
+    width: 20%; 
+    height: 100%;
+    background-color: #5DC29E;
+    border-radius: 2px;
+    transition: width 0.3s ease;
+}
+
+.quiz-card {
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    background-color: #fff;
+    padding: 30px 30px;
+    margin: 70px 30px;
+    border: 1px solid #D9D9D9;
+    border-radius: 8px;
+    box-sizing: border-box;
+    text-align: center;
+}
+
+.quiz-title {
+    font-size: 1.3em;
+    font-weight: bold;
+    margin: 40px 0;
+    text-align: center; 
+}
+
+.quiz-box {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-direction: column;
+    width: fit-content;
+    padding: 30px 20px;
+    margin: 20px auto 15px auto;
+    border: 2px solid #5DC29E;
+    border-radius: 12px;
+    position: relative;
+    text-align: center;
+}
+
+.quiz-option {
+    width: 100%;
+    padding: 10px 20px;
+    margin: 5px 0;
+    background-color: #f5f5f5;
+    border: 1px solid #d9d9d9;
+    border-radius: 8px;
+    text-align: left;
+    font-size: 0.8em;
+    color: #333;
+    cursor: pointer;
+    transition: background-color 0.2s ease;
+}
+
+.quiz-option:hover {
+    background-color: #e0e0e0;
+}
+
+.quiz-option.selected {
+    background-color: #9B59B6;
+    color: #fff;
+    border: 1px solid #9B59B6;
+}
+
+.next-button {
+    margin: 30px 0;
+    padding: 8px 30px;
+    background-color: #5DC29E;
+    color: white;
+    border-radius: 20px;
+    border: none;
+    cursor: pointer;
+    font-size: 1em;
+    transition: background-color 0.3s ease;
+}
+
+.next-button:hover {
+    background-color: #326c58;
+}
+
+.hint-container {
+    display: flex;
+    align-items: flex-start;
+    justify-content: flex-start;
+    width: 100%; /* 부모 요소의 전체 너비 사용 */
+    margin: 5px 0;
+    padding-left: 0;
+}
+
+
+.hint-button {
+    display: inline-flex;
+    align-items: center;
+    padding: 6px 14px;
+    background-color: #ffffff;
+    color: #5DC29E;
+    border: 1px solid #5DC29E;
+    border-radius: 20px;
+    font-size: 0.7em;
+    cursor: pointer;
+    transition: all 0.3s ease;
+}
+
+.hint-button:hover {
+    background-color: #e0f7f4;
+    color: #326c58;
+}
+
+.hint-icon {
+    width: 15px;
+    height: 15px;
+    margin-right: 5px;
+}
+
+.hint-button:focus {
+    outline: none;
+    box-shadow: 0 0 5px rgba(93, 194, 158, 0.5);
+}
+
+/* 힌트 영역 스타일 */
+.hint-box {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    justify-content: center;
+    background-color: #e0f7ff;
+    color: #333;
+    padding: 15px;
+    margin: 10px 0;
+    border-radius: 8px;
+    border: 1px solid #B3E5FC;
+    width: 90%;
+}
+
+.hint-title {
+    font-weight: bold;
+    margin-bottom: 5px;
+}
+
+.hint-content {
+    font-size: 0.9em;
+    color: #555;
+}
+
+
