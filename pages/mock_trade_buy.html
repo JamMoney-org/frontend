@@ -1,0 +1,37 @@
+<div class="order-section">
+    <div class="order-type">
+        <button class="order-button active" id="sellButton" onclick="switchView('sell')">판매</button>
+        <button class="order-button" id="buyButton" onclick="switchView('buy')">구매</button>
+        <button class="order-button">대기</button>
+    </div>
+    <!-- 판매 화면 -->
+    <div id="sellView" class="order-view">
+        <div class="price-display">
+            <span class="label">판매할 가격</span>
+            <div class="price-type">
+                <label>
+                    <input type="radio" name="priceType" checked> 시장가
+                </label>
+                <label>
+                    <input type="radio" name="priceType"> 지정가
+                </label>
+            </div>
+            <div class="price">1,402 원</div>
+        </div>
+    </div>
+    <!-- 구매 화면 -->
+    <div id="buyView" class="order-view" style="display: none;">
+        <div class="price-display">
+            <span class="label">구매할 가격</span>
+            <div class="price-type">
+                <label>
+                    <input type="radio" name="priceType" checked> 시장가
+                </label>
+                <label>
+                    <input type="radio" name="priceType"> 지정가
+                </label>
+            </div>
+            <div class="price">1,328 원</div>
+        </div>
+    </div>
+</div>
