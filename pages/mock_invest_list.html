@@ -1,0 +1,84 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>JamMoney - 기본 레이아웃</title>
+    <link rel="stylesheet" href="../css/style.css">
+    <link rel="stylesheet" href="../css/invest_sh.css">
+</head>
+<body>
+    <!-- 메인 콘텐츠 영역 -->
+    <div class="main-content">
+        <!-- 헤더 영역 -->
+        <header>
+            <button class="back-button" onclick="history.back();">
+                <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                    <path d="M15 19L8 12L15 5" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                </svg>
+            </button>
+            JamMoney
+        </header>
+
+        <!-- 구현 영역 -->
+        <div class="content">
+            <!-- 모의 투자 상단 카드 -->
+            <div class="investment-card">
+                <div class="card-header">
+                    <div class="character-container">
+                        <img src="../assets/images/dino.png" alt="캐릭터" class="character">
+                        <button class="level-btn">Lv. 7</button>
+                    </div>
+                    <div class="asset-info">
+                        <p class="asset-title" style="font-weight: bold;">총 자산</p>
+                        <h3 class="asset-value">3,000,000원</h3>
+                        <p class="profit">0원 (0%)</p>
+                        <p class="daily-rate">당일 수익률: 0%</p>
+                        <p class="daily-profit">당일 손익금액: 0원</p>
+                    </div>
+                </div>
+            </div>
+
+            <!-- 주식 리스트 -->
+            <div class="stock-list">
+                <div id="list-title"><h3 style="font-size: 15px; color: #51B291; text-align: center; margin: 3px 0;">주식</h3></div>
+                <ul>
+                    <li><img src="../assets/icon/농심.png" alt="동양철관">
+                        <div>
+                            <span>동양철관</span>
+                            <span>1,397 0%</span>
+                        </div>
+                    </li>
+                    <li><img src="../assets/icon/농심.png" alt="농심">
+                        <div>
+                            <span>농심</span>
+                            <span>405,000 0%</span>
+                        </div>
+                    </li>
+                    <li><img src="../assets/icon/농심.png" alt="포바이포">
+                        <div>
+                            <span>포바이포</span>
+                            <span>18,740 0%</span>
+                        </div>
+                    </li>
+                    <li><img src="../assets/icon/농심.png" alt="HD현대미포">
+                        <div>
+                            <span>HD현대미포</span>
+                            <span>172,100 0%</span>
+                        </div>
+                    </li>
+                    <li><img src="../assets/icon/농심.png" alt="LS에코에너지">
+                        <div>
+                            <span>LS에코에너지</span>
+                            <span>32,250 0%</span>
+                        </div>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </div>
+
+    <div id="navbar"></div>
+    <script src="../js/script.js"></script>
+</body>
+</html>
