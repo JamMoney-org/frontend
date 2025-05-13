@@ -1,0 +1,93 @@
+<!-- JamMoney - 기본 레이아웃 -->
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>JamMoney - 기본 레이아웃</title>
+    <link rel="stylesheet" href="../css/style.css">
+    <link rel="stylesheet" href="../css/invest_sh.css">
+</head>
+<body>
+    <!-- 메인 콘텐츠 영역 -->
+    <div class="main-content">
+        <!-- 헤더 영역 -->
+        <header>
+            <button class="back-button" onclick="history.back();">
+                <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                    <path d="M15 19L8 12L15 5" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                </svg>
+            </button>
+            JamMoney
+        </header>
+
+        <!-- 구현 영역 -->
+        <div class="content">
+            <div class="split-layout">
+                <!-- 가격 정보 영역 -->
+                <div class="price-info">
+                    <div class="price-list">
+                        <div class="price-item red">1,402 <span class="percent">0.36%</span></div>
+                        <div class="price-item blue">2,023</div>
+                        <div class="price-item red">1,401 <span class="percent">0.29%</span></div>
+                        <div class="price-item blue">4,625</div>
+                        <div class="price-item red">1,400 <span class="percent">0.21%</span></div>
+                        <div class="price-item blue">6,831</div>
+                        <div class="price-item">1,399 <span class="percent">0.14%</span></div>
+                        <div class="price-item">20,558</div>
+                        <div class="price-item">1,398 <span class="percent">0.07%</span></div>
+                        <div class="price-item">13,139</div>
+                        <div class="price-item selected">1,397 <span class="percent">0.00%</span></div>
+                        <div class="price-item">3,523</div>
+                    </div>
+                </div>
+
+                <!-- 주문 영역 -->
+                <div class="order-section">
+                    <div class="order-type">
+                        <button class="order-button active">판매</button>
+                        <button class="order-button">구매</button>
+                        <button class="order-button">대기</button>
+                    </div>
+                    <div class="price-display">
+                        <span class="label">판매할 가격</span>
+                        <div class="price-type">
+                            <label>
+                                <input type="radio" name="priceType" checked> 시장가
+                            </label>
+                            <label>
+                                <input type="radio" name="priceType"> 지정가
+                            </label>
+                        </div>
+                        <div class="price">1,402 원</div>
+                    </div>
+
+                    <div class="quantity">
+                        <span class="label">판매수량</span>
+                        <div class="quantity-buttons">
+                            <button>10%</button>
+                            <button>25%</button>
+                            <button>50%</button>
+                            <button>최대</button>
+                        </div>
+                        <div class="quantity-control">
+                            <span id="quantityDisplay">0 주</span>
+                            <button id="increaseBtn" class="control-btn">+</button>
+                            <button id="decreaseBtn" class="control-btn">-</button>
+                        </div>
+                    </div>
+                    <div class="total-price" id="totalPrice">
+                        <span>총 주문금액: </span>
+                        <span id="totalAmount">0원</span>
+                    </div>
+                   
+                </div>
+            </div>
+            <button class="trade-button full-width">거래하기</button>
+        </div>
+    </div>
+
+    <div id="navbar"></div>
+    <script src="../js/script.js"></script>
+</body>
+</html>

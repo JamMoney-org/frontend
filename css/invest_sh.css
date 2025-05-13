@@ -91,3 +91,166 @@
     border: 1px solid #51B291;
     width: 100%;
 }
+
+/*mock_invest_trade 스타일링*/
+.price-info {
+    display: flex;
+    flex-direction: column;
+    margin-bottom: 20px;
+    overflow-y: auto;
+    max-height: 600px;
+}
+.price-list {
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+}
+.price-item {
+    padding: 8px;
+    font-size: 1em;
+    text-align: left;
+    display: flex;
+    justify-content: space-between;
+}
+.price-item.red { color: #e74c3c; }
+.price-item.blue { color: #3498db; }
+
+.order-section {
+    width: calc(65% - 20px);
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    padding: 13px;
+    background-color: #f9f9f9;
+    border-radius: 10px;
+}
+
+.order-type {
+    display: flex;
+    justify-content: space-between;
+    gap: 5px;
+}
+
+.order-button {
+    flex: 1;
+    padding: 8px 10px;
+    font-size: 0.9em;
+    background-color: #fff;
+    border: 1px solid #ddd;
+    border-radius: 15px;
+    text-align: center;
+}
+
+.price-display {
+    margin: 20px 5px;
+    padding-bottom: 13px;
+    border-bottom: 1.7px solid #e0e0e0;
+}
+
+.price-type {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    margin: 10px 0;
+}
+
+.label {
+    font-size: 15px;
+    font-weight: bold;
+}
+
+.price-type label {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    font-size: 0.9em;
+}
+
+.price-type input[type="radio"] {
+    width: 15px;
+    height: 15px;
+    accent-color: #51B291;
+}
+
+.quantity {
+    padding-bottom: 13px;
+    border-bottom: 1.7px solid #e0e0e0;
+}
+
+.quantity-buttons {
+    display: flex;
+    gap: 5px;
+    margin-top: 10px;
+}
+
+.quantity-buttons button {
+    flex: 1;
+    padding: 7px 2px;
+    background-color: #e0e0e0;
+    border: none;
+    border-radius: 5px;
+    text-align: center;
+    margin: 3px;
+    font-size: 0.8em; 
+}
+
+
+.total-price {
+    margin-top: 10px;
+    text-align: right;
+    font-weight: 600;
+}
+
+.price {
+    font-weight: 500;
+    font-size: 16px;
+    margin-top: 20px;
+    text-align: right;
+}
+
+/* 거래 버튼 스타일 */
+.trade-button {
+    background-color: #51B291;
+    color: #fff;
+    padding: 9px 12px;
+    font-size: 1em;
+    border-radius: 10px;
+    margin-top: 30px;
+    border: none;
+    width: 100%;
+}
+
+.quantity-control {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    margin: 10px 0;
+    justify-content: flex-end;
+}
+
+.control-btn {
+    width: 30px;
+    height: 30px;
+    background-color: #e0e0e0;
+    border: none;
+    border-radius: 50%;
+    text-align: center;
+    font-size: 1.2em;
+    line-height: 30px;
+}
+
+#quantityDisplay {
+    font-size: 1.1em;
+    margin: 0 5px;
+}
+
+.split-layout {
+    display: flex;
+    justify-content: space-between;
+    gap: 10px;
+}
+
+.content {
+    padding: 10px;
+}
+
