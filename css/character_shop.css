@@ -10,7 +10,7 @@ body {
 }
 
 /* 캐릭터 공간 */
-.character-area {
+.character-container {
   position: relative;
   width: 100%;
   aspect-ratio: 1 / 1.1;

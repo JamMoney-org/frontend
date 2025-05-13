@@ -26,9 +26,8 @@
     <!-- 구현 영역 -->
     <div class="content">
       <!-- 상단 캐릭터 공간 -->
-      <div class="character-area">
-        <img src="../assets/images/background_default.svg" alt="배경 이미지" class="background-img" />
-        <img src="../assets/images/character_egg.png" alt="캐릭터" class="character-img" />
+      <div class="character-container">
+        <div id="character-area"></div>
 
         <!-- 선택된 아이템 정보 영역 -->
         <div class="selected-item-info" id="selectedItemInfo">
@@ -75,6 +74,18 @@
 
   <div id="navbar"></div>
   <script src="../js/script.js"></script>
+  <script>
+    fetch("./character_area.html")
+      .then(res => res.text())
+      .then(html => {
+        document.getElementById("character-area").innerHTML = html;
+
+        // 캐릭터 상태 초기화 함수가 있다면 실행
+        if (typeof initCharacter === "function") {
+          initCharacter();
+        }
+      });
+  </script>
 </body>
 
 </html>
