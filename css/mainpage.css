@@ -9,6 +9,18 @@ body {
     flex: 1;
     overflow-y: auto;
     padding: 5%;
+    width: 100%;
+    max-width: 600px;
+    margin: 0 auto;
+    background-color: #fff;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+    border-radius: 10px;
+    min-height: 100vh;
+    padding-top: 20px;
+    padding-bottom: 60px;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
 }
 
 .content::-webkit-scrollbar,
