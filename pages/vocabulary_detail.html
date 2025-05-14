@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>단어 카드</title>
+    <link rel="stylesheet" href="../css/style.css">
+    <link rel="stylesheet" href="../css/vocabulary.css">
+</head>
+<body>
+    <!-- 메인 콘텐츠 영역 -->
+    <div class="main-content">
+
+        <!-- 헤더 영역 -->
+        <header>
+            <button class="back-button" onclick="history.back();">
+                <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                    <path d="M15 19L8 12L15 5" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                </svg>
+            </button>
+            단어장
+        </header>
+
+        <!-- 프로그래스바 -->
+            <div class="progress-container">
+                <div class="progress-bar" id="progress-bar"></div>
+            </div>
+            
+        <!-- 구현 영역 -->
+        <div class="content">
+            
+
+            <!-- 단어 카드 -->
+            <div class="word-card">
+                <button class="bookmark"></button>
+
+                <p class="word-title">이자란?</p>
+                <p class="word-desc">돈을 빌리거나 예금을 했을 때 붙는 추가 금액</p>
+
+                <!-- 예시 문장 -->
+                <div class="example-box">
+                    <div class="example-tag">예시</div>
+                    <p class="example-text">
+                        정기예금의 이자율이 연 3%라면, 100만원을 예금했을 때<br>
+                        1년 후 3만원을 받을 수 있어요.
+                    </p>
+                </div>
+
+                <button class="next-button" id="next-button">다음</button>
+                
+            </div>
+        </div>
+        
+    </div>
+
+    <div id="navbar"></div>
+    <script src="../js/script.js"></script>
+</body>
+</html>
