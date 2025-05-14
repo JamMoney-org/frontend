@@ -121,3 +121,7 @@ header {
         height: auto;
     }
 }
+
+.main-content {
+    background-color: #007bff;
+}
