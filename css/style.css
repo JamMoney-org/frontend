@@ -119,7 +119,5 @@ header {
 @media only screen and (max-width: 767px) {
     .main-content {
         height: auto;
-        min-height: calc(100vh - 60px); /* 헤더와 네비바를 제외한 높이 */
-        margin-top: 30px; /* 헤더 높이만큼 위로 밀림 방지 */
     }
 }
