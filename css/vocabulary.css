@@ -220,7 +220,7 @@ h2 {
 }
 
 /* 이전, 다음 버튼 공통 스타일 */
-.prev-button, .next-button {
+#card-next-button, #card-prev-button {
     padding: 12px 25px;
     background-color: #5DC29E;
     color: white;
@@ -231,12 +231,12 @@ h2 {
     transition: background-color 0.3s ease;
 }
 
-.prev-button:hover, .next-button:hover {
+#card-prev-button:hover, #card-next-button:hover {
     background-color: #326c58;
 }
 
 /* 이전 버튼 비활성화 상태 */
-.prev-button:disabled {
+#card-prev-button:disabled {
     background-color: #B0E0D2;
     cursor: not-allowed;
 }
@@ -348,7 +348,6 @@ h2 {
     text-align: center; /* 중앙 정렬 */
 }
 
-
 .quiz-box {
     display: flex;
     align-items: center;
@@ -356,7 +355,7 @@ h2 {
     flex-direction: column;
     width: fit-content;
     padding: 30px 20px;
-    margin: 60px auto 20px auto;
+    margin: 50px auto 20px auto;
     border: 2px solid #5DC29E;
     border-radius: 12px;
     position: relative;
@@ -393,11 +392,48 @@ h2 {
 }
 
 .quiz-option.selected {
-    background-color: #9B59B6;
+    background-color: #5DC29E;
     color: #fff;
-    border: 1px solid #9B59B6;
+    border: 1px solid #5DC29E;
 }
 
+/* 이전, 다음 버튼 공통 스타일 */
 #quiz-next-button {
-    margin-top: 100px;
+    padding: 8px 40px;
+    background-color: #5DC29E;
+    color: white;
+    border-radius: 20px;
+    border: none;
+    cursor: pointer;
+    font-size: 0.9em;
+    transition: background-color 0.3s ease;
+    margin-top: 20px;
+}
+
+#quiz-prev-button:hover {
+    background-color: #326c58;
+}
+
+/* 이전 버튼 비활성화 상태 */
+#quiz-prev-button:disabled {
+    background-color: #B0E0D2;
+    cursor: not-allowed;
+}
+
+/* 정답/오답 메시지 스타일 */
+.quiz-message {
+    margin-top: 10px;
+    font-size: 1.2em;
+    font-weight: bold;
+    text-align: center;
+}
+
+/* 정답 메시지 스타일 */
+.quiz-message.correct {
+    color: #4CAF50; /* 그린 */
+}
+
+/* 오답 메시지 스타일 */
+.quiz-message.incorrect {
+    color: #E64A4A; /* 레드 */
 }
