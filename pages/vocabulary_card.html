@@ -8,10 +8,8 @@
     <link rel="stylesheet" href="../css/vocabulary.css">
 </head>
 <body>
-    <!-- 메인 콘텐츠 영역 -->
     <div class="main-content">
 
-        <!-- 헤더 영역 -->
         <header>
             <button class="back-button" onclick="history.back();">
                 <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
@@ -26,34 +24,48 @@
                 <div class="progress-bar" id="progress-bar"></div>
             </div>
             
-        <!-- 구현 영역 -->
         <div class="content">
-            
 
             <!-- 단어 카드 -->
             <div class="word-card">
-                <button class="bookmark"></button>
+                <!-- 북마크 버튼 -->
+                <button class="bookmark" aria-label="북마크"></button>
 
-                <p class="word-title">이자란?</p>
-                <p class="word-desc">돈을 빌리거나 예금을 했을 때 붙는 추가 금액</p>
+                <p class="word-title">단어 제목</p>
+                <p class="word-desc">단어 정의</p>
 
                 <!-- 예시 문장 -->
                 <div class="example-box">
                     <div class="example-tag">예시</div>
                     <p class="example-text">
-                        정기예금의 이자율이 연 3%라면, 100만원을 예금했을 때<br>
-                        1년 후 3만원을 받을 수 있어요.
+                        예문이 표시됩니다.
                     </p>
                 </div>
 
-                <button class="next-button" id="next-button">다음</button>
-                
+                <!-- 퀴즈 안내 모달 -->
+                <div id="quiz-modal" class="quiz-modal">
+                    <div class="quiz-content">
+                        <h3>🎉 단어 공부를 마쳤습니다!</h3>
+                        <img class="dino-word-bubbling" src="../assets/images/dino_word_bubbling.png" alt="">
+                        <div class="quiz-buttons">
+                            <button id="quiz-confirm" class="quiz-confirm">퀴즈 풀기</button>
+                            <button id="quiz-cancel" class="quiz-cancel">돌아가기</button>
+                        </div>
+                    </div>
+                </div>
+
+
+                <div class="navigation-buttons">
+                    <button class="prev-button" id="prev-button">이전</button>
+                    <button class="next-button" id="next-button">다음</button>
+                </div>
             </div>
         </div>
-        
+
     </div>
 
     <div id="navbar"></div>
     <script src="../js/script.js"></script>
+    <script type="module" src="../js/features/vocabulary/vocabulary-card.js"></script>
 </body>
 </html>
