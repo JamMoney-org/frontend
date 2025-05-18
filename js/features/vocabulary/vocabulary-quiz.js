@@ -5,35 +5,16 @@ const progressBar = document.getElementById('progress-bar');
 let currentQuestion = 0;
 let selectedAnswer = null;
 
-// 임시 데이터: 로컬에서 테스트할 퀴즈 데이터
-const sampleData = [
-    {
-        question: "JavaScript에서 변수 선언 키워드가 아닌 것은?",
-        options: ["var", "let", "const", "int"],
-        answer: 3
-    },
-    {
-        question: "HTML의 구조를 정의하는 태그는?",
-        options: ["<div>", "<header>", "<body>", "<html>"],
-        answer: 3
-    },
-    {
-        question: "CSS에서 색상을 표현하는 방법이 아닌 것은?",
-        options: ["Hex 코드", "RGB", "CMYK", "HSL"],
-        answer: 2
-    },
-    {
-        question: "Python에서 리스트를 선언하는 방법으로 올바른 것은?",
-        options: ["{}", "[]", "()", "<>"],
-        answer: 1
-    }
-];
-
-// 데이터 가져오는 함수 (임시 데이터 사용)
+// 퀴즈 데이터를 서버에서 가져오는 함수
 async function fetchQuizData() {
     try {
-        console.log("로컬 데이터를 사용하여 퀴즈를 불러옵니다.");
-        return sampleData;
+        const response = await fetch('/api/quiz');
+        const data = await response.json();
+        return data.map(quiz => ({
+            question: quiz.definition,
+            options: quiz.choices,
+            answer: quiz.choices.indexOf(quiz.correctAnswer)
+        }));
     } catch (error) {
         console.error('퀴즈 데이터를 가져오는 데 실패했습니다.', error);
         return [];
@@ -51,7 +32,7 @@ function renderQuestion(index) {
     quizData[index].options.forEach((option, idx) => {
         const button = document.createElement('button');
         button.classList.add('quiz-option');
-        const numberSymbol = ['①', '②', '③', '④'];
+        const numberSymbol = ['①', '②', '③', '④', '⑤', '⑥', '⑦', '⑧', '⑨', '⑩'];
         button.textContent = `${numberSymbol[idx]} ${option}`;
         button.dataset.id = idx;
         button.addEventListener('click', handleOptionClick);
