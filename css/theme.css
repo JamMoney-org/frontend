@@ -117,6 +117,7 @@
 
 .leaning-wrapper{
   padding: 20px;
+  min-height: 640px;
   background-color: #f5faf7;
  font-size: 15px;
 }
