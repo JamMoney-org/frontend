@@ -2,8 +2,8 @@
 
 const progressBar = document.getElementById('progress-bar');
 const bookmarkButton = document.querySelector('.bookmark');
-const prevButton = document.getElementById('prev-button');
-const nextButton = document.getElementById('next-button');
+const prevButton = document.getElementById('card-prev-button');
+const nextButton = document.getElementById('card-next-button');
 const wordTitle = document.querySelector('.word-title');
 const wordDesc = document.querySelector('.word-desc');
 const exampleText = document.querySelector('.example-text');
