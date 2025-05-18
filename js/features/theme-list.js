@@ -63,7 +63,7 @@ function renderTopicList(topics, themeId) {
     item.innerHTML = `
       <img src="https://placehold.co/70x70" alt="썸네일" />
       <div class="topic-content">
-        <span class="tag">태그 없음</span>
+        <span class="tag">${topic.tag}</span>
         <h2>${topic.title}</h2>
       </div>
     `;
