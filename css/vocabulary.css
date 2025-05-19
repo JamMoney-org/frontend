@@ -345,7 +345,7 @@ h2 {
     font-size: 1.2em;
     font-weight: bold;
     margin: 40px 0 0 0;
-    text-align: center; /* 중앙 정렬 */
+    text-align: center; 
 }
 
 .quiz-box {
@@ -369,7 +369,7 @@ h2 {
     background-color: #5DC29E;
     color: #fff;
     padding: 4px 12px;
-    border-radius: 12px 12px 12px 12px;
+    border-radius: 12px;
     font-size: 0.7em;
 }
 
@@ -397,7 +397,21 @@ h2 {
     border: 1px solid #5DC29E;
 }
 
-/* 이전, 다음 버튼 공통 스타일 */
+/* 선지 표시 */
+.correct {
+    background-color: #5DC29E !important; 
+    color: white !important;
+}
+
+.incorrect {
+    background-color: #FF4C4C !important; 
+    color: white !important;
+}
+
+.selected {
+    border: 2px solid #5DC29E;
+}
+
 #quiz-next-button {
     padding: 8px 40px;
     background-color: #5DC29E;
@@ -410,17 +424,16 @@ h2 {
     margin-top: 20px;
 }
 
-#quiz-prev-button:hover {
+#quiz-next-button:hover {
     background-color: #326c58;
 }
 
-/* 이전 버튼 비활성화 상태 */
-#quiz-prev-button:disabled {
-    background-color: #B0E0D2;
+#quiz-next-button:disabled,
+button:disabled {
+    background-color: gray;
     cursor: not-allowed;
 }
 
-/* 정답/오답 메시지 스타일 */
 .quiz-message {
     margin-top: 10px;
     font-size: 1.2em;
@@ -428,12 +441,55 @@ h2 {
     text-align: center;
 }
 
-/* 정답 메시지 스타일 */
 .quiz-message.correct {
-    color: #4CAF50; /* 그린 */
+    color: #5DC29E;
 }
 
-/* 오답 메시지 스타일 */
 .quiz-message.incorrect {
-    color: #E64A4A; /* 레드 */
+    color: #FF4C4C;
+}
+
+/* 모달 스타일 */
+.modal-backdrop {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100vw;
+    height: 100vh;
+    background-color: rgba(0, 0, 0, 0.3); 
+    z-index: 900;
+}
+
+.modal {
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    width: 400px;
+    max-width: 80%;
+    background-color: #EFEFEF; 
+    padding: 30px 40px;
+    border-radius: 12px;
+    box-shadow: 0 8px 16px rgba(0, 0, 0, 0.3); 
+    text-align: center;
+    z-index: 1000;
+}
+
+.modal-content p {
+    margin-bottom: 15px;
+    font-size: 1.1em;
+}
+
+.modal-button {
+    background-color: #5DC29E;
+    color: white;
+    padding: 10px 20px;
+    border: none;
+    border-radius: 6px;
+    cursor: pointer;
+    margin-top: 15px;
+}
+
+.modal-button:hover {
+    background-color: #326c58;
 }
