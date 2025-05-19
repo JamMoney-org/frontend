@@ -493,3 +493,62 @@ button:disabled {
 .modal-button:hover {
     background-color: #326c58;
 }
+/* 퀴즈 결과 차트 스타일 */
+.chart-container {
+    position: relative;
+    width: 200px;
+    height: 200px;
+    margin: 20px auto;
+}
+
+.chart-score {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    font-size: 1.5em;
+    font-weight: bold;
+    color: #5DC29E;
+}
+
+/* 퀴즈 종료 버튼 스타일 */
+#finish-button {
+    margin-top: 25px;
+    margin-bottom: 30px;
+    padding: 10px 50px;
+    background-color: #5DC29E;
+    color: white;
+    border-radius: 20px;
+    border: none;
+    cursor: pointer;
+    font-size: 1em;
+    transition: background-color 0.3s ease;
+}
+
+#finish-button:hover {
+    background-color: #326c58;
+}
+
+/* 공룡과 피드백 스타일 */
+.dino-feedback-container {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 10px;
+    margin-top: 20px;
+}
+
+.dino-image {
+    width: 60px;
+    height: auto;
+}
+
+.speech-bubble {
+    background-color: #5DC29E;
+    color: white;
+    padding: 8px 16px;
+    border-radius: 15px;
+    font-size: 1em;
+    text-align: center;
+    margin-left: 10px;
+}
