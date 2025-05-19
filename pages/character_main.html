@@ -40,9 +40,10 @@
       <div class="status-box">
         <div class="name-stage">
           <span class="character-name" id="characterName">공룡 이름</span>
-          <button class="edit-button"
-            onclick="document.querySelector('.name-edit-box').style.display = 'flex'">✏️</button>
-          <span class="growth-stage" id="growthStage">성장 단계 : 공룡 알</span>
+          <button class="edit-button" id="editNameBtn">✏️</button>
+
+          <!--span class="growth-stage" id="growthStage">성장 단계 : 공룡 알</span>-->
+          <span class="character-mood" id="mood">기분 : ?</span>
         </div>
 
         <!-- 이름 수정 (처음에는 숨김) -->
@@ -66,12 +67,14 @@
   <div id="navbar"></div>
 
   <script src="../js/script.js"></script>
+  <script src="../js/features/character/character-area.js"></script>
+  <script src="../js/features/character/character-main.js"></script>
   <script>
     fetch("./character_area.html")
       .then(res => res.text())
       .then(html => {
         document.getElementById("character-area").innerHTML = html;
-  
+
         // 캐릭터 상태 초기화 함수가 있다면 실행
         if (typeof initCharacter === "function") {
           initCharacter();
