@@ -23,18 +23,38 @@
 
         <!-- 구현 영역 -->
         <div class="content">
-            <h3 id="category-title">투자</h3>
-            
-            <!-- 퀴즈 리스트 -->
-            <div class="quiz-list" id="quiz-list">
-                <!-- JavaScript로 동적 생성 -->
+        <h3 id="category-title">투자</h3>
+
+        <!-- 난이도 선택 리스트 -->
+        <div class="quiz-list" id="quiz-list">
+            <div class="quiz-item">
+            <div class="quiz-info">
+                <p class="day-label">초급</p>
+                <p class="daily-topic">기본 개념부터 차근차근 배워요</p>
+            </div>
+            </div>
+
+            <div class="quiz-item">
+            <div class="quiz-info">
+                <p class="day-label">중급</p>
+                <p class="daily-topic">조금 더 깊이 있는 금융 지식을 알아봐요</p>
+            </div>
+            </div>
+
+            <div class="quiz-item">
+            <div class="quiz-info">
+                <p class="day-label">고급</p>
+                <p class="daily-topic">복잡한 개념도 도전해봐요!</p>
+            </div>
             </div>
         </div>
+        </div>
+
         
     </div>
 
     <div id="navbar"></div>
-    <script src="../js/features/finance-quiz/quiz-list.js"></script>
     <script src="../js/script.js"></script>
+    <script type="module" src="../js/features/finance-quiz/quiz-list.js"></script>
 </body>
 </html>
