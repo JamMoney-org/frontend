@@ -31,35 +31,25 @@
 
             <!-- 퀴즈 카드 -->
             <div class="quiz-card">
+                <p class="quiz-title" id="quiz-title"></p>
 
-                <p class="quiz-title">Q. 은행에서 '이자'란 무엇을 의미하나요?</p>
                 <!-- 보기 목록 -->
                 <div class="quiz-box">
-                    <div class="quiz-options" id="quiz-options">
-                        <!-- 보기 버튼들 -->
-                        <button class="quiz-option" data-id="1">① 돈을 쓰고 남은 잔액</button>
-                        <button class="quiz-option" data-id="2">② 돈을 빌리거나 예금했을 때 붙는 추가 금액</button>
-                        <button class="quiz-option" data-id="3">③ 세금으로 내는 금액</button>
-                        <button class="quiz-option" data-id="4">④ 물가가 오를 때 생기는 차액</button>
-                    </div>
+                    <div class="quiz-options" id="quiz-options"></div>
                 </div>
 
                 <!-- 힌트 버튼 -->
                 <div class="hint-container">
-                <button class="hint-button" onclick="toggleHint()">
-                    <img src="../assets/icon/light-bulb.svg" alt="힌트" class="hint-icon">
-                    힌트 보기
-                </button>
-            </div>
+                    <button class="hint-button" onclick="toggleHint()">
+                        <img src="../assets/icon/light-bulb.svg" alt="힌트" class="hint-icon">
+                        힌트 보기
+                    </button>
+                </div>
 
                 <!-- 힌트 영역 -->
                 <div class="hint-box" id="hint-box" style="display: none;">
                     <p class="hint-title">💡 힌트</p>
-
-                    <p class="hint-content">
-                        이자는 예금이나 대출에서 발생하는 추가 금전입니다.<br>
-                        은행은 고객에게 돈을 빌려주거나 예치했을 때 일정한 금액을 덧붙여 돌려줍니다.
-                    </p>
+                    <p class="hint-content" id="hint-content"></p>
                 </div>
 
                 <!-- 정답 확인 및 다음 버튼 -->
@@ -67,8 +57,8 @@
                     <p id="feedback" class="feedback"></p>
                     <button class="next-button" id="next-button">다음 문제</button>
                 </div>
-
             </div>
+
 
         </div>
         
@@ -76,5 +66,6 @@
 
     <div id="navbar"></div>
     <script src="../js/script.js"></script>
+    <script type="module" src="../js/features/finance-quiz/quiz-detail.js"></script>
 </body>
 </html>
