@@ -3,14 +3,15 @@ document.addEventListener("DOMContentLoaded", () => {
   const quizTitle = document.querySelector(".quiz-title");
   const quizOptionsContainer = document.getElementById("quiz-options");
   const progressBar = document.getElementById("progress-bar");
-  const nextButton = document.getElementById("next-button");
-  const feedback = document.getElementById("feedback");
+  const nextButton = document.getElementById("quiz-next-button");
+  const feedback = document.getElementById("quiz-feedback");
   const hintBox = document.getElementById("hint-box");
+  const hintContent = document.getElementById("hint-content");
 
   let currentQuestionIndex = 0;
   let selectedAnswer = null;
+  let isAnswered = false;
 
-  // 퀴즈 렌더링
   function renderQuestion(index) {
     const quiz = quizData[index];
 
@@ -19,7 +20,13 @@ document.addEventListener("DOMContentLoaded", () => {
     feedback.textContent = "";
     feedback.className = "feedback";
     hintBox.style.display = "none";
-    nextButton.textContent = index === quizData.length - 1 ? "퀴즈 완료" : "다음 문제";
+    nextButton.textContent = "정답 확인";
+    nextButton.disabled = true;
+    nextButton.style.backgroundColor = "gray";
+
+    if (hintContent) {
+      hintContent.textContent = quiz.hint || "힌트가 없습니다.";
+    }
 
     quiz.options.forEach((option, i) => {
       const button = document.createElement("button");
@@ -33,6 +40,8 @@ document.addEventListener("DOMContentLoaded", () => {
         });
         button.classList.add("selected");
         selectedAnswer = i;
+        nextButton.disabled = false;
+        nextButton.style.backgroundColor = "#5DC29E";
       });
 
       quizOptionsContainer.appendChild(button);
@@ -41,56 +50,95 @@ document.addEventListener("DOMContentLoaded", () => {
     updateProgressBar();
   }
 
-  // 진행 바 업데이트
   function updateProgressBar() {
     const progress = ((currentQuestionIndex + 1) / quizData.length) * 100;
     progressBar.style.width = `${progress}%`;
   }
 
-  // 힌트 토글
   window.toggleHint = () => {
     hintBox.style.display = hintBox.style.display === "none" ? "block" : "none";
   };
 
-  // 다음 버튼 클릭
-  nextButton.addEventListener("click", () => {
-    const quiz = quizData[currentQuestionIndex];
+  function showModal(message) {
+    const backdrop = document.createElement("div");
+    backdrop.classList.add("modal-backdrop");
 
-    if (selectedAnswer === null) {
-      alert("정답을 선택해주세요!");
-      return;
+    const modal = document.createElement("div");
+    modal.classList.add("modal");
+    modal.innerHTML = `
+      <div class="modal-content">
+        <p>${message.replace(/\n/g, "<br>")}</p>
+        <button class="modal-button">확인</button>
+      </div>
+    `;
+
+    document.body.appendChild(backdrop);
+    document.body.appendChild(modal);
+
+    const modalButton = modal.querySelector(".modal-button");
+    modalButton.addEventListener("click", closeModal);
+  }
+
+  function closeModal() {
+    const modal = document.querySelector(".modal");
+    const backdrop = document.querySelector(".modal-backdrop");
+    if (modal) modal.remove();
+    if (backdrop) backdrop.remove();
+  }
+
+  nextButton.addEventListener("click", async () => {
+  const quiz = quizData[currentQuestionIndex];
+
+  if (!isAnswered) {
+    if (selectedAnswer === null) return;
+
+    const token = localStorage.getItem("authToken");
+    try {
+      const response = await fetch("http://43.202.211.168:8080/api/quiz/submit", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+          "Authorization": `Bearer ${token}`
+        },
+        body: JSON.stringify({
+          quiz: quiz,
+          userAnswerIndex: selectedAnswer
+        })
+      });
+
+      const result = await response.json();
+      const { correct, explanation } = result.data;
+
+      // 정답 표시
+      document.querySelectorAll(".quiz-option").forEach((btn, i) => {
+        btn.classList.remove("selected");
+        if (i === quiz.correctIndex) btn.classList.add("correct");
+        else if (i === selectedAnswer) btn.classList.add("incorrect");
+      });
+
+      const message = correct
+        ? `✅ 정답입니다!\n\n${explanation || "해설이 없습니다."}`
+        : `❌ 오답입니다.\n\n${explanation || "해설이 없습니다."}`;
+
+      showModal(message);
+      nextButton.textContent = "다음 문제";
+      isAnswered = true;
+    } catch (err) {
+      console.error("정답 제출 실패", err);
+      alert("서버와 통신 중 오류가 발생했습니다.");
     }
-
-    const correctIndex = quiz.correctIndex;
-    const isCorrect = selectedAnswer === correctIndex;
-
-    document.querySelectorAll(".quiz-option").forEach((btn, i) => {
-      btn.classList.remove("selected");
-      if (i === correctIndex) {
-        btn.classList.add("correct");
-      } else if (i === selectedAnswer) {
-        btn.classList.add("incorrect");
-      }
-    });
-
-    feedback.textContent = isCorrect ? "✅ 정답입니다!" : `❌ 오답입니다.`;
-    feedback.className = isCorrect ? "feedback correct" : "feedback incorrect";
-
-    nextButton.disabled = true;
-
-    setTimeout(() => {
-      nextButton.disabled = false;
+  } else {
+    currentQuestionIndex++;
+    if (currentQuestionIndex < quizData.length) {
+      renderQuestion(currentQuestionIndex);
+      isAnswered = false;
       selectedAnswer = null;
-      currentQuestionIndex++;
+    } else {
+      window.location.href = "/pages/quiz_result.html";
+    }
+  }
+});
 
-      if (currentQuestionIndex < quizData.length) {
-        renderQuestion(currentQuestionIndex);
-      } else {
-        window.location.href = "/pages/quiz_result.html";
-      }
-    }, 1200);
-  });
 
-  // 첫 문제 렌더링
   renderQuestion(currentQuestionIndex);
 });
