@@ -1,6 +1,5 @@
-// accessToken은 메모리에만 저장
-let accessToken = null;
-
+//테스트용으로 주석처리
+//let accessToken = null;
 document.addEventListener("DOMContentLoaded", function () {
     const loginForm = document.querySelector(".login-form");
 
@@ -23,11 +22,13 @@ document.addEventListener("DOMContentLoaded", function () {
                 },
                 body: JSON.stringify({ email, password })
             });
+
             // 로그인 성공 시 accessToken, refreshToken 저장
             if (response.ok) {
                 const data = await response.json();
-                accessToken = data.accessToken; // 메모리에 저장
-                localStorage.setItem("refreshToken", data.refreshToken); // 로컬에 저장
+
+                localStorage.setItem("accessToken", data.accessToken); //테스트용
+                localStorage.setItem("refreshToken", data.refreshToken);
 
                 alert("로그인 성공!");
                 window.location.href = "../pages/main.html";
