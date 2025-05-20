@@ -1,75 +1,77 @@
-html, body {
-    margin: 0;
-    padding: 0;
-    height: 100%;
-  }
+html,
+body {
+  margin: 0;
+  padding: 0;
+  height: 100%;
+}
 
 .main-content {
-    display: flex;
-    flex-direction: column; 
-    height: 100%;
-  }
-  
+  display: flex;
+  flex-direction: column;
+  height: 100%;
+}
+
 /*중앙 정렬*/
-  .content { 
-    flex: 1; 
-    display: flex;
-    flex-direction: column;
-    align-items: center;      
-    justify-content: center;   
-    position: relative; 
-  }
-  
+.content {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  position: relative;
+}
 
-  .logo {
-    position: absolute;
-    top: calc(50% - 100px); 
-    transform: translateY(-400%); 
-    
-    color: #5DC29E;
-  }
-  
 
-  .login-form {
-    display: flex;
-    flex-direction: column; 
-    align-items: center;
-    /*gap: 10px;*/
-    
-  }
-  
+.logo {
+  position: absolute;
+  top: calc(50% - 100px);
+  transform: translateY(-400%);
+
+  color: #5DC29E;
+}
+
+
+.login-form {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  /*gap: 10px;*/
+
+}
+
 /*공통*/
 .form-element {
-    width: 100%;
-    max-width: 360px;
-    padding: 10px 20px;
-    font-size: 15px;
-    border-radius: 30px;
-    border: 2px solid #5DC29E;
-    box-sizing: border-box;
-    outline: none;
-  }
-  
-  
-  .input input {
-    background-color: #ffffff;
-  }
-  
+  width: 100%;
+  max-width: 360px;
+  padding: 10px 20px;
+  font-size: 15px;
+  border-radius: 30px;
+  border: 2px solid #5DC29E;
+  box-sizing: border-box;
+  outline: none;
+}
 
-  .submit-button {
-    background-color: #5DC29E;
-    color: #ffffff;
-    border: none; 
-    cursor: pointer;
-  }
-  
-  .signup-link {
-    font-size: 15px;
-    text-decoration: none;
-  }
 
-  /*아이콘*/
-  .input {
+.input input {
+  background-color: #ffffff;
+}
+
+
+.submit-button {
+  background-color: #5DC29E;
+  color: #ffffff;
+  border: none;
+  cursor: pointer;
+}
+
+.signup-link {
+  font-size: 13px;
+  text-decoration: none;
+  margin-top: 12px;
+}
+
+/*아이콘*/
+.input {
   position: relative;
   margin-bottom: 1rem;
 }
@@ -85,5 +87,5 @@ html, body {
 }
 
 .input input {
-  padding-left: 35px; 
+  padding-left: 35px;
 }
