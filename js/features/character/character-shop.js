@@ -25,8 +25,6 @@ const mockShopItems = [
   }
 ];
 
-
-
 document.addEventListener("DOMContentLoaded", () => {
   const itemGrid = document.querySelector(".item-grid");
   const previewImg = document.getElementById("selectedItemImage");
@@ -87,69 +85,44 @@ document.addEventListener("DOMContentLoaded", () => {
   renderItems(shopItems);
 
   // 실제 백엔드에서 상점 아이템 목록 받아오기
-
   /*
-  authorizedFetch("/api/item/shop")
+  authorizedFetch("http://43.202.211.168:8080/api/item/shop")
     .then(res => {
       if (!res.ok) throw new Error("상점 아이템 조회 실패");
       return res.json();
     }) 
     .then(data => {
       shopItems = data.result;
-      itemGrid.innerHTML = ""; // 기존 더미 제거
-
-      shopItems.forEach(item => {
-        const box = document.createElement("div");
-        box.className = "item-box";
-        box.dataset.name = item.name;
-        box.dataset.price = item.price;
-        box.dataset.image = item.previewUrl;
-        box.dataset.category = item.type;
-
-        const img = document.createElement("img");
-        img.src = item.previewUrl;
-        img.alt = item.name;
-        img.className = "item-img";
-
-        box.appendChild(img);
-        itemGrid.appendChild(box);
-
-        box.addEventListener("click", () => {
-          previewImg.src = item.previewUrl;
-          previewName.textContent = item.name;
-          previewPrice.textContent = `🪙 ${item.price}p`;
-          selectedItem = item;
-        });
-      });
+      itemGrid.innerHTML = "";
+      renderItems(shopItems);
     })
     .catch(err => {
       alert("아이템을 불러오는 데 실패했습니다.");
       console.error(err);
-    }); */
+    }); 
+  */
 
-  //구매하기
-  authorizedFetch("/api/item/purchase", {
-    method: "POST",
-    headers: { "Content-Type": "application/json" },
-    body: JSON.stringify({ itemId: 선택된아이템ID })
-  })
-    .then(res => res.json())
-    .then(data => {
-      alert(data.message);
-    });
+  // 구매하기
+  buyButton.addEventListener("click", () => {
+    if (!selectedItem) {
+      alert("아이템을 선택해주세요!");
+      return;
+    }
 
-  // 판매하기
-  authorizedFetch("/api/item/sell", {
-    method: "POST",
-    headers: { "Content-Type": "application/json" },
-    body: JSON.stringify({ itemId: 판매할아이템ID })
-  })
-    .then(res => res.json())
-    .then(data => {
-      alert(data.message); // 예: "아이템 판매 완료"
-      // 판매 성공 시 → 인벤토리 다시 불러오기 등 처리 가능
+    const confirmBuy = confirm(`🪙 ${selectedItem.price} cash로 \"${selectedItem.name}\"을 구매할까요?`);
+    if (!confirmBuy) return;
+
+    authorizedFetch("http://43.202.211.168:8080/api/item/purchase", {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify({ itemId: selectedItem.itemId })
     })
-    .catch(err => {
-      alert("판매 실패: " + err.message);
-    });
+      .then(res => res.json())
+      .then(data => {
+        alert(data.message || "구매 완료!");
+      })
+      .catch(err => {
+        alert("구매 실패: " + err.message);
+      });
+  });
 });
