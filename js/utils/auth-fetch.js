@@ -1,3 +1,5 @@
+// js/utils/authFetch.js
+
 export async function authorizedFetch(url, options = {}) {
   let accessToken = localStorage.getItem("authToken");
   let refreshToken = localStorage.getItem("refreshToken");
@@ -47,7 +49,7 @@ export async function authorizedFetch(url, options = {}) {
   } catch (err) {
     console.error("authorizedFetch 오류:", err);
     alert("인증이 만료되었습니다. 다시 로그인해주세요.");
-    window.location.href = "/login.html";
+    window.location.href = "/pages/login.html";
     throw err;
   }
 }
