@@ -1,7 +1,8 @@
+import { authorizedFetch } from "../utils/auth-fetch.js"; // 유틸 함수 import
+
 document.addEventListener("DOMContentLoaded", () => {
   const quizItems = document.querySelectorAll(".quiz-item");
-  const category = localStorage.getItem("selectedCategory"); // ✅ enum 값 그대로 불러옴
-  const token = localStorage.getItem("authToken");
+  const category = localStorage.getItem("selectedCategory"); 
 
   const difficultyMap = {
     "초급": "EASY",
@@ -14,18 +15,9 @@ document.addEventListener("DOMContentLoaded", () => {
       const korDifficulty = item.querySelector(".day-label").textContent.trim();
       const enumDifficulty = difficultyMap[korDifficulty];
 
-      // 디버깅용 로그
-      console.log("보내는 카테고리:", category);
-      console.log("보내는 난이도:", enumDifficulty);
-      console.log("토큰:", token);
-
       try {
-        const response = await fetch("http://43.202.211.168:8080/api/quiz/generate", {
+        const response = await authorizedFetch("http://43.202.211.168:8080/api/quiz/generate", {
           method: "POST",
-          headers: {
-            "Content-Type": "application/json",
-            "Authorization": `Bearer ${token}`
-          },
           body: JSON.stringify({
             category: category,
             difficulty: enumDifficulty
@@ -39,7 +31,7 @@ document.addEventListener("DOMContentLoaded", () => {
         const result = await response.json();
 
         localStorage.setItem("currentQuizSet", JSON.stringify(result.data));
-        localStorage.setItem("selectedDifficulty", korDifficulty); // 한글로 저장 (UI용)
+        localStorage.setItem("selectedDifficulty", korDifficulty); // 한글 난이도 저장
 
         window.location.href = "/pages/quiz_detail.html";
       } catch (error) {
