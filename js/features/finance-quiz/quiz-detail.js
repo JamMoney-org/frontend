@@ -10,7 +10,7 @@ document.addEventListener("DOMContentLoaded", () => {
   const hintBox = document.getElementById("hint-box");
   const hintContent = document.getElementById("hint-content");
 
-  // ✅ 헤더 난이도 표시
+  // 헤더에 난이도 표시
   const selectedDifficulty = localStorage.getItem("selectedDifficulty");
   const displayMap = {
     "초급": "기초 퀴즈",
@@ -56,6 +56,8 @@ document.addEventListener("DOMContentLoaded", () => {
       button.dataset.id = i;
 
       button.addEventListener("click", () => {
+        if (isAnswered) return; // ✅ 이미 정답 확인했으면 클릭 무시
+
         document.querySelectorAll(".quiz-option").forEach(btn => {
           btn.classList.remove("selected");
         });
@@ -64,6 +66,8 @@ document.addEventListener("DOMContentLoaded", () => {
         nextButton.disabled = false;
         nextButton.style.backgroundColor = "#5DC29E";
       });
+
+
 
       quizOptionsContainer.appendChild(button);
     });
@@ -80,15 +84,23 @@ document.addEventListener("DOMContentLoaded", () => {
     hintBox.style.display = hintBox.style.display === "none" ? "block" : "none";
   };
 
-  function showModal(message) {
+  function showModal(message, isCorrect) {
     const backdrop = document.createElement("div");
     backdrop.classList.add("modal-backdrop");
 
     const modal = document.createElement("div");
     modal.classList.add("modal");
+
+    const lines = message.split('\n');
+    const resultLine = lines[0]; // "✅ 정답입니다!" or "❌ 오답입니다."
+    const explanationLines = lines.slice(1).join("<br>"); // 나머지 해설
+
+    const resultClass = isCorrect ? "result correct" : "result incorrect";
+
     modal.innerHTML = `
       <div class="modal-content">
-        <p>${message.replace(/\n/g, "<br>")}</p>
+        <p class="${resultClass}">${resultLine}</p>
+        <p class="explanation">${explanationLines}</p>
         <button class="modal-button">확인</button>
       </div>
     `;
@@ -98,7 +110,8 @@ document.addEventListener("DOMContentLoaded", () => {
 
     const modalButton = modal.querySelector(".modal-button");
     modalButton.addEventListener("click", closeModal);
-  }
+}
+
 
   function closeModal() {
     const modal = document.querySelector(".modal");
@@ -135,7 +148,8 @@ document.addEventListener("DOMContentLoaded", () => {
           ? `✅ 정답입니다!\n\n${explanation || "해설이 없습니다."}`
           : `❌ 오답입니다.\n\n${explanation || "해설이 없습니다."}`;
 
-        showModal(message);
+        showModal(message, correct);
+
         nextButton.textContent = "다음 문제";
         isAnswered = true;
       } catch (err) {

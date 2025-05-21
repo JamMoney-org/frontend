@@ -122,17 +122,22 @@
 }
 
 .quiz-box {
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    flex-direction: column;
-    width: fit-content;
-    padding: 30px 20px;
-    margin: 10px auto 15px auto;
-    border: 2px solid #5DC29E;
-    border-radius: 12px;
-    position: relative;
-    text-align: center;
+  display: flex;
+  flex-direction: column;
+  align-items: stretch;
+  justify-content: center;
+  
+  /* 폭 고정 */
+  width: 100%;
+  max-width: 500px;
+  min-width: 280px;
+  padding: 30px 20px;
+  margin: 10px auto 15px auto;
+
+  border: 2px solid #5DC29E;
+  border-radius: 12px;
+  box-sizing: border-box;
+  text-align: center;
 }
 
 .quiz-option {
@@ -253,7 +258,7 @@
   box-shadow: 0 4px 10px rgba(0,0,0,0.25);
   z-index: 1001;
   text-align: center;
-  max-width: 80%;
+  max-width: 30%;
 }
 
 .modal-backdrop {
@@ -274,6 +279,48 @@
   border: none;
   border-radius: 6px;
   cursor: pointer;
+}
+
+@media (max-width: 480px) {
+  .modal {
+    padding: 20px 20px;
+    min-width: 300px;      
+  }
+
+  .result,
+  .explanation {
+    font-size: 15px;
+  }
+
+  .modal-button {
+    font-size: 14px;
+    padding: 6px 16px;
+  }
+}
+
+.result {
+  font-weight: bold;
+  font-size: 16px;
+  margin-bottom: 0;
+  margin-top: 10px;
+}
+
+.result.correct {
+  color: #2e8b57; /* 초록 */
+}
+
+.result.incorrect {
+  color: #d9534f; /* 빨강 */
+}
+
+.explanation {
+  color: #333; /* 검정 또는 진회색 */
+  font-size: 16px;
+  line-height: 1.6;
+  text-align: center;
+  white-space: pre-wrap;
+  margin-bottom: 15px;
+  word-break: break-word;
 }
 
 .quiz-option.correct {
