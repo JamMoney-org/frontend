@@ -12,7 +12,7 @@ document.addEventListener("DOMContentLoaded", () => {
 
   quizItems.forEach(item => {
     item.addEventListener("click", async () => {
-      const korDifficulty = item.querySelector(".day-label").textContent.trim();
+      const korDifficulty = item.querySelector(".difficulty-label").textContent.trim();
       const enumDifficulty = difficultyMap[korDifficulty];
 
       try {

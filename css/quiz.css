@@ -30,14 +30,15 @@
     flex-direction: column;
 }
 
-.day-label {
+.difficulty-label {
     font-weight: bold;
     font-size: 1em;
+    color: #fff;
 }
 
-.daily-topic {
+.desc {
     font-size: 0.9em;
-    color: #555;
+    color: #fff;
     margin-top: 5px;
 }
 
