@@ -1,34 +1,47 @@
-// vocabulary-list.js - 단어장 목록 페이지 스크립트
+// js/features/vocabulary/vocabulary-list.js
+import { authorizedFetch } from "../../utils/auth-fetch.js";
 
-// 페이지 로드 시 실행
-document.addEventListener('DOMContentLoaded', () => {
-    console.log("단어장 목록 페이지 로드");
+document.addEventListener("DOMContentLoaded", async () => {
+  const categoryTitleEl = document.getElementById("category-title");
+  const wordListEl = document.getElementById("word-list");
 
-    // 페이지 제목 업데이트
-    updateCategoryTitle();
+  // 로컬스토리지에서 카테고리 불러오기
+  const selectedCategory = localStorage.getItem("selectedCategory");
 
-    // 단어 목록 클릭 이벤트 등록
-    const wordList = document.getElementById('word-list');
-    wordList.addEventListener('click', (e) => {
-        const wordItem = e.target.closest('.word-item');
-        if (wordItem) {
-            const day = wordItem.dataset.day;
-            alert(`선택한 DAY: ${day}`);
-        }
+  if (!selectedCategory) {
+    categoryTitleEl.textContent = "카테고리 없음";
+    return;
+  }
+
+  // 카테고리 제목 표시
+  categoryTitleEl.textContent = selectedCategory;
+
+  try {
+    const response = await authorizedFetch(
+      `http://43.202.211.168:8080/api/terms/categories/${selectedCategory}/days`
+    );
+    if (!response.ok) throw new Error("Day 목록을 불러오지 못했습니다.");
+
+    const dayIndexes = await response.json(); // [1, 2, 3, 4, 5] 형태 예상
+
+    // 기존 word-list 초기화
+    wordListEl.innerHTML = "";
+
+    // 각각의 day로 word-item 생성
+    dayIndexes.forEach((day) => {
+      const item = document.createElement("div");
+      item.className = "word-item";
+      item.dataset.day = day;
+
+      item.innerHTML = `
+        <div class="word-info">
+          <p class="day-label">DAY${day}</p>
+        </div>
+      `;
+
+      wordListEl.appendChild(item);
     });
+  } catch (err) {
+    console.error("데이터 불러오기 실패:", err);
+  }
 });
-
-// URL 파라미터에서 카테고리 이름 가져오기
-function getCategoryFromUrl() {
-    const params = new URLSearchParams(window.location.search);
-    return params.get('category') || '단어장';
-}
-
-// 페이지 제목 업데이트 함수
-function updateCategoryTitle() {
-    const category = getCategoryFromUrl();
-    const titleElement = document.getElementById('category-title');
-    if (titleElement) {
-        titleElement.textContent = category;
-    }
-}
