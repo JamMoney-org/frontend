@@ -1,3 +1,5 @@
+import { authorizedFetch } from "../../utils/auth-fetch.js";
+
 document.addEventListener("DOMContentLoaded", function () {
     const signupForm = document.querySelector(".signup-form");
 
@@ -24,7 +26,7 @@ document.addEventListener("DOMContentLoaded", function () {
 
         try {
             // 회원가입 요청 전송
-            const response = await fetch("http://43.202.211.168:8080/auth/signup", {
+            const response = await authorizedFetch("http://43.202.211.168:8080/auth/signup", {
                 method: "POST",
                 headers: {
                     "Content-Type": "application/json"
