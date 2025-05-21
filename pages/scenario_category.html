@@ -1,0 +1,96 @@
+<!DOCTYPE html>
+<html lang="ko">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>카테고리</title>
+    <link rel="stylesheet" href="../css/style.css" />
+    <link rel="stylesheet" href="../css/scenario.css" />
+  </head>
+  <body>
+    <!-- 메인 콘텐츠 영역 -->
+    <div class="main-content">
+      <!-- 헤더 영역 -->
+      <header>
+        <button class="back-button" onclick="history.back();">
+          <svg
+            width="24"
+            height="24"
+            viewBox="0 0 24 24"
+            fill="none"
+            xmlns="http://www.w3.org/2000/svg"
+          >
+            <path
+              d="M15 19L8 12L15 5"
+              stroke="currentColor"
+              stroke-width="2"
+              stroke-linecap="round"
+              stroke-linejoin="round"
+            />
+          </svg>
+        </button>
+        JamMoney
+      </header>
+
+      <!-- 구현 영역 -->
+      <div class="content">
+        <h3>카테고리</h3>
+        <div class="category-grid">
+          <!-- 소비 -->
+          <div class="category-item">
+            <img
+              class="category-icon"
+              src="../assets/images/소비.png"
+              alt="소비 아이콘"
+            />
+            <p>소비</p>
+          </div>
+
+          <!-- 저축 -->
+          <div class="category-item">
+            <img
+              class="category-icon"
+              src="../assets/images/저축.png"
+              alt="저축 아이콘"
+            />
+            <p>저축</p>
+          </div>
+
+          <!-- 대출 -->
+          <div class="category-item">
+            <img
+              class="category-icon"
+              src="../assets/images/대출.png"
+              alt="대출 아이콘"
+            />
+            <p>대출</p>
+          </div>
+
+          <!-- 투자 -->
+          <div class="category-item">
+            <img
+              class="category-icon"
+              src="../assets/images/투자.png"
+              alt="투자 아이콘"
+            />
+            <p>투자</p>
+          </div>
+
+          <!-- 세금 -->
+          <div class="category-item">
+            <img
+              class="category-icon"
+              src="../assets/images/세금.png"
+              alt="세금 아이콘"
+            />
+            <p>세금</p>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div id="navbar"></div>
+    <script src="../js/script.js"></script>
+    <script type="module" src="../js/common/category_learning.js"></script>
+  </body>
+</html>
