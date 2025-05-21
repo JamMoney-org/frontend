@@ -1,3 +1,5 @@
+import { authorizedFetch } from "../../utils/auth-fetch.js";
+
 const mockStatusData = {
   level: 5,
   exp: 120,
@@ -42,8 +44,8 @@ async function initCharacter() {
 
     // 실제 fetch 코드
 
-    /*const statusRes = await fetch('/api/pet/status');
-    const inventoryRes = await fetch('/api/item/inventory');
+    /*const statusRes = await authorizedFetch('/api/pet/status');
+    const inventoryRes = await authorizedFetch('/api/item/inventory');
     if (!statusRes.ok || !inventoryRes.ok) throw new Error("정보를 불러오지 못했습니다.");
     const statusData = await statusRes.json();
     const inventoryData = await inventoryRes.json(); */
@@ -97,7 +99,7 @@ async function initCharacter() {
 window.addEventListener("DOMContentLoaded", () => {
   const characterAreaContainer = document.getElementById("character-area");
 
-  fetch("./character_area.html")
+  authorizedFetch("./character_area.html")
     .then(res => res.text())
     .then(html => {
       characterAreaContainer.innerHTML = html;

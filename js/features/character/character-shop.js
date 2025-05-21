@@ -1,3 +1,5 @@
+import { authorizedFetch } from "../../utils/auth-fetch.js";
+
 // 테스트용 mock 데이터 
 const mockShopItems = [
   {
@@ -86,8 +88,8 @@ document.addEventListener("DOMContentLoaded", () => {
 
   // 실제 백엔드에서 상점 아이템 목록 받아오기
 
-  /* 
-  fetch("/api/item/shop")
+  /*
+  authorizedFetch("/api/item/shop")
     .then(res => {
       if (!res.ok) throw new Error("상점 아이템 조회 실패");
       return res.json();
@@ -126,7 +128,7 @@ document.addEventListener("DOMContentLoaded", () => {
     }); */
 
   //구매하기
-  fetch("/api/item/purchase", {
+  authorizedFetch("/api/item/purchase", {
     method: "POST",
     headers: { "Content-Type": "application/json" },
     body: JSON.stringify({ itemId: 선택된아이템ID })
@@ -137,7 +139,7 @@ document.addEventListener("DOMContentLoaded", () => {
     });
 
   // 판매하기
-  fetch("/api/item/sell", {
+  authorizedFetch("/api/item/sell", {
     method: "POST",
     headers: { "Content-Type": "application/json" },
     body: JSON.stringify({ itemId: 판매할아이템ID })

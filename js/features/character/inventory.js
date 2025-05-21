@@ -1,3 +1,5 @@
+import { authorizedFetch } from "../../utils/auth-fetch.js";
+
 document.addEventListener("DOMContentLoaded", () => {
     const itemGrid = document.querySelector(".item-grid");
     const categoryButtons = document.querySelectorAll(".category");
@@ -7,7 +9,7 @@ document.addEventListener("DOMContentLoaded", () => {
 
     //장착/해제 요청 함수
     function toggleEquip(itemId, equip) {
-        fetch("/api/item/equip", {
+        authorizedFetch("/api/item/equip", {
             method: "POST",
             headers: { "Content-Type": "application/json" },
             body: JSON.stringify({ itemId, equip })
@@ -63,7 +65,7 @@ document.addEventListener("DOMContentLoaded", () => {
 
     // 인벤토리 불러오기
     function fetchInventory() {
-        fetch("/api/item/inventory")
+        authorizedFetch("/api/item/inventory")
             .then(res => res.json())
             .then(data => {
                 inventoryItems = data.result;
