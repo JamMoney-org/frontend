@@ -56,7 +56,7 @@ document.addEventListener("DOMContentLoaded", () => {
       button.dataset.id = i;
 
       button.addEventListener("click", () => {
-        if (isAnswered) return; // ✅ 이미 정답 확인했으면 클릭 무시
+        if (isAnswered) return; // 이미 정답 확인했으면 클릭 무시
 
         document.querySelectorAll(".quiz-option").forEach(btn => {
           btn.classList.remove("selected");
@@ -163,9 +163,16 @@ document.addEventListener("DOMContentLoaded", () => {
         isAnswered = false;
         selectedAnswer = null;
       } else {
+        const quizResults = quizData.map(quiz => ({
+          quizId: quiz.id,
+          userAnswerIndex: quiz.userAnswerIndex
+        }));
+
+        localStorage.setItem("quizResults", JSON.stringify(quizResults));
         window.location.href = "/pages/quiz_result.html";
       }
     }
+
   });
 
   renderQuestion(currentQuestionIndex);
