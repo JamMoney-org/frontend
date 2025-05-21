@@ -1,4 +1,4 @@
-import { authorizedFetch } from "../utils/auth-fetch.js";
+import { authorizedFetch } from "../../utils/auth-fetch.js";
 
 document.addEventListener("DOMContentLoaded", () => {
   const quizData = JSON.parse(localStorage.getItem("currentQuizSet")) || [];
