@@ -3,9 +3,17 @@ document.addEventListener("DOMContentLoaded", () => {
   const category = document.getElementById("category-title").textContent.trim();
   const token = localStorage.getItem("authToken");
 
+  // 한글 난이도를 백엔드 enum 값으로 매핑
+  const difficultyMap = {
+    "초급": "EASY",
+    "중급": "NORMAL",
+    "고급": "HARD"
+  };
+
   quizItems.forEach(item => {
     item.addEventListener("click", async () => {
-      const difficulty = item.querySelector(".day-label").textContent.trim();
+      const korDifficulty = item.querySelector(".day-label").textContent.trim();
+      const enumDifficulty = difficultyMap[korDifficulty];
 
       try {
         const response = await fetch("http://43.202.211.168:8080/api/quiz/generate", {
@@ -16,7 +24,7 @@ document.addEventListener("DOMContentLoaded", () => {
           },
           body: JSON.stringify({
             category: category,
-            difficulty: difficulty
+            difficulty: enumDifficulty
           })
         });
 
@@ -26,12 +34,10 @@ document.addEventListener("DOMContentLoaded", () => {
 
         const result = await response.json();
 
-        // 로컬스토리지에 퀴즈 저장
         localStorage.setItem("currentQuizSet", JSON.stringify(result.data));
         localStorage.setItem("selectedCategory", category);
-        localStorage.setItem("selectedDifficulty", difficulty);
+        localStorage.setItem("selectedDifficulty", korDifficulty); // 사용자에게 보여줄 값은 한글로 저장
 
-        // 퀴즈 상세 페이지로 이동
         window.location.href = "/pages/quiz_detail.html";
       } catch (error) {
         console.error("퀴즈 요청 실패:", error);
