@@ -92,7 +92,7 @@ document.addEventListener("DOMContentLoaded", () => {
     modal.classList.add("modal");
 
     const lines = message.split('\n');
-    const resultLine = lines[0]; // "✅ 정답입니다!" or "❌ 오답입니다."
+    const resultLine = lines[0]; 
     const explanationLines = lines.slice(1).join("<br>"); // 나머지 해설
 
     const resultClass = isCorrect ? "result correct" : "result incorrect";
