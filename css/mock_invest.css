@@ -3,6 +3,10 @@
   font-size: 24px
 }
 
+.stock-header{
+  padding: 1rem;
+  padding-bottom: 0;
+}
 .current-price{
   font-size: 18px; 
   color: #333333;
