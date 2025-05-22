@@ -1,5 +1,3 @@
-// /js/features/theme-learning.js
-
 const tabsContainer = document.querySelector('.tabs');
 const topicList = document.querySelector('.topic-list');
 
