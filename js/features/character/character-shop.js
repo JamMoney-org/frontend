@@ -85,22 +85,21 @@ document.addEventListener("DOMContentLoaded", () => {
   renderItems(shopItems);
 
   // 실제 백엔드에서 상점 아이템 목록 받아오기
-  /*
-  authorizedFetch("http://43.202.211.168:8080/api/item/shop")
-    .then(res => {
-      if (!res.ok) throw new Error("상점 아이템 조회 실패");
-      return res.json();
-    }) 
-    .then(data => {
-      shopItems = data.result;
-      itemGrid.innerHTML = "";
-      renderItems(shopItems);
-    })
-    .catch(err => {
-      alert("아이템을 불러오는 데 실패했습니다.");
-      console.error(err);
-    }); 
-  */
+  // authorizedFetch("http://43.202.211.168:8080/api/item/shop")
+  //   .then(res => {
+  //     if (!res.ok) throw new Error("상점 아이템 조회 실패");
+  //     return res.json();
+  //   }) 
+  //   .then(data => {
+  //     shopItems = data.result;
+  //     itemGrid.innerHTML = "";
+  //     renderItems(shopItems);
+  //   })
+  //   .catch(err => {
+  //     alert("아이템을 불러오는 데 실패했습니다.");
+  //     console.error(err);
+  //   }); 
+  
 
   // 구매하기
   buyButton.addEventListener("click", () => {
