@@ -12,7 +12,6 @@ try {
   );
 
   const themes = await response.json();
-  console.log(themes);
   renderTabs(themes);
   if (themes.length > 0) {
     fetchTopics(themes[0].themeId); // 첫 번째 테마의 토픽 불러오기
@@ -54,7 +53,6 @@ async function fetchTopics(themeId) {
     );
 
     const topics = await response.json();
-    console.log(topics);
     renderTopicList(topics, themeId);
   } catch (err) {
     console.error('토픽 불러오기 실패:', err);
