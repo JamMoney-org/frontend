@@ -1,3 +1,5 @@
+import { authorizedFetch } from "../../utils/auth-fetch.js";
+
 // DOM이 완전히 로드된 후 실행
 window.onload = () => {
     const quizOptions = document.getElementById('quiz-options');

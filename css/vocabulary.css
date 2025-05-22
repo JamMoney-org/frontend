@@ -1,10 +1,13 @@
 /*vocabulary_category 스타일링*/
-h3 {
-    margin-top: 40px;
-    margin-bottom: 4px;
-    margin-left: 30px;
-    font-size: 1.5em;
-    font-weight: bold;
+.category-label {
+    margin-bottom: 1.5rem;
+    color: #333333;
+    padding-left: 0.2rem;
+}
+
+.label-box {
+    padding-left: 1.5em;
+    margin-top: 30px;
 }
 
 .category-grid {

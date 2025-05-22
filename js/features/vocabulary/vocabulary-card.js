@@ -1,5 +1,7 @@
 // vocabulary-card.js - 단어 카드 페이지 스크립트
 
+import { authorizedFetch } from "../../utils/auth-fetch.js";
+
 const progressBar = document.getElementById('progress-bar');
 const bookmarkButton = document.querySelector('.bookmark');
 const prevButton = document.getElementById('card-prev-button');

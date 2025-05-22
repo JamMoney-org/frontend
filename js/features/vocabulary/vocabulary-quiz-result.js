@@ -1,3 +1,5 @@
+import { authorizedFetch } from "../../utils/auth-fetch.js";
+
 document.addEventListener("DOMContentLoaded", () => {
     const correctCount = 3;  // 맞춘 문제 수 (예제)
     const totalCount = 5;    // 총 문제 수 (예제)
