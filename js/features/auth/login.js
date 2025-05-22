@@ -23,9 +23,9 @@ document.addEventListener("DOMContentLoaded", function () {
 
             if (response.ok) {
                 const data = await response.json();
-                
-                localStorage.setItem("authToken", data.accessToken);    // authorizedFetch가 참조
-                localStorage.setItem("refreshToken", data.refreshToken); // 재발급용
+
+                localStorage.setItem("accessToken", data.accessToken);    
+                localStorage.setItem("refreshToken", data.refreshToken);
 
                 alert("로그인 성공!");
                 window.location.href = "../pages/main.html";
