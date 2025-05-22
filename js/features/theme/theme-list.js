@@ -1,19 +1,24 @@
+import { authorizedFetch } from '../../utils/auth-fetch.js';
+
 const tabsContainer = document.querySelector('.tabs');
 const topicList = document.querySelector('.topic-list');
 
-let themeList = []; // [{ id: 1, name: '저축' }, ...]
-
-// 1. 테마 목록 받아와서 탭에 주입
-fetch('/api/themes')
-  .then((res) => res.json())
-  .then((themes) => {
-    themeList = themes;
-    renderTabs(themes);
-    if (themes.length > 0) {
-      fetchTopics(themes[0].id);
+try {
+  const response = await authorizedFetch(
+    'http://43.202.211.168:8080/api/themes',
+    {
+      method: 'GET',
     }
-  })
-  .catch((err) => console.error('테마 목록 불러오기 실패:', err));
+  );
+
+  const themes = await response.json();
+  renderTabs(themes);
+  if (themes.length > 0) {
+    fetchTopics(themes[0].id); // 첫 번째 테마의 토픽 불러오기
+  }
+} catch (err) {
+  console.error('테마 목록 불러오기 실패:', err);
+}
 
 // 2. 탭 렌더링
 function renderTabs(themes) {
@@ -38,13 +43,20 @@ function renderTabs(themes) {
 }
 
 // 3. 테마 ID에 해당하는 토픽 리스트 받아오기
-function fetchTopics(themeId) {
-  fetch(`/api/themes/${themeId}/topics`)
-    .then((res) => res.json())
-    .then((topics) => {
-      renderTopicList(topics, themeId);
-    })
-    .catch((err) => console.error('토픽 불러오기 실패:', err));
+async function fetchTopics(themeId) {
+  try {
+    const response = await authorizedFetch(
+      `http://43.202.211.168:8080/api/themes/${themeId}/topics`,
+      {
+        method: 'GET',
+      }
+    );
+
+    const topics = await response.json();
+    renderTopicList(topics, themeId);
+  } catch (err) {
+    console.error('토픽 불러오기 실패:', err);
+  }
 }
 
 // 4. 토픽 리스트 렌더링
