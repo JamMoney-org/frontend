@@ -1,5 +1,3 @@
-import { authorizedFetch } from "../../utils/auth-fetch.js";
-
 document.addEventListener("DOMContentLoaded", function () {
     const loginForm = document.querySelector(".login-form");
 
@@ -15,7 +13,7 @@ document.addEventListener("DOMContentLoaded", function () {
         }
 
         try {
-            const response = await authorizedFetch("http://43.202.211.168:8080/auth/login", {
+            const response = await fetch("http://43.202.211.168:8080/auth/login", {
                 method: "POST",
                 headers: {
                     "Content-Type": "application/json"
@@ -25,8 +23,9 @@ document.addEventListener("DOMContentLoaded", function () {
 
             if (response.ok) {
                 const data = await response.json();
-
-                localStorage.setItem("refreshToken", data.refreshToken);
+                
+                localStorage.setItem("authToken", data.accessToken);    // authorizedFetch가 참조
+                localStorage.setItem("refreshToken", data.refreshToken); // 재발급용
 
                 alert("로그인 성공!");
                 window.location.href = "../pages/main.html";
