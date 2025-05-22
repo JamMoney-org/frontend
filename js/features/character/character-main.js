@@ -6,11 +6,7 @@ function initCharacterMainUI(statusData) {
   document.getElementById('xpMax').textContent = statusData.nextLevelExp;
   document.getElementById('mood').textContent = `기분 : ${statusData.mood}`;
   document.getElementById('progressBar').style.width = `${statusData.expPercentage}%`;
-
-  const nameText = statusData.name && statusData.name.trim() !== ""
-    ? statusData.name
-    : "이름을 설정하세요";
-  document.getElementById('characterName').textContent = nameText;
+  document.getElementById('characterName').textContent = statusData.name;
 
   const characterImg = document.getElementById('characterImage');
   if (characterImg && statusData.imageName) {
@@ -18,8 +14,7 @@ function initCharacterMainUI(statusData) {
   }
 }
 
-
-// 이름 수정 저장
+// 이름 수정
 function saveName() {
   const input = document.getElementById('nameInput');
   const newName = input.value.trim();
@@ -38,10 +33,6 @@ function saveName() {
 
   authorizedFetch('http://43.202.211.168:8080/api/pet/rename', {
     method: 'POST',
-    headers: {
-
-      'Content-Type': 'application/json'
-    },
     body: JSON.stringify({ newName })
   })
     .then(res => {
@@ -49,15 +40,10 @@ function saveName() {
       return res.json();
     })
     .then(() => {
-      // 이름 변경 성공 후 화면 반영
       document.getElementById('characterName').textContent = newName;
       document.getElementById('nameEditBox').style.display = 'none';
-      input.value = ''; // 입력창 초기화 (선택)
+      input.value = '';
     })
-    .catch(err => {
-      console.error(err);
-      alert(err.message);
-    });
 }
 
 
@@ -81,33 +67,28 @@ document.addEventListener('DOMContentLoaded', () => {
 
 // 페이지 로드 시 캐릭터 상태 불러오기
 async function loadCharacterStatus() {
-  try {
-    const accessToken = localStorage.getItem('accessToken');
-    if (!accessToken) {
-      alert('로그인이 필요합니다.');
-      window.location.href = '../pages/login.html';
-      return;
-    }
 
-
-    const statusRes = await authorizedFetch('http://43.202.211.168:8080/api/pet/status', {
-      headers: {
-        'Content-Type': 'application/json'
-      }
-    });
-
-    if (!statusRes.ok) throw new Error('캐릭터 상태 조회 실패');
-    const response = await statusRes.json();
-    console.log("✅ response from status:", response);
-
-    const statusData = response.data;
-    console.log("✅ 최종 statusData:", statusData);
-
-
-    initCharacterMainUI(statusData);
-  } catch (err) {
-    alert(err.message);
+  const accessToken = localStorage.getItem('accessToken');
+  if (!accessToken) {
+    alert('로그인이 필요합니다.');
+    window.location.href = '../pages/login.html';
+    return;
   }
+
+
+  const statusRes = await authorizedFetch('http://43.202.211.168:8080/api/pet/status',
+    {});
+
+  if (!statusRes.ok) throw new Error('캐릭터 상태 조회 실패');
+  const response = await statusRes.json();
+  console.log("✅ response from status:", response);
+
+  const statusData = response.result || response.data || response;
+  console.log("✅ 최종 statusData:", statusData);
+
+
+  initCharacterMainUI(statusData);
+
 }
 
 // 경험치 처리
@@ -119,24 +100,19 @@ async function giveExpToPet(expAmount = 5) {
     return;
   }
 
-  try {
-    const res = await authorizedFetch('http://43.202.211.168:8080/api/pet/add-exp', {
-      method: 'POST',
-      headers: {
-        'Content-Type': 'application/json'
-      },
-      body: JSON.stringify({ exp: expAmount })
-    });
 
-    if (!res.ok) throw new Error('경험치 추가 실패');
+  const res = await authorizedFetch('http://43.202.211.168:8080/api/pet/add-exp', {
+    method: 'POST',
+    body: JSON.stringify({ exp: expAmount })
+  });
 
-    const response = await res.json();
-    const statusData = response.result || response;
+  if (!res.ok) throw new Error('경험치 추가 실패');
 
-    initCharacterMainUI(statusData); // 레벨, 경험치, 이미지 업데이트
-  } catch (err) {
-    alert(err.message);
-  }
+  const response = await res.json();
+  const statusData = response.result || response;
+
+  initCharacterMainUI(statusData); // 레벨, 경험치, 이미지 업데이트
+
 }
 
 document.addEventListener('DOMContentLoaded', loadCharacterStatus);
