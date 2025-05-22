@@ -3,6 +3,8 @@ import { authorizedFetch } from '../../utils/auth-fetch.js';
 const tabsContainer = document.querySelector('.tabs');
 const topicList = document.querySelector('.topic-list');
 
+export let themeList = [];
+
 try {
   const response = await authorizedFetch(
     'http://43.202.211.168:8080/api/themes',
@@ -12,6 +14,7 @@ try {
   );
 
   const themes = await response.json();
+  themeList = themes;
   renderTabs(themes);
   if (themes.length > 0) {
     fetchTopics(themes[0].themeId); // 첫 번째 테마의 토픽 불러오기
@@ -67,7 +70,7 @@ function renderTopicList(topics, themeId) {
     const item = document.createElement('div');
     item.className = 'topic-item';
     item.addEventListener('click', () => {
-      window.location.href = `/theme-detail.html?themeId=${themeId}&topicId=${topic.topicId}`;
+      window.location.href = `/theme_learning_detail.html?themeId=${themeId}&topicId=${topic.topicId}`;
     });
 
     item.innerHTML = `
