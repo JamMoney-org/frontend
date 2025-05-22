@@ -12,9 +12,10 @@ try {
   );
 
   const themes = await response.json();
+  console.log(themes);
   renderTabs(themes);
   if (themes.length > 0) {
-    fetchTopics(themes[0].id); // 첫 번째 테마의 토픽 불러오기
+    fetchTopics(themes[0].themeId); // 첫 번째 테마의 토픽 불러오기
   }
 } catch (err) {
   console.error('테마 목록 불러오기 실패:', err);
@@ -35,7 +36,7 @@ function renderTabs(themes) {
         .querySelectorAll('.tab')
         .forEach((t) => t.classList.remove('active'));
       tab.classList.add('active');
-      fetchTopics(theme.id);
+      fetchTopics(theme.themeId);
     });
 
     tabsContainer.appendChild(tab);
@@ -53,6 +54,7 @@ async function fetchTopics(themeId) {
     );
 
     const topics = await response.json();
+    console.log(topics);
     renderTopicList(topics, themeId);
   } catch (err) {
     console.error('토픽 불러오기 실패:', err);
