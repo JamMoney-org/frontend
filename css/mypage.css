@@ -47,7 +47,7 @@ h4 {
     margin-bottom: 10px;
     text-decoration: none;
     color: #333;
-    
+
 }
 
 a.profile-card:hover,
@@ -116,13 +116,17 @@ a.learning-item:hover {
     color: #5DC29E;
 }
 
-.logout {
+
+.logout,
+.delete {
     display: block;
-    text-align: center;
+    margin: auto;
     color: #999;
     font-size: 12px;
     margin-top: 30px;
     text-decoration: none;
+    border: none;
+    background: none;
 }
 
 /* 선 */
