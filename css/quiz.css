@@ -99,6 +99,25 @@
     transition: width 0.3s ease;
 }
 
+/* 북마크 버튼 스타일 */
+.bookmark {
+    position: absolute;
+    top: 25px;
+    right: 25px;
+    background: none;
+    border: none;
+    cursor: pointer;
+    width: 20px;
+    height: 20px;
+    background-size: contain;
+    background-repeat: no-repeat;
+    transition: transform 0.2s ease;
+}
+
+.bookmark:hover {
+    transform: scale(1.1);
+}
+
 .quiz-card {
     position: relative;
     display: flex;
@@ -130,7 +149,7 @@
   /* 폭 고정 */
   width: 100%;
   max-width: 500px;
-  min-width: 280px;
+  min-width: 230px;
   padding: 30px 20px;
   margin: 10px auto 15px auto;
 

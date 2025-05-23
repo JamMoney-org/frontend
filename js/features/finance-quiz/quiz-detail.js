@@ -9,12 +9,17 @@ document.addEventListener("DOMContentLoaded", () => {
   const feedback = document.getElementById("quiz-feedback");
   const hintBox = document.getElementById("hint-box");
   const hintContent = document.getElementById("hint-content");
+  const bookmarkButton = document.querySelector(".bookmark");
 
-  // 헤더에 난이도 표시
+  const bookmarkIcon = {
+    active: "../assets/icon/bookmark-fill-frame.svg",
+    inactive: "../assets/icon/bookmark.svg"
+  };
+
   const selectedDifficulty = localStorage.getItem("selectedDifficulty");
   const displayMap = {
-    "초급": "기초 퀴즈",
-    "중급": "심화 퀴즈",
+    "초급": "초급 퀴즈",
+    "중급": "중급 퀴즈",
     "고급": "고급 퀴즈"
   };
   const header = document.querySelector("header");
@@ -56,7 +61,7 @@ document.addEventListener("DOMContentLoaded", () => {
       button.dataset.id = i;
 
       button.addEventListener("click", () => {
-        if (isAnswered) return; // 이미 정답 확인했으면 클릭 무시
+        if (isAnswered) return;
 
         document.querySelectorAll(".quiz-option").forEach(btn => {
           btn.classList.remove("selected");
@@ -67,11 +72,8 @@ document.addEventListener("DOMContentLoaded", () => {
         nextButton.style.backgroundColor = "#5DC29E";
       });
 
-
-
       quizOptionsContainer.appendChild(button);
     });
-
     updateProgressBar();
   }
 
@@ -92,24 +94,59 @@ document.addEventListener("DOMContentLoaded", () => {
     modal.classList.add("modal");
 
     const lines = message.split('\n');
-    const resultLine = lines[0]; 
-    const explanationLines = lines.slice(1).join("<br>"); // 나머지 해설
-
+    const resultLine = lines[0];
+    const explanationLines = lines.slice(1).join("<br>");
     const resultClass = isCorrect ? "result correct" : "result incorrect";
 
     modal.innerHTML = `
       <div class="modal-content">
         <p class="${resultClass}">${resultLine}</p>
         <p class="explanation">${explanationLines}</p>
-        <button class="modal-button">확인</button>
+        <div class="modal-buttons">
+          ${!isCorrect ? `<button id="save-wrong-note" class="modal-button">오답노트 저장</button>` : ""}
+          <button id="modal-confirm" class="modal-button">확인</button>
+        </div>
       </div>
     `;
 
     document.body.appendChild(backdrop);
     document.body.appendChild(modal);
 
-    const modalButton = modal.querySelector(".modal-button");
-    modalButton.addEventListener("click", closeModal);
+    const confirmBtn = document.getElementById("modal-confirm");
+    confirmBtn.addEventListener("click", closeModal);
+
+    if (!isCorrect) {
+      const saveBtn = document.getElementById("save-wrong-note");
+      saveBtn.addEventListener("click", async () => {
+        const quiz = quizData[currentQuestionIndex];
+
+        try {
+          const response = await authorizedFetch("http://43.202.211.168:8080/api/wrong-notes", {
+            method: "POST",
+            body: JSON.stringify({
+              question: quiz.question,
+              selectedOption: quiz.options[quiz.userAnswerIndex],
+              correctAnswer: quiz.options[quiz.correctIndex],
+              explanation: quiz.explanation,
+              hint: quiz.hint,
+              category: quiz.category || "ETC"
+            })
+          });
+
+
+          if (!response.ok) {
+            throw new Error("오답노트 저장 실패");
+          }
+
+          alert("📒 오답노트에 저장했어요!");
+          saveBtn.disabled = true;
+          saveBtn.textContent = "저장 완료";
+        } catch (err) {
+          console.error("오답노트 저장 오류:", err);
+          alert("오답노트 저장에 실패했어요.");
+        }
+      });
+    }
 }
 
 
@@ -126,6 +163,8 @@ document.addEventListener("DOMContentLoaded", () => {
     if (!isAnswered) {
       if (selectedAnswer === null) return;
 
+      quiz.userAnswerIndex = selectedAnswer;
+
       try {
         const response = await authorizedFetch("http://43.202.211.168:8080/api/quiz/submit", {
           method: "POST",
@@ -137,11 +176,10 @@ document.addEventListener("DOMContentLoaded", () => {
 
         const result = await response.json();
         const { correct, explanation } = result.data;
-
         document.querySelectorAll(".quiz-option").forEach((btn, i) => {
           btn.classList.remove("selected");
           if (i === quiz.correctIndex) btn.classList.add("correct");
-          else if (i === selectedAnswer) btn.classList.add("incorrect");
+          else if (i === selectedAnswer && i !== quiz.correctIndex) btn.classList.add("incorrect");
         });
 
         const message = correct
@@ -164,16 +202,14 @@ document.addEventListener("DOMContentLoaded", () => {
         selectedAnswer = null;
       } else {
         const quizResults = quizData.map(quiz => ({
-          quizId: quiz.id,
-          userAnswerIndex: quiz.userAnswerIndex
-        }));
+        correct: quiz.userAnswerIndex === quiz.correctIndex
+      }));
 
-        localStorage.setItem("quizResults", JSON.stringify(quizResults));
-        window.location.href = "/pages/quiz_result.html";
+      localStorage.setItem("quizResults", JSON.stringify(quizResults));
+      window.location.href = "/pages/quiz_result.html";
       }
     }
-
   });
-
+  
   renderQuestion(currentQuestionIndex);
 });

@@ -19,13 +19,13 @@ document.addEventListener("DOMContentLoaded", async () => {
     const result = await response.json();
     const { totalQuestions, correctCount, rewardExp, rewardCoin, passed } = result.data;
 
-    // ✅ 점수 표시
+    // 점수 표시
     chartScore.textContent = `${correctCount}/${totalQuestions}`;
 
-    // ✅ 피드백 메시지
-    feedbackBubble.textContent = passed ? "잘했어요! 대단해요!" : "더 공부가 필요해요!";
+    // 피드백 메시지
+    feedbackBubble.textContent = passed ? "잘했어요! 대단해요!" : "더 공부가 필요해요.\n퀴즈를 다시 풀어볼까요?!";
 
-    // ✅ 차트 그리기
+    // 차트 그리기
     const ctx = document.getElementById("quizChart").getContext("2d");
     new Chart(ctx, {
       type: "doughnut",
