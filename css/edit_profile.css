@@ -12,6 +12,7 @@ body {
 .main-content {
     display: flex;
     flex-direction: column;
+    justify-content: center;
     align-items: center;
     padding: 40px 20px;
 }
@@ -43,10 +44,12 @@ body {
 
 /* 각 입력 필드 묶음 */
 .input {
-  display: flex;
-  align-items: center; /* 수직 가운데 정렬 */
-  margin-bottom: 12px;
-  gap: 8px; /* 아이콘 ~ 라벨 ~ input 간격 */
+    display: flex;
+    align-items: center;
+    /* 수직 가운데 정렬 */
+    margin-bottom: 12px;
+    gap: 8px;
+    /* 아이콘 ~ 라벨 ~ input 간격 */
 }
 
 /* 아이콘 */
