@@ -1,4 +1,26 @@
 import { authorizedFetch } from "../../utils/auth-fetch.js";
+
+//보유 자산
+//모의투자 시작할때 포트폴리오가 생성되고 자산을 가져올 수 있음
+async function fetchTotalAsset() {
+    const res = await authorizedFetch("http://43.202.211.168:8080/api/portfolio", {
+        method: "GET",
+    });
+
+    if (!res.ok) {
+        document.getElementById("asset-value").textContent = "0원";
+        return;
+    }
+
+    const data = await res.json();
+    const totalAsset = data.totalAsset ?? 0; //포트폴리오가 없을때 0으로 처리
+
+    document.getElementById("asset-value").textContent = totalAsset.toLocaleString() + "원";
+}
+  
+
+fetchTotalAsset();
+
 //회원 탈퇴
 document.addEventListener("DOMContentLoaded", () => {
     const deleteBtn = document.querySelector(".delete");
@@ -34,22 +56,3 @@ async function logout() {
     window.location.href = "../pages/login.html";
 }
 document.querySelector(".logout").addEventListener("click", logout);
-
-
-//보유 자산
-async function fetchTotalAsset() {
-    try {
-        const res = await authorizedFetch("http://43.202.211.168:8080/api/portfolio");
-        const data = await res.json();
-        const totalAsset = data.totalAsset;
-
-        document.querySelector(".asset-value").textContent = totalAsset.toLocaleString() + "원";
-    } catch (e) {
-        console.error(e);
-        alert("보유 자산 정보를 불러오는 데 실패했습니다.");
-    }
-}
-
-fetchTotalAsset();
-
-//학습한 퀴즈
