@@ -1,5 +1,22 @@
 import { authorizedFetch } from "../../utils/auth-fetch.js";
 
+//액자식 구성 ...
+import { setCharacterImage } from "./character-area.js";
+
+authorizedFetch("./character_area.html")
+  .then(res => res.text())
+  .then(html => {
+    const area = document.getElementById("character-area");
+    area.innerHTML = html;
+
+    requestAnimationFrame(() => {
+      const level = 1; 
+      setCharacterImage(level);
+    });
+  });
+
+
+//캐릭터 메인 페이지
 function initCharacterMainUI(statusData) {
   document.getElementById('level').textContent = statusData.level;
   document.getElementById('xpNow').textContent = statusData.exp;
@@ -94,12 +111,6 @@ async function loadCharacterStatus() {
 // 경험치 처리
 async function giveExpToPet(expAmount = 5) {
   const accessToken = localStorage.getItem('accessToken');
-  if (!accessToken) {
-    alert('로그인이 필요합니다.');
-    window.location.href = '/login';
-    return;
-  }
-
 
   const res = await authorizedFetch('http://43.202.211.168:8080/api/pet/add-exp', {
     method: 'POST',

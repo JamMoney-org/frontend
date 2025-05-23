@@ -1,5 +1,13 @@
 import { authorizedFetch } from "../../utils/auth-fetch.js";
 
+//레벨별 캐릭터 //액자식 구성 ...
+export function setCharacterImage(level) {
+  const characterImg = document.getElementById("characterImage");
+  if (characterImg) {
+    characterImg.src = `https://jammoney.s3.ap-northeast-2.amazonaws.com/pet_level_${level}.png`;
+  }
+}
+
 async function initCharacter() {
   const statusRes = await authorizedFetch('http://43.202.211.168:8080/api/pet/status');
   const inventoryRes = await authorizedFetch('http://43.202.211.168:8080/api/item/inventory');
@@ -9,13 +17,9 @@ async function initCharacter() {
   const statusJson = await statusRes.json();
   const inventoryJson = await inventoryRes.json();
   const statusData = statusJson.result || statusJson;
-  const inventoryData = inventoryJson.result || inventoryJson;
+  const inventoryData = inventoryJson.data;
 
-  // 레벨별 캐릭터 이미지
-  const characterImg = document.getElementById('characterImage');
-  if (statusData.imageUrl) {
-    characterImg.src = statusData.imageUrl;
-  }
+
 
   //아이템 초기화
   const characterArea = document.querySelector('.character-area');
@@ -73,3 +77,4 @@ window.addEventListener("DOMContentLoaded", () => {
         }, 0);
       });
     });
+});
