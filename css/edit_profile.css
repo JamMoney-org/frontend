@@ -83,11 +83,7 @@ body {
     color: #777;
 }
 
-/* 셀렉트 */
-select.form-element {
-    appearance: none;
-    background: transparent;
-}
+
 
 /* 버튼 */
 .submit-button {
