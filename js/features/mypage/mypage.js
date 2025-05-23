@@ -1,5 +1,17 @@
 import { authorizedFetch } from "../../utils/auth-fetch.js";
 
+//회원 정보
+async function fetchUserInfo() {
+    const nicknameElem = document.querySelector(".nickname");
+    const emailElem = document.querySelector(".email");
+
+    const res = await authorizedFetch("http://43.202.211.168:8080/api/user/me");
+    const data = await res.json();
+    nicknameElem.textContent = data.nickname + "님";
+    emailElem.textContent = data.email;
+}
+fetchUserInfo()
+
 //보유 자산
 //모의투자 시작할때 포트폴리오가 생성되고 자산을 가져올 수 있음
 async function fetchTotalAsset() {
@@ -17,7 +29,7 @@ async function fetchTotalAsset() {
 
     document.getElementById("asset-value").textContent = totalAsset.toLocaleString() + "원";
 }
-  
+
 
 fetchTotalAsset();
 
@@ -28,28 +40,25 @@ document.addEventListener("DOMContentLoaded", () => {
         const confirmed = confirm("정말로 탈퇴하시겠습니까?");
         if (!confirmed) return;
 
-        try {
-            const res = await authorizedFetch("http://43.202.211.168:8080/api/user", {
-                method: "DELETE",
-            });
+        const res = await authorizedFetch("http://43.202.211.168:8080/api/user", {
+            method: "DELETE",
+        });
 
-            if (res.ok) {
-                alert("회원 탈퇴가 완료되었습니다.");
-                localStorage.removeItem("accessToken");
-                localStorage.removeItem("refreshToken");
-                window.location.href = "../pages/main.html";
-            } else {
-                alert("회원 탈퇴에 실패했습니다.");
-            }
-        } catch (error) {
-            console.error("탈퇴 요청 중 오류:", error);
+        if (res.ok) {
+            alert("회원 탈퇴가 완료되었습니다.");
+            localStorage.removeItem("accessToken");
+            localStorage.removeItem("refreshToken");
+            window.location.href = "../pages/main.html";
+        } else {
+            alert("회원 탈퇴에 실패했습니다.");
         }
     });
 });
 
+
 //로그아웃
 async function logout() {
-    const confirmed = confirm("정말로 탈퇴하시겠습니까?");
+    const confirmed = confirm("정말로 로그아웃하시겠습니까?");
     if (!confirmed) return;
     localStorage.removeItem("accessToken");
     localStorage.removeItem("refreshToken");
