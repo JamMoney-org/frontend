@@ -47,6 +47,8 @@ function createScenarioItem(scenario) {
   item.appendChild(desc);
 
   item.addEventListener('click', () => {
+    const rewardMap = { EASY: 10, NORMAL: 20, HARD: 30 };
+    sessionStorage.setItem('reward', rewardMap[scenario.difficulty]);
     location.href = `/pages/scenario_intro.html?scenarioId=${scenario.id}`;
   });
 
