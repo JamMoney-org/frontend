@@ -1,5 +1,13 @@
 import { authorizedFetch } from '../../utils/auth-fetch.js';
 
+const labelToEnumMap = {
+  소비: 'CONSUMPTION',
+  저축: 'SAVING',
+  대출: 'LOAN',
+  투자: 'INVESTMENT',
+  세금: 'TAX',
+};
+
 const scenarioListEl = document.querySelector('.scenario-list');
 const categoryLabelEl = document.querySelector('.category-label');
 
@@ -38,24 +46,43 @@ function createScenarioItem(scenario) {
   item.appendChild(header);
   item.appendChild(desc);
 
-  // 나중에 클릭 이벤트 연결하고 싶으면 여기서 추가
+  item.addEventListener('click', () => {
+    sessionStorage.setItem('selectedScenario', JSON.stringify(scenario));
+    location.href = `/pages/scenario_intro.html?scenarioId=${scenario.id}`;
+  });
+
   return item;
 }
 
-async function loadScenarioList(category) {
+async function loadScenarioList(category, enumCategory) {
   try {
     const res = await authorizedFetch(
-      `http://43.202.211.168:8080/api/category/list?category=${encodeURIComponent(
-        category
-      )}`
+      `http://43.202.211.168:8080/api/scenario/category/list?category=${enumCategory}`
     );
-    const data = await res.json();
+    let data = await res.json();
+    data = [
+      {
+        id: 1,
+        title: '첫 월급 관리하기',
+        description: '첫 월급으로 무엇을 해야 할까요?',
+        difficulty: 'EASY',
+      },
+      {
+        id: 2,
+        title: '신용카드와 체크카드의 차이',
+        description: '카드 사용 전 반드시 알아야 할 팁',
+        difficulty: 'NORMAL',
+      },
+      {
+        id: 3,
+        title: '세금 계산서 이해하기',
+        description: '소득세, 부가세를 쉽게 이해해 봅시다.',
+        difficulty: 'HARD',
+      },
+    ];
 
     // 헤더 타이틀 갱신
     categoryLabelEl.textContent = `${category} - 상황선택`;
-
-    // 기존 목록 제거
-    scenarioListEl.innerHTML = '';
 
     if (data.length === 0) {
       scenarioListEl.innerHTML = '<p>등록된 시나리오가 없습니다.</p>';
@@ -76,11 +103,12 @@ async function loadScenarioList(category) {
 (function () {
   const params = new URLSearchParams(location.search);
   const category = params.get('category');
+  const enumCategory = labelToEnumMap[category];
 
-  if (!category) {
+  if (!enumCategory) {
     scenarioListEl.innerHTML = '<p>카테고리가 지정되지 않았습니다.</p>';
     return;
   }
 
-  loadScenarioList(category);
+  loadScenarioList(category, enumCategory);
 })();
