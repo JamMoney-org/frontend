@@ -13,7 +13,6 @@ document.addEventListener("DOMContentLoaded", async () => {
     nicknameInput.value = data.nickname;
 
     //닉네임 수정
-    //cors 수정해주시면 마무리하기
     form.addEventListener("submit", async (e) => {
         e.preventDefault();
         const newNickname = nicknameInput.value.trim();
