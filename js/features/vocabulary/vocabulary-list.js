@@ -12,9 +12,10 @@ document.addEventListener("DOMContentLoaded", async () => {
   categoryTitle.textContent = categoryName || "단어장";
 
   try {
-    const response = await authorizedFetch(`http://43.202.211.168:8080/api/terms/categories/${categoryId}/days`, {
-      method: "GET"
-    });
+      const response = await authorizedFetch(
+      `http://43.202.211.168:8080/api/terms/categories/${encodeURIComponent(categoryName)}/days`,
+      { method: "GET" }
+    );
 
     const dayIndexes = await response.json(); // [1, 2, 3, ...]
 
@@ -33,11 +34,13 @@ document.addEventListener("DOMContentLoaded", async () => {
         </div>
       `;
 
-      // 클릭 시 다음 단계로 이동 가능하도록 (필요하다면 수정)
       wordItem.addEventListener("click", () => {
-        console.log(`카테고리 ${categoryName}의 DAY${day} 클릭됨`);
-        window.location.href = `/pages/vocabulary_detail.html?categoryId=${categoryId}&day=${day}`;
-      });
+      console.log(`카테고리 ${categoryName}의 DAY${day} 클릭됨`);
+
+      // categoryName을 넘겨야 detail 페이지에서 null 오류 안 남
+      window.location.href = `/pages/vocabulary_detail.html?categoryName=${encodeURIComponent(categoryName)}&day=${day}`;
+    });
+
 
       wordListContainer.appendChild(wordItem);
     });
