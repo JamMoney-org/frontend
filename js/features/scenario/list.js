@@ -47,7 +47,6 @@ function createScenarioItem(scenario) {
   item.appendChild(desc);
 
   item.addEventListener('click', () => {
-    sessionStorage.setItem('selectedScenario', JSON.stringify(scenario));
     location.href = `/pages/scenario_intro.html?scenarioId=${scenario.id}`;
   });
 
