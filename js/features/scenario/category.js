@@ -1,4 +1,4 @@
-// /js/features/scenario/category.js
+import { authorizedFetch } from '../../utils/auth-fetch.js';
 
 const categoryGridEl = document.querySelector('.category-grid');
 
@@ -9,7 +9,7 @@ function getCategoryImagePath(name) {
 
 // 클릭 시 카테고리별 시나리오 리스트 페이지로 이동
 function navigateToScenarioList(category) {
-  location.href = `/pages/scenario-list.html?category=${encodeURIComponent(
+  location.href = `/pages/scenario_select.html?category=${encodeURIComponent(
     category
   )}`;
 }
@@ -45,8 +45,6 @@ async function loadCategories() {
       }
     );
     const categories = await response.json();
-
-    categoryGridEl.innerHTML = ''; // 기존 항목 제거
 
     categories.forEach((label) => {
       const el = createCategoryItem(label);
