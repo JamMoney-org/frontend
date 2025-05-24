@@ -56,10 +56,11 @@ import { authorizedFetch } from '../../utils/auth-fetch.js';
       .join('<br>');
 
     // 학습 화면에서 쓸 수 있도록 캐싱
-    sessionStorage.setItem('scenarioStartData', JSON.stringify(scenario));
+    sessionStorage.setItem('scenarioData', JSON.stringify(scenario));
+    sessionStorage.setItem('isFinalStep', JSON.stringify(false));
 
     document.querySelector('.start-btn').addEventListener('click', () => {
-      location.href = `/pages/scenario_start.html?scenarioId=${scenarioId}`;
+      location.href = `/pages/scenario_progress.html`;
     });
   } catch (e) {
     document.querySelector('.simul-title').textContent =
