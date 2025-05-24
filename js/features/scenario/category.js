@@ -39,7 +39,7 @@ function createCategoryItem(label) {
 async function loadCategories() {
   try {
     const response = await authorizedFetch(
-      'http://43.202.211.168:8080/api/category',
+      'http://43.202.211.168:8080//api/scenario/category',
       {
         method: 'GET',
       }
