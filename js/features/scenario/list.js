@@ -60,27 +60,7 @@ async function loadScenarioList(category, enumCategory) {
     const res = await authorizedFetch(
       `http://43.202.211.168:8080/api/scenario/category/list?category=${enumCategory}`
     );
-    let data = await res.json();
-    data = [
-      {
-        id: 1,
-        title: '첫 월급 관리하기',
-        description: '첫 월급으로 무엇을 해야 할까요?',
-        difficulty: 'EASY',
-      },
-      {
-        id: 2,
-        title: '신용카드와 체크카드의 차이',
-        description: '카드 사용 전 반드시 알아야 할 팁',
-        difficulty: 'NORMAL',
-      },
-      {
-        id: 3,
-        title: '세금 계산서 이해하기',
-        description: '소득세, 부가세를 쉽게 이해해 봅시다.',
-        difficulty: 'HARD',
-      },
-    ];
+    const data = await res.json();
 
     // 헤더 타이틀 갱신
     categoryLabelEl.textContent = `${category} - 상황선택`;
