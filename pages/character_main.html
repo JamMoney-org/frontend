@@ -34,7 +34,10 @@
       </div>
 
       <!-- 캐릭터 공간 -->
-      <div id="character-area"></div>
+      <div class="character-area">
+        <img src="" class="background-img" id="bgImage" />
+        <img src="" alt="캐릭터 이미지" class="character-img" id="characterImage" />
+      </div>
 
       <!-- 캐릭터 정보 -->
       <div class="status-box">
@@ -57,7 +60,7 @@
           <div class="progress-bar">
             <div class="progress" id="progressBar"></div>
           </div>
-          <span class="xp"><span id="xpNow">40</span> / <span id="xpMax">50</span> POINT</span>
+          <span class="xp"><span id="xpNow">40</span> / <span id="xpMax">50</span> EXP</span>
           <!--예시값-->
         </div>
       </div>
@@ -67,20 +70,9 @@
   <div id="navbar"></div>
 
   <script src="../js/script.js"></script>
-  <script type="module" src="../js/features/character/character-area.js"></script>
-  <script type="module" src="../js/features/character/character-main.js"></script>
-  <script>
-    fetch("./character_area.html")
-      .then(res => res.text())
-      .then(html => {
-        document.getElementById("character-area").innerHTML = html;
 
-        // 캐릭터 상태 초기화 함수가 있다면 실행
-        if (typeof initCharacter === "function") {
-          initCharacter();
-        }
-      });
-  </script>
+  <script type="module" src="../js/features/character/character-main.js"></script>
+
 
 </body>
 
