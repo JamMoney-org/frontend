@@ -12,7 +12,7 @@ const nextBtn = document.querySelector('.next-btn');
   const scenarioId = scenario.scenarioId;
   const stepOrder = scenario.stepOrder;
 
-  if (!scenario) {
+  if (!choiceId || !scenario) {
     dialogueTextEl.textContent =
       '필수 정보가 없습니다. 처음부터 다시 시작해 주세요.';
     return;
@@ -23,15 +23,6 @@ const nextBtn = document.querySelector('.next-btn');
 
   titleEl.textContent = scenario.title;
   dialogueTextEl.textContent = selectedChoice.feedback;
-
-  const isFinal = JSON.parse(sessionStorage.getItem('isFinalStep'));
-  if (isFinal) {
-    nextBtn.addEventListener('click', () => {
-      sessionStorage.removeItem('isFinalStep');
-      location.href = `/pages/scenario_summary.html`;
-    });
-    return;
-  }
 
   try {
     const res = await authorizedFetch(
@@ -47,45 +38,20 @@ const nextBtn = document.querySelector('.next-btn');
       }
     );
 
-    let data = await res.json();
-
-    data = {
-      scenarioId: 1,
-      stepOrder: 2,
-      aiMessage: '좋아요! 그럼 월급의 몇 퍼센트를 저축할 계획인가요?',
-      choices: [
-        {
-          choiceId: 201,
-          content: '50% 이상 저축할래요.',
-          feedback: '멋진 목표예요! 하지만 생활비도 고려해보세요.',
-          isGood: true,
-        },
-        {
-          choiceId: 202,
-          content: '30% 정도면 적당하지 않을까요?',
-          feedback: '현실적인 계획이에요. 꾸준한 저축이 중요하죠!',
-          isGood: true,
-        },
-        {
-          choiceId: 203,
-          content: '다 쓰고 남으면 저축하죠 뭐.',
-          feedback:
-            '그건 조금 위험할 수 있어요. 먼저 저축하고 남은 돈을 쓰는 습관을 들여보세요.',
-          isGood: false,
-        },
-      ],
-      isFinalStep: true,
-    };
+    const data = await res.json();
 
     nextBtn.addEventListener('click', () => {
-      scenario.stepOrder = data.stepOrder;
-      scenario.aiMessage = data.aiMessage;
-      scenario.choices = data.choices;
+      if (data.finalStep) {
+        location.href = `/pages/scenario_summary.html`;
+      } else {
+        scenario.stepOrder = data.stepOrder;
+        scenario.aiMessage = data.aiMessage;
+        scenario.choices = data.choices;
 
-      sessionStorage.setItem('scenarioData', JSON.stringify(scenario));
-      sessionStorage.setItem('isFinalStep', JSON.stringify(data.isFinalStep));
+        sessionStorage.setItem('scenarioData', JSON.stringify(scenario));
 
-      location.href = `/pages/scenario_progress.html`;
+        location.href = `/pages/scenario_progress.html`;
+      }
     });
   } catch (error) {
     console.error('피드백 로딩 실패:', error);
