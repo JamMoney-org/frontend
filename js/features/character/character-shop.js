@@ -1,29 +1,28 @@
 import { authorizedFetch } from "../../utils/auth-fetch.js";
 
-// 테스트용 mock 데이터 
-const mockShopItems = [
-  {
-    itemId: 1,
-    name: "왕관 모자",
-    type: "장식",
-    price: 100,
-    previewUrl: "../assets/images/crown.png"
-  },
-  {
-    itemId: 2,
-    name: "우주 배경",
-    type: "배경",
-    price: 300,
-    previewUrl: "../assets/images/space-bg.svg"
-  },
-  {
-    itemId: 3,
-    name: "나무 의자",
-    type: "가구",
-    price: 200,
-    previewUrl: "../assets/images/chair.png"
+//레벨별 이미지 설정
+function setCharacterImageByLevel(level) {
+  const characterImg = document.getElementById("characterImage");
+  if (characterImg) {
+    characterImg.src = `https://jammoney.s3.ap-northeast-2.amazonaws.com/pet_level_${level}.png`;
   }
-];
+}
+
+//이미지 api 연결
+async function fetchAndSetCharacterImage() {
+  const res = await authorizedFetch("http://43.202.211.168:8080/api/pet/status");
+  if (!res.ok) throw new Error("캐릭터 상태 조회 실패");
+
+  const data = await res.json();
+  const status = data.result || data;
+
+  setCharacterImageByLevel(status.data.level);
+
+}
+
+document.addEventListener("DOMContentLoaded", () => {
+  fetchAndSetCharacterImage();
+});
 
 document.addEventListener("DOMContentLoaded", () => {
   const itemGrid = document.querySelector(".item-grid");
@@ -33,23 +32,53 @@ document.addEventListener("DOMContentLoaded", () => {
   const buyButton = document.querySelector(".buy-button");
 
   let selectedItem = null;
-  let shopItems = []; // 전체 아이템 보관용
+  let shopItems = [];
 
-  // 카테고리 버튼들 선택
   const categoryButtons = document.querySelectorAll(".category");
 
-  // 카테고리 버튼 클릭 시 필터링
+
+  //카테고리
+  function getCategory(item) {
+    const pos = item.position?.toLowerCase().trim();
+
+    switch (pos) {
+      case "background":
+      case "":
+      case null:
+      case undefined:
+        return "배경";
+
+      case "furniture":
+        return "가구";
+
+      case "decoration":
+        return "장식";
+
+      case "sculpture":
+        return "조형";
+
+      case "etc":
+      default:
+        return "기타";
+    }
+  }
+
+
+
+  // 카테고리 필터링
   categoryButtons.forEach(button => {
     button.addEventListener("click", () => {
       const filter = button.dataset.filter;
+
       const filtered = filter === "전체"
         ? shopItems
-        : shopItems.filter(item => item.type === filter);
+        : shopItems.filter(item => getCategory(item) === filter);
+
       renderItems(filtered);
     });
   });
 
-  // 아이템 렌더링 함수 분리
+  // 아이템 렌더링
   function renderItems(items) {
     itemGrid.innerHTML = "";
     items.forEach(item => {
@@ -77,29 +106,18 @@ document.addEventListener("DOMContentLoaded", () => {
     });
   }
 
-  // 기존 더미 아이템 박스 제거
-  itemGrid.innerHTML = "";
-
-  //테스트용 !!!
-  shopItems = mockShopItems;
-  renderItems(shopItems);
-
-  // 실제 백엔드에서 상점 아이템 목록 받아오기
-  // authorizedFetch("http://43.202.211.168:8080/api/item/shop")
-  //   .then(res => {
-  //     if (!res.ok) throw new Error("상점 아이템 조회 실패");
-  //     return res.json();
-  //   }) 
-  //   .then(data => {
-  //     shopItems = data.result;
-  //     itemGrid.innerHTML = "";
-  //     renderItems(shopItems);
-  //   })
-  //   .catch(err => {
-  //     alert("아이템을 불러오는 데 실패했습니다.");
-  //     console.error(err);
-  //   }); 
-  
+  //아이템 불러오기
+  authorizedFetch("http://43.202.211.168:8080/api/item/shop")
+    .then(res => res.ok ? res.json() : Promise.reject("조회 실패"))
+    .then(data => {
+      const items = data.data || data || [];
+      shopItems = items;
+      renderItems(shopItems);
+    })
+    .catch(err => {
+      console.error("❌ 아이템 불러오기 실패:", err);
+      alert("아이템 불러오기 실패: " + err);
+    });
 
   // 구매하기
   buyButton.addEventListener("click", () => {
