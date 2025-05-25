@@ -390,6 +390,18 @@ h2 {
     transition: background-color 0.2s ease;
 }
 
+.quiz-option.correct {
+  background-color: #5DC29E;
+  color: white;
+  border: none;
+}
+
+.quiz-option.incorrect {
+  background-color: #FF6B6B;
+  color: white;
+  border: none;
+}
+
 .quiz-option:hover {
     background-color: #e0e0e0;
 }

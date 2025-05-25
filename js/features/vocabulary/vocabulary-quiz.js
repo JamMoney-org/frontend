@@ -1,153 +1,185 @@
+// quiz-detail.js
 import { authorizedFetch } from "../../utils/auth-fetch.js";
 
-// DOM이 완전히 로드된 후 실행
-window.onload = () => {
-    const quizOptions = document.getElementById('quiz-options');
-    const nextButton = document.getElementById('quiz-next-button');
-    const progressBar = document.getElementById('progress-bar');
-    let currentQuestion = 0;
-    let selectedAnswer = null;
-    let isAnswered = false;
+document.addEventListener("DOMContentLoaded", async () => {
+  const urlParams = new URLSearchParams(window.location.search);
+  const categoryName = urlParams.get("categoryName");
+  const dayIndex = urlParams.get("day");
 
+  const quizTitle = document.getElementById("quiz-title");
+  const quizOptionsContainer = document.getElementById("quiz-options");
+  const progressBar = document.getElementById("progress-bar");
+  const nextButton = document.getElementById("quiz-next-button");
+  const feedback = document.getElementById("quiz-feedback");
+
+  let quizzes = [];
+  let currentQuestionIndex = 0;
+  let selectedAnswer = null;
+  let isAnswered = false;
+
+  if (!categoryName || !dayIndex) {
+    alert("잘못된 접근입니다.");
+    return;
+  }
+
+  try {
+    const response = await authorizedFetch(
+      `http://43.202.211.168:8080/api/terms/quiz/batch?categoryName=${encodeURIComponent(
+        categoryName
+      )}&dayIndex=${dayIndex}`,
+      { method: "GET" }
+    );
+
+    quizzes = await response.json();
+
+    if (!Array.isArray(quizzes) || quizzes.length === 0) {
+      alert("퀴즈가 없습니다.");
+      return;
+    }
+
+    renderQuestion(currentQuestionIndex);
+  } catch (err) {
+    console.error("퀴즈 로딩 실패:", err);
+    alert("퀴즈를 불러오는 데 실패했습니다.");
+  }
+
+  function renderQuestion(index) {
+    const quiz = quizzes[index];
+    quizTitle.textContent = `Q${index + 1}. ${quiz.question}`;
+    quizOptionsContainer.innerHTML = "";
+    if (feedback) {
+      feedback.textContent = "";
+      feedback.className = "feedback";
+    }
+    nextButton.textContent = "정답 확인";
     nextButton.disabled = true;
     nextButton.style.backgroundColor = "gray";
 
-    const quizData = [
-        { question: "JavaScript에서 변수 선언 키워드가 아닌 것은?", options: ["var", "let", "const", "int"], answer: 3 },
-        { question: "HTML의 구조를 정의하는 태그는?", options: ["<div>", "<header>", "<body>", "<html>"], answer: 3 },
-        { question: "CSS에서 색상을 표현하는 방법이 아닌 것은?", options: ["Hex 코드", "RGB", "CMYK", "HSL"], answer: 2 },
-        { question: "Python에서 리스트를 선언하는 방법으로 올바른 것은?", options: ["{}", "[]", "()", "<>"], answer: 1 }
-    ];
+    quiz.choices.forEach((choice, i) => {
+      const btn = document.createElement("button");
+      btn.textContent = `${["①", "②", "③", "④"][i]} ${choice}`;
+      btn.classList.add("quiz-option");
+      btn.dataset.index = i;
 
-    function renderQuestion(index) {
-        const quizTitle = document.getElementById('quiz-title');
-        quizTitle.textContent = `${index + 1}. ${quizData[index].question}`;
-        quizOptions.innerHTML = '';
-        selectedAnswer = null;
-        isAnswered = false;
-        nextButton.textContent = "정답 확인";
-        nextButton.disabled = true;
-        nextButton.style.backgroundColor = "gray";
-
-        quizData[index].options.forEach((option, idx) => {
-            const button = document.createElement('button');
-            button.classList.add('quiz-option');
-            button.textContent = `${idx + 1}. ${option}`;
-            button.dataset.id = idx;
-            button.addEventListener('click', handleOptionClick);
-            quizOptions.appendChild(button);
-        });
-
-        updateProgress();
-    }
-
-    function handleOptionClick(e) {
-        const options = document.querySelectorAll('.quiz-option');
-        options.forEach(option => option.classList.remove('selected'));
-
-        const button = e.target;
-        selectedAnswer = parseInt(button.dataset.id);
-        button.classList.add('selected');
-
+      btn.addEventListener("click", () => {
+        if (isAnswered) return;
+        document.querySelectorAll(".quiz-option").forEach(b => b.classList.remove("selected"));
+        btn.classList.add("selected");
+        selectedAnswer = i;
         nextButton.disabled = false;
         nextButton.style.backgroundColor = "#5DC29E";
-    }
+      });
 
-    function showModal(message) {
-        const modal = document.createElement('div');
-        modal.classList.add('modal');
-        modal.innerHTML = `
-            <div class="modal-content">
-                <p>${message}</p>
-                <button class="modal-button">확인</button>
-            </div>
-        `;
-        document.body.appendChild(modal);
-
-        // 모달 버튼 클릭 시 모달 닫기
-        const modalButton = modal.querySelector('.modal-button');
-        modalButton.addEventListener('click', closeModal);
-    }
-
-    function closeModal() {
-        const modal = document.querySelector('.modal');
-        if (modal) {
-            modal.remove();
-        }
-    }
-
-    function updateProgress() {
-        const progress = ((currentQuestion + 1) / quizData.length) * 100;
-        progressBar.style.width = `${progress}%`;
-    }
-
-    function showAnswerFeedback() {
-        const options = document.querySelectorAll('.quiz-option');
-        options.forEach((option, idx) => {
-            if (idx === quizData[currentQuestion].answer) {
-                option.classList.add('correct'); // 정답은 초록색
-            } else if (idx === selectedAnswer) {
-                option.classList.add('incorrect'); // 오답은 빨간색
-            }
-    });
-}
-
-    function showModal(message) {
-        // 모달 배경 추가
-        const backdrop = document.createElement('div');
-        backdrop.classList.add('modal-backdrop');
-
-        const modal = document.createElement('div');
-        modal.classList.add('modal');
-        modal.innerHTML = `
-            <div class="modal-content">
-                <p>${message}</p>
-                <button class="modal-button">확인</button>
-            </div>
-        `;
-
-        // 모달 배경과 모달을 body에 추가
-        document.body.appendChild(backdrop);
-        document.body.appendChild(modal);
-
-        // 모달 버튼 클릭 시 모달 닫기
-        const modalButton = modal.querySelector('.modal-button');
-        modalButton.addEventListener('click', closeModal);
-    }
-
-    function closeModal() {
-        const modal = document.querySelector('.modal');
-        const backdrop = document.querySelector('.modal-backdrop');
-        if (modal) modal.remove();
-        if (backdrop) backdrop.remove();
-    }
-
-
-    nextButton.addEventListener('click', () => {
-        if (!isAnswered) {
-            if (selectedAnswer === null) return;
-
-            const correctAnswer = quizData[currentQuestion].options[quizData[currentQuestion].answer];
-            const message = selectedAnswer === quizData[currentQuestion].answer
-                ? "참 잘했어요! 정답이에요!"
-                : `오답입니다! 정답은 "${correctAnswer}" 입니다.`;
-            
-            showAnswerFeedback();
-            showModal(message);
-
-            nextButton.textContent = "다음";
-            isAnswered = true;
-        } else {
-            currentQuestion++;
-            if (currentQuestion < quizData.length) {
-                renderQuestion(currentQuestion);
-            } else {
-                showModal("퀴즈 완료!");
-                currentQuestion = 0;
-                renderQuestion(currentQuestion);
-            }
-        }
+      quizOptionsContainer.appendChild(btn);
     });
 
-    renderQuestion(currentQuestion);
-};
+    updateProgressBar();
+  }
+
+  function updateProgressBar() {
+    const progress = ((currentQuestionIndex + 1) / quizzes.length) * 100;
+    progressBar.style.width = `${progress}%`;
+  }
+
+  function showModal(message) {
+    const backdrop = document.createElement("div");
+    backdrop.classList.add("modal-backdrop");
+
+    const modal = document.createElement("div");
+    modal.classList.add("modal");
+
+    modal.innerHTML = `
+      <div class="modal-content">
+        <p class="modal-message">${message}</p>
+        <div class="modal-buttons">
+          <button id="modal-confirm" class="modal-button">확인</button>
+        </div>
+      </div>
+    `;
+
+    document.body.appendChild(backdrop);
+    document.body.appendChild(modal);
+
+    document.getElementById("modal-confirm").addEventListener("click", closeModal);
+  }
+
+  function closeModal() {
+    const modal = document.querySelector(".modal");
+    const backdrop = document.querySelector(".modal-backdrop");
+    if (modal) modal.remove();
+    if (backdrop) backdrop.remove();
+  }
+
+  nextButton.addEventListener("click", async () => {
+    const quiz = quizzes[currentQuestionIndex];
+
+    if (!isAnswered) {
+      if (selectedAnswer === null) return;
+
+      try {
+        const submitPayload = {
+          categoryName: categoryName,
+          dayIndex: parseInt(dayIndex),
+          answers: [
+            {
+              quizId: quiz.quizId,
+              userAnswerIndex: selectedAnswer
+            }
+          ]
+        };
+
+        console.log("제출 payload:", submitPayload);
+
+        const response = await authorizedFetch("http://43.202.211.168:8080/api/terms/quiz/submit", {
+          method: "POST",
+          body: JSON.stringify(submitPayload)
+        });
+
+        if (!response.ok) {
+          const errorText = await response.text();
+          console.error("서버 오류 응답:", errorText);
+          throw new Error("서버 오류 발생");
+        }
+
+        const resultList = await response.json();
+
+        if (!Array.isArray(resultList) || resultList.length === 0) {
+          console.error("서버 응답이 비어 있음 또는 예상과 다름:", resultList);
+          alert("정답 결과를 불러오지 못했습니다.");
+          return;
+        }
+
+        const result = resultList[0];
+        const { isCorrect, correctAnswer, selectedAnswer: selected } = result;
+
+        document.querySelectorAll(".quiz-option").forEach((btn, i) => {
+          btn.classList.remove("selected", "correct", "incorrect");
+          if (i === correctAnswer) btn.classList.add("correct");
+          if (i === selected && i !== correctAnswer) btn.classList.add("incorrect");
+        });
+
+        const message = isCorrect ? "정답입니다!" : "오답입니다.";
+        showModal(message);
+
+        nextButton.textContent = "다음 문제";
+        isAnswered = true;
+      } catch (err) {
+        console.error("정답 제출 실패", err);
+        alert("서버와 통신 중 오류가 발생했습니다.");
+      }
+    } else {
+      currentQuestionIndex++;
+      if (currentQuestionIndex < quizzes.length) {
+        renderQuestion(currentQuestionIndex);
+        isAnswered = false;
+        selectedAnswer = null;
+      } else {
+        const quizResults = quizzes.map(q => ({
+          correct: q.userAnswerIndex === q.correctIndex
+        }));
+        localStorage.setItem("quizResults", JSON.stringify(quizResults));
+        window.location.href = "/pages/quiz_result.html";
+      }
+    }
+  });
+});
