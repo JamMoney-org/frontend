@@ -128,6 +128,9 @@
   white-space: nowrap; /* ✅ 한 줄 유지 */
 }
 
+.heart-icon {
+  margin-left: auto;
+}
 
 /*mock_invest_trade 스타일링*/
 .price-info {
@@ -143,12 +146,15 @@
     gap: 8px;
 }
 .price-item {
-    padding: 8px;
-    font-size: 1em;
-    text-align: left;
-    display: flex;
-    justify-content: space-between;
+  display: flex;
+  justify-content: space-between;
+  padding: 4px 8px;
 }
+.price-item .percent {
+  font-size: 0.85em;
+  opacity: 0.8;
+}
+
 .price-item.red { color: #e74c3c; }
 .price-item.blue { color: #3498db; }
 

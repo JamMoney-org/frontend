@@ -4,9 +4,9 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>JamMoney - 기본 레이아웃</title>
+    <title>모의주식투자 - 거래화면</title>
     <link rel="stylesheet" href="../css/style.css">
-    <link rel="stylesheet" href="../css/invest_sh.css">
+    <link rel="stylesheet" href="../css/invest.css">
 </head>
 <body>
     <!-- 메인 콘텐츠 영역 -->
@@ -27,19 +27,9 @@
                 <!-- 가격 정보 영역 -->
                 <div class="price-info">
                     <div class="price-list">
-                        <div class="price-item red">1,402 <span class="percent">0.36%</span></div>
-                        <div class="price-item blue">2,023</div>
-                        <div class="price-item red">1,401 <span class="percent">0.29%</span></div>
-                        <div class="price-item blue">4,625</div>
-                        <div class="price-item red">1,400 <span class="percent">0.21%</span></div>
-                        <div class="price-item blue">6,831</div>
-                        <div class="price-item">1,399 <span class="percent">0.14%</span></div>
-                        <div class="price-item">20,558</div>
-                        <div class="price-item">1,398 <span class="percent">0.07%</span></div>
-                        <div class="price-item">13,139</div>
-                        <div class="price-item selected">1,397 <span class="percent">0.00%</span></div>
-                        <div class="price-item">3,523</div>
+                        <!-- JS에서 ask/bid 데이터를 동적으로 삽입 -->
                     </div>
+
                 </div>
 
                 <!-- 주문 영역 -->
@@ -89,5 +79,7 @@
 
     <div id="navbar"></div>
     <script src="../js/script.js"></script>
+    <script type="module" src="../js/features/mock_invest/stock-trade.js"></script>
+
 </body>
 </html>
