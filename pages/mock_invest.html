@@ -33,11 +33,11 @@
 
       <div class="content">
         <div class="stock-header">
-          <h2 class="title">
+          <h2 class="company-name">
             동양철관 <img src="../assets/icon/search.svg" alt="" />
           </h2>
           <div class="current-price">1,397원</div>
-          <div class="price-change">어제보다 0 (0%)</div>
+          <div class="price-change">어제보다 <span>0 (0%)</span></div>
         </div>
 
         <div class="tab-menu">
@@ -54,12 +54,13 @@
               <div class="tooltip-box" id="tooltip" style="display: none"></div>
             </div>
 
-            <div class="period-tabs">
+            <!-- <div class="period-tabs">
               <button data-range="1d" class="active">1일</button>
               <button data-range="3m">3달</button>
               <button data-range="1y">1년</button>
-            </div>
+            </div> -->
           </div>
+
           <div id="time" class="tab-pane">
             <table>
               <thead>
@@ -163,7 +164,7 @@
                   <td class="label">거래대금</td>
                   <td class="value" data-label="거래대금"></td>
                 </tr>
-                <tr>
+                <!-- <tr>
                   <td class="label">시가총액</td>
                   <td class="value" data-label="시가총액"></td>
                   <td class="label">액면가</td>
@@ -174,7 +175,7 @@
                   <td class="value" data-label="상장일자"></td>
                   <td class="label">상장수량</td>
                   <td class="value" data-label="상장수량"></td>
-                </tr>
+                </tr> -->
                 <tr>
                   <td class="label" colspan="2">시장정보구분(투자주의)</td>
                   <td
@@ -182,11 +183,13 @@
                     colspan="2"
                     data-label="시장정보구분(투자주의)"
                   ></td>
-                </tr>
+                  <!-- </tr>
                 <tr>
                   <td class="label" colspan="2">업종분류</td>
                   <td class="value" colspan="2" data-label="업종분류"></td>
+                </tr> -->
                 </tr>
+
                 <tr>
                   <td class="label">관리종목</td>
                   <td class="value" data-label="관리종목"></td>
@@ -230,20 +233,6 @@
       src="../js/features/mock_invest/mock-info.js"
     ></script>
     <script>
-      const buttons = document.querySelectorAll('.tab-menu button');
-      const panes = document.querySelectorAll('.tab-pane');
-
-      buttons.forEach((button) => {
-        button.addEventListener('click', () => {
-          const target = button.dataset.tab;
-
-          buttons.forEach((btn) => btn.classList.remove('active'));
-          panes.forEach((pane) => pane.classList.remove('active'));
-
-          button.classList.add('active');
-          document.getElementById(target).classList.add('active');
-        });
-      });
       const data = [
         {
           date: new Date('2025-05-07T10:00:00'),
