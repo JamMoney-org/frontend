@@ -3,9 +3,9 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>JamMoney - 기본 레이아웃</title>
+    <title>모의주식투자 리스트</title>
     <link rel="stylesheet" href="../css/style.css">
-    <link rel="stylesheet" href="../css/invest_sh.css">
+    <link rel="stylesheet" href="../css/invest.css">
 </head>
 <body>
     <!-- 메인 콘텐츠 영역 -->
@@ -41,44 +41,19 @@
 
             <!-- 주식 리스트 -->
             <div class="stock-list">
-                <div id="list-title"><h3 style="font-size: 15px; color: #51B291; text-align: center; margin: 3px 0;">주식</h3></div>
+                <div id="list-title">
+                    <h3 style="font-size: 15px; color: #51B291; text-align: center; margin: 3px 0;">주식</h3>
+                </div>
                 <ul>
-                    <li><img src="../assets/icon/농심.png" alt="동양철관">
-                        <div>
-                            <span>동양철관</span>
-                            <span>1,397 0%</span>
-                        </div>
-                    </li>
-                    <li><img src="../assets/icon/농심.png" alt="농심">
-                        <div>
-                            <span>농심</span>
-                            <span>405,000 0%</span>
-                        </div>
-                    </li>
-                    <li><img src="../assets/icon/농심.png" alt="포바이포">
-                        <div>
-                            <span>포바이포</span>
-                            <span>18,740 0%</span>
-                        </div>
-                    </li>
-                    <li><img src="../assets/icon/농심.png" alt="HD현대미포">
-                        <div>
-                            <span>HD현대미포</span>
-                            <span>172,100 0%</span>
-                        </div>
-                    </li>
-                    <li><img src="../assets/icon/농심.png" alt="LS에코에너지">
-                        <div>
-                            <span>LS에코에너지</span>
-                            <span>32,250 0%</span>
-                        </div>
-                    </li>
+                    <!-- JS가 이 안에 <li>들을 채워 넣을 예정 -->
                 </ul>
             </div>
+
         </div>
     </div>
 
     <div id="navbar"></div>
     <script src="../js/script.js"></script>
+    <script type="module" src="../js/features/mock_invest/stock-list.js"></script>
 </body>
 </html>
