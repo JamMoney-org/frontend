@@ -14,7 +14,7 @@ const explanationEl = document.getElementById("explanation");
 
 async function loadWrongNoteDetail() {
 
-    const res = await authorizedFetch(`http://43.202.211.168:8080/api/wrong_notes/${noteId}`);
+    const res = await authorizedFetch(`http://43.202.211.168:8080/api/wrong-notes/${noteId}`);
     const json = await res.json();
     console.log("📥 서버 응답:", json);
 
