@@ -1,5 +1,28 @@
 import { authorizedFetch } from "../../utils/auth-fetch.js";
-import { setCharacterImage } from "./character-area.js";
+
+//레벨별 이미지 설정
+function setCharacterImageByLevel(level) {
+  const characterImg = document.getElementById("characterImage");
+  if (characterImg) {
+    characterImg.src = `https://jammoney.s3.ap-northeast-2.amazonaws.com/pet_level_${level}.png`;
+  }
+}
+
+//이미지 api 연결
+async function fetchAndSetCharacterImage() {
+  const res = await authorizedFetch("http://43.202.211.168:8080/api/pet/status");
+  if (!res.ok) throw new Error("캐릭터 상태 조회 실패");
+
+  const data = await res.json();
+  const status = data.result || data;
+
+  setCharacterImageByLevel(status.data.level);
+
+}
+
+document.addEventListener("DOMContentLoaded", () => {
+  fetchAndSetCharacterImage();
+});
 
 // 캐릭터 메인 UI 초기화
 function initCharacterMainUI(statusData) {
@@ -9,9 +32,6 @@ function initCharacterMainUI(statusData) {
   document.getElementById('mood').textContent = `기분 : ${statusData.mood}`;
   document.getElementById('progressBar').style.width = `${statusData.expPercentage}%`;
   document.getElementById('characterName').textContent = statusData.name;
-
-  // 캐릭터 이미지 설정
-  setCharacterImage(statusData.level);
 }
 
 // 이름 저장 함수
@@ -164,5 +184,5 @@ async function giveExpToPet(expAmount = 5) {
 document.addEventListener('DOMContentLoaded', () => {
   setupNameEditUI();
   loadCharacterStatus();
-  loadCharacterArea();
+  // loadCharacterArea();
 });
