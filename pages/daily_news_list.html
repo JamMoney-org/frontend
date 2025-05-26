@@ -23,55 +23,23 @@
 
         <!-- 구현 영역 -->
         <div class="content">
-            <!-- 뉴스 배너 -->
-            <div class="news-banner">
-                <div class="banner-title">최신 뉴스</div>
-                <div class="news-carousel">
-                    <div class="news-card">Frame 319</div>
-                    <div class="news-card">Frame 320</div>
-                    <div class="news-card">Frame 322</div>
-                    <div class="news-card">...</div>
+            <div class="prompt-box">
+                <div class="prompt-icon">📰</div>
+                <div>
+                    <p class="prompt-title">오늘의 금융 뉴스 퀴즈</p>
+                    <p class="prompt-sub">뉴스를 읽고 퀴즈로 나의 금융 감각을 테스트해보세요!</p>
                 </div>
             </div>
 
-            <!-- 뉴스 리스트 -->
-            <div class="news-list" id="news-list">
-                <!-- 뉴스 아이템 -->
-                <div class="news-item">
-                    <h3>하나·KB국민은행서 총 85억 금융사고..."외부인 의한 사기"</h3>
-                    <p>News1 · 2025.05.04</p>
-                </div>
-                <div class="news-item">
-                    <h3>하나·KB국민은행서 총 85억 금융사고..."외부인 의한 사기"</h3>
-                    <p>News1 · 2025.05.04</p>
-                </div>
-                <div class="news-item">
-                    <h3>하나·KB국민은행서 총 85억 금융사고..."외부인 의한 사기"</h3>
-                    <p>News1 · 2025.05.04</p>
-                </div>
-                <div class="news-item">
-                    <h3>하나·KB국민은행서 총 85억 금융사고..."외부인 의한 사기"</h3>
-                    <p>News1 · 2025.05.04</p>
-                </div>
-                <div class="news-item">
-                    <h3>하나·KB국민은행서 총 85억 금융사고..."외부인 의한 사기"</h3>
-                    <p>News1 · 2025.05.04</p>
-                </div>
-                <div class="news-item">
-                    <h3>하나·KB국민은행서 총 85억 금융사고..."외부인 의한 사기"</h3>
-                    <p>News1 · 2025.05.04</p>
-                </div>
-                <div class="news-item">
-                    <h3>하나·KB국민은행서 총 85억 금융사고..."외부인 의한 사기"</h3>
-                    <p>News1 · 2025.05.04</p>
-                </div>
-            </div>
+            <h3 id="content-title">최신 뉴스</h3>
+
+            <!-- 뉴스 리스트 (JS로 동적 생성) -->
+            <div class="news-list" id="news-list"></div>
         </div>
-
-        
     </div>
 
     <div id="navbar"></div>
     <script src="../js/script.js"></script>
+    <script type="module" src="../js/features/news/daily-news-list.js"></script>
 </body>
 </html>

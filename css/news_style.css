@@ -1,23 +1,32 @@
 /* daily_news_list 스타일링 */
-.news-banner {
-    margin: 10px 0 40px 0;
-    padding: 10px;
+#content-title {
+    margin-top: 40px;
 }
 
-.banner-title {
-    font-size: 1.2em;
-    font-weight: bold;
-    margin-bottom: 14px;
-    color: #333;
+.prompt-box {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  background-color: #EAF6F2;
+  padding: 14px 18px;
+  border-radius: 12px;
+  box-shadow: 0 2px 6px rgba(0,0,0,0.04);
+  margin-bottom: 18px;
+  margin-top: 20px;
 }
 
-/* 뉴스 캐러셀 */
-.news-carousel {
-    display: flex;
-    gap: 10px;
-    overflow-x: auto;
-    white-space: nowrap;
-    padding: 5px;
+.prompt-icon {
+  font-size: 22px;
+}
+
+.prompt-title {
+  font-weight: bold;
+  font-size: 15px;
+}
+
+.prompt-sub {
+  font-size: 13px;
+  color: #666;
 }
 
 .news-card {
@@ -42,7 +51,7 @@
 .news-item {
     background-color: #fff;
     margin: 20px 15px;
-    padding: 15px;
+    padding: 10px;
     border: 1px solid #D9D9D9;
     border-radius: 8px;
     box-sizing: border-box;
@@ -58,7 +67,7 @@
 .news-item p {
     font-size: 0.7em;
     color: #666;
-    margin-bottom: 15px;
+    margin-bottom: 12px;
 }
 
 /* 반응형 스타일 */
@@ -82,33 +91,32 @@
     }
 }
 
-/* daily_news_list_detail 스타일링 */
+/* daily_news_detail 스타일링 */
+/* 기사 제목 */
 .article-title {
-    display: block;
-    width: 100%; /* 제목이 부모 요소에 꽉 차도록 설정 */
+    width: 100%;
     font-weight: bold;
     font-size: 1.2rem;
-    margin-bottom: 5px;
+    margin: 10px 0 5px;
 }
 
 /* 출처 */
 #source {
     font-size: 11px;
     color: #808080;
-    line-height: 10px;
+    line-height: 30px;
 }
 
-/* ai 요약 */
+/* AI 요약 */
 .ai-summary {
-    margin: 30px 20px 15px 20px ;
+    margin: 30px 20px 15px;
     padding: 20px 25px;
     background-color: #F5F5F5;
     border-radius: 8px;
-    text-decoration: none;
 }
 
 .ai-summary h4 {
-    margin-bottom: 8px; /* h4와 ul 사이 간격 */
+    margin-bottom: 8px;
 }
 
 .ai-summary ul {
@@ -128,40 +136,84 @@
     font-size: 15px;
 }
 
+/* 퀴즈 */
 .quiz-container {
-    margin: 20px 20px;
+    margin: 20px;
 }
-
-.quiz-container button {
-    margin: 5px 0;
-    padding: 10px;
-    width: 100%;
-    background-color: #BEE7D8;
-    border: none;
-    border-radius: 5px;
-    text-align: left;
-}
-
 
 #question {
     font-size: 14px;
     font-weight: bold;
-    margin-top: 15px;
-    margin-bottom: 5px;
+    margin: 15px 0 5px;
 }
 
+.quiz-container button.quiz-option {
+    margin-top: 6px;
+    padding: 10px;
+    border-radius: 8px;
+    border: 1px solid #ddd;
+    background-color: #f9f9f9;
+    width: 100%;
+    text-align: left;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+}
+
+.quiz-container button.quiz-option:hover:not(:disabled) {
+    background-color: #eee;
+}
+
+.quiz-container button.correct {
+    background-color: #d4edda;
+    border-color: #28a745;
+    color: #155724;
+    font-weight: bold;
+}
+
+.quiz-container button.wrong {
+    background-color: #f8d7da;
+    border-color: #dc3545;
+    color: #721c24;
+    font-weight: bold;
+}
+
+/* 구분선 */
 hr {
     border: none;
-    border-top: 1px solid #DDDDDD; 
-    margin: 10px 0; 
+    border-top: 1px solid #ddd;
+    margin: 10px 0;
 }
 
+/* 전체 콘텐츠 패딩 */
 .content {
     padding: 10px 30px;
 }
 
-button {
-    height: 40px;
-    font-size: 13px;
+/* 모달 */
+.modal {
+    position: fixed;
+    top: 0; left: 0; right: 0; bottom: 0;
+    background-color: rgba(0, 0, 0, 0.5);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    z-index: 1000;
 }
 
+.modal-content {
+    background: white;
+    padding: 24px 32px;
+    border-radius: 12px;
+    text-align: center;
+    box-shadow: 0 4px 12px rgba(0,0,0,0.2);
+}
+
+.modal-content button {
+    margin-top: 16px;
+    padding: 8px 16px;
+    background-color: #4CAF50;
+    color: white;
+    border: none;
+    border-radius: 6px;
+    cursor: pointer;
+}
