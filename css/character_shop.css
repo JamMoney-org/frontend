@@ -119,7 +119,8 @@ body {
 }
 
 /* 구매 버튼 */
-.buy-button {
+.buy-button,
+.sell-button {
   background-color: #5DC29E;
   color: white;
   border: none;
@@ -127,3 +128,14 @@ body {
   border-radius: 8px;
   font-size: 15px;
 }
+/* 
+.cash {
+  text-align: right;
+  border: 1px solid #e1e1e1;
+  padding: 6px 10px;
+  border-radius: 10px;
+  margin-bottom: 20px;
+  width: fit-content;
+  margin-left: 80%;
+  color: #333;
+} */

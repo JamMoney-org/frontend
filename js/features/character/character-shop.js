@@ -1,69 +1,17 @@
 import { authorizedFetch } from "../../utils/auth-fetch.js";
 
-//레벨별 이미지 설정
-function setCharacterImageByLevel(level) {
-  const characterImg = document.getElementById("characterImage");
-  if (characterImg) {
-    characterImg.src = `https://jammoney.s3.ap-northeast-2.amazonaws.com/pet_level_${level}.png`;
-  }
-}
-
-//이미지 api 연결
-async function fetchAndSetCharacterImage() {
-  const res = await authorizedFetch("http://43.202.211.168:8080/api/pet/status");
-  if (!res.ok) throw new Error("캐릭터 상태 조회 실패");
-
-  const data = await res.json();
-  const status = data.result || data;
-
-  setCharacterImageByLevel(status.data.level);
-
-}
-
-document.addEventListener("DOMContentLoaded", () => {
-  fetchAndSetCharacterImage();
-});
-
 document.addEventListener("DOMContentLoaded", () => {
   const itemGrid = document.querySelector(".item-grid");
   const previewImg = document.getElementById("selectedItemImage");
   const previewName = document.getElementById("selectedItemName");
   const previewPrice = document.getElementById("selectedItemPrice");
   const buyButton = document.querySelector(".buy-button");
+  const sellButton = document.querySelector(".sell-button");
 
   let selectedItem = null;
   let shopItems = [];
 
   const categoryButtons = document.querySelectorAll(".category");
-
-
-  //카테고리
-  function getCategory(item) {
-    const pos = item.position?.toLowerCase().trim();
-
-    switch (pos) {
-      case "background":
-      case "":
-      case null:
-      case undefined:
-        return "배경";
-
-      case "furniture":
-        return "가구";
-
-      case "decoration":
-        return "장식";
-
-      case "sculpture":
-        return "조형";
-
-      case "etc":
-      default:
-        return "기타";
-    }
-  }
-
-
 
   // 카테고리 필터링
   categoryButtons.forEach(button => {
@@ -72,7 +20,7 @@ document.addEventListener("DOMContentLoaded", () => {
 
       const filtered = filter === "전체"
         ? shopItems
-        : shopItems.filter(item => getCategory(item) === filter);
+        : shopItems.filter(item => item.type === filter);
 
       renderItems(filtered);
     });
@@ -100,7 +48,7 @@ document.addEventListener("DOMContentLoaded", () => {
       box.addEventListener("click", () => {
         previewImg.src = item.previewUrl;
         previewName.textContent = item.name;
-        previewPrice.textContent = `🪙 ${item.price}p`;
+        previewPrice.textContent = `🪙 ${item.price} cash`;
         selectedItem = item;
       });
     });
@@ -131,7 +79,6 @@ document.addEventListener("DOMContentLoaded", () => {
 
     authorizedFetch("http://43.202.211.168:8080/api/item/purchase", {
       method: "POST",
-      headers: { "Content-Type": "application/json" },
       body: JSON.stringify({ itemId: selectedItem.itemId })
     })
       .then(res => res.json())
@@ -142,4 +89,29 @@ document.addEventListener("DOMContentLoaded", () => {
         alert("구매 실패: " + err.message);
       });
   });
+
+  // 판매하기
+  if (sellButton) {
+    sellButton.addEventListener("click", () => {
+      if (!selectedItem) {
+        alert("아이템을 선택해주세요!");
+        return;
+      }
+
+      const confirmSell = confirm(`"${selectedItem.name}" 아이템을 "${selectedItem.price * 0.8}"cash에 판매하시겠습니까?`);
+      if (!confirmSell) return;
+
+      authorizedFetch("http://43.202.211.168:8080/api/item/sell", {
+        method: "POST",
+        body: JSON.stringify({ itemId: selectedItem.itemId })
+      })
+        .then(res => res.json())
+        .then(data => {
+          alert(data.message || "판매 완료!");
+          fetchInventory();
+        })
+        .catch(err => alert("판매 실패: " + err.message));
+    });
+  }
+
 });

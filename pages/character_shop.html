@@ -25,38 +25,28 @@
 
     <!-- 구현 영역 -->
     <div class="content">
-      <!-- 상단 캐릭터 공간 -->
-      <div class="character-container">
-        <!-- 캐릭터 공간 -->
-        <div id="character-area">
-          <img src="" class="background-img" id="bgImage" />
-          <img src="" alt="캐릭터 이미지" class="character-img" id="characterImage" />
+      <!-- <div>
+        <div class="cash">🪙0 cash</div>
+      </div> -->
+      <!-- 선택된 아이템 정보 영역 -->
+      <div class="selected-item-info" id="selectedItemInfo">
+        <div class="item-preview">
+          <img src="" alt="선택된 아이템" class="selected-item-img" id="selectedItemImage" />
         </div>
-
-        <!-- 선택된 아이템 정보 영역 -->
-        <div class="selected-item-info" id="selectedItemInfo">
-          <div class="item-preview">
-            <img src="" alt="선택된 아이템" class="selected-item-img" id="selectedItemImage" />
-          </div>
-          <div class="item-meta">
-            <span class="item-name" id="selectedItemName">아이템 이름</span>
-            <span class="item-price" id="selectedItemPrice">🪙0 cash</span>
-            <button class="buy-button">구매하기</button>
-
-          </div>
+        <div class="item-meta">
+          <span class="item-name" id="selectedItemName">아이템 이름</span>
+          <span class="item-price" id="selectedItemPrice">🪙0 cash</span>
+          <button class="sell-button">판매하기</button>
+          <button class="buy-button">구매하기</button>
         </div>
       </div>
 
       <!-- 상단 카테고리 버튼 -->
       <div class="category-buttons">
-        <button class="category" id="all" data-filter="전체">전체</button>
-        <button class="category" id="furniture" data-filter="가구">가구</button>
-        <button class="category" id="decoration" data-filter="장식">장식</button>
-        <button class="category" id="sculpture" data-filter="조형">조형</button>
-        <button class="category" id="background" data-filter="배경">배경</button>
-        <button class="category" id="etc" data-filter="기타">기타</button>
+        <button class="category" data-filter="전체">전체</button>
+        <button class="category" data-filter="BACKGROUND">배경</button>
+        <button class="category" data-filter="OBJECT">객체</button>
       </div>
-
       <!-- 상품 리스트 -->
       <div class="item-grid"></div>
 
@@ -67,5 +57,4 @@
   <script src="../js/script.js"></script>
   <script type="module" src="../js/features/character/character-shop.js"></script>
 </body>
-
 </html>
