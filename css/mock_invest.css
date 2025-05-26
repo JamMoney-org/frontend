@@ -1,4 +1,4 @@
-.title{
+.company-name{
   margin: 0; 
   font-size: 24px
 }
@@ -148,7 +148,7 @@ td.down * {
   background: #fff;
   border: 1px solid #ccc;
   padding: 8px 10px;
-  font-size: 12px;
+  font-size: 13px;
   box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
   pointer-events: none;
   white-space: nowrap;
@@ -160,4 +160,33 @@ td.down * {
 }
 .tooltip-box .down {
   color: blue;
+}
+
+.tooltip-box strong {
+  display: block;
+  margin-bottom: 3px;
+}
+
+@media (max-width: 400px) {
+  .tooltip-box {
+    font-size: 11px;
+    padding: 5px;
+  }
+}
+
+.price-change .up {
+  color: red;
+}
+.price-change .down {
+  color: blue;
+}
+
+
+/* 연한 회색 그리드 */
+.grid line {
+  stroke: #e0e0e0;
+  stroke-dasharray: 2 2;
+}
+.grid path {
+  display: none;
 }
