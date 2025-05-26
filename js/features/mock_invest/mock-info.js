@@ -23,7 +23,9 @@ function renderHeader() {
   ).textContent = `${price.toLocaleString()}원`;
   document.querySelector('.price-change').innerHTML = `
     어제보다 <span class="${diff > 0 ? 'up' : diff < 0 ? 'down' : ''}">
-      ${diff >= 0 ? '+' : ''}${diff.toLocaleString()} (${diffPercent}%)
+      ${
+        diff > 0 ? '+' : diff < 0 ? '-' : ''
+      }${diff.toLocaleString()} (${diffPercent}%)
     </span>
   `;
 }
@@ -295,6 +297,45 @@ function renderChart() {
   });
 }
 
+function renderTimeTable() {
+  const tableBody = document.querySelector('#timeTableBody');
+
+  const stockInfo = companyData.stockInfoResponseDto;
+  const currentPrice = Number(stockInfo.stck_prpr);
+  const prdyVrss = Number(stockInfo.prdy_vrss);
+  const prevClose = currentPrice - prdyVrss;
+
+  chartData
+    .slice()
+    .reverse()
+    .forEach((item) => {
+      const tr = document.createElement('tr');
+
+      const time = new Date(item.stockTradeTime).toLocaleTimeString('ko-KR', {
+        hour12: false,
+        hour: '2-digit',
+        minute: '2-digit',
+        second: '2-digit',
+      });
+
+      const price = Number(item.stck_prpr);
+      const diff = price - prevClose;
+      const volume = Number(item.cntg_vol).toLocaleString();
+
+      tr.innerHTML = `
+        <td>${time}</td>
+        <td>${price.toLocaleString()}</td>
+        <td class="change ${diff > 0 ? 'up' : diff < 0 ? 'down' : ''}">
+          <span class="arrow">${diff > 0 ? '▲' : diff < 0 ? '▼' : ''}</span>
+          <span class="value">${Math.abs(diff).toLocaleString()}</span>
+        </td>
+        <td>${volume}</td>
+      `;
+
+      tableBody.appendChild(tr);
+    });
+}
+
 // 진입점
 (async function initPage() {
   const params = new URLSearchParams(location.search);
@@ -324,8 +365,8 @@ function renderChart() {
         document.getElementById(target).classList.add('active');
 
         if (target == 'chart') renderChart();
+        if (target == 'time') renderTimeTable();
         if (target === 'company') renderCompanyInfo();
-        // 추후 chart, time, date 등도 분기 처리 가능
       });
     });
   } catch (error) {
