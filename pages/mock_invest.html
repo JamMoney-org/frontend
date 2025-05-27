@@ -43,7 +43,7 @@
         <div class="tab-menu">
           <button data-tab="chart" class="active">차트</button>
           <button data-tab="time">시간</button>
-          <button data-tab="date">일자</button>
+          <!-- <button data-tab="date">일자</button> -->
           <button data-tab="company">기업정보</button>
         </div>
 
@@ -54,11 +54,10 @@
               <div class="tooltip-box" id="tooltip" style="display: none"></div>
             </div>
 
-            <!-- <div class="period-tabs">
-              <button data-range="1d" class="active">1일</button>
-              <button data-range="3m">3달</button>
-              <button data-range="1y">1년</button>
-            </div> -->
+            <div class="period-tabs">
+              <button data-range="1d" class="active">1시간</button>
+              <button data-range="all">전체</button>
+            </div>
           </div>
 
           <div id="time" class="tab-pane">
@@ -75,7 +74,7 @@
             </table>
           </div>
 
-          <div id="date" class="tab-pane">
+          <!-- <div id="date" class="tab-pane">
             <table>
               <thead>
                 <tr>
@@ -104,7 +103,7 @@
                 </tr>
               </tbody>
             </table>
-          </div>
+          </div> -->
 
           <div id="company" class="tab-pane">
             <table class="company-info-table">

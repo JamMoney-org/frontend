@@ -2,6 +2,7 @@ import { authorizedFetch } from '../../utils/auth-fetch.js';
 
 let companyData = null;
 let chartData = null;
+let chartViewRange = '1d';
 
 const setValue = (label, value) => {
   const el = document.querySelector(`td[data-label="${label}"]`);
@@ -86,8 +87,20 @@ async function fetchCompanyData(companyId) {
   );
 }
 
+function setupPeriodButtons() {
+  const periodButtons = document.querySelectorAll('.period-tabs button');
+  periodButtons.forEach((button) => {
+    button.addEventListener('click', () => {
+      chartViewRange = button.dataset.range;
+      periodButtons.forEach((btn) => btn.classList.remove('active'));
+      button.classList.add('active');
+      renderChart();
+    });
+  });
+}
+
 function renderChart() {
-  const data = chartData.slice().map((d) => ({
+  const fullData = chartData.slice().map((d) => ({
     date: new Date(d.stockTradeTime),
     open: Number(d.stck_oprc),
     high: Number(d.stck_hgpr),
@@ -95,7 +108,8 @@ function renderChart() {
     close: Number(d.stck_prpr),
   }));
 
-  console.log(chartData);
+  let data = fullData;
+  if (chartViewRange === '1d') data = fullData.slice(-60);
 
   const svg = d3.select('#candleChart');
   svg.selectAll('*').remove();
@@ -117,13 +131,12 @@ function renderChart() {
 
   const totalDuration =
     data[data.length - 1].date.getTime() - data[0].date.getTime();
+
   const paddingRatio = 0.49;
   const xPadding = totalDuration * paddingRatio;
   // x축: 최신 7시간 기준
   const latest = new Date(data[data.length - 1].date.getTime() + xPadding);
   const earliest = new Date(data[0].date.getTime() - 10 * 60 * 1000);
-  console.log(latest);
-  console.log(earliest);
   const x = d3.scaleTime().domain([earliest, latest]).range([0, width]);
 
   // y축: high/low 기준 + padding
@@ -139,7 +152,7 @@ function renderChart() {
 
   // 모바일 여부 판별
   const isMobile = window.innerWidth <= 767;
-
+  const isOver5Hours = totalDuration >= 18000000;
   // y축: 라벨 (검정색)
   chartGroup
     .append('g')
@@ -161,7 +174,7 @@ function renderChart() {
     .call(
       d3
         .axisBottom(x)
-        .ticks(d3.timeHour.every(1))
+        .ticks(d3.timeHour.every(isMobile && isOver5Hours ? 2 : 1))
         .tickFormat(d3.timeFormat('%H:%M'))
     );
 
@@ -173,7 +186,7 @@ function renderChart() {
     .call(
       d3
         .axisBottom(x)
-        .ticks(d3.timeHour.every(isMobile ? 2 : 1))
+        .ticks(d3.timeHour.every(isMobile && isOver5Hours ? 2 : 1))
         .tickFormat('')
         .tickSize(-height)
         .tickSizeOuter(0)
@@ -351,6 +364,7 @@ function renderTimeTable() {
     renderHeader();
     renderCompanyInfo(); // 기본 탭이 company일 경우
     renderChart();
+    setupPeriodButtons();
 
     // 탭 전환 핸들러
     const buttons = document.querySelectorAll('.tab-menu button');
