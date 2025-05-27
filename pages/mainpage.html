@@ -12,8 +12,14 @@
 <body>
   <!-- 메인 콘텐츠 영역 -->
   <div class="main-content">
-    <!-- 상단 캐릭터 공간 -->
-    <div id="character-area"></div>
+    <!--로고-->
+    <h3 class="logo">JamMoney</h3>
+    <!-- 캐릭터 공간 -->
+    <div class="character-area">
+      <img src="" class="background-img" id="bgImage" />
+      <img src="" alt="캐릭터 이미지" class="character-img" id="characterImage" />
+    </div>
+
     <!-- 메뉴 버튼 3개 -->
     <a href="#" class="menu-card">
       <div class="text-box">
@@ -40,18 +46,8 @@
 
   <div id="navbar"></div>
   <script src="../js/script.js"></script>
-  <script>
-    fetch("./character_area.html")
-      .then(res => res.text())
-      .then(html => {
-        document.getElementById("character-area").innerHTML = html;
+  <script type="module" src="../js/features/mainpage/mainpage.js"></script>
 
-        // 캐릭터 상태 초기화 함수가 있다면 실행
-        if (typeof initCharacter === "function") {
-          initCharacter();
-        }
-      });
-  </script>
 </body>
 
 </html>
