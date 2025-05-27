@@ -81,6 +81,9 @@ async function fetchCompanyData(companyId) {
     `http://43.202.211.168:8080/api/company/charts/${companyId}`
   );
   chartData = await chartRes.json();
+  chartData.sort(
+    (a, b) => new Date(a.stockTradeTime) - new Date(b.stockTradeTime)
+  );
 }
 
 function renderChart() {
@@ -91,6 +94,8 @@ function renderChart() {
     low: Number(d.stck_lwpr),
     close: Number(d.stck_prpr),
   }));
+
+  console.log(chartData);
 
   const svg = d3.select('#candleChart');
   svg.selectAll('*').remove();
@@ -110,17 +115,16 @@ function renderChart() {
     .append('g')
     .attr('transform', `translate(${margin.left},${margin.top})`);
 
+  const totalDuration =
+    data[data.length - 1].date.getTime() - data[0].date.getTime();
+  const paddingRatio = 0.49;
+  const xPadding = totalDuration * paddingRatio;
   // x축: 최신 7시간 기준
-  const latest = data[data.length - 1].date;
-  const earliest = new Date(latest.getTime() - 7 * 60 * 60 * 1000);
-
-  const x = d3
-    .scaleTime()
-    .domain([
-      earliest,
-      new Date(latest.getTime() + 155 * 60 * 1000), // latest + 10분 패딩
-    ])
-    .range([0, width]);
+  const latest = new Date(data[data.length - 1].date.getTime() + xPadding);
+  const earliest = new Date(data[0].date.getTime() - 10 * 60 * 1000);
+  console.log(latest);
+  console.log(earliest);
+  const x = d3.scaleTime().domain([earliest, latest]).range([0, width]);
 
   // y축: high/low 기준 + padding
   const yMin = d3.min(data, (d) => d.low);
@@ -157,7 +161,7 @@ function renderChart() {
     .call(
       d3
         .axisBottom(x)
-        .ticks(d3.timeHour.every(isMobile ? 2 : 1))
+        .ticks(d3.timeHour.every(1))
         .tickFormat(d3.timeFormat('%H:%M'))
     );
 
