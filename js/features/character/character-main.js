@@ -116,73 +116,56 @@ async function giveExpToPet(expAmount = 5) {
   initCharacterMainUI(statusData);
 }
 
-// // 캐릭터 영역 렌더링 후 초기화
-// function loadCharacterArea() {
-//   const characterAreaContainer = document.getElementById("character-area");
-//   authorizedFetch("./character_area.html")
-//     .then(res => res.text())
-//     .then(html => {
-//       characterAreaContainer.innerHTML = html;
-//       requestAnimationFrame(() => {
-//         initCharacter();
-//       });
-//     });
-// }
 
-// // 아이템 장착 렌더링
-// async function initCharacter() {
-//   const statusRes = await authorizedFetch('http://43.202.211.168:8080/api/pet/status');
-//   const inventoryRes = await authorizedFetch('http://43.202.211.168:8080/api/item/inventory');
 
-//   if (!statusRes.ok || !inventoryRes.ok) throw new Error("정보를 불러오지 못했습니다.");
+// 장착 아이템 불러오기
+async function loadEquippedItems() {
+  const res = await authorizedFetch('http://43.202.211.168:8080/api/item/inventory');
+  if (!res.ok) throw new Error('인벤토리 조회 실패');
 
-//   const statusJson = await statusRes.json();
-//   const inventoryJson = await inventoryRes.json();
-//   const statusData = statusJson.result || statusJson;
-//   const inventoryData = inventoryJson.data;
+  const response = await res.json();
+  const inventory = response.result || response.data || response;
 
-//   const characterArea = document.querySelector('.character-area');
-//   characterArea.querySelectorAll('.equipped-item').forEach(el => el.remove());
+  inventory.forEach(item => {
+    if (!item.equipped) return;
 
-//   inventoryData.filter(item => item.equipped).forEach(item => {
-//     if (item.position === 'background') {
-//       const bg = document.getElementById('bgImage');
-//       if (bg) bg.src = item.imageUrl;
-//       return;
-//     }
+    if (item.type === 'BACKGROUND') {
+      const bg = document.getElementById('bgImage');
+      if (bg) {
+        bg.src = item.imageUrl;
+        bg.style.display = 'block';
+      }
+    }
+    if (item.type === 'OBJECT') {
+      const objImg = document.createElement('img');
+      objImg.src = item.imageUrl;
+      objImg.className = `character-object ${item.position}`;
+      objImg.style.position = 'absolute';
+      objImg.style.pointerEvents = 'none';
 
-//     const img = document.createElement('img');
-//     img.src = item.imageUrl;
-//     img.alt = item.name;
-//     img.className = 'equipped-item';
-//     img.style.position = 'absolute';
+      switch (item.position) {
+        case 'left':
+          objImg.style.left = '7%';
+          objImg.style.bottom = '30%';
+          objImg.style.width = '15%';
+          break;
+        case 'right':
+          objImg.style.right = '7%';
+          objImg.style.bottom = '30%';  
+          objImg.style.width = '15%';
+          break;
+      }
+      
 
-//     switch (item.type) {
-//       case '가구':
-//         img.style.top = '10%';
-//         img.style.left = '45%';
-//         break;
-//       case '장식':
-//         img.style.bottom = '20%';
-//         img.style.left = '40%';
-//         break;
-//       case '조형':
-//         img.style.bottom = '5%';
-//         img.style.left = '42%';
-//         break;
-//       case '기타':
-//         img.style.bottom = '5%';
-//         img.style.left = '42%';
-//         break;
-//     }
+      document.querySelector('.character-area').appendChild(objImg);
+    }
 
-//     characterArea.appendChild(img);
-//   });
-// }
+  });
+}
 
-// 초기 실행
 document.addEventListener('DOMContentLoaded', () => {
   setupNameEditUI();
   loadCharacterStatus();
-  // loadCharacterArea();
+  loadEquippedItems();
 });
+
