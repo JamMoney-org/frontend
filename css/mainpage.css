@@ -10,7 +10,7 @@ body {
     justify-content: center;
     align-items: center;
     flex-direction: column;
-    padding: 5%;
+    padding: 20px 5% 5% 5%;
     background-color: #fff;
     box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
     border-radius: 10px;
@@ -35,14 +35,12 @@ body {
 .character-area {
     position: relative;
     width: 100%;
-    aspect-ratio: 1 / 1.1;
-    min-height: 260px;
+    height: 50%;
     border-radius: 20px;
     overflow: hidden;
-    margin: 0 auto 20px auto;
+    margin-bottom: 20px;
     border: 1px solid #e1e1e1;
-    box-shadow: 0 2px 6px rgba(0, 0, 0, 0.1);
-}
+    box-shadow: 0 2px 6px rgba(0, 0, 0, 0.1); }
 
 /* 캐릭터 배경 */
 .background-img {
