@@ -26,6 +26,7 @@
 
 .scenario-item:hover {
   transform: translateY(-2px);
+  cursor: pointer;
 }
 
 .scenario-item.locked {
