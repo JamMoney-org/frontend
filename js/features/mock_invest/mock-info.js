@@ -366,6 +366,14 @@ function renderTimeTable() {
     renderChart();
     setupPeriodButtons();
 
+    // 거래 버튼 클릭 이벤트 등록
+    document.querySelector('.trade-btn').addEventListener('click', () => {
+      console.log(companyData.companyId);
+      console.log(companyData.code);
+
+      window.location.href = `mock_invest_trade.html?companyId=${companyData.companyId}&companyCode=${companyData.code}`;
+    });
+
     // 탭 전환 핸들러
     const buttons = document.querySelectorAll('.tab-menu button');
     const panes = document.querySelectorAll('.tab-pane');
