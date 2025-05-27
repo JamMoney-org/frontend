@@ -1,6 +1,6 @@
 import { authorizedFetch } from "../../utils/auth-fetch.js";
 
-//레벨별 캐릭터 이미지 설정
+// 캐릭터 레벨에 맞는 이미지 설정
 function setCharacterImageByLevel(level) {
     const characterImg = document.getElementById("characterImage");
     if (characterImg) {
@@ -8,16 +8,21 @@ function setCharacterImageByLevel(level) {
     }
 }
 
+// 캐릭터 상태 불러오기
 async function fetchAndSetCharacterImage() {
-    const res = await authorizedFetch("http://43.202.211.168:8080/api/pet/status");
-    if (!res.ok) throw new Error("캐릭터 상태 조회 실패");
+    try {
+        const res = await authorizedFetch("http://43.202.211.168:8080/api/pet/status");
+        if (!res.ok) throw new Error("캐릭터 상태 조회 실패");
 
-    const data = await res.json();
-    const status = data.result || data;
-    setCharacterImageByLevel(status.data.level);
+        const data = await res.json();
+        const status = data.result || data;
+        setCharacterImageByLevel(status.data.level);
+    } catch (err) {
+        alert("캐릭터 이미지 로딩 실패: " + err.message);
+    }
 }
 
-// 아이템 장착해서 보여주기
+// 장착된 아이템 UI에 적용 (통합 버전)
 function updateEquippedItems(items) {
     const characterArea = document.querySelector(".character-area");
     if (!characterArea) return;
@@ -25,31 +30,32 @@ function updateEquippedItems(items) {
     characterArea.querySelectorAll(".equipped-item").forEach(el => el.remove());
 
     items.filter(item => item.equipped).forEach(item => {
-        if (item.position === 'background') {
-            const bg = document.getElementById("bgImage");
-            if (bg) bg.src = item.imageUrl;
+        if (item.type === 'BACKGROUND') {
+            const bg = document.getElementById('bgImage');
+            if (bg) {
+                bg.src = item.imageUrl;
+                bg.style.display = 'block';
+            }
             return;
         }
 
-        const img = document.createElement("img");
+        const img = document.createElement('img');
         img.src = item.imageUrl;
         img.alt = item.name;
-        img.className = "equipped-item";
-        img.style.position = "absolute";
+        img.className = 'equipped-item';
+        img.style.position = 'absolute';
+        img.style.pointerEvents = 'none';
 
         switch (item.position) {
-            case 'furniture':
-                img.style.top = '60%';
-                img.style.left = '40%';
+            case "left":
+                img.style.left = "7%";
+                img.style.bottom = "30%";
+                img.style.width = "15%";
                 break;
-            case 'decoration':
-                img.style.top = '20%';
-                img.style.left = '45%';
-                break;
-            case 'sculpture':
-            case 'etc':
-                img.style.bottom = '5%';
-                img.style.left = '42%';
+            case "right":
+                img.style.right = "7%";
+                img.style.bottom = "30%";
+                img.style.width = "15%";
                 break;
         }
 
@@ -57,7 +63,7 @@ function updateEquippedItems(items) {
     });
 }
 
-//인벤토리
+// 인벤토리 렌더링
 function renderInventory(items, previewImg, previewName, previewPrice) {
     const itemGrid = document.querySelector(".item-grid");
     itemGrid.innerHTML = "";
@@ -84,6 +90,12 @@ function renderInventory(items, previewImg, previewName, previewPrice) {
             previewImg.src = item.imageUrl;
             previewName.textContent = item.name;
 
+            previewImg.style.width = "50%";
+            previewImg.style.height = "50%";
+            previewImg.style.objectFit = "contain";
+
+            document.getElementById("selectedItemInfo").style.display = "flex";
+
             const equipButton = document.querySelector(".equip-button");
             if (equipButton) {
                 equipButton.textContent = item.equipped ? "해제하기" : "장착하기";
@@ -95,6 +107,7 @@ function renderInventory(items, previewImg, previewName, previewPrice) {
 let selectedItem = null;
 let inventoryItems = [];
 
+// DOM 로드 후 초기화
 document.addEventListener("DOMContentLoaded", () => {
     const categoryButtons = document.querySelectorAll(".category");
     const previewImg = document.getElementById("selectedItemImage");
@@ -103,6 +116,7 @@ document.addEventListener("DOMContentLoaded", () => {
     const equipButton = document.querySelector(".equip-button");
     const sellButton = document.querySelector(".sell-button");
 
+    // 아이템 장착/해제 API 호출
     function toggleEquip(itemId, equip) {
         authorizedFetch("http://43.202.211.168:8080/api/item/equip", {
             method: "POST",
@@ -116,28 +130,26 @@ document.addEventListener("DOMContentLoaded", () => {
             .catch(err => alert("장착 요청 실패: " + err.message));
     }
 
+    // 장착 버튼 이벤트
     if (equipButton) {
         equipButton.addEventListener("click", () => {
-            if (!selectedItem) {
-                alert("아이템을 선택해주세요!");
-                return;
-            }
+            if (!selectedItem) return alert("아이템을 선택해주세요!");
             toggleEquip(selectedItem.itemId, !selectedItem.equipped);
         });
     }
 
+    // 카테고리 필터링
     categoryButtons.forEach(button => {
         button.addEventListener("click", () => {
             const filter = button.dataset.filter;
-
             const filtered = filter === "전체"
                 ? inventoryItems
                 : inventoryItems.filter(item => item.type === filter);
-
             renderInventory(filtered, previewImg, previewName, previewPrice);
         });
     });
 
+    // 인벤토리 불러오기
     function fetchInventory() {
         authorizedFetch("http://43.202.211.168:8080/api/item/inventory")
             .then(res => res.json())
@@ -146,8 +158,9 @@ document.addEventListener("DOMContentLoaded", () => {
                 renderInventory(inventoryItems, previewImg, previewName, previewPrice);
                 updateEquippedItems(inventoryItems);
             })
+            .catch(err => alert("인벤토리 불러오기 실패: " + err.message));
     }
 
     fetchAndSetCharacterImage();
-    fetchInventory();
+    fetchInventory(); // 이 안에서 updateEquippedItems도 실행됨
 });

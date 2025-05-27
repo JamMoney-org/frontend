@@ -28,19 +28,17 @@
             <!-- 상단 캐릭터 공간 -->
             <div class="character-container">
                 <!-- 캐릭터 공간 -->
-                <div id="character-area">
+                <div class="character-area">
                     <img src="" class="background-img" id="bgImage" />
                     <img src="" alt="캐릭터 이미지" class="character-img" id="characterImage" />
                 </div>
 
                 <!-- 선택된 아이템 정보 영역 -->
                 <div class="selected-item-info" id="selectedItemInfo">
-                    <div class="item-preview">
-                        <img src="" alt="선택된 아이템" class="selected-item-img" id="selectedItemImage" />
-                    </div>
+                    <img src="" alt="선택된 아이템" class="selected-item-img" id="selectedItemImage" />
                     <div class="item-meta">
                         <span class="item-name" id="selectedItemName">아이템 이름</span>
-                        <button class="equip-button">장착/해제</button>
+                        <button class="equip-button"></button>
                     </div>
                 </div>
             </div>
@@ -49,7 +47,7 @@
             <div class="category-buttons">
                 <button class="category" data-filter="전체">전체</button>
                 <button class="category" data-filter="BACKGROUND">배경</button>
-                <button class="category" data-filter="OBJECT">장식</button>
+                <button class="category" data-filter="OBJECT">객체</button>
             </div>
 
             <!-- 상품 리스트 -->
@@ -62,4 +60,5 @@
     <script src="../js/script.js"></script>
     <script type="module" src="../js/features/character/inventory.js"></script>
 </body>
+
 </html>
