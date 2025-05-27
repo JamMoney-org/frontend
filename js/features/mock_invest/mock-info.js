@@ -23,9 +23,7 @@ function renderHeader() {
   ).textContent = `${price.toLocaleString()}원`;
   document.querySelector('.price-change').innerHTML = `
     어제보다 <span class="${diff > 0 ? 'up' : diff < 0 ? 'down' : ''}">
-      ${
-        diff > 0 ? '+' : diff < 0 ? '-' : ''
-      }${diff.toLocaleString()} (${diffPercent}%)
+      ${diff > 0 ? '+' : ''}${diff.toLocaleString()} (${diffPercent}%)
     </span>
   `;
 }
