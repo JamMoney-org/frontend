@@ -29,22 +29,11 @@ body {
   justify-content: space-between;
   align-items: center;
   margin-bottom: 16px;
+  gap: 10px;
 }
 
-.learning-button {
-  background-color: #fff;
-  border: 1px solid #e1e1e1;
-  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.1);
-  color: #5dc29e;
-  padding: 8px 14px;
-  font-size: 14px;
-  border-radius: 15px;
-  flex: 3;
-  margin-right: 6px;
-  font-weight: bold;
-}
-
-.shop-button {
+.shop-button,
+.inventory-button {
   background-color: #fff;
   border: 1px solid #e1e1e1;
   box-shadow: 0 2px 6px rgba(0, 0, 0, 0.1);
@@ -54,7 +43,6 @@ body {
   border-radius: 15px;
   flex: 2;
   align-items: center;
-  gap: 6px;
   font-weight: bold;
 }
 
