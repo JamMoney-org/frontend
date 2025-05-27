@@ -110,12 +110,12 @@ td.down * {
   color: #3969FB; /* 파랑 */
 }
 
-.trade-btn-warpper{
+.trade-btn-wrapper{
+  background-color: white;
   position: fixed;
-  bottom: 100px;
-  width: inherit;
-  background: #fff;
-  border-top: 1px solid #ddd;
+  bottom: 44px;
+  width: 600px;
+  height: 50px;
 }
 
 .trade-btn{
