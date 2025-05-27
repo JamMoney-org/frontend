@@ -17,11 +17,9 @@ document.addEventListener("DOMContentLoaded", () => {
   categoryButtons.forEach(button => {
     button.addEventListener("click", () => {
       const filter = button.dataset.filter;
-
       const filtered = filter === "전체"
         ? shopItems
         : shopItems.filter(item => item.type === filter);
-
       renderItems(filtered);
     });
   });
@@ -50,11 +48,14 @@ document.addEventListener("DOMContentLoaded", () => {
         previewName.textContent = item.name;
         previewPrice.textContent = `🪙 ${item.price} cash`;
         selectedItem = item;
+
+        document.getElementById("selectedItemInfo").style.display = "flex";
+
       });
     });
   }
 
-  //아이템 불러오기
+  // 아이템 불러오기
   authorizedFetch("http://43.202.211.168:8080/api/item/shop")
     .then(res => res.ok ? res.json() : Promise.reject("조회 실패"))
     .then(data => {
@@ -74,7 +75,7 @@ document.addEventListener("DOMContentLoaded", () => {
       return;
     }
 
-    const confirmBuy = confirm(`🪙 ${selectedItem.price} cash로 \"${selectedItem.name}\"을 구매할까요?`);
+    const confirmBuy = confirm(`🪙 ${selectedItem.price} cash로 "${selectedItem.name}"을 구매할까요?`);
     if (!confirmBuy) return;
 
     authorizedFetch("http://43.202.211.168:8080/api/item/purchase", {
@@ -98,7 +99,7 @@ document.addEventListener("DOMContentLoaded", () => {
         return;
       }
 
-      const confirmSell = confirm(`"${selectedItem.name}" 아이템을 "${selectedItem.price * 0.8}"cash에 판매하시겠습니까?`);
+      const confirmSell = confirm(`"${selectedItem.name}" 아이템을 "${selectedItem.price * 0.8}" cash에 판매하시겠습니까?`);
       if (!confirmSell) return;
 
       authorizedFetch("http://43.202.211.168:8080/api/item/sell", {
@@ -108,10 +109,58 @@ document.addEventListener("DOMContentLoaded", () => {
         .then(res => res.json())
         .then(data => {
           alert(data.message || "판매 완료!");
-          fetchInventory();
         })
         .catch(err => alert("판매 실패: " + err.message));
     });
   }
 
+  // 장착 아이템 불러오기
+  async function loadEquippedItems() {
+    try {
+      const res = await authorizedFetch('http://43.202.211.168:8080/api/item/inventory');
+      if (!res.ok) throw new Error('인벤토리 조회 실패');
+
+      const response = await res.json();
+      const inventory = response.result || response.data || response;
+
+      inventory.forEach(item => {
+        if (!item.equipped) return;
+
+        if (item.type === 'BACKGROUND') {
+          const bg = document.getElementById('bgImage');
+          if (bg) {
+            bg.src = item.imageUrl;
+            bg.style.display = 'block';
+          }
+        }
+
+        if (item.type === 'OBJECT') {
+          const objImg = document.createElement('img');
+          objImg.src = item.imageUrl;
+          objImg.className = `character-object ${item.position}`;
+          objImg.style.position = 'absolute';
+          objImg.style.pointerEvents = 'none';
+
+          switch (item.position) {
+            case 'left':
+              objImg.style.left = '7%';
+              objImg.style.bottom = '30%';
+              objImg.style.width = '10%';
+              break;
+            case 'right':
+              objImg.style.right = '7%';
+              objImg.style.bottom = '30%';
+              objImg.style.width = '1%';
+              break;
+          }
+
+          document.querySelector('#character-area')?.appendChild(objImg);
+        }
+      });
+    } catch (err) {
+      console.error("장착 아이템 불러오기 실패:", err.message);
+    }
+  }
+
+  loadEquippedItems();
 });
