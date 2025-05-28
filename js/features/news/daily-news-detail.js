@@ -14,6 +14,11 @@ document.addEventListener("DOMContentLoaded", async () => {
     return;
   }
 
+  const aiTip = document.getElementById("ai-loading-tip");
+  const aiOverlay = document.getElementById("ai-loading-overlay");
+  aiTip.classList.remove("hidden");
+  aiOverlay.classList.remove("hidden");
+
   try {
     const response = await authorizedFetch(`http://43.202.211.168:8080/api/news/${newsId}`);
     if (!response.ok) throw new Error("뉴스 데이터를 불러오지 못했습니다.");
@@ -35,8 +40,22 @@ document.addEventListener("DOMContentLoaded", async () => {
 
     const summaryList = document.querySelector(".ai-summary ul");
     summaryList.innerHTML = "";
+
     if (news.summary && news.summary.trim() !== "") {
-      const points = news.summary.split(/(?<=\.)\s+/).filter(p => p.trim() !== "");
+      let points = [];
+
+      if (news.summary.match(/^\-\s+/m)) {
+        points = news.summary
+          .split(/\n/)
+          .filter(line => line.trim().startsWith("-"))
+          .map(line => line.replace(/^\-/, "").trim());
+      } else {
+        points = news.summary
+          .split(/(?<=\.)\s+/)
+          .filter(p => p.trim() !== "")
+          .map(p => p.replace(/^\-/, "").trim());
+      }
+
       points.forEach(point => {
         const li = document.createElement("li");
         li.textContent = point;
@@ -45,6 +64,9 @@ document.addEventListener("DOMContentLoaded", async () => {
     } else {
       summaryList.innerHTML = "<li>요약이 없습니다.</li>";
     }
+
+    aiTip.classList.add("hidden");
+    aiOverlay.classList.add("hidden");
 
     const quizContainer = document.querySelector(".quiz-container");
     const questionElem = document.getElementById("question");
@@ -80,6 +102,8 @@ document.addEventListener("DOMContentLoaded", async () => {
       questionElem.textContent = "관련 퀴즈가 없습니다.";
     }
   } catch (err) {
+    aiTip.classList.add("hidden");
+    aiOverlay.classList.add("hidden");
     console.error("에러 발생:", err);
     alert("뉴스를 불러오는 중 문제가 발생했습니다.");
   }
@@ -130,11 +154,19 @@ function highlightEasyWords(contentElem, wordList, newsId) {
             headers: { "Content-Type": "application/json" },
             body: JSON.stringify({ originalWord: word, translatedText: meaning, exampleSentence })
           });
-          if (!res.ok) throw new Error();
+
+          console.log("응답 상태코드:", res.status);
+          if (!res.ok) {
+            const errorText = await res.text();
+            console.warn("서버 응답 메시지:", errorText);
+            throw new Error("서버 응답 오류");
+          }
+
           bookmarkBtn.textContent = "✅ 추가됨";
           bookmarkBtn.disabled = true;
           bookmarkBtn.classList.add("added");
           term.dataset.saved = "true";
+
         } catch (err) {
           alert("단어 저장 실패");
         }
