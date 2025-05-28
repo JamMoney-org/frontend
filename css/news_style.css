@@ -181,6 +181,7 @@
 /* 기사 본문 */
 .article-content {
     padding: 10px;
+    padding-top: 20px;
     line-height: 1.6;
     color: #333;
     font-size: 15px;
@@ -188,7 +189,7 @@
 
 /* 퀴즈 */
 .quiz-container {
-    margin: 20px;
+    margin: 40px 20px;
 }
 
 #question {
@@ -302,25 +303,37 @@ hr {
 }
 
 .easy-toast {
-  width: 350px;
+  width: 340px;
   position: fixed;
   bottom: 70px;
   left: 50%;
-  transform: translateX(-50%);
-  background: #f7f7f7;
-  color: #000;
-  padding: 16px 20px;
-  border-radius: 10px;
-  box-shadow: 0 4px 12px rgba(0,0,0,0.1); /* 더 부드러운 그림자 */
-  border: 1px solid rgba(0,0,0,0.08);     /* 얇은 경계선 */
-  font-size: 14px;
-  max-width: 100%;
-  line-height: 1.5;
-  z-index: 999;
+  transform: translateX(-50%) translateY(20px); /* 등장 애니메이션 */
+  background: #ffffff;
+  color: #222;
+  padding: 18px 22px;
+  border-radius: 12px;
+
+  box-shadow: 0 6px 20px rgba(0, 0, 0, 0.25);  /* 그림자 강조 */
+  border: 1px solid rgba(0, 0, 0, 0.12);        /* 더 얇고 진한 테두리 */
+  
+  font-size: 15px;
+  font-weight: 500;
+  line-height: 1.6;
+  max-width: 90%;
+
+  z-index: 9999;
   opacity: 0;
   pointer-events: none;
   transition: opacity 0.3s ease, transform 0.3s ease;
 }
+
+/* 토스트가 활성화될 때 */
+.easy-toast.visible {
+  opacity: 1;
+  transform: translateX(-50%) translateY(0); /* 위로 슥 올라오게 */
+  pointer-events: auto;
+}
+
 
 .easy-toast.visible {
   opacity: 1;
