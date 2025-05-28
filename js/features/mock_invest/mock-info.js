@@ -2,7 +2,7 @@ import { authorizedFetch } from '../../utils/auth-fetch.js';
 
 let companyData = null;
 let chartData = null;
-let chartViewRange = '1d';
+let chartViewRange = '1h';
 
 const setValue = (label, value) => {
   const el = document.querySelector(`td[data-label="${label}"]`);
@@ -108,8 +108,21 @@ function renderChart() {
     close: Number(d.stck_prpr),
   }));
 
+  // 2. 범위 필터링
   let data = fullData;
-  if (chartViewRange === '1d') data = fullData.slice(-60);
+  if (chartViewRange === '1h') {
+    const oneHourAgo = new Date(
+      fullData.at(-1).date.getTime() - 60 * 60 * 1000
+    );
+    data = fullData.filter((d) => d.date > oneHourAgo);
+  }
+
+  if (chartViewRange === '1d') {
+    const sevenHoursAgo = new Date(
+      fullData.at(-1).date.getTime() - 7 * 60 * 60 * 1000
+    );
+    data = fullData.filter((d) => d.date > sevenHoursAgo);
+  }
 
   const svg = d3.select('#candleChart');
   svg.selectAll('*').remove();
@@ -153,6 +166,16 @@ function renderChart() {
   // 모바일 여부 판별
   const isMobile = window.innerWidth <= 767;
   const isOver5Hours = totalDuration >= 18000000;
+  const xAxisFormat =
+    chartViewRange === 'all'
+      ? d3.timeFormat('%Y-%m-%d') // 전체일 때: 날짜만
+      : d3.timeFormat('%H:%M'); // 그 외엔 시:분
+
+  // x축 눈금 간격 설정
+  const xTicks =
+    chartViewRange === 'all'
+      ? d3.timeDay.every(1) // 전체일 때: 하루 간격
+      : d3.timeHour.every(isMobile && isOver5Hours ? 2 : 1); // 그 외: 1~2시간 간격
   // y축: 라벨 (검정색)
   chartGroup
     .append('g')
@@ -171,12 +194,7 @@ function renderChart() {
     .append('g')
     .attr('class', 'x axis')
     .attr('transform', `translate(0,${height})`)
-    .call(
-      d3
-        .axisBottom(x)
-        .ticks(d3.timeHour.every(isMobile && isOver5Hours ? 2 : 1))
-        .tickFormat(d3.timeFormat('%H:%M'))
-    );
+    .call(d3.axisBottom(x).ticks(xTicks).tickFormat(xAxisFormat));
 
   // x축: 그리드 선 (연한색)
   chartGroup
