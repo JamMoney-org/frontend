@@ -116,37 +116,38 @@ document.addEventListener("DOMContentLoaded", () => {
     confirmBtn.addEventListener("click", closeModal);
 
     if (!isCorrect) {
-      const saveBtn = document.getElementById("save-wrong-note");
-      saveBtn.addEventListener("click", async () => {
-        const quiz = quizData[currentQuestionIndex];
+    const saveBtn = document.getElementById("save-wrong-note");
+    saveBtn.addEventListener("click", async () => {
+      const quiz = quizData[currentQuestionIndex];
 
-        try {
-          const response = await authorizedFetch("http://43.202.211.168:8080/api/wrong-notes", {
-            method: "POST",
-            body: JSON.stringify({
-              question: quiz.question,
-              selectedOption: quiz.options[quiz.userAnswerIndex],
-              correctAnswer: quiz.options[quiz.correctIndex],
-              explanation: quiz.explanation,
-              hint: quiz.hint,
-              category: quiz.category || "ETC"
-            })
-          });
+      try {
+        const response = await authorizedFetch("http://43.202.211.168:8080/api/wrong-notes", {
+          method: "POST",
+          body: JSON.stringify({
+            question: quiz.question,
+            selectedOption: quiz.options[quiz.userAnswerIndex],
+            correctAnswer: quiz.options[quiz.correctIndex],
+            explanation: quiz.explanation,
+            hint: quiz.hint,
+            category: quiz.category || "ETC"
+          })
+        });
 
-
-          if (!response.ok) {
-            throw new Error("오답노트 저장 실패");
-          }
-
-          alert("📒 오답노트에 저장했어요!");
-          saveBtn.disabled = true;
-          saveBtn.textContent = "저장 완료";
-        } catch (err) {
-          console.error("오답노트 저장 오류:", err);
-          alert("오답노트 저장에 실패했어요.");
+        if (!response.ok) {
+          throw new Error("오답노트 저장 실패");
         }
-      });
-    }
+
+        // ✅ 저장 완료 스타일 적용
+        saveBtn.disabled = true;
+        saveBtn.textContent = "저장 완료";
+        saveBtn.style.backgroundColor = "#CCCCCC"; // 회색으로 변경
+
+      } catch (err) {
+        console.error("오답노트 저장 오류:", err);
+      }
+    });
+  }
+
 }
 
 

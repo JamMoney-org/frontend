@@ -489,3 +489,20 @@ h2 {
 .next-button:hover {
     background-color: #326c58;
 }
+
+#retry-button {
+  margin-top: 100px;
+  padding: 8px 40px;
+  background-color: #5DC29E;
+  color: white;
+  border-radius: 20px;
+  border: none;
+  cursor: pointer;
+  font-size: 0.9em;
+  transition: background-color 0.3s ease;
+}
+
+
+.hidden {
+  display: none;
+}

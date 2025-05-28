@@ -5,6 +5,7 @@ document.addEventListener("DOMContentLoaded", async () => {
   const chartScore = document.getElementById("chart-score");
   const feedbackBubble = document.querySelector(".speech-bubble");
   const finishButton = document.getElementById("finish-button");
+  const retryButton = document.getElementById("retry-button"); 
 
   try {
     const response = await authorizedFetch("http://43.202.211.168:8080/api/quiz/complete", {
@@ -23,7 +24,32 @@ document.addEventListener("DOMContentLoaded", async () => {
     chartScore.textContent = `${correctCount}/${totalQuestions}`;
 
     // 피드백 메시지
-    feedbackBubble.textContent = passed ? "잘했어요! 대단해요!" : "더 공부가 필요해요.\n퀴즈를 다시 풀어볼까요?!";
+    if (passed) {
+    feedbackBubble.innerHTML =
+    `잘했어요! 대단해요!<br>` +
+    `🏆 ${rewardExp} 경험치, 💰 ${rewardCoin} 가상머니를<br>획득했어요!`;
+  } else {
+    feedbackBubble.textContent = "더 공부가 필요해요.\n퀴즈를 다시 풀어볼까요?!";
+
+    // 다시 풀기 버튼 보여주기
+    retryButton.classList.remove("hidden");
+
+    // 카테고리 및 난이도 정보 가져오기
+    const selectedCategory = localStorage.getItem("selectedCategory");
+    const selectedDifficulty = localStorage.getItem("selectedDifficulty");
+
+    retryButton.addEventListener("click", () => {
+      if (!selectedCategory || !selectedDifficulty) {
+        alert("퀴즈 정보를 찾을 수 없습니다.");
+        return;
+      }
+
+      // 다시 퀴즈 페이지로 이동
+      window.location.href =
+        `/pages/quiz_detail.html?categoryName=${encodeURIComponent(selectedCategory)}&difficulty=${encodeURIComponent(selectedDifficulty)}`;
+    });
+  }
+
 
     // 차트 그리기
     const ctx = document.getElementById("quizChart").getContext("2d");
@@ -45,7 +71,7 @@ document.addEventListener("DOMContentLoaded", async () => {
       }
     });
 
-    // ✅ 선택사항: 보상 정보 저장 또는 출력
+    // 보상 정보 저장
     console.log("🏆 획득 경험치:", rewardExp, " / 가상코인:", rewardCoin);
     localStorage.setItem("lastQuizRewardExp", rewardExp);
     localStorage.setItem("lastQuizRewardCoin", rewardCoin);
@@ -55,8 +81,8 @@ document.addEventListener("DOMContentLoaded", async () => {
     feedbackBubble.textContent = "결과를 불러오는 데 실패했어요.";
   }
 
-  // ✅ 종료 버튼 → 홈으로 이동
+  // 종료 버튼 → 홈으로 이동
   finishButton.addEventListener("click", () => {
-    window.location.href = "/quiz-category.html";
+    window.location.href = "/pages/quiz_category.html";
   });
 });
