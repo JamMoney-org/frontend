@@ -337,11 +337,13 @@ function renderTimeTable() {
   const currentPrice = Number(stockInfo.stck_prpr);
   const prdyVrss = Number(stockInfo.prdy_vrss);
   const prevClose = currentPrice - prdyVrss;
-
+  const todayStr = new Date().toISOString().slice(0, 10);
   chartData
     .slice()
+    .filter((item) => item.stockTradeTime.slice(0, 10) === todayStr)
     .reverse()
     .forEach((item) => {
+      console.log(item);
       const tr = document.createElement('tr');
 
       const time = new Date(item.stockTradeTime).toLocaleTimeString('ko-KR', {
@@ -367,6 +369,69 @@ function renderTimeTable() {
 
       tableBody.appendChild(tr);
     });
+}
+
+function renderDateTable() {
+  console.log(companyData);
+  console.log(chartData);
+  const tableBody = document.querySelector('#date tbody');
+  tableBody.innerHTML = ''; // 기존 내용 초기화
+
+  // 날짜별 그룹핑
+  const grouped = {};
+  chartData.forEach((item) => {
+    const date = new Date(item.stockTradeTime).toISOString().split('T')[0]; // YYYY-MM-DD
+    if (!grouped[date]) grouped[date] = [];
+    grouped[date].push(item);
+  });
+
+  // 날짜 내림차순 정렬
+  const sortedDates = Object.keys(grouped).sort(
+    (a, b) => new Date(b) - new Date(a)
+  );
+
+  sortedDates.forEach((date, index) => {
+    const items = grouped[date];
+
+    // 시간순 정렬 후 종가 = 마지막 체결 가격
+    const sorted = items.sort(
+      (a, b) => new Date(a.stockTradeTime) - new Date(b.stockTradeTime)
+    );
+    const close = Number(sorted[sorted.length - 1].stck_prpr);
+
+    // 누적 거래량
+    const volume = items.reduce((sum, cur) => sum + Number(cur.cntg_vol), 0);
+
+    // 대비 (이전날 종가 - 현재 종가 → 현재 날짜에 표시)
+    let diffText = '<td>-</td>';
+    if (index < sortedDates.length - 1) {
+      const nextDate = sortedDates[index + 1];
+      const nextItems = grouped[nextDate].sort(
+        (a, b) => new Date(a.stockTradeTime) - new Date(b.stockTradeTime)
+      );
+      const nextClose = Number(nextItems[nextItems.length - 1].stck_prpr);
+      const diff = close - nextClose;
+
+      const diffClass = diff > 0 ? 'up' : diff < 0 ? 'down' : '';
+      const diffArrow = diff > 0 ? '▲' : diff < 0 ? '▼' : '';
+      diffText = `
+        <td class="change ${diffClass}">
+          <span class="arrow">${diffArrow}</span>
+          <span class="value">${Math.abs(diff).toLocaleString()}</span>
+        </td>
+      `;
+    }
+
+    // 테이블 행 렌더링
+    const tr = document.createElement('tr');
+    tr.innerHTML = `
+      <td>${date.replace(/-/g, '.')}</td>
+      <td>${close.toLocaleString()}</td>
+      ${diffText}
+      <td>${volume.toLocaleString()}</td>
+    `;
+    tableBody.appendChild(tr);
+  });
 }
 
 // 진입점
@@ -408,6 +473,7 @@ function renderTimeTable() {
 
         if (target == 'chart') renderChart();
         if (target == 'time') renderTimeTable();
+        if (target === 'date') renderDateTable();
         if (target === 'company') renderCompanyInfo();
       });
     });
