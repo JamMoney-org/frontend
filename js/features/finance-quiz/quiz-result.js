@@ -57,6 +57,6 @@ document.addEventListener("DOMContentLoaded", async () => {
 
   // ✅ 종료 버튼 → 홈으로 이동
   finishButton.addEventListener("click", () => {
-    window.location.href = "/index.html";
+    window.location.href = "/quiz-category.html";
   });
 });

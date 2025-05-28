@@ -1,9 +1,8 @@
-import { authorizedFetch } from "../../utils/auth-fetch.js"; // 유틸 함수 import
+import { authorizedFetch } from "../../utils/auth-fetch.js"; 
 
 document.addEventListener("DOMContentLoaded", () => {
   const quizItems = document.querySelectorAll(".quiz-item");
-  const category = localStorage.getItem("selectedCategory"); 
-
+  const category = localStorage.getItem("selectedCategoryEnum"); 
   const difficultyMap = {
     "초급": "EASY",
     "중급": "NORMAL",

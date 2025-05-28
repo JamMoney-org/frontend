@@ -3,19 +3,26 @@ import { authorizedFetch } from "../../utils/auth-fetch.js";
 document.addEventListener("DOMContentLoaded", async () => {
   const categoryItems = document.querySelectorAll(".category-item");
 
+  const categoryEnumMap = {
+    "소비": "CONSUMPTION",
+    "저축": "SAVING",
+    "대출": "LOAN",
+    "투자": "INVESTMENT",
+    "세금": "TAX"
+  };
+
   try {
     const response = await authorizedFetch("http://43.202.211.168:8080/api/terms/categories", {
       method: "GET"
     });
 
-    const categories = await response.json(); // [{ id: 1, category: "소비" }, ...]
+    const categories = await response.json();
 
     categoryItems.forEach((item, index) => {
       const categoryText = item.querySelector("p");
 
       if (categories[index]) {
         categoryText.textContent = categories[index].category;
-        item.dataset.id = categories[index].id; // data-id에 id 저장
       } else {
         categoryText.textContent = "알 수 없음";
       }
@@ -23,12 +30,20 @@ document.addEventListener("DOMContentLoaded", async () => {
 
     categoryItems.forEach(item => {
       item.addEventListener("click", () => {
-        const categoryId = item.dataset.id;
         const categoryName = item.querySelector("p").textContent;
-        console.log("클릭된 카테고리 ID:", categoryId);
-        console.log("카테고리 이름:", categoryName);
+        const categoryEnum = categoryEnumMap[categoryName];
 
-        window.location.href = `/pages/category_words.html?categoryId=${categoryId}&categoryName=${encodeURIComponent(categoryName)}`;
+        if (!categoryEnum) {
+          alert("유효하지 않은 카테고리입니다.");
+          return;
+        }
+
+        // ✅ 필요한 정보만 로컬스토리지에 저장
+        localStorage.setItem("selectedCategoryName", categoryName);
+        localStorage.setItem("selectedCategoryEnum", categoryEnum);
+
+        // ✅ 페이지 이동 (ID는 URL에 없음)
+        window.location.href = `/pages/quiz_level_select.html?categoryName=${encodeURIComponent(categoryName)}&categoryEnum=${categoryEnum}`;
       });
     });
 
