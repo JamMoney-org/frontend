@@ -10,73 +10,117 @@ document.addEventListener("DOMContentLoaded", async () => {
     return;
   }
 
-  console.log("✅ 요청 companyId:", companyId);
-
   const orderButtons = document.querySelectorAll(".order-button");
   const priceLabel = document.querySelector(".price-display .label");
   const quantityLabel = document.querySelector(".quantity .label");
   const tradeButton = document.querySelector(".trade-button");
   const priceTextDiv = document.getElementById("price");
-  const limitPriceInput = document.getElementById("limitPriceInput");
-
-  let firstValidBid = null;
-
-  orderButtons.forEach((btn) => {
-    btn.addEventListener("click", () => {
-      orderButtons.forEach((b) => b.classList.remove("active"));
-      btn.classList.add("active");
-
-      const type = btn.textContent.trim();
-      if (type === "판매") {
-        priceLabel.textContent = "판매할 가격";
-        quantityLabel.textContent = "판매수량";
-        tradeButton.textContent = "판매하기";
-      } else {
-        priceLabel.textContent = "구매할 가격";
-        quantityLabel.textContent = "구매수량";
-        tradeButton.textContent = "구매하기";
-      }
-    });
-  });
-
-  let quantity = 0;
   const quantityDisplay = document.getElementById("quantityDisplay");
   const totalAmount = document.getElementById("totalAmount");
   const increaseBtn = document.getElementById("increaseBtn");
   const decreaseBtn = document.getElementById("decreaseBtn");
+  const percentButtons = document.querySelectorAll(".quantity-percent button");
+  const orderHistoryContainer = document.querySelector(".order-history");
+
+  let limitPriceInput = document.getElementById("limitPriceInput");
+  if (!limitPriceInput) {
+    limitPriceInput = document.createElement("input");
+    limitPriceInput.type = "number";
+    limitPriceInput.id = "limitPriceInput";
+    limitPriceInput.placeholder = "지정가 입력";
+    limitPriceInput.min = 1;
+    limitPriceInput.style.marginTop = "10px";
+    limitPriceInput.style.padding = "8px";
+    limitPriceInput.style.width = "100%";
+    priceTextDiv?.parentElement?.appendChild(limitPriceInput);
+  }
+
+  limitPriceInput.addEventListener("focus", () => {
+    const limitRadio = document.querySelector('input[name="priceType"][value="limit"]');
+    if (limitRadio) limitRadio.checked = true;
+    priceTextDiv.style.display = "none";
+    limitPriceInput.style.display = "block";
+  });
+
+  const modal = document.createElement("div");
+  modal.id = "confirm-modal";
+  Object.assign(modal.style, {
+    position: "fixed", top: 0, left: 0, width: "100%", height: "100%",
+    backgroundColor: "rgba(0,0,0,0.5)", display: "none", justifyContent: "center",
+    alignItems: "center", zIndex: 1000
+  });
+  modal.innerHTML = `
+    <div style="background:white;padding:24px;border-radius:12px;text-align:center;width:280px">
+      <h3 id="modal-title"></h3>
+      <p id="modal-price"></p>
+      <p id="modal-total"></p>
+      <div style="margin-top:12px">
+        <button id="modal-cancel" style="margin-right:12px">취소</button>
+        <button id="modal-confirm">확인</button>
+      </div>
+    </div>`;
+  document.body.appendChild(modal);
+
+  let firstValidBid = null;
+  let quantity = 0;
+  let userAvailableStock = 100; // 예시: 실제 API 연동 필요
 
   function updateTotal() {
     const isMarket = document.querySelector('input[name="priceType"]:checked')?.value === "market";
-    const price = isMarket ? parseInt(firstValidBid || 0) : parseInt(limitPriceInput?.value) || 0;
+    const rawPrice = isMarket ? Number(firstValidBid || 0) : Number(limitPriceInput?.value) || 0;
+    const price = Math.max(rawPrice, 0);
     const total = quantity * price;
-    if (quantityDisplay) quantityDisplay.textContent = `${quantity} 주`;
-    if (totalAmount) totalAmount.textContent = `${total.toLocaleString()}원`;
+    quantityDisplay.textContent = `${quantity} 주`;
+    totalAmount.textContent = `${total.toLocaleString()}원`;
+    return { price, total };
   }
 
-  increaseBtn?.addEventListener("click", () => {
-    quantity++;
-    updateTotal();
+  increaseBtn?.addEventListener("click", () => { quantity++; updateTotal(); });
+  decreaseBtn?.addEventListener("click", () => { if (quantity > 0) quantity--; updateTotal(); });
+
+  percentButtons.forEach((btn) => {
+    btn.addEventListener("click", () => {
+      const percent = Number(btn.dataset.percent);
+      const maxAffordable = 1000000; // 예시: 사용자의 총 자산 (실제 API 연동 필요)
+      const isMarket = document.querySelector('input[name="priceType"]:checked')?.value === "market";
+      const price = isMarket ? Number(firstValidBid || 0) : Number(limitPriceInput?.value) || 0;
+      if (price > 0) {
+        quantity = Math.floor((maxAffordable * percent / 100) / price);
+        updateTotal();
+      }
+    });
   });
 
-  decreaseBtn?.addEventListener("click", () => {
-    if (quantity > 0) {
-      quantity--;
-      updateTotal();
-    }
+  orderButtons.forEach((btn) => {
+    btn.addEventListener("click", () => {
+      orderButtons.forEach((b) => {
+        b.classList.remove("active");
+        b.style.backgroundColor = "";
+        b.style.color = "";
+      });
+      btn.classList.add("active");
+      btn.style.backgroundColor = "#51B291";
+      btn.style.color = "white";
+
+      const type = btn.textContent.trim();
+      priceLabel.textContent = type === "판매" ? "판매할 가격" : "구매할 가격";
+      quantityLabel.textContent = type === "판매" ? "판매수량" : "구매수량";
+      tradeButton.textContent = type === "판매" ? "판매하기" : "구매하기";
+    });
   });
+
+  orderButtons[0].click();
 
   document.querySelectorAll('input[name="priceType"]').forEach((input) => {
     input.addEventListener("change", () => {
       if (input.value === "market") {
-        if (priceTextDiv) priceTextDiv.style.display = "block";
-        if (limitPriceInput) limitPriceInput.style.display = "none";
-        if (priceTextDiv) priceTextDiv.textContent = `시장가 주문: ${parseInt(firstValidBid || 0).toLocaleString()}원`;
+        priceTextDiv.style.display = "block";
+        limitPriceInput.style.display = "none";
+        priceTextDiv.textContent = `시장가 주문: ${Number(firstValidBid || 0).toLocaleString()}원`;
       } else {
-        if (priceTextDiv) priceTextDiv.style.display = "none";
-        if (limitPriceInput) {
-          limitPriceInput.style.display = "block";
-          limitPriceInput.value = "";
-        }
+        priceTextDiv.style.display = "none";
+        limitPriceInput.style.display = "block";
+        limitPriceInput.value = "";
       }
       updateTotal();
     });
@@ -86,21 +130,16 @@ document.addEventListener("DOMContentLoaded", async () => {
     const res = await authorizedFetch(`http://43.202.211.168:8080/api/company/${companyId}`);
     if (!res.ok) throw new Error("호가 정보 로드 실패");
 
-    const companyData = await res.json();
-    const data = companyData.stockAskingPriceResponseDto;
-
-    console.log("✅ 호가 응답 데이터:", data);
-
+    const { stockAskingPriceResponseDto: data } = await res.json();
     const priceListContainer = document.querySelector(".price-list");
     priceListContainer.innerHTML = "";
 
     for (let i = 10; i >= 1; i--) {
-      const askPrice = data[`askp${i}`];
-      const askQty = data[`askp_rsqn${i}`];
-      if (askPrice && askQty) {
+      const price = data[`askp${i}`], qty = data[`askp_rsqn${i}`];
+      if (price && qty) {
         const item = document.createElement("div");
-        item.className = "price-item red";
-        item.innerHTML = `${Number(askPrice).toLocaleString()} <span class="percent">${Number(askQty).toLocaleString()}</span>`;
+        item.className = "price-item red fade-in";
+        item.innerHTML = `${Number(price).toLocaleString()} <span class="percent">${Number(qty).toLocaleString()}</span>`;
         priceListContainer.appendChild(item);
       }
     }
@@ -110,20 +149,19 @@ document.addEventListener("DOMContentLoaded", async () => {
       if (bidPrice) {
         firstValidBid = bidPrice;
         const selected = document.createElement("div");
-        selected.className = "price-item selected";
-        selected.innerHTML = `${Number(firstValidBid).toLocaleString()} <span class="percent">선택</span>`;
+        selected.className = "price-item selected fade-in";
+        selected.innerHTML = `${Number(bidPrice).toLocaleString()} <span class="percent">선택</span>`;
         priceListContainer.appendChild(selected);
         break;
       }
     }
 
     for (let i = 1; i <= 10; i++) {
-      const bidPrice = data[`bidp${i}`];
-      const bidQty = data[`bidp_rsqn${i}`];
-      if (bidPrice && bidQty) {
+      const price = data[`bidp${i}`], qty = data[`bidp_rsqn${i}`];
+      if (price && qty) {
         const item = document.createElement("div");
-        item.className = "price-item blue";
-        item.innerHTML = `${Number(bidPrice).toLocaleString()} <span class="percent">${Number(bidQty).toLocaleString()}</span>`;
+        item.className = "price-item blue fade-in";
+        item.innerHTML = `${Number(price).toLocaleString()} <span class="percent">${Number(qty).toLocaleString()}</span>`;
         priceListContainer.appendChild(item);
       }
     }
@@ -131,15 +169,12 @@ document.addEventListener("DOMContentLoaded", async () => {
     priceListContainer.addEventListener("click", (e) => {
       const target = e.target.closest(".price-item");
       if (!target) return;
-
       const priceText = target.textContent.trim().split(" ")[0].replace(/,/g, "");
       const limitRadio = document.querySelector('input[name="priceType"][value="limit"]');
       if (limitRadio) limitRadio.checked = true;
-      if (priceTextDiv) priceTextDiv.style.display = "none";
-      if (limitPriceInput) {
-        limitPriceInput.style.display = "block";
-        limitPriceInput.value = priceText;
-      }
+      priceTextDiv.style.display = "none";
+      limitPriceInput.style.display = "block";
+      limitPriceInput.value = priceText;
       updateTotal();
     });
   } catch (error) {
@@ -148,7 +183,7 @@ document.addEventListener("DOMContentLoaded", async () => {
       "<div class='price-item'>호가 정보를 불러올 수 없습니다.</div>";
   }
 
-  tradeButton?.addEventListener("click", async () => {
+  tradeButton?.addEventListener("click", () => {
     const isBuy = document.querySelector(".order-button.active")?.textContent.trim() === "구매";
     if (quantity <= 0) {
       alert("수량을 선택해주세요.");
@@ -159,44 +194,64 @@ document.addEventListener("DOMContentLoaded", async () => {
     let price;
 
     if (isMarket) {
-      price = parseInt(firstValidBid || 0);
+      price = Number(firstValidBid || 0);
     } else {
       const rawPrice = limitPriceInput?.value;
-      if (!rawPrice || isNaN(rawPrice)) {
+      if (!rawPrice || isNaN(rawPrice) || Number(rawPrice) <= 0) {
         alert("지정가를 올바르게 입력해주세요.");
         return;
       }
-      price = parseInt(rawPrice);
+      price = Number(rawPrice);
     }
 
-    const endpoint = isBuy
-      ? "http://43.202.211.168:8080/api/order/buy"
-      : "http://43.202.211.168:8080/api/order/sell";
+    const { total } = updateTotal();
 
-    try {
-      const params = new URLSearchParams();
-      params.append("companyId", companyId);
-      params.append("price", price);
-      params.append("stockCount", quantity);
+    document.getElementById("modal-title").textContent = `${isBuy ? "구매" : "판매"} ${quantity}주`;
+    document.getElementById("modal-price").textContent = `1주 희망 가격 ${price.toLocaleString()}원`;
+    document.getElementById("modal-total").textContent = `총 주문 가격 ${total.toLocaleString()}원`;
+    modal.style.display = "flex";
 
-      const response = await fetch(endpoint, {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/x-www-form-urlencoded",
-          Authorization: `Bearer ${localStorage.getItem("accessToken")}`,
-        },
-        body: params,
-      });
+    document.getElementById("modal-cancel").onclick = () => {
+      modal.style.display = "none";
+    };
 
-      if (!response.ok) throw new Error("주문 실패");
+    document.getElementById("modal-confirm").onclick = async () => {
+      modal.style.display = "none";
+      const endpoint = isBuy
+        ? "http://43.202.211.168:8080/api/order/buy"
+        : "http://43.202.211.168:8080/api/order/sell";
 
-      const result = await response.json();
-      alert("주문이 완료되었습니다.");
-      console.log("주문 결과:", result);
-    } catch (err) {
-      console.error("주문 오류:", err);
-      alert("주문 중 오류가 발생했습니다.");
-    }
+      try {
+        const params = new URLSearchParams();
+        params.append("companyId", companyId);
+        params.append("price", price);
+        params.append("stockCount", quantity);
+
+        const response = await fetch(endpoint, {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/x-www-form-urlencoded",
+            Authorization: `Bearer ${localStorage.getItem("accessToken")}`,
+          },
+          body: params,
+        });
+
+        if (!response.ok) throw new Error("주문 실패");
+
+        const result = await response.json();
+        alert("주문이 완료되었습니다.");
+        quantity = 0;
+        limitPriceInput.value = "";
+        updateTotal();
+
+        const entry = document.createElement("div");
+        entry.className = "order-entry fade-in";
+        entry.innerHTML = `${new Date().toLocaleTimeString()} - ${isBuy ? "매수" : "매도"} ${quantity}주 @ ${price.toLocaleString()}원`;
+        orderHistoryContainer?.prepend(entry);
+      } catch (err) {
+        console.error("주문 오류:", err);
+        alert("주문 중 오류가 발생했습니다.");
+      }
+    };
   });
 });
-  
