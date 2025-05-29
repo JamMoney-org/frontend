@@ -150,7 +150,9 @@ document.addEventListener("DOMContentLoaded", async () => {
         }
 
         const result = resultList[0];
-        const { isCorrect, correctAnswer, selectedAnswer: selected } = result;
+        const isCorrect = result.correct; // ✅ 서버 응답에 맞게 이름 수정
+
+        const { correctAnswer, selectedAnswer: selected } = result;
 
         document.querySelectorAll(".quiz-option").forEach((btn, i) => {
           btn.classList.remove("selected", "correct", "incorrect");
@@ -158,8 +160,9 @@ document.addEventListener("DOMContentLoaded", async () => {
           if (i === selected && i !== correctAnswer) btn.classList.add("incorrect");
         });
 
-        const message = isCorrect ? "정답입니다!" : "오답입니다.";
+        const message = isCorrect ? "✅ 정답입니다!" : "❌ 오답입니다.";
         showModal(message);
+
 
         nextButton.textContent = "다음 문제";
         isAnswered = true;
