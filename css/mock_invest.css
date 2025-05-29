@@ -1,0 +1,192 @@
+.company-name{
+  margin: 0; 
+  font-size: 24px
+}
+
+.stock-header{
+  padding: 1rem;
+  padding-bottom: 0;
+}
+.current-price{
+  font-size: 18px; 
+  color: #333333;
+}
+
+.price-change{
+  font-size: 14px; 
+  color: #999;
+}
+
+.tab-menu {
+  display: flex;
+  justify-content: space-around;
+  border-bottom: 1px solid #eee;
+}
+
+.tab-menu button {
+  flex: 1;
+  padding: 12px;
+  border: none;
+  background: none;
+  cursor: pointer;
+}
+
+.tab-menu button.active {
+  border-bottom: 2px solid #333333;
+  font-weight: bold;
+  color: #333333;
+}
+
+#tab-content{
+  padding-bottom: 60px;
+}
+
+
+.tab-pane { 
+  display: none; 
+}
+
+.tab-pane.active { 
+  display: block; 
+}
+
+.period-tabs {
+  display: flex;
+  justify-content: center;
+  gap: 10px;
+  margin-top: 10px;
+}
+
+.period-tabs button {
+  padding: 8px 20px;
+  border: none;
+  background-color: #FFFFFF;
+  font-size: 14px;
+  border-radius: 8px;
+  cursor: pointer;
+  transition: background-color 0.2s ease, font-weight 0.2s ease;
+}
+
+
+.period-tabs .active {
+  background-color: #EEEEEE;
+  font-weight: 400;
+}
+
+
+table {
+  width: 100%;
+  border-collapse: collapse;
+  font-size: 14px;
+}
+
+td {
+  padding: 10px 0;
+  border: none;
+  text-align: center;
+  vertical-align: middle;
+  width: 25%;
+  border-bottom: 1.5px solid #F7F7F7;
+}
+
+.company-info-table td{
+  border: 1.5px solid #F7F7F7;
+}
+
+.company-info-table .label{
+  background-color: #F7F7F7;
+}
+
+thead {
+  background-color: #F7F7F7;
+}
+
+
+td.up * {
+  color: #F93040; /* 빨강 */
+}
+
+td.down * {
+  color: #3969FB; /* 파랑 */
+}
+
+.trade-btn-wrapper{
+  background-color: white;
+  position: fixed;
+  bottom: 44px;
+  width: 600px;
+  height: 50px;
+}
+
+.trade-btn{
+  position: fixed;
+  bottom: 50px;
+  left: 50%;
+  transform: translateX(-50%);
+  max-width: 550px;
+  width: 92%;
+  background-color: #5DC29E;
+  color: white;
+  padding: 10px;
+  border: none;
+  border-radius: 8px;
+}
+
+
+.chart-wrapper {
+  width: 100%;
+  aspect-ratio: 1 / 1;
+  position: relative;
+}
+#candleChart {
+  width: 100%;
+  height: 100%;
+  display: block;
+}
+.tooltip-box {
+  position: absolute;
+  background: #fff;
+  border: 1px solid #ccc;
+  padding: 8px 10px;
+  font-size: 13px;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+  pointer-events: none;
+  white-space: nowrap;
+  border-radius: 4px;
+}
+
+.tooltip-box .up {
+  color: red;
+}
+.tooltip-box .down {
+  color: blue;
+}
+
+.tooltip-box strong {
+  display: block;
+  margin-bottom: 3px;
+}
+
+@media (max-width: 400px) {
+  .tooltip-box {
+    font-size: 11px;
+    padding: 5px;
+  }
+}
+
+.price-change .up {
+  color: red;
+}
+.price-change .down {
+  color: blue;
+}
+
+
+/* 연한 회색 그리드 */
+.grid line {
+  stroke: #e0e0e0;
+  stroke-dasharray: 2 2;
+}
+.grid path {
+  display: none;
+}
