@@ -44,7 +44,7 @@ document.addEventListener("DOMContentLoaded", function () {
 
                 showPopup("로그인 성공!", "success", 1500);
                 setTimeout(() => {
-                    window.location.href = "../pages/main.html";
+                    window.location.href = "../../../pages/mainpage.html";
                 }, 1500);
             } else {
                 const errorText = await response.text();
