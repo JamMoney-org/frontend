@@ -1,8 +1,17 @@
 import { authorizedFetch } from "../../utils/auth-fetch.js";
 
 document.addEventListener("DOMContentLoaded", () => {
-    const correctCount = 3;  // 맞춘 문제 수 (예제)
-    const totalCount = 5;    // 총 문제 수 (예제)
+    const result = JSON.parse(localStorage.getItem("quizResultSummary"));
+
+    // 데이터 유효성 검사
+    if (!result || typeof result.correctCount !== "number" || typeof result.totalQuestions !== "number") {
+        alert("결과 데이터를 불러오는 데 실패했습니다.");
+        window.location.href = "index.html";  // 오류 시 메인으로 이동
+        return;
+    }
+
+    const correctCount = result.correctCount;
+    const totalCount = result.totalQuestions;
 
     // DOM 요소 가져오기
     const feedback = document.getElementById("feedback");
@@ -10,10 +19,10 @@ document.addEventListener("DOMContentLoaded", () => {
 
     // 피드백 메시지 설정
     if (feedback) {
-        if (correctCount >= 3) {  // 3개 이상 맞았을 때
+        if (correctCount >= 3) {
             feedback.textContent = "잘했어요! 대단해요!";
             feedback.style.backgroundColor = "#5DC29E";
-        } else {  // 2개 이하 맞았을 때
+        } else {
             feedback.textContent = "더 공부가 필요해요!";
             feedback.style.backgroundColor = "#5DC29E";
         }
@@ -51,8 +60,9 @@ document.addEventListener("DOMContentLoaded", () => {
 
     // 퀴즈 종료 버튼
     const finishButton = document.getElementById("finish-button");
-    finishButton.addEventListener("click", () => {
-        alert("퀴즈를 종료합니다.");
-        window.location.href = "index.html";  // 메인 페이지로 이동
-    });
+    if (finishButton) {
+        finishButton.addEventListener("click", () => {
+            window.location.href = "vocabulary_category.html";
+        });
+    }
 });

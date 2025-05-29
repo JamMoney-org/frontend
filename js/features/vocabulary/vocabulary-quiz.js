@@ -15,6 +15,7 @@ document.addEventListener("DOMContentLoaded", async () => {
   let currentQuestionIndex = 0;
   let selectedAnswer = null;
   let isAnswered = false;
+  let correctCount = 0; // ✅ 맞은 문제 수 카운트
 
   if (!categoryName || !dayIndex) {
     alert("잘못된 접근입니다.");
@@ -117,18 +118,15 @@ document.addEventListener("DOMContentLoaded", async () => {
 
       try {
         const submitPayload = {
-        categoryName: categoryName,
-        dayIndex: parseInt(dayIndex),
-        answers: [
-          {
-            quizId: quiz.quizId,
-            selectedAnswer: selectedAnswer.toString() // ✅ 문자열로!
-          }
-        ]
-      };
-
-
-        console.log("제출 payload:", submitPayload);
+          categoryName: categoryName,
+          dayIndex: parseInt(dayIndex),
+          answers: [
+            {
+              quizId: quiz.quizId,
+              selectedAnswer: selectedAnswer.toString()
+            }
+          ]
+        };
 
         const response = await authorizedFetch("http://43.202.211.168:8080/api/terms/quiz/submit", {
           method: "POST",
@@ -142,16 +140,8 @@ document.addEventListener("DOMContentLoaded", async () => {
         }
 
         const resultList = await response.json();
-
-        if (!Array.isArray(resultList) || resultList.length === 0) {
-          console.error("서버 응답이 비어 있음 또는 예상과 다름:", resultList);
-          alert("정답 결과를 불러오지 못했습니다.");
-          return;
-        }
-
         const result = resultList[0];
-        const isCorrect = result.correct; // ✅ 서버 응답에 맞게 이름 수정
-
+        const isCorrect = result.correct;
         const { correctAnswer, selectedAnswer: selected } = result;
 
         document.querySelectorAll(".quiz-option").forEach((btn, i) => {
@@ -161,8 +151,8 @@ document.addEventListener("DOMContentLoaded", async () => {
         });
 
         const message = isCorrect ? "✅ 정답입니다!" : "❌ 오답입니다.";
+        if (isCorrect) correctCount++; // ✅ 맞힌 문제 카운트
         showModal(message);
-
 
         nextButton.textContent = "다음 문제";
         isAnswered = true;
@@ -177,10 +167,13 @@ document.addEventListener("DOMContentLoaded", async () => {
         isAnswered = false;
         selectedAnswer = null;
       } else {
-        const quizResults = quizzes.map(q => ({
-          correct: q.userAnswerIndex === q.correctIndex
+        // ✅ 결과 저장
+        localStorage.setItem("quizResultSummary", JSON.stringify({
+          totalQuestions: quizzes.length,
+          correctCount: correctCount
         }));
-        localStorage.setItem("quizResults", JSON.stringify(quizResults));
+
+        // ✅ 결과 페이지로 이동
         window.location.href = "/pages/vocabulary_quiz_result.html";
       }
     }
