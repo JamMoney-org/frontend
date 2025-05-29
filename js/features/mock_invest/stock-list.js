@@ -4,17 +4,31 @@ document.addEventListener("DOMContentLoaded", async () => {
   const stockListContainer = document.querySelector(".stock-list ul");
   const interestingCompanyIds = new Set();
 
-  // 🔹 회사 로고 매핑
-  const logoMap = {
-    "CELLTRION": "https://jammoney.s3.ap-northeast-2.amazonaws.com/e7063746-c45b-45fb-916c-850cee8b7284-CELLTRION.jpg",
-    "HYUNDAI": "https://jammoney.s3.ap-northeast-2.amazonaws.com/67737ced-76c8-4ace-bd1a-21ab9c906665-HYUNDAI.jpg",
-    "KAKAO": "https://jammoney.s3.ap-northeast-2.amazonaws.com/eb36ca89-9587-43a4-b583-d9a7d0036864-KAKAO.png",
-    "KIA": "https://jammoney.s3.ap-northeast-2.amazonaws.com/2d06c34e-4828-4a59-bd17-8684107cd545-KIA.png",
-    "LG": "https://jammoney.s3.ap-northeast-2.amazonaws.com/726139a8-1c9b-4c05-9f69-e196464f9277-LG.png",
-    "NAVER": "https://jammoney.s3.ap-northeast-2.amazonaws.com/75950a2d-c8f2-450d-9dea-1fbb20cdff0c-NAVER.png",
-    "POSCO": "https://jammoney.s3.ap-northeast-2.amazonaws.com/565d2588-56ba-4351-8a4f-89e585094f47-POSCO.png",
-    "SK": "https://jammoney.s3.ap-northeast-2.amazonaws.com/669909bd-847a-49f2-8a8b-be07d5c4f1c0-SK.png"
-  };
+  // 🔹 회사 로고 매핑 (부분 매칭용)
+ const logoMap = {
+  "셀트리온": "https://jammoney.s3.ap-northeast-2.amazonaws.com/e7063746-c45b-45fb-916c-850cee8b7284-CELLTRION.jpg",
+  "현대": "https://jammoney.s3.ap-northeast-2.amazonaws.com/67737ced-76c8-4ace-bd1a-21ab9c906665-HYUNDAI.jpg",
+  "카카오": "https://jammoney.s3.ap-northeast-2.amazonaws.com/eb36ca89-9587-43a4-b583-d9a7d0036864-KAKAO.png",
+  "기아": "https://jammoney.s3.ap-northeast-2.amazonaws.com/2d06c34e-4828-4a59-bd17-8684107cd545-KIA.png",
+  "LG": "https://jammoney.s3.ap-northeast-2.amazonaws.com/726139a8-1c9b-4c05-9f69-e196464f9277-LG.png",
+  "네이버": "https://jammoney.s3.ap-northeast-2.amazonaws.com/75950a2d-c8f2-450d-9dea-1fbb20cdff0c-NAVER.png",
+  "NAVER": "https://jammoney.s3.ap-northeast-2.amazonaws.com/75950a2d-c8f2-450d-9dea-1fbb20cdff0c-NAVER.png",
+  "포스코": "https://jammoney.s3.ap-northeast-2.amazonaws.com/565d2588-56ba-4351-8a4f-89e585094f47-POSCO.png",
+  "POSCO": "https://jammoney.s3.ap-northeast-2.amazonaws.com/565d2588-56ba-4351-8a4f-89e585094f47-POSCO.png",
+  "SK": "https://jammoney.s3.ap-northeast-2.amazonaws.com/669909bd-847a-49f2-8a8b-be07d5c4f1c0-SK.png",
+  "삼성": "https://jammoney.s3.ap-northeast-2.amazonaws.com/2b6bffc5-3f2f-400f-8333-9dee7f442275-SAMSUNG.png"
+};
+
+
+  // korName에서 포함된 키워드로 로고 찾기
+  function getCompanyLogo(korName) {
+    for (const key in logoMap) {
+      if (korName.includes(key)) {
+        return logoMap[key];
+      }
+    }
+    return "../assets/images/default.png";
+  }
 
   // 🔸 관심 종목 불러오기
   try {
@@ -82,7 +96,7 @@ document.addEventListener("DOMContentLoaded", async () => {
     stockListContainer.innerHTML = "";
 
     companies.forEach((company) => {
-      const { companyId, code, korName, engName, stockInfoResponseDto } = company;
+      const { companyId, code, korName, stockInfoResponseDto } = company;
 
       const currentPrice = Number(stockInfoResponseDto?.stck_prpr);
       const fluctuationAmount = Number(stockInfoResponseDto?.prdy_vrss);
@@ -96,8 +110,7 @@ document.addEventListener("DOMContentLoaded", async () => {
       });
 
       const img = document.createElement("img");
-      const upperEng = engName?.toUpperCase();
-      img.src = logoMap[upperEng] || "../assets/images/default.png";
+      img.src = getCompanyLogo(korName);
       img.alt = korName;
       img.style.width = "40px";
       img.style.marginRight = "8px";
