@@ -1,4 +1,3 @@
-// quiz-detail.js
 import { authorizedFetch } from "../../utils/auth-fetch.js";
 
 document.addEventListener("DOMContentLoaded", async () => {
@@ -118,15 +117,16 @@ document.addEventListener("DOMContentLoaded", async () => {
 
       try {
         const submitPayload = {
-          categoryName: categoryName,
-          dayIndex: parseInt(dayIndex),
-          answers: [
-            {
-              quizId: quiz.quizId,
-              userAnswerIndex: selectedAnswer
-            }
-          ]
-        };
+        categoryName: categoryName,
+        dayIndex: parseInt(dayIndex),
+        answers: [
+          {
+            quizId: quiz.quizId,
+            selectedAnswer: selectedAnswer.toString() // ✅ 문자열로!
+          }
+        ]
+      };
+
 
         console.log("제출 payload:", submitPayload);
 
@@ -178,7 +178,7 @@ document.addEventListener("DOMContentLoaded", async () => {
           correct: q.userAnswerIndex === q.correctIndex
         }));
         localStorage.setItem("quizResults", JSON.stringify(quizResults));
-        window.location.href = "/pages/quiz_result.html";
+        window.location.href = "/pages/vocabulary_quiz_result.html";
       }
     }
   });
