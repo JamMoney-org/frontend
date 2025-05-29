@@ -38,9 +38,6 @@ function renderCompanyInfo() {
 
   setValue('기준가', price.toLocaleString());
   setValue('전일종가', prevClose.toLocaleString());
-  setValue('누적거래량', Number(stockInfo.acml_vol).toLocaleString());
-  const amountInEok = (Number(stockInfo.acml_tr_pbmn) / 1e8).toFixed(2);
-  setValue('거래대금', `${amountInEok}억`);
 
   if (chartData?.length > 0) {
     const startPrice = Number(chartData.at(-1).stck_oprc);
@@ -58,17 +55,69 @@ function renderCompanyInfo() {
     setValue('하한가', lowerLimit.toLocaleString());
   }
 
-  // 임시 하드코딩
+  setValue('누적거래량', Number(stockInfo.acml_vol).toLocaleString());
+  const amountInEok = (Number(stockInfo.acml_tr_pbmn) / 1e8).toFixed(2);
+  setValue('거래대금', `${amountInEok}억`);
+  setValue(
+    '시가총액',
+    companyData.marketCap !== null
+      ? `${(companyData.marketCap / 1e8).toFixed(2)}억`
+      : ''
+  );
+  setValue(
+    '액면가',
+    companyData.faceValue !== null
+      ? `${Number(companyData.faceValue).toLocaleString()}원`
+      : ''
+  );
+  setValue('상장일자', companyData.listedDate ?? '');
+  setValue(
+    '상장수량',
+    companyData.listedShares !== null
+      ? `${Number(companyData.listedShares).toLocaleString()}주`
+      : ''
+  );
   setValue('시장정보구분(투자주의)', '해당없음');
+  setValue('업종분류', companyData.industry);
   setValue('관리종목', 'N');
   setValue('거래정지', 'N');
-  setValue('배당수익률', '0%');
-  setValue('주당배당금', '0');
-  setValue('EPS', '0');
-  setValue('PER', '0 배');
-  setValue('BPS', '0');
-  setValue('PBR', '0 배');
-  setValue('결산월', '- 월');
+  setValue(
+    '배당수익률',
+    companyData.dividendYield !== null ? `${companyData.dividendYield}%` : '%'
+  );
+  setValue(
+    '주당배당금',
+    companyData.dividendPerShare !== null
+      ? `${Number(companyData.dividendPerShare).toLocaleString()}원`
+      : ''
+  );
+
+  setValue(
+    'EPS',
+    companyData.eps !== null
+      ? `${Number(companyData.eps).toLocaleString()}원`
+      : ''
+  );
+  setValue(
+    'PER',
+    companyData.per !== null ? `${Number(companyData.per)}배` : '배'
+  );
+  setValue(
+    'BPS',
+    companyData.bps !== null
+      ? `${Number(companyData.bps).toLocaleString()}원`
+      : ''
+  );
+  setValue(
+    'PBR',
+    companyData.pbr !== null ? `${Number(companyData.pbr)}배` : '배'
+  );
+  setValue(
+    '결산월',
+    companyData.settlementMonth !== null
+      ? `${companyData.settlementMonth}월`
+      : '월'
+  );
 }
 
 // 초기 데이터 로드
