@@ -101,6 +101,7 @@ document.addEventListener("DOMContentLoaded", async () => {
     } else {
       questionElem.textContent = "관련 퀴즈가 없습니다.";
     }
+
   } catch (err) {
     aiTip.classList.add("hidden");
     aiOverlay.classList.add("hidden");
@@ -126,58 +127,66 @@ function highlightEasyWords(contentElem, wordList, newsId) {
 
   const terms = contentElem.querySelectorAll(".highlighted-term");
   terms.forEach(term => {
-    term.addEventListener("click", async () => {
-      const word = term.dataset.word;
-      const meaning = term.dataset.meaning;
-      const example = term.dataset.example;
-      const saved = term.dataset.saved === "true";
-
-      const toast = document.getElementById("easy-toast");
-      toast.innerHTML = `
-        <strong style="display:block; font-size:15px; color: #222;">${word}</strong>
-        <div style="margin-top:4px; color: #000;"><span style="color: #ffcc00;">💡</span> ${meaning}</div>
-        <div style="margin-top:4px; color: #000;">예) ${example}</div>
-        <div style="margin-top:20px; text-align:center">
-          <button id="bookmark-btn" class="easy-bookmark-btn">
-            나만의 단어장에 추가
-          </button>
-        </div>
-      `;
-      toast.classList.add("visible");
-
-      const bookmarkBtn = document.getElementById("bookmark-btn");
-      bookmarkBtn.onclick = async (e) => {
-        e.stopPropagation();
-        try {
-          const res = await authorizedFetch(`http://43.202.211.168:8080/api/news/${newsId}/easy-words`, {
-            method: "POST",
-            headers: { "Content-Type": "application/json" },
-            body: JSON.stringify({ originalWord: word, translatedText: meaning, exampleSentence })
-          });
-
-          console.log("응답 상태코드:", res.status);
-          if (!res.ok) {
-            const errorText = await res.text();
-            console.warn("서버 응답 메시지:", errorText);
-            throw new Error("서버 응답 오류");
-          }
-
-          bookmarkBtn.textContent = "✅ 추가됨";
-          bookmarkBtn.disabled = true;
-          bookmarkBtn.classList.add("added");
-          term.dataset.saved = "true";
-
-        } catch (err) {
-          alert("단어 저장 실패");
-        }
-      };
-
-      clearTimeout(window.toastTimeout);
-      window.toastTimeout = setTimeout(() => {
-        toast.classList.remove("visible");
-      }, 3000);
-    });
+    term.addEventListener("click", () => showEasyToast(term, newsId));
   });
+}
+
+async function showEasyToast(term, newsId) {
+  const word = term.dataset.word;
+  const meaning = term.dataset.meaning;
+  const example = term.dataset.example;
+  const saved = term.dataset.saved === "true";
+
+  const toast = document.getElementById("easy-toast");
+  toast.innerHTML = `
+    <strong style="display:block; font-size:15px; color: #222;">${word}</strong>
+    <div style="margin-top:4px; color: #000;"><span style="color: #ffcc00;">💡</span> ${meaning}</div>
+    <div style="margin-top:4px; color: #000;">예) ${example}</div>
+    <div style="margin-top:20px; text-align:center">
+      <button id="bookmark-btn" class="easy-bookmark-btn">
+        ${saved ? "✅ 추가됨" : "나만의 단어장에 추가"}
+      </button>
+    </div>
+  `;
+  toast.classList.add("visible");
+
+  const bookmarkBtn = document.getElementById("bookmark-btn");
+  bookmarkBtn.disabled = saved;
+  if (!saved) {
+    bookmarkBtn.onclick = async (e) => {
+      e.stopPropagation();
+      try {
+        const res = await authorizedFetch(`http://43.202.211.168:8080/api/news/${newsId}/easy-words`, {
+          method: "POST",
+          headers: { "Content-Type": "application/json" },
+          body: JSON.stringify({ originalWord: word, translatedText: meaning, exampleSentence: example })
+        });
+
+        console.log("응답 상태:", res.status, "ok 여부:", res.ok);
+        const text = await res.text();
+        console.log("응답 본문:", text);
+
+        if (!res.ok) {
+          console.warn("서버 에러 응답:", text);
+          throw new Error("서버 응답 오류");
+        }
+
+        bookmarkBtn.textContent = "✅ 추가됨";
+        bookmarkBtn.disabled = true;
+        bookmarkBtn.classList.add("added");
+        term.dataset.saved = "true";
+
+      } catch (err) {
+        console.error("단어 저장 중 오류 발생:", err);
+        alert("단어 저장 실패: " + err.message);
+      }
+    };
+  }
+
+  clearTimeout(window.toastTimeout);
+  window.toastTimeout = setTimeout(() => {
+    toast.classList.remove("visible");
+  }, 3000);
 }
 
 export { highlightEasyWords };
