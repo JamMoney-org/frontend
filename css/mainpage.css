@@ -40,7 +40,8 @@ body {
     overflow: hidden;
     margin-bottom: 20px;
     border: 1px solid #e1e1e1;
-    box-shadow: 0 2px 6px rgba(0, 0, 0, 0.1); }
+    box-shadow: 0 2px 6px rgba(0, 0, 0, 0.1);
+}
 
 /* 캐릭터 배경 */
 .background-img {
@@ -110,4 +111,28 @@ body {
     width: 40px;
     height: 40px;
     object-fit: contain;
+}
+
+.popup-message {
+    position: fixed;
+    top: 20px;
+    left: 50%;
+    transform: translateX(-50%);
+    background: #fff;
+    color: #555;
+    padding: 15px 25px;
+    border-radius: 10px;
+    box-shadow: 0 2px 6px rgba(0, 0, 0, 0.1);
+    font-weight: bold;
+    z-index: 10000;
+    opacity: 0;
+    pointer-events: none;
+    transition: opacity 0.3s ease;
+    max-width: 90%;
+    text-align: center;
+}
+
+.popup-message.show {
+    opacity: 0.8;
+    pointer-events: auto;
 }

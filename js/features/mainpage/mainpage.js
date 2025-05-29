@@ -1,5 +1,21 @@
 import { authorizedFetch } from "../../utils/auth-fetch.js";
 
+// 팝업
+function showPopup(message, type = "error", duration = 3000) {
+    let popup = document.querySelector(".popup-message");
+    if (!popup) {
+        popup = document.createElement("div");
+        popup.className = "popup-message";
+        document.body.appendChild(popup);
+    }
+    popup.textContent = message;
+    popup.className = `popup-message show ${type}`;
+
+    setTimeout(() => {
+        popup.classList.remove("show");
+    }, duration);
+}
+
 // 캐릭터 레벨에 맞는 이미지 설정
 function setCharacterImageByLevel(level) {
     const characterImg = document.getElementById("characterImage");
@@ -18,7 +34,7 @@ async function fetchAndSetCharacterImage() {
         const status = data.result || data;
         setCharacterImageByLevel(status.data.level);
     } catch (err) {
-        alert("캐릭터 이미지 로딩 실패: " + err.message);
+        showPopup("캐릭터 이미지 로딩 실패: " + err.message);
     }
 }
 
