@@ -343,7 +343,6 @@ function renderTimeTable() {
     .filter((item) => item.stockTradeTime.slice(0, 10) === todayStr)
     .reverse()
     .forEach((item) => {
-      console.log(item);
       const tr = document.createElement('tr');
 
       const time = new Date(item.stockTradeTime).toLocaleTimeString('ko-KR', {
@@ -372,11 +371,10 @@ function renderTimeTable() {
 }
 
 function renderDateTable() {
-  console.log(companyData);
-  console.log(chartData);
+  const stockInfo = companyData.stockInfoResponseDto;
+  const diff = Number(stockInfo.prdy_vrss);
   const tableBody = document.querySelector('#date tbody');
-  tableBody.innerHTML = ''; // 기존 내용 초기화
-
+  tableBody.innerHTML = '';
   // 날짜별 그룹핑
   const grouped = {};
   chartData.forEach((item) => {
@@ -389,29 +387,19 @@ function renderDateTable() {
   const sortedDates = Object.keys(grouped).sort(
     (a, b) => new Date(b) - new Date(a)
   );
+  const sorted = grouped[sortedDates[0]].sort(
+    (a, b) => new Date(a.stockTradeTime) - new Date(b.stockTradeTime)
+  );
 
+  let close = Number(sorted[sorted.length - 1].stck_prpr);
   sortedDates.forEach((date, index) => {
     const items = grouped[date];
-
-    // 시간순 정렬 후 종가 = 마지막 체결 가격
-    const sorted = items.sort(
-      (a, b) => new Date(a.stockTradeTime) - new Date(b.stockTradeTime)
-    );
-    const close = Number(sorted[sorted.length - 1].stck_prpr);
-
     // 누적 거래량
     const volume = items.reduce((sum, cur) => sum + Number(cur.cntg_vol), 0);
 
     // 대비 (이전날 종가 - 현재 종가 → 현재 날짜에 표시)
     let diffText = '<td>-</td>';
-    if (index < sortedDates.length - 1) {
-      const nextDate = sortedDates[index + 1];
-      const nextItems = grouped[nextDate].sort(
-        (a, b) => new Date(a.stockTradeTime) - new Date(b.stockTradeTime)
-      );
-      const nextClose = Number(nextItems[nextItems.length - 1].stck_prpr);
-      const diff = close - nextClose;
-
+    if (index === 0) {
       const diffClass = diff > 0 ? 'up' : diff < 0 ? 'down' : '';
       const diffArrow = diff > 0 ? '▲' : diff < 0 ? '▼' : '';
       diffText = `
@@ -420,6 +408,9 @@ function renderDateTable() {
           <span class="value">${Math.abs(diff).toLocaleString()}</span>
         </td>
       `;
+    }
+    if (index === 1) {
+      close -= diff;
     }
 
     // 테이블 행 렌더링
@@ -437,9 +428,8 @@ function renderDateTable() {
 // 진입점
 (async function initPage() {
   const params = new URLSearchParams(location.search);
-  let companyId = params.get('companyId');
+  const companyId = params.get('companyId');
 
-  companyId = 1; // 테스트용
   if (!companyId) return;
 
   try {
@@ -451,9 +441,6 @@ function renderDateTable() {
 
     // 거래 버튼 클릭 이벤트 등록
     document.querySelector('.trade-btn').addEventListener('click', () => {
-      console.log(companyData.companyId);
-      console.log(companyData.code);
-
       window.location.href = `mock_invest_trade.html?companyId=${companyData.companyId}&companyCode=${companyData.code}`;
     });
 
