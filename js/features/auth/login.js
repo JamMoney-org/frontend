@@ -1,6 +1,21 @@
 document.addEventListener("DOMContentLoaded", function () {
     const loginForm = document.querySelector(".login-form");
 
+    function showPopup(message, type = "error", duration = 3000) {
+        let popup = document.querySelector(".popup-message");
+        if (!popup) {
+            popup = document.createElement("div");
+            popup.className = "popup-message";
+            document.body.appendChild(popup);
+        }
+        popup.textContent = message;
+        popup.className = `popup-message show ${type}`;
+
+        setTimeout(() => {
+            popup.classList.remove("show");
+        }, duration);
+    }
+
     loginForm.addEventListener("submit", async function (e) {
         e.preventDefault();
 
@@ -8,7 +23,7 @@ document.addEventListener("DOMContentLoaded", function () {
         const password = document.getElementById("password").value;
 
         if (!email || !password) {
-            alert("이메일과 비밀번호를 모두 입력해주세요.");
+            showPopup("이메일과 비밀번호를 모두 입력해주세요.", "error");
             return;
         }
 
@@ -24,18 +39,20 @@ document.addEventListener("DOMContentLoaded", function () {
             if (response.ok) {
                 const data = await response.json();
 
-                localStorage.setItem("accessToken", data.accessToken);    
+                localStorage.setItem("accessToken", data.accessToken);
                 localStorage.setItem("refreshToken", data.refreshToken);
 
-                alert("로그인 성공!");
-                window.location.href = "../pages/main.html";
+                showPopup("로그인 성공!", "success", 1500);
+                setTimeout(() => {
+                    window.location.href = "../pages/main.html";
+                }, 1500);
             } else {
                 const errorText = await response.text();
-                alert(`로그인 실패: ${errorText}`);
+                showPopup(`로그인 실패: ${errorText}`, "error");
             }
         } catch (error) {
             console.error("로그인 중 오류 발생:", error);
-            alert("서버 연결에 실패했습니다.");
+            showPopup("서버 연결에 실패했습니다.", "error");
         }
     });
 });
