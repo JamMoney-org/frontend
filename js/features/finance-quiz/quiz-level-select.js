@@ -1,13 +1,16 @@
-import { authorizedFetch } from "../../utils/auth-fetch.js"; 
+import { authorizedFetch } from "../../utils/auth-fetch.js";
 
 document.addEventListener("DOMContentLoaded", () => {
   const quizItems = document.querySelectorAll(".quiz-item");
-  const category = localStorage.getItem("selectedCategoryEnum"); 
+  const category = localStorage.getItem("selectedCategoryEnum");
   const difficultyMap = {
     "초급": "EASY",
     "중급": "NORMAL",
     "고급": "HARD"
   };
+
+  const loadingTip = document.getElementById("quiz-loading-tip");
+  const loadingOverlay = document.getElementById("quiz-loading-overlay");
 
   quizItems.forEach(item => {
     item.addEventListener("click", async () => {
@@ -24,6 +27,10 @@ document.addEventListener("DOMContentLoaded", () => {
         difficulty: enumDifficulty
       };
 
+      // 로딩 시작
+      loadingTip.classList.remove("hidden");
+      loadingOverlay.classList.remove("hidden");
+
       try {
         const response = await authorizedFetch("http://43.202.211.168:8080/api/quiz/generate", {
           method: "POST",
@@ -37,11 +44,15 @@ document.addEventListener("DOMContentLoaded", () => {
         const result = await response.json();
 
         localStorage.setItem("currentQuizSet", JSON.stringify(result.data));
-        localStorage.setItem("selectedDifficulty", korDifficulty); // 한글 난이도 저장
+        localStorage.setItem("selectedDifficulty", korDifficulty);
 
         window.location.href = "/pages/quiz_detail.html";
       } catch (error) {
         alert("퀴즈를 불러오는 데 실패했습니다.");
+      } finally {
+        // 로딩 종료
+        loadingTip.classList.add("hidden");
+        loadingOverlay.classList.add("hidden");
       }
     });
   });
