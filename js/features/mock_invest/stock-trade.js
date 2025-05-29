@@ -61,9 +61,42 @@ document.addEventListener("DOMContentLoaded", async () => {
     </div>`;
   document.body.appendChild(modal);
 
+  const errorModal = document.createElement("div");
+  errorModal.id = "error-modal";
+  Object.assign(errorModal.style, {
+    position: "fixed", top: 0, left: 0, width: "100%", height: "100%",
+    backgroundColor: "rgba(0,0,0,0.5)", display: "none", justifyContent: "center",
+    alignItems: "center", zIndex: 1001
+  });
+  errorModal.innerHTML = `
+    <div style="background:white;padding:24px;border-radius:12px;text-align:center;width:280px">
+      <p id="error-message" style="margin-bottom:20px;font-weight:500"></p>
+      <button id="error-close" style="padding:6px 14px;background:#51B291;color:white;border:none;border-radius:6px">확인</button>
+    </div>`;
+  document.body.appendChild(errorModal);
+  document.getElementById("error-close").onclick = () => {
+    errorModal.style.display = "none";
+  };
+
+  const successModal = document.createElement("div");
+  successModal.id = "success-modal";
+  Object.assign(successModal.style, {
+    position: "fixed", top: 0, left: 0, width: "100%", height: "100%",
+    backgroundColor: "rgba(0,0,0,0.5)", display: "none", justifyContent: "center",
+    alignItems: "center", zIndex: 1001
+  });
+  successModal.innerHTML = `
+    <div style="background:white;padding:24px;border-radius:12px;text-align:center;width:280px">
+      <p id="success-message" style="margin-bottom:20px;font-weight:500">주문이 완료되었습니다.</p>
+      <button id="success-close" style="padding:6px 14px;background:#51B291;color:white;border:none;border-radius:6px">확인</button>
+    </div>`;
+  document.body.appendChild(successModal);
+  document.getElementById("success-close").onclick = () => {
+    successModal.style.display = "none";
+  };
+
   let firstValidBid = null;
   let quantity = 0;
-  let userAvailableStock = 100; // 예시: 실제 API 연동 필요
 
   function updateTotal() {
     const isMarket = document.querySelector('input[name="priceType"]:checked')?.value === "market";
@@ -81,7 +114,7 @@ document.addEventListener("DOMContentLoaded", async () => {
   percentButtons.forEach((btn) => {
     btn.addEventListener("click", () => {
       const percent = Number(btn.dataset.percent);
-      const maxAffordable = 1000000; // 예시: 사용자의 총 자산 (실제 API 연동 필요)
+      const maxAffordable = 1000000;
       const isMarket = document.querySelector('input[name="priceType"]:checked')?.value === "market";
       const price = isMarket ? Number(firstValidBid || 0) : Number(limitPriceInput?.value) || 0;
       if (price > 0) {
@@ -93,14 +126,8 @@ document.addEventListener("DOMContentLoaded", async () => {
 
   orderButtons.forEach((btn) => {
     btn.addEventListener("click", () => {
-      orderButtons.forEach((b) => {
-        b.classList.remove("active");
-        b.style.backgroundColor = "";
-        b.style.color = "";
-      });
+      orderButtons.forEach((b) => b.classList.remove("active"));
       btn.classList.add("active");
-      btn.style.backgroundColor = "#51B291";
-      btn.style.color = "white";
 
       const type = btn.textContent.trim();
       priceLabel.textContent = type === "판매" ? "판매할 가격" : "구매할 가격";
@@ -186,7 +213,8 @@ document.addEventListener("DOMContentLoaded", async () => {
   tradeButton?.addEventListener("click", () => {
     const isBuy = document.querySelector(".order-button.active")?.textContent.trim() === "구매";
     if (quantity <= 0) {
-      alert("수량을 선택해주세요.");
+      document.getElementById("error-message").textContent = "수량을 선택해주세요.";
+      errorModal.style.display = "flex";
       return;
     }
 
@@ -198,7 +226,8 @@ document.addEventListener("DOMContentLoaded", async () => {
     } else {
       const rawPrice = limitPriceInput?.value;
       if (!rawPrice || isNaN(rawPrice) || Number(rawPrice) <= 0) {
-        alert("지정가를 올바르게 입력해주세요.");
+        document.getElementById("error-message").textContent = "지정가를 올바르게 입력해주세요.";
+        errorModal.style.display = "flex";
         return;
       }
       price = Number(rawPrice);
@@ -227,30 +256,44 @@ document.addEventListener("DOMContentLoaded", async () => {
         params.append("price", price);
         params.append("stockCount", quantity);
 
+        const bodyString = params.toString();
+
         const response = await fetch(endpoint, {
           method: "POST",
           headers: {
             "Content-Type": "application/x-www-form-urlencoded",
             Authorization: `Bearer ${localStorage.getItem("accessToken")}`,
           },
-          body: params,
+          body: bodyString,
         });
 
-        if (!response.ok) throw new Error("주문 실패");
+        if (!response.ok) {
+          try {
+            const errorData = await response.json();
+            document.getElementById("error-message").textContent = errorData.message || "알 수 없는 오류가 발생했습니다.";
+          } catch {
+            document.getElementById("error-message").textContent = "주문 중 알 수 없는 오류가 발생했습니다.";
+          }
+          errorModal.style.display = "flex";
+          return;
+        }
 
         const result = await response.json();
-        alert("주문이 완료되었습니다.");
+        const confirmedQty = quantity;
         quantity = 0;
         limitPriceInput.value = "";
         updateTotal();
 
         const entry = document.createElement("div");
         entry.className = "order-entry fade-in";
-        entry.innerHTML = `${new Date().toLocaleTimeString()} - ${isBuy ? "매수" : "매도"} ${quantity}주 @ ${price.toLocaleString()}원`;
+        entry.innerHTML = `${new Date().toLocaleTimeString()} - ${isBuy ? "매수" : "매도"} ${confirmedQty}주 @ ${price.toLocaleString()}원`;
         orderHistoryContainer?.prepend(entry);
+
+        successModal.style.display = "flex";
       } catch (err) {
         console.error("주문 오류:", err);
-        alert("주문 중 오류가 발생했습니다.");
+        document.getElementById("error-message").textContent = "주문 처리 중 네트워크 오류가 발생했습니다.";
+        errorModal.style.display = "flex";
       }
     };
   });
