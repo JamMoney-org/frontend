@@ -71,7 +71,7 @@ document.addEventListener("DOMContentLoaded", async () => {
   });
 
   quizCancel.addEventListener("click", () => {
-    quizModal.style.display = "none";
+    window.location.href = "/pages/vocabulary_category.html";
   });
 
   bookmarkButton.addEventListener("click", async () => {
