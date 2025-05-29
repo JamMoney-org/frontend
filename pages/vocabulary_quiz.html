@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>단어 퀴즈</title>
+    <link rel="stylesheet" href="../css/style.css">
+    <link rel="stylesheet" href="../css/vocabulary.css">
+</head>
+<body>
+    <!-- 메인 콘텐츠 영역 -->
+    <div class="main-content">
+
+        <!-- 헤더 영역 -->
+        <header>
+            <button class="back-button" onclick="history.back();">
+                <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                    <path d="M15 19L8 12L15 5" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                </svg>
+            </button>
+            단어장
+        </header>
+
+        <!-- 프로그래스바 -->
+        <div class="progress-container">
+            <div class="progress-bar" id="progress-bar"></div>
+        </div>
+
+        <!-- 구현 영역 -->
+        <div class="content">
+            <div class="quiz-card">
+                <p class="quiz-title" id="quiz-title"></p>
+
+                <!-- 예시 문장 -->
+                <div class="quiz-box">
+                    <div class="quiz-tag">관련 퀴즈</div>
+                    <div class="quiz-options" id="quiz-options">
+                        <!-- JavaScript로 보기 버튼 추가 -->
+                    </div>
+                </div>
+
+                <!-- 단어 퀴즈 버튼 -->
+                <button class="next-button" id="quiz-next-button">다음</button>
+
+            </div>
+        </div>
+
+    </div>
+
+    </div><div id="navbar"></div>
+    <script src="../js/script.js"></script>
+    <script type="module" src="../js/features/vocabulary/vocabulary-quiz.js"></script>
+</body>  
+</html>
