@@ -19,6 +19,8 @@ document.addEventListener("DOMContentLoaded", async () => {
   const priceTextDiv = document.getElementById("price");
   const limitPriceInput = document.getElementById("limitPriceInput");
 
+  let firstValidBid = null;
+
   orderButtons.forEach((btn) => {
     btn.addEventListener("click", () => {
       orderButtons.forEach((b) => b.classList.remove("active"));
@@ -45,7 +47,7 @@ document.addEventListener("DOMContentLoaded", async () => {
 
   function updateTotal() {
     const isMarket = document.querySelector('input[name="priceType"]:checked')?.value === "market";
-    const price = isMarket ? 0 : parseInt(limitPriceInput?.value) || 0;
+    const price = isMarket ? parseInt(firstValidBid || 0) : parseInt(limitPriceInput?.value) || 0;
     const total = quantity * price;
     if (quantityDisplay) quantityDisplay.textContent = `${quantity} 주`;
     if (totalAmount) totalAmount.textContent = `${total.toLocaleString()}원`;
@@ -68,7 +70,7 @@ document.addEventListener("DOMContentLoaded", async () => {
       if (input.value === "market") {
         if (priceTextDiv) priceTextDiv.style.display = "block";
         if (limitPriceInput) limitPriceInput.style.display = "none";
-        if (priceTextDiv) priceTextDiv.textContent = "시장가로 주문";
+        if (priceTextDiv) priceTextDiv.textContent = `시장가 주문: ${parseInt(firstValidBid || 0).toLocaleString()}원`;
       } else {
         if (priceTextDiv) priceTextDiv.style.display = "none";
         if (limitPriceInput) {
@@ -103,19 +105,16 @@ document.addEventListener("DOMContentLoaded", async () => {
       }
     }
 
-    let firstValidBid = null;
     for (let i = 1; i <= 10; i++) {
       const bidPrice = data[`bidp${i}`];
       if (bidPrice) {
         firstValidBid = bidPrice;
+        const selected = document.createElement("div");
+        selected.className = "price-item selected";
+        selected.innerHTML = `${Number(firstValidBid).toLocaleString()} <span class="percent">선택</span>`;
+        priceListContainer.appendChild(selected);
         break;
       }
-    }
-    if (firstValidBid) {
-      const selected = document.createElement("div");
-      selected.className = "price-item selected";
-      selected.innerHTML = `${Number(firstValidBid).toLocaleString()} <span class="percent">선택</span>`;
-      priceListContainer.appendChild(selected);
     }
 
     for (let i = 1; i <= 10; i++) {
@@ -157,11 +156,17 @@ document.addEventListener("DOMContentLoaded", async () => {
     }
 
     const isMarket = document.querySelector('input[name="priceType"]:checked')?.value === "market";
-    const price = isMarket ? 0 : parseInt(limitPriceInput?.value);
+    let price;
 
-    if (!isMarket && (!price || price <= 0)) {
-      alert("지정가를 올바르게 입력해주세요.");
-      return;
+    if (isMarket) {
+      price = parseInt(firstValidBid || 0);
+    } else {
+      const rawPrice = limitPriceInput?.value;
+      if (!rawPrice || isNaN(rawPrice)) {
+        alert("지정가를 올바르게 입력해주세요.");
+        return;
+      }
+      price = parseInt(rawPrice);
     }
 
     const endpoint = isBuy
@@ -174,10 +179,11 @@ document.addEventListener("DOMContentLoaded", async () => {
       params.append("price", price);
       params.append("stockCount", quantity);
 
-      const response = await authorizedFetch(endpoint, {
+      const response = await fetch(endpoint, {
         method: "POST",
         headers: {
           "Content-Type": "application/x-www-form-urlencoded",
+          Authorization: `Bearer ${localStorage.getItem("accessToken")}`,
         },
         body: params,
       });
@@ -193,3 +199,4 @@ document.addEventListener("DOMContentLoaded", async () => {
     }
   });
 });
+  
