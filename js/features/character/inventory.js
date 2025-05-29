@@ -16,6 +16,53 @@ function showPopup(message, type = "error", duration = 3000) {
     }, duration);
 }
 
+// 확인창
+function customConfirm(message) {
+    return new Promise((resolve) => {
+        const existingModal = document.querySelector(".custom-confirm-modal");
+        if (existingModal) existingModal.remove();
+
+        const modal = document.createElement("div");
+        modal.className = "custom-confirm-modal";
+
+        const box = document.createElement("div");
+        box.className = "custom-confirm-box";
+
+        const msg = document.createElement("p");
+        msg.className = "custom-confirm-message";
+        msg.textContent = message;
+        box.appendChild(msg);
+
+        const btnContainer = document.createElement("div");
+        btnContainer.className = "custom-confirm-btn-container";
+
+        const okBtn = document.createElement("button");
+        okBtn.className = "custom-confirm-btn confirm";
+        okBtn.textContent = "확인";
+        okBtn.addEventListener("click", () => {
+            document.body.removeChild(modal);
+            resolve(true);
+        });
+
+        const cancelBtn = document.createElement("button");
+        cancelBtn.className = "custom-confirm-btn cancel";
+        cancelBtn.textContent = "취소";
+        cancelBtn.addEventListener("click", () => {
+            document.body.removeChild(modal);
+            resolve(false);
+        });
+
+        btnContainer.appendChild(okBtn);
+        btnContainer.appendChild(cancelBtn);
+        box.appendChild(btnContainer);
+        modal.appendChild(box);
+
+        modal.classList.add("show");
+
+        document.body.appendChild(modal);
+    });
+}
+
 // 캐릭터 레벨에 맞는 이미지 설정
 function setCharacterImageByLevel(level) {
     const characterImg = document.getElementById("characterImage");
@@ -103,6 +150,7 @@ function renderInventory(items, previewImg, previewName, previewPrice) {
 
         box.addEventListener("click", () => {
             selectedItem = item;
+            console.log("선택된 아이템 객체:", selectedItem);
             previewImg.src = item.imageUrl;
             previewName.textContent = item.name;
 
@@ -122,6 +170,26 @@ function renderInventory(items, previewImg, previewName, previewPrice) {
 
 let selectedItem = null;
 let inventoryItems = [];
+let shopItems = [];
+
+//shop item 가져오기 (가격 계산)
+async function fetchShopItems() {
+    try {
+        const res = await authorizedFetch("http://43.202.211.168:8080/api/item/shop");
+        if (!res.ok) throw new Error("상점 아이템 조회 실패");
+
+        const data = await res.json();
+        shopItems = data.data || data || [];
+    } catch (err) {
+        showPopup("상점 아이템 불러오기 실패: " + err.message);
+    }
+}
+
+function getShopPriceByItemId(itemId) {
+    const shopItem = shopItems.find(item => item.itemId === itemId);
+    return shopItem ? shopItem.price : null;
+}
+
 
 // DOM 로드 후 초기화
 document.addEventListener("DOMContentLoaded", () => {
@@ -177,6 +245,40 @@ document.addEventListener("DOMContentLoaded", () => {
             .catch(err => showPopup("인벤토리 불러오기 실패: " + err.message));
     }
 
+
+
+    // 판매하기
+    if (sellButton) {
+        sellButton.addEventListener("click", async () => {
+            if (!selectedItem) {
+                showPopup("아이템을 선택해주세요!");
+                return;
+            }
+            if (selectedItem.equipped) {
+                showPopup("장착된 아이템은 판매할 수 없습니다. 해제 먼저 해주세요.");
+                return;
+            }
+            
+            const originalPrice = getShopPriceByItemId(selectedItem.itemId);
+            const sellPrice = Math.floor(originalPrice * 0.8);
+
+            const confirmSell = await customConfirm(`"${selectedItem.name}" 아이템을 🪙${sellPrice} cash에 판매하시겠습니까?`);
+            if (!confirmSell) return;
+
+            authorizedFetch("http://43.202.211.168:8080/api/item/sell", {
+                method: "POST",
+                body: JSON.stringify({ itemId: selectedItem.itemId })
+            })
+                .then(res => res.json())
+                .then(data => {
+                    showPopup(data.message || "판매 완료!");
+                    setTimeout(() => location.reload(), 300);
+                })
+                .catch(err => showPopup("판매 실패: " + err.message));
+        });
+    }
     fetchAndSetCharacterImage();
-    fetchInventory(); // 이 안에서 updateEquippedItems도 실행됨
+    fetchShopItems();
+    fetchInventory();
 });
+

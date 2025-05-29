@@ -112,6 +112,9 @@ document.addEventListener("DOMContentLoaded", () => {
         previewPrice.textContent = `🪙 ${item.price} cash`;
         selectedItem = item;
 
+        console.log("선택된 아이템 전체 객체:", selectedItem);
+        console.log("선택된 아이템 가격:", selectedItem.price);
+
         document.getElementById("selectedItemInfo").style.display = "flex";
 
       });
@@ -149,29 +152,6 @@ document.addEventListener("DOMContentLoaded", () => {
       });
   });
 
-  // 판매하기
-  if (sellButton) {
-    sellButton.addEventListener("click", async () => {
-      if (!selectedItem) {
-        showPopup("아이템을 선택해주세요!");
-        return;
-      }
-
-      const confirmSell = await customConfirm(`"${selectedItem.name}" 아이템을 "${selectedItem.price * 0.8}" cash에 판매하시겠습니까?`);
-      if (!confirmSell) return;
-
-      authorizedFetch("http://43.202.211.168:8080/api/item/sell", {
-        method: "POST",
-        body: JSON.stringify({ itemId: selectedItem.itemId })
-      })
-        .then(res => res.json())
-        .then(data => {
-          showPopup(data.message || "판매 완료!");
-        })
-        .catch(err => showPopup("판매 실패: " + err.message));
-    });
-  }
-
   // 장착 아이템 불러오기
   async function loadEquippedItems() {
     try {
@@ -179,7 +159,7 @@ document.addEventListener("DOMContentLoaded", () => {
       if (!res.ok) throw new Error('인벤토리 조회 실패');
 
       const response = await res.json();
-      const inventory = response.result || response.data || response;
+      const inventory = response.data || response;
 
       inventory.forEach(item => {
         if (!item.equipped) return;
@@ -208,7 +188,7 @@ document.addEventListener("DOMContentLoaded", () => {
             case 'right':
               objImg.style.right = '7%';
               objImg.style.bottom = '30%';
-              objImg.style.width = '1%';
+              objImg.style.width = '10%';
               break;
           }
 
@@ -222,3 +202,7 @@ document.addEventListener("DOMContentLoaded", () => {
 
   loadEquippedItems();
 });
+
+
+
+
