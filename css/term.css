@@ -1,0 +1,89 @@
+body {
+    margin: 0;
+    font-family: 'Noto Sans KR', sans-serif;
+    background-color: #fff;
+}
+
+.header {
+    display: flex;
+    align-items: center;
+    padding: 16px;
+    border-bottom: 1px solid #eee;
+}
+
+.back-button {
+    background: none;
+    border: none;
+    font-size: 20px;
+    margin-right: 8px;
+    cursor: pointer;
+}
+
+.term-list {
+    padding: 16px;
+}
+
+.term-card {
+    border: 1px solid #e1e1e1;
+    border-radius: 16px;
+    padding: 24px;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.05);
+    margin-bottom: 24px;
+}
+
+.term-card h2 {
+    margin: 0;
+    font-size: 20px;
+}
+
+.definition {
+    margin-top: 8px;
+    color: #555;
+}
+
+.term-box {
+    border: 2px solid #5DC29E;
+    border-radius: 12px;
+    padding: 12px;
+    margin-top: 16px;
+    background-color: rgba(93, 194, 158, 0.1);
+}
+
+.term-label {
+    display: inline-block;
+    background-color: #5DC29E;
+    color: white;
+    border-radius: 8px;
+    padding: 4px 8px;
+    font-size: 12px;
+    margin-bottom: 8px;
+}
+
+.term-sentence {
+    margin: 0;
+    font-size: 14px;
+}
+
+.bottom-nav {
+    position: fixed;
+    bottom: 0;
+    width: 100%;
+    display: flex;
+    justify-content: space-around;
+    border-top: 1px solid #ccc;
+    background-color: #fff;
+    padding: 8px 0;
+}
+
+.bottom-nav button {
+    background: none;
+    border: none;
+    font-size: 16px;
+    color: #888;
+    cursor: pointer;
+}
+
+.bottom-nav .active {
+    color: #000;
+    font-weight: bold;
+}

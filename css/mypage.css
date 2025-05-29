@@ -1,0 +1,137 @@
+body {
+    font-family: 'Pretendard', sans-serif;
+    background-color: #f9f9f9;
+    margin: 0;
+    padding: 20px;
+    display: flex;
+    justify-content: center;
+}
+
+.content {
+    padding: 0px 20px;
+}
+
+.section {
+    margin-bottom: 24px;
+}
+
+h4 {
+    font-size: 12px;
+    margin-bottom: 8px;
+    padding-left: 15px;
+    color: #999;
+}
+
+.profile-card,
+.asset-card {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    background: white;
+    border-radius: 12px;
+    padding: 16px;
+    border: 1px solid #e1e1e1;
+    box-shadow: 0 2px 6px rgba(0, 0, 0, 0.1);
+    margin-bottom: 10px;
+    text-decoration: none;
+    color: #333;
+}
+
+.learning-item {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    background: white;
+    border-radius: 12px;
+    padding: 16px;
+    margin-bottom: 10px;
+    text-decoration: none;
+    color: #333;
+
+}
+
+a.profile-card:hover,
+a.asset-card:hover,
+a.learning-item:hover {
+    background-color: #f0f0f0;
+}
+
+.character-img {
+    width: 48px;
+    height: 48px;
+    border-radius: 50%;
+    margin-right: 12px;
+}
+
+.profile-text {
+    flex: 1;
+}
+
+.nickname {
+    font-weight: bold;
+    color: #5DC29E;
+    margin: 0;
+    font-size: 20px;
+}
+
+.email {
+    font-size: 12px;
+    color: #777;
+    margin-top: 2px;
+}
+
+.asset-text {
+    display: flex;
+    flex-direction: column;
+}
+
+.asset-label {
+    font-size: 15px;
+    margin-bottom: 4px;
+}
+
+.asset-value {
+    font-size: 20px;
+    font-weight: bold;
+    color: #5DC29E;
+}
+
+.arrow {
+    font-size: 20px;
+    color: #777;
+    margin-left: 8px;
+}
+
+.learning-list {
+    display: flex;
+    flex-direction: column;
+    margin-top: 20px;
+}
+
+.count {
+    font-weight: bold;
+}
+
+.green {
+    color: #5DC29E;
+}
+
+
+.logout,
+.delete {
+    display: block;
+    margin: auto;
+    color: #999;
+    font-size: 12px;
+    margin-top: 30px;
+    text-decoration: none;
+    border: none;
+    background: none;
+}
+
+/* 선 */
+.divider {
+    height: 1px;
+    background-color: #eee;
+    margin: 30px 0;
+}
