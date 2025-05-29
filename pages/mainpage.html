@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html lang="ko">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>JamMoney - 기본 레이아웃</title>
+  <link rel="stylesheet" href="../css/style.css">
+  <link rel="stylesheet" href="../css/mainpage.css">
+</head>
+
+<body>
+  <!-- 메인 콘텐츠 영역 -->
+  <div class="main-content">
+    <!--로고-->
+    <h3 class="logo">JamMoney</h3>
+    <!-- 캐릭터 공간 -->
+    <div class="character-area">
+      <img src="" class="background-img" id="bgImage" />
+      <img src="" alt="캐릭터 이미지" class="character-img" id="characterImage" />
+    </div>
+
+    <!-- 메뉴 버튼 3개 -->
+    <a href="#" class="menu-card">
+      <div class="text-box">
+        <p class="title">금융 학습</p>
+        <p class="desc">처음부터 차근차근, 쉬운 금융 학습으로 시작해요.</p>
+      </div>
+      <img src="../assets/images/learning.svg.svg" class="icon" alt="금융 학습 아이콘" />
+    </a>
+    <a href="#" class="menu-card">
+      <div class="text-box">
+        <p class="title">모의 투자</p>
+        <p class="desc">가상의 자산으로 실제처럼 연습해요. 실수해도 괜찮아요!</p>
+      </div>
+      <img src="../assets/images/investment.svg" class="icon" alt="모의 투자 아이콘" />
+    </a>
+    <a href="../pages/character_main.html" class="menu-card">
+      <div class="text-box">
+        <p class="title">캐릭터</p>
+        <p class="desc">공부하면 할수록 내 공룡이 점점 자라나요! 🦖</p>
+      </div>
+      <img src="../assets/images/character.svg" class="icon" alt="캐릭터 아이콘" />
+    </a>
+  </div>
+
+  <div id="navbar"></div>
+  <script src="../js/script.js"></script>
+  <script type="module" src="../js/features/mainpage/mainpage.js"></script>
+
+</body>
+
+</html>
