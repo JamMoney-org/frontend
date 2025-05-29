@@ -1,5 +1,21 @@
 import { authorizedFetch } from "../../utils/auth-fetch.js";
 
+// 팝업
+function showPopup(message, type = "error", duration = 3000) {
+  let popup = document.querySelector(".popup-message");
+  if (!popup) {
+    popup = document.createElement("div");
+    popup.className = "popup-message";
+    document.body.appendChild(popup);
+  }
+  popup.textContent = message;
+  popup.className = `popup-message show ${type}`;
+
+  setTimeout(() => {
+    popup.classList.remove("show");
+  }, duration);
+}
+
 //레벨별 이미지 설정
 function setCharacterImageByLevel(level) {
   const characterImg = document.getElementById("characterImage");
@@ -40,13 +56,13 @@ function saveName() {
   const newName = input.value.trim();
 
   if (!newName) {
-    alert('이름을 입력하세요.');
+    showPopup('이름을 입력하세요.');
     return;
   }
 
   const accessToken = localStorage.getItem('accessToken');
   if (!accessToken) {
-    alert('로그인이 필요합니다.');
+    showPopup('로그인이 필요합니다.');
     window.location.href = '/login';
     return;
   }
@@ -87,7 +103,7 @@ function setupNameEditUI() {
 async function loadCharacterStatus() {
   const accessToken = localStorage.getItem('accessToken');
   if (!accessToken) {
-    alert('로그인이 필요합니다.');
+    showPopup('로그인이 필요합니다.');
     window.location.href = '../pages/login.html';
     return;
   }

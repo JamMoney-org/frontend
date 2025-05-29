@@ -1,5 +1,21 @@
 import { authorizedFetch } from "../../utils/auth-fetch.js";
 
+// 팝업
+function showPopup(message, type = "error", duration = 3000) {
+    let popup = document.querySelector(".popup-message");
+    if (!popup) {
+        popup = document.createElement("div");
+        popup.className = "popup-message";
+        document.body.appendChild(popup);
+    }
+    popup.textContent = message;
+    popup.className = `popup-message show ${type}`;
+
+    setTimeout(() => {
+        popup.classList.remove("show");
+    }, duration);
+}
+
 // 캐릭터 레벨에 맞는 이미지 설정
 function setCharacterImageByLevel(level) {
     const characterImg = document.getElementById("characterImage");
@@ -18,7 +34,7 @@ async function fetchAndSetCharacterImage() {
         const status = data.result || data;
         setCharacterImageByLevel(status.data.level);
     } catch (err) {
-        alert("캐릭터 이미지 로딩 실패: " + err.message);
+        showPopup("캐릭터 이미지 로딩 실패: " + err.message);
     }
 }
 
@@ -124,16 +140,16 @@ document.addEventListener("DOMContentLoaded", () => {
         })
             .then(res => res.json())
             .then(data => {
-                alert(data.message || (equip ? "장착 완료!" : "해제 완료!"));
+                showPopup(data.message || (equip ? "장착 완료!" : "해제 완료!"));
                 location.reload();
             })
-            .catch(err => alert("장착 요청 실패: " + err.message));
+            .catch(err => showPopup("장착 요청 실패: " + err.message));
     }
 
     // 장착 버튼 이벤트
     if (equipButton) {
         equipButton.addEventListener("click", () => {
-            if (!selectedItem) return alert("아이템을 선택해주세요!");
+            if (!selectedItem) return showPopup("아이템을 선택해주세요!");
             toggleEquip(selectedItem.itemId, !selectedItem.equipped);
         });
     }
@@ -158,7 +174,7 @@ document.addEventListener("DOMContentLoaded", () => {
                 renderInventory(inventoryItems, previewImg, previewName, previewPrice);
                 updateEquippedItems(inventoryItems);
             })
-            .catch(err => alert("인벤토리 불러오기 실패: " + err.message));
+            .catch(err => showPopup("인벤토리 불러오기 실패: " + err.message));
     }
 
     fetchAndSetCharacterImage();

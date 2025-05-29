@@ -1,5 +1,68 @@
 import { authorizedFetch } from "../../utils/auth-fetch.js";
 
+// 팝업
+function showPopup(message, type = "error", duration = 3000) {
+  let popup = document.querySelector(".popup-message");
+  if (!popup) {
+    popup = document.createElement("div");
+    popup.className = "popup-message";
+    document.body.appendChild(popup);
+  }
+  popup.textContent = message;
+  popup.className = `popup-message show ${type}`;
+
+  setTimeout(() => {
+    popup.classList.remove("show");
+  }, duration);
+}
+
+// 확인창
+function customConfirm(message) {
+  return new Promise((resolve) => {
+    const existingModal = document.querySelector(".custom-confirm-modal");
+    if (existingModal) existingModal.remove();
+
+    const modal = document.createElement("div");
+    modal.className = "custom-confirm-modal";
+
+    const box = document.createElement("div");
+    box.className = "custom-confirm-box";
+
+    const msg = document.createElement("p");
+    msg.className = "custom-confirm-message";
+    msg.textContent = message;
+    box.appendChild(msg);
+
+    const btnContainer = document.createElement("div");
+    btnContainer.className = "custom-confirm-btn-container";
+
+    const okBtn = document.createElement("button");
+    okBtn.className = "custom-confirm-btn confirm";
+    okBtn.textContent = "확인";
+    okBtn.addEventListener("click", () => {
+      document.body.removeChild(modal);
+      resolve(true);
+    });
+
+    const cancelBtn = document.createElement("button");
+    cancelBtn.className = "custom-confirm-btn cancel";
+    cancelBtn.textContent = "취소";
+    cancelBtn.addEventListener("click", () => {
+      document.body.removeChild(modal);
+      resolve(false);
+    });
+
+    btnContainer.appendChild(okBtn);
+    btnContainer.appendChild(cancelBtn);
+    box.appendChild(btnContainer);
+    modal.appendChild(box);
+
+    modal.classList.add("show");
+
+    document.body.appendChild(modal);
+  });
+}
+
 document.addEventListener("DOMContentLoaded", () => {
   const itemGrid = document.querySelector(".item-grid");
   const previewImg = document.getElementById("selectedItemImage");
@@ -65,17 +128,12 @@ document.addEventListener("DOMContentLoaded", () => {
     })
     .catch(err => {
       console.error("❌ 아이템 불러오기 실패:", err);
-      alert("아이템 불러오기 실패: " + err);
+      showPopup("아이템 불러오기 실패: " + err);
     });
 
   // 구매하기
-  buyButton.addEventListener("click", () => {
-    if (!selectedItem) {
-      alert("아이템을 선택해주세요!");
-      return;
-    }
-
-    const confirmBuy = confirm(`🪙 ${selectedItem.price} cash로 "${selectedItem.name}"을 구매할까요?`);
+  buyButton.addEventListener("click", async () => {
+    const confirmBuy = await customConfirm(`🪙 ${selectedItem.price} cash로 "${selectedItem.name}"을 구매할까요?`);
     if (!confirmBuy) return;
 
     authorizedFetch("http://43.202.211.168:8080/api/item/purchase", {
@@ -84,22 +142,22 @@ document.addEventListener("DOMContentLoaded", () => {
     })
       .then(res => res.json())
       .then(data => {
-        alert(data.message || "구매 완료!");
+        showPopup(data.message || "구매 완료!");
       })
       .catch(err => {
-        alert("구매 실패: " + err.message);
+        showPopup("구매 실패: " + err.message);
       });
   });
 
   // 판매하기
   if (sellButton) {
-    sellButton.addEventListener("click", () => {
+    sellButton.addEventListener("click", async () => {
       if (!selectedItem) {
-        alert("아이템을 선택해주세요!");
+        showPopup("아이템을 선택해주세요!");
         return;
       }
 
-      const confirmSell = confirm(`"${selectedItem.name}" 아이템을 "${selectedItem.price * 0.8}" cash에 판매하시겠습니까?`);
+      const confirmSell = await customConfirm(`"${selectedItem.name}" 아이템을 "${selectedItem.price * 0.8}" cash에 판매하시겠습니까?`);
       if (!confirmSell) return;
 
       authorizedFetch("http://43.202.211.168:8080/api/item/sell", {
@@ -108,9 +166,9 @@ document.addEventListener("DOMContentLoaded", () => {
       })
         .then(res => res.json())
         .then(data => {
-          alert(data.message || "판매 완료!");
+          showPopup(data.message || "판매 완료!");
         })
-        .catch(err => alert("판매 실패: " + err.message));
+        .catch(err => showPopup("판매 실패: " + err.message));
     });
   }
 
