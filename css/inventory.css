@@ -1,0 +1,228 @@
+body {
+    margin: 0;
+    padding: 60px 0 0 0;
+    font-family: 'Pretendard', sans-serif;
+    background-color: #fff;
+}
+
+.main-content {
+    padding: 20px;
+}
+
+/* 캐릭터 공간 */
+.character-area {
+    position: relative;
+    width: 100%;
+    height: 50%;
+    border-radius: 20px;
+    overflow: hidden;
+    margin-bottom: 20px;
+    border: 1px solid #e1e1e1;
+    box-shadow: 0 2px 6px rgba(0, 0, 0, 0.1);
+}
+
+.background-img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    object-position: center;
+    display: block;
+}
+
+.character-img {
+    position: absolute;
+    bottom: 15%;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 50%;
+}
+
+/* 카테고리 버튼 */
+.category-buttons {
+    display: flex;
+    justify-content: space-between;
+    margin-bottom: 12px;
+    flex-wrap: wrap;
+    gap: 6px;
+}
+
+.category {
+    background-color: #f5f5f5;
+    color: #333;
+    border: none;
+    border-radius: 20px;
+    padding: 6px 12px;
+    font-size: 13px;
+    cursor: pointer;
+    flex: 1;
+}
+
+.category.active {
+    background-color: #5dc29e;
+    color: white;
+    font-weight: bold;
+}
+
+/* 아이템 그리드 */
+.item-grid {
+    display: grid;
+    grid-template-columns: repeat(5, 1fr);
+    gap: 8px;
+    margin-right: 20px;
+}
+
+.item-box {
+    width: 100%;
+    aspect-ratio: 1 / 1;
+    border-radius: 10px;
+    background-color: #fff;
+    border: 1px solid #e1e1e1;
+    box-shadow: 0 2px 6px rgba(0, 0, 0, 0.1);
+}
+
+.item-img {
+    width: 100%;
+    height: 100%;
+    object-fit: contain;
+    padding: 6px;
+    box-sizing: border-box;
+}
+
+/* 선택된 아이템 영역 */
+.selected-item-info {
+    display: none;
+    position: absolute;
+    bottom: 7%;
+    left: 50%;
+    transform: translateX(-50%);
+    flex-direction: row;
+    align-items: center;
+    gap: 10px;
+    padding: 10px 16px;
+    border-radius: 15px;
+    background-color: rgba(255, 255, 255, 0.8);
+    border: 1px solid #e1e1e1;
+    box-shadow: 0 2px 6px rgba(0, 0, 0, 0.1);
+    z-index: 10;
+    max-width: 280px;
+    width: auto;
+    box-sizing: border-box;
+}
+
+.item-preview {
+    flex-shrink: 0;
+}
+
+.selected-item-img {
+    width: 60px;
+    height: 60px;
+    object-fit: cover;
+    border-radius: 8px;
+}
+
+.item-meta {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 4px;
+    width: auto;
+}
+
+/* 버튼 */
+.sell-button,
+.equip-button {
+    background-color: #5DC29E;
+    color: white;
+    border: none;
+    padding: 3px 10px;
+    border-radius: 8px;
+    font-size: 15px;
+}
+
+.popup-message {
+    position: fixed;
+    top: 20px;
+    left: 50%;
+    transform: translateX(-50%);
+    background: #fff;
+    color: #555;
+    padding: 15px 25px;
+    border-radius: 10px;
+    box-shadow: 0 2px 6px rgba(0, 0, 0, 0.1);
+    font-weight: bold;
+    z-index: 10000;
+    opacity: 0;
+    pointer-events: none;
+    transition: opacity 0.3s ease;
+    max-width: 90%;
+    text-align: center;
+}
+
+.popup-message.show {
+    opacity: 0.8;
+    pointer-events: auto;
+}
+
+.custom-confirm-modal {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100vw;
+    height: 100vh;
+    background: rgba(0, 0, 0, 0.3);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    z-index: 9999;
+    opacity: 0;
+    pointer-events: none;
+    transition: opacity 0.3s ease;
+}
+
+.custom-confirm-modal.show {
+    opacity: 1;
+    pointer-events: auto;
+}
+
+.custom-confirm-box {
+    background: #fff;
+    padding: 15px 25px;
+    border-radius: 10px;
+    max-width: 90%;
+    width: 350px;
+    box-shadow: 0 2px 6px rgba(0, 0, 0, 0.1);
+    font-weight: bold;
+    color: #555;
+    text-align: center;
+}
+
+.custom-confirm-message {
+    margin: 0 0 20px 0;
+    font-size: 16px;
+}
+
+.custom-confirm-btn-container {
+    display: flex;
+    justify-content: center;
+    gap: 20px;
+}
+
+.custom-confirm-btn {
+    min-width: 80px;
+    padding: 8px 0;
+    font-size: 15px;
+    font-weight: 700;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+    color: white;
+}
+
+.custom-confirm-btn.confirm {
+    background-color: #5DC29E;
+}
+
+.custom-confirm-btn.cancel {
+    background-color: #a2a2a2;
+}
