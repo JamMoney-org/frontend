@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>모의주식투자 리스트</title>
+    <link rel="stylesheet" href="../css/style.css">
+    <link rel="stylesheet" href="../css/invest.css">
+</head>
+<body>
+    <!-- 메인 콘텐츠 영역 -->
+    <div class="main-content">
+        <!-- 헤더 영역 -->
+        <header>
+            <button class="back-button" onclick="history.back();">
+                <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                    <path d="M15 19L8 12L15 5" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                </svg>
+            </button>
+            JamMoney
+        </header>
+
+        <!-- 구현 영역 -->
+        <div class="content">
+            <!-- 모의 투자 상단 카드 -->
+            <div class="investment-card">
+                <div class="card-header">
+                    <div class="character-container">
+                        <img src="../assets/images/dino.png" alt="캐릭터" class="character">
+                        <button class="level-btn">Lv. 7</button>
+                    </div>
+                    <div class="asset-info">
+                        <p class="asset-title" style="font-weight: bold;">총 자산</p>
+                        <h3 class="asset-value">3,000,000원</h3>
+                        <p class="profit">0원 (0%)</p>
+                        <p class="daily-rate">당일 수익률: 0%</p>
+                        <p class="daily-profit">당일 손익금액: 0원</p>
+                    </div>
+                </div>
+            </div>
+
+            <!-- 주식 리스트 -->
+            <div class="stock-list">
+                <div id="list-title" class="stock-toggle">
+                    <button class="stock-tab active" data-tab="hot">주식 리스트</button>
+                    <button class="stock-tab" data-tab="favorite">관심</button>
+                </div>
+                <ul>
+                    <!-- JS가 이 안에 <li>들을 채워 넣을 예정 -->
+                </ul>
+            </div>
+
+        </div>
+    </div>
+
+    <div id="navbar"></div>
+    <script src="../js/script.js"></script>
+    <script type="module" src="../js/features/mock_invest/stock-list.js"></script>
+</body>
+</html>
