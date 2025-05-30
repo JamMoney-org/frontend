@@ -142,16 +142,20 @@ async function loadEquippedItems() {
   const response = await res.json();
   const inventory = response.result || response.data || response;
 
+  let hasBackground = false;
+
   inventory.forEach(item => {
     if (!item.equipped) return;
 
-    if (item.type === 'BACKGROUND') {
+    if (item.type === 'BACKGROUND' && !hasBackground) {
+      hasBackground = true;
       const bg = document.getElementById('bgImage');
       if (bg) {
         bg.src = item.imageUrl;
         bg.style.display = 'block';
       }
     }
+
     if (item.type === 'OBJECT') {
       const objImg = document.createElement('img');
       objImg.src = item.imageUrl;
@@ -167,17 +171,25 @@ async function loadEquippedItems() {
           break;
         case 'right':
           objImg.style.right = '7%';
-          objImg.style.bottom = '30%';  
+          objImg.style.bottom = '30%';
           objImg.style.width = '15%';
           break;
       }
-      
 
       document.querySelector('.character-area').appendChild(objImg);
     }
-
   });
+
+  // 배경 아이템이 하나도 없으면 기본 배경 적용
+  if (!hasBackground) {
+    const bg = document.getElementById('bgImage');
+    if (bg) {
+      bg.src = '../../../assets/images/default_background.png'; // 기본 배경 경로
+      bg.style.display = 'block';
+    }
+  }
 }
+
 
 document.addEventListener('DOMContentLoaded', () => {
   setupNameEditUI();
