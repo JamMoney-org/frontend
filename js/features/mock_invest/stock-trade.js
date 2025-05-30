@@ -1,14 +1,15 @@
 import { authorizedFetch } from "../../utils/auth-fetch.js";
 
 document.addEventListener("DOMContentLoaded", async () => {
-  const savedCompany = JSON.parse(localStorage.getItem("selectedCompany"));
-  const companyId = savedCompany?.companyId;
-  const companyCode = savedCompany?.code;
+  const params = new URLSearchParams(location.search);
+  const companyId = params.get("companyId");
+  const companyCode = params.get("companyCode");
 
   if (!companyId || !companyCode) {
     alert("잘못된 접근입니다.");
     return;
   }
+
 
   const orderButtons = document.querySelectorAll(".order-button");
   const priceLabel = document.querySelector(".price-display .label");
