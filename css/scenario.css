@@ -1,5 +1,5 @@
 .content {
-  padding: 2rem 1.2rem;
+  padding: 0 1.2rem;
 }
 
 .category-label {
@@ -71,7 +71,9 @@
 
 .simul-wrapper {
   text-align: center;
+  padding-bottom: 2rem;
 }
+
 
 .simul-title {
   margin-bottom: 2rem;
@@ -159,7 +161,14 @@
 }
 
 .dialogue-text {
-  font-size: 14px;
+  font-size: 15px;
+  font-weight: bold;
+  line-height: 1.6;
+}
+
+.dialogue-summary {
+  font-size: 15px;
+  font-weight: 500;
   line-height: 1.6;
 }
 
@@ -171,11 +180,12 @@
 
 .choice-btn {
   background: rgba(255, 255, 255, 0.9);
-  border: 2px solid #888;
+  border: 2px solid #88888882;
   border-radius: 20px;
-  padding: 12px 16px;
+  padding: 10px 16px;
   cursor: pointer;
   font-size: 14px;
+  font-weight: 500;
   text-align: center;
   transition: background 0.2s, transform 0.2s;
 }
@@ -193,7 +203,7 @@
   font-size: 0.95rem;
   color: #fff;
   transition: background-color 0.2s ease;
-  width: 30%;
+  width: 45%;
   margin: 10px 0;
   float: right;
   cursor: pointer;
@@ -280,13 +290,13 @@
   font-size: 0.9em;
 }
 
-
 #ai-loading-tip {
   position: fixed;
   top: 50%;
   left: 50%;
+  width: 85%;
   transform: translate(-50%, -50%);
-  padding: 24px 32px;
+  padding: 20px 10px;
   background: white;
   border-radius: 16px;
   box-shadow: 0 12px 32px rgba(0, 0, 0, 0.25);
@@ -294,7 +304,7 @@
   font-weight: 400;
   color: #333;
   z-index: 9999;
-  max-width: 90%;
+  max-width: 400px;
   text-align: center;
   line-height: 1.6;
   transition: opacity 0.3s ease;
@@ -385,4 +395,21 @@
   animation-delay: 0.4s;
 }
 
-/* 필요에 따라 더 늘리면 돼 */
+.simul {
+  padding: 2rem 1.2rem;
+}
+
+.scenario-layer {
+  position: relative;
+  margin: 0;
+}
+
+.scenario-layer img {
+  width: 100%;
+  display: block;
+}
+
+.simul-overlay {
+  margin-top: -7%;
+  position: relative;
+}

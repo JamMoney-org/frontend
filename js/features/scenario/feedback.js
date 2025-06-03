@@ -1,6 +1,6 @@
 import { authorizedFetch } from '../../utils/auth-fetch.js';
 
-const titleEl = document.querySelector('.simul-title');
+const headerTitle = document.querySelector('.main-content header span');
 const dialogueTextEl = document.querySelector('.dialogue-text');
 const nextBtn = document.querySelector('.next-btn');
 
@@ -11,8 +11,6 @@ const nextBtn = document.querySelector('.next-btn');
   const scenario = JSON.parse(sessionStorage.getItem('scenarioData'));
   const scenarioId = scenario.scenarioId;
   const stepOrder = scenario.stepOrder;
-
-  const nextBtn = document.querySelector('.next-btn');
 
   nextBtn.disabled = true;
   nextBtn.classList.add('loading-btn');
@@ -33,7 +31,7 @@ const nextBtn = document.querySelector('.next-btn');
     (choice) => choice.choiceId === choiceId
   );
 
-  titleEl.textContent = scenario.title;
+  headerTitle.textContent = scenario.title;
   dialogueTextEl.textContent = selectedChoice.feedback;
 
   try {
