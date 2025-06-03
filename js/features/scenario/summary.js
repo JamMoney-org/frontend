@@ -37,7 +37,7 @@ import { authorizedFetch } from '../../utils/auth-fetch.js';
       scenario.title
     } 시뮬레이션 완료!</span><br /><br />
       ${data.overallFeedback.replaceAll('\n', '<br />')}<br /><br />
-      <span class="highlight">+${reward} 가상 머니 지급</span>
+      <span class="highlight">+${reward} 경험치 획득!⚡</span>
     `;
   } catch (e) {
     dialogueEl.textContent =
