@@ -47,7 +47,8 @@ document.addEventListener("DOMContentLoaded", function () {
                     window.location.href = "../../../pages/mainpage.html";
                 }, 1500);
             } else {
-                const errorText = await response.text();
+                const errorData = await response.json();
+                const errorText = errorData.message;
                 showPopup(`로그인 실패: ${errorText}`, "error");
             }
         } catch (error) {
