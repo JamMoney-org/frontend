@@ -1,6 +1,14 @@
 document.addEventListener("DOMContentLoaded", function () {
     const loginForm = document.querySelector(".login-form");
 
+    const accessToken = localStorage.getItem('accessToken');
+    const refreshToken = localStorage.getItem('refreshToken');
+
+    if (accessToken && refreshToken) {
+        localStorage.removeItem('accessToken');
+        localStorage.removeItem('refreshToken');
+    }
+
     function showPopup(message, type = "error", duration = 3000) {
         let popup = document.querySelector(".popup-message");
         if (!popup) {
