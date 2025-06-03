@@ -9,11 +9,10 @@ body {
     padding: 20px;
 }
 
-/* 캐릭터 공간 */
 .character-area {
     position: relative;
     width: 100%;
-    height: 50%;
+    height: 300px;
     border-radius: 20px;
     overflow: hidden;
     margin-bottom: 20px;
@@ -22,6 +21,9 @@ body {
 }
 
 .background-img {
+    position: absolute;
+    top: 0;
+    left: 0;
     width: 100%;
     height: 100%;
     object-fit: cover;
@@ -31,10 +33,11 @@ body {
 
 .character-img {
     position: absolute;
-    bottom: 15%;
+    bottom: 5%;
     left: 50%;
     transform: translateX(-50%);
     width: 50%;
+    max-height: 80%;
 }
 
 /* 카테고리 버튼 */

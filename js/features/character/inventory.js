@@ -92,8 +92,11 @@ function updateEquippedItems(items) {
 
     characterArea.querySelectorAll(".equipped-item").forEach(el => el.remove());
 
+    let hasBackground = false;
+
     items.filter(item => item.equipped).forEach(item => {
-        if (item.type === 'BACKGROUND') {
+        if (item.type === 'BACKGROUND' && !hasBackground) {
+            hasBackground = true;
             const bg = document.getElementById('bgImage');
             if (bg) {
                 bg.src = item.imageUrl;
@@ -124,6 +127,14 @@ function updateEquippedItems(items) {
 
         characterArea.appendChild(img);
     });
+    // 배경 아이템이 하나도 없으면 기본 배경 적용
+    if (!hasBackground) {
+        const bg = document.getElementById('bgImage');
+        if (bg) {
+            bg.src = '../../../assets/images/default_background.png'; // 기본 배경 경로
+            bg.style.display = 'block';
+        }
+    }
 }
 
 // 인벤토리 렌더링
@@ -258,7 +269,7 @@ document.addEventListener("DOMContentLoaded", () => {
                 showPopup("장착된 아이템은 판매할 수 없습니다. 해제 먼저 해주세요.");
                 return;
             }
-            
+
             const originalPrice = getShopPriceByItemId(selectedItem.itemId);
             const sellPrice = Math.floor(originalPrice * 0.8);
 

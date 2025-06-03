@@ -47,19 +47,16 @@ document.addEventListener("DOMContentLoaded", function () {
                 body: JSON.stringify({
                     email,
                     nickname,
-                    password,
-                    confirmPassword
+                    password
                 })
             });
 
             // 응답 처리
-            if (response.ok) {
-                const result = await response.text();
-                showPopup(result);
-                window.location.href = "../pages/login.html";
-            } else {
-                const errorText = await response.text();
+            if (!response.ok) {
+                const errorData = await response.json();
+                const errorText = errorData.message;
                 showPopup(`회원가입 실패: ${errorText}`);
+                return;
             }
         } catch (error) {
             console.error("회원가입 중 오류 발생:", error);
