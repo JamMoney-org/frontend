@@ -6,23 +6,31 @@
     overflow-y: auto;
     max-height: 600px;
 }
+
 .price-list {
     display: flex;
     flex-direction: column;
     gap: 8px;
 }
+
 .price-item {
-  display: flex;
-  justify-content: space-between;
-  padding: 4px 8px;
-}
-.price-item .percent {
-  font-size: 0.85em;
-  opacity: 0.8;
+    display: flex;
+    justify-content: space-between;
+    padding: 4px 8px;
 }
 
-.price-item.red { color: #e74c3c; }
-.price-item.blue { color: #3498db; }
+.price-item .percent {
+    font-size: 0.85em;
+    opacity: 0.8;
+}
+
+.price-item.red {
+    color: #e74c3c;
+}
+
+.price-item.blue {
+    color: #3498db;
+}
 
 .order-section {
     width: calc(65% - 20px);
@@ -100,7 +108,7 @@
     border-radius: 5px;
     text-align: center;
     margin: 3px;
-    font-size: 0.8em; 
+    font-size: 0.8em;
 }
 
 
@@ -162,4 +170,3 @@
 .content {
     padding: 10px;
 }
-
