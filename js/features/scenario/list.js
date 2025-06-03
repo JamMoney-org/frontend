@@ -7,16 +7,16 @@ const labelToEnumMap = {
   투자: 'INVESTMENT',
   세금: 'TAX',
 };
+const levelMap = {
+  EASY: 1,
+  NORMAL: 2,
+  HARD: 3,
+};
 
 const scenarioListEl = document.querySelector('.scenario-list');
 const categoryLabelEl = document.querySelector('.category-label');
 
 function getDifficultyStars(difficulty) {
-  const levelMap = {
-    EASY: 1,
-    NORMAL: 2,
-    HARD: 3,
-  };
   const stars = '⭐'.repeat(levelMap[difficulty] || 1);
   return stars;
 }
@@ -46,12 +46,22 @@ function createScenarioItem(scenario) {
   item.appendChild(header);
   item.appendChild(desc);
 
-  item.addEventListener('click', () => {
-    const rewardMap = { EASY: 10, NORMAL: 20, HARD: 30 };
-    sessionStorage.setItem('reward', rewardMap[scenario.difficulty]);
-    location.href = `/pages/scenario_intro.html?scenarioId=${scenario.id}`;
-  });
+  const diffNum = levelMap[scenario.difficulty];
 
+  const isLocked =
+    characterLevel < 4 ||
+    (characterLevel <= 4 && diffNum > 1) ||
+    (characterLevel <= 5 && diffNum > 2);
+
+  if (isLocked) {
+    item.classList.add('locked');
+  } else {
+    item.addEventListener('click', () => {
+      const rewardMap = { EASY: 10, NORMAL: 20, HARD: 30 };
+      sessionStorage.setItem('reward', rewardMap[scenario.difficulty]);
+      location.href = `/pages/scenario_intro.html?scenarioId=${scenario.id}`;
+    });
+  }
   return item;
 }
 
@@ -70,6 +80,8 @@ async function loadScenarioList(category, enumCategory) {
       return;
     }
 
+    data.sort((a, b) => levelMap[a.difficulty] - levelMap[b.difficulty]);
+
     data.forEach((scenario) => {
       const item = createScenarioItem(scenario);
       scenarioListEl.appendChild(item);
@@ -79,6 +91,12 @@ async function loadScenarioList(category, enumCategory) {
     scenarioListEl.innerHTML = '<p>시나리오를 불러오는 데 실패했습니다.</p>';
   }
 }
+
+const statusRes = await authorizedFetch(
+  'http://43.202.211.168:8080/api/pet/status'
+);
+const response = await statusRes.json();
+const characterLevel = response.data.level;
 
 // 진입점
 (function () {
