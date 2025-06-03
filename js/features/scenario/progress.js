@@ -1,3 +1,4 @@
+const headerTitle = document.querySelector('.main-content header span');
 const titleEl = document.querySelector('.simul-title');
 const characterNameEl = document.querySelector('.character-name');
 const dialogueTextEl = document.querySelector('.dialogue-text');
@@ -12,8 +13,8 @@ const choicesEl = document.querySelector('.choices');
     return;
   }
 
-  // 화면 구성
-  titleEl.textContent = scenario.title;
+  headerTitle.textContent = scenario.title;
+
   dialogueTextEl.textContent = scenario.aiMessage;
 
   choicesEl.innerHTML = '';

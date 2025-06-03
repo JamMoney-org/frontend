@@ -29,10 +29,11 @@ body {
   justify-content: space-between;
   align-items: center;
   margin-bottom: 16px;
+  gap: 10px;
 }
 
-.learning-button,
-.inventory-button {
+.inventory-button,
+.shop-button {
   background-color: #fff;
   border: 1px solid #e1e1e1;
   box-shadow: 0 2px 6px rgba(0, 0, 0, 0.1);
@@ -40,23 +41,13 @@ body {
   padding: 8px 14px;
   font-size: 14px;
   border-radius: 15px;
-  flex: 3;
-  margin-right: 6px;
+  flex: 1;
+  /* 너비 1:1 비율 */
   font-weight: bold;
-}
-
-.shop-button {
-  background-color: #fff;
-  border: 1px solid #e1e1e1;
-  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.1);
-  color: #5dc29e;
-  padding: 8px 12px;
-  font-size: 14px;
-  border-radius: 15px;
-  flex: 2;
+  display: flex;
+  /* 버튼 내용 가운데 정렬 */
+  justify-content: center;
   align-items: center;
-  gap: 6px;
-  font-weight: bold;
 }
 
 /* 캐릭터 공간 */

@@ -1,6 +1,6 @@
 import { authorizedFetch } from '../../utils/auth-fetch.js';
 
-const titleEl = document.querySelector('.simul-title');
+const headerTitle = document.querySelector('.main-content header span');
 const dialogueTextEl = document.querySelector('.dialogue-text');
 const nextBtn = document.querySelector('.next-btn');
 
@@ -12,16 +12,26 @@ const nextBtn = document.querySelector('.next-btn');
   const scenarioId = scenario.scenarioId;
   const stepOrder = scenario.stepOrder;
 
+  nextBtn.disabled = true;
+  nextBtn.classList.add('loading-btn');
+
+  // 텍스트를 "질문 생성 중..."에서 물결 효과로 변환
+  const loadingText = '질문 생성 중...';
+  nextBtn.innerHTML = `<span class="wavy-text">${[...loadingText]
+    .map((ch) => `<span>${ch}</span>`)
+    .join('')}</span>`;
+
   if (!choiceId || !scenario) {
     dialogueTextEl.textContent =
       '필수 정보가 없습니다. 처음부터 다시 시작해 주세요.';
     return;
   }
+
   const selectedChoice = scenario.choices.find(
     (choice) => choice.choiceId === choiceId
   );
 
-  titleEl.textContent = scenario.title;
+  headerTitle.textContent = scenario.title;
   dialogueTextEl.textContent = selectedChoice.feedback;
 
   try {
@@ -40,16 +50,24 @@ const nextBtn = document.querySelector('.next-btn');
 
     const data = await res.json();
 
+    if (!data.finalStep) {
+      scenario.stepOrder = data.stepOrder;
+      scenario.aiMessage = data.aiMessage;
+      scenario.choices = data.choices;
+
+      sessionStorage.setItem('scenarioData', JSON.stringify(scenario));
+      nextBtn.innerHTML = '다음';
+    } else {
+      nextBtn.innerHTML = '총평 보러가기';
+    }
+
+    nextBtn.classList.remove('loading-btn');
+    nextBtn.disabled = false;
+
     nextBtn.addEventListener('click', () => {
       if (data.finalStep) {
         location.href = `/pages/scenario_summary.html`;
       } else {
-        scenario.stepOrder = data.stepOrder;
-        scenario.aiMessage = data.aiMessage;
-        scenario.choices = data.choices;
-
-        sessionStorage.setItem('scenarioData', JSON.stringify(scenario));
-
         location.href = `/pages/scenario_progress.html`;
       }
     });

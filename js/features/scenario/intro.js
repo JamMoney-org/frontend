@@ -4,10 +4,16 @@ import { authorizedFetch } from '../../utils/auth-fetch.js';
   const params = new URLSearchParams(location.search);
   const scenarioId = Number(params.get('scenarioId'));
 
+  const aiTip = document.getElementById('ai-loading-tip');
+  const aiOverlay = document.getElementById('ai-loading-overlay');
+
   if (!scenarioId) {
     document.querySelector('.simul-title').textContent = '잘못된 접근입니다.';
     return;
   }
+
+  aiTip.classList.remove('hidden');
+  aiOverlay.classList.remove('hidden');
 
   try {
     const res = await authorizedFetch(
@@ -37,5 +43,8 @@ import { authorizedFetch } from '../../utils/auth-fetch.js';
     document.querySelector('.simul-title').textContent =
       '시나리오 시작에 실패했습니다.';
     console.error(e);
+  } finally {
+    aiTip.classList.add('hidden');
+    aiOverlay.classList.add('hidden');
   }
 })();
