@@ -4,6 +4,9 @@ import { authorizedFetch } from '../../utils/auth-fetch.js';
   const scenario = JSON.parse(sessionStorage.getItem('scenarioData'));
   const scenarioId = scenario.scenarioId;
 
+  const aiTip = document.getElementById('ai-loading-tip');
+  const aiOverlay = document.getElementById('ai-loading-overlay');
+
   const reward = JSON.parse(sessionStorage.getItem('reward'));
 
   const titleEl = document.querySelector('.simul-title');
@@ -14,6 +17,9 @@ import { authorizedFetch } from '../../utils/auth-fetch.js';
     dialogueEl.textContent = '';
     return;
   }
+
+  aiTip.classList.remove('hidden');
+  aiOverlay.classList.remove('hidden');
 
   try {
     const res = await authorizedFetch(
@@ -41,6 +47,9 @@ import { authorizedFetch } from '../../utils/auth-fetch.js';
     dialogueEl.textContent =
       '총평 정보를 불러오는 데 문제가 발생했습니다. 다시 시도해 주세요.';
     console.error(e);
+  } finally {
+    aiTip.classList.add('hidden');
+    aiOverlay.classList.add('hidden');
   }
 
   // 버튼 연결
