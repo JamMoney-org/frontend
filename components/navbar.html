@@ -1,9 +1,11 @@
 <nav class="bottom-nav">
-    <a href="#">홈</a>
-    <a href="#">카테고리</a>
-    <a href="#">찜</a>
-    <a href="#">마이페이지</a>
+    <a href="../pages/mainpage.html"><img src="../assets/icon/house-door-fill.svg" alt="">홈</a>
+    <a href="../pages/learning_category.html"><img src="../assets/icon//book.svg" alt="">금융학습</a>
+    <a href="../pages/mock_invest_list.html"><img src="../assets/icon/graph-up-arrow.svg" alt="">모의투자</a>
+    <a href="../pages/mypage.html"><img src="../assets/icon/person.svg" alt="">마이페이지</a>
 </nav>
+
+<div id="toast" class="toast hidden">로그인 후 이용 가능한 기능입니다.</div>
 
 <style>
     .bottom-nav {
@@ -19,12 +21,46 @@
     }
 
     .bottom-nav a {
+        text-align: center;
         text-decoration: none;
         color: #333;
-        font-size: 1rem;
+        font-size: 0.7rem;
+
+        display: flex;
+        flex-direction: column;
+        /* 세로 정렬 */
+        align-items: center;
+        /* 가운데 정렬 */
     }
 
     .bottom-nav a:hover {
-        color: #007bff;
+        color: #333;
+    }
+
+    .bottom-nav img {
+        display: block;
+        width: 18px;
+    }
+
+    .toast {
+        position: fixed;
+        bottom: 80px;
+        left: 50%;
+        transform: translateX(-50%);
+        background-color: #333;
+        color: #fff;
+        padding: 12px 24px;
+        border-radius: 24px;
+        font-size: 0.9rem;
+        z-index: 9999;
+        opacity: 0;
+        transition: opacity 0.3s ease-in-out;
+        pointer-events: none;
+        width: 68%;
+        max-width: 255px;
+    }
+
+    .toast.show {
+        opacity: 1;
     }
 </style>
