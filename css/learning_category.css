@@ -4,47 +4,22 @@ body {
     overflow: hidden;
 }
 
-.main-content {
-    min-height: 100vh;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    flex-direction: column;
-    padding: 20px 5% 5% 5%;
-    background-color: #fff;
-    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
-    border-radius: 10px;
-    width: 100%;
-    max-width: 600px;
-    margin: 0 auto;
-}
-
 .content {
     display: grid;
     grid-template-columns: repeat(2, 1fr);
-    /* 2열 구성 */
     gap: 16px;
-    /* 카드 간의 간격 */
     width: 100%;
-    padding: 0 10px 20px 10px;
+    padding: 20px;
+    margin: 20px auto;
     box-sizing: border-box;
 }
-
-
-.content::-webkit-scrollbar,
-.content::-webkit-scrollbar-thumb,
-.content::-webkit-scrollbar-track {
-    background-color: rgba(0, 0, 0, 0);
-    width: 0px;
-}
-
 /* 메뉴 카드 */
 .menu-card {
     width: 100%;
     display: flex;
     justify-content: space-between;
     align-items: center;
-    padding: 50px 16px;
+    padding: 38px 16px;
     border-radius: 15px;
     text-decoration: none;
     border: 1px solid #e1e1e1;
