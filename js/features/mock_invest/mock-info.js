@@ -78,7 +78,7 @@ function renderCompanyInfo() {
       : ''
   );
   setValue('시장정보구분(투자주의)', '해당없음');
-  setValue('업종분류', companyData.industry);
+  setValue('업종분류', companyData.bstp_kor_isnm);
   setValue('관리종목', 'N');
   setValue('거래정지', 'N');
   setValue(
