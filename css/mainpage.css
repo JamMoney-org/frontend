@@ -24,13 +24,6 @@ body {
     margin-bottom: 10px;
 }
 
-.content::-webkit-scrollbar,
-.content::-webkit-scrollbar-thumb,
-.content::-webkit-scrollbar-track {
-    background-color: rgba(0, 0, 0, 0);
-    width: 0px;
-}
-
 .character-area {
     position: relative;
     width: 100%;

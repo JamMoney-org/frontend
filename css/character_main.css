@@ -5,22 +5,14 @@ body {
   padding: 0;
   font-family: 'Pretendard', sans-serif;
   background-color: #fff;
-  /* overflow: hidden; */
 }
 
 .content {
   position: relative;
-  height: 120dvh;
+  height: 100%;
   overflow-y: auto;
   box-sizing: border-box;
   padding: 5%;
-}
-
-.content::-webkit-scrollbar,
-.content::-webkit-scrollbar-thumb,
-.content::-webkit-scrollbar-track {
-  background-color: rgba(0, 0, 0, 0);
-  width: 0px;
 }
 
 /* 상단 버튼 영역 */
@@ -28,7 +20,7 @@ body {
   display: flex;
   justify-content: space-between;
   align-items: center;
-  margin-bottom: 16px;
+  margin-bottom: 30px;
   gap: 10px;
 }
 
@@ -42,10 +34,8 @@ body {
   font-size: 14px;
   border-radius: 15px;
   flex: 1;
-  /* 너비 1:1 비율 */
   font-weight: bold;
   display: flex;
-  /* 버튼 내용 가운데 정렬 */
   justify-content: center;
   align-items: center;
 }
@@ -57,7 +47,7 @@ body {
   height: 50%;
   border-radius: 20px;
   overflow: hidden;
-  margin-bottom: 20px;
+  margin-bottom: 30px;
   border: 1px solid #e1e1e1;
   box-shadow: 0 2px 6px rgba(0, 0, 0, 0.1);
 }
@@ -73,7 +63,7 @@ body {
 
 .character-img {
   position: absolute;
-  bottom: 15%;
+  bottom: 10%;
   left: 50%;
   transform: translateX(-50%);
   width: 50%;
@@ -119,7 +109,6 @@ body {
   display: none;
   margin-top: 5px;
   gap: 8px;
-  display: flex;
   align-items: center;
 }
 
