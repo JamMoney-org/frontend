@@ -85,7 +85,7 @@ body {
 
 .popup-message {
   position: fixed;
-  top: 20px;
+  top: 100px;
   left: 50%;
   transform: translateX(-50%);
   background: #fff;
