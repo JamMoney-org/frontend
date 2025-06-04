@@ -1,19 +1,20 @@
-.company-name{
-  margin: 0; 
+.company-name {
+  margin: 0;
   font-size: 24px
 }
 
-.stock-header{
+.stock-header {
   padding: 1rem;
   padding-bottom: 0;
 }
-.current-price{
-  font-size: 18px; 
+
+.current-price {
+  font-size: 18px;
   color: #333333;
 }
 
-.price-change{
-  font-size: 14px; 
+.price-change {
+  font-size: 14px;
   color: #999;
 }
 
@@ -37,17 +38,17 @@
   color: #333333;
 }
 
-#tab-content{
+#tab-content {
   padding-bottom: 60px;
 }
 
 
-.tab-pane { 
-  display: none; 
+.tab-pane {
+  display: none;
 }
 
-.tab-pane.active { 
-  display: block; 
+.tab-pane.active {
+  display: block;
 }
 
 .period-tabs {
@@ -89,11 +90,11 @@ td {
   border-bottom: 1.5px solid #F7F7F7;
 }
 
-.company-info-table td{
+.company-info-table td {
   border: 1.5px solid #F7F7F7;
 }
 
-.company-info-table .label{
+.company-info-table .label {
   background-color: #F7F7F7;
 }
 
@@ -103,14 +104,16 @@ thead {
 
 
 td.up * {
-  color: #F93040; /* 빨강 */
+  color: #F93040;
+  /* 빨강 */
 }
 
 td.down * {
-  color: #3969FB; /* 파랑 */
+  color: #3969FB;
+  /* 파랑 */
 }
 
-.trade-btn-wrapper{
+.trade-btn-wrapper {
   background-color: white;
   position: fixed;
   bottom: 44px;
@@ -118,9 +121,9 @@ td.down * {
   height: 50px;
 }
 
-.trade-btn{
+.trade-btn {
   position: fixed;
-  bottom: 50px;
+  bottom: 60px;
   left: 50%;
   transform: translateX(-50%);
   max-width: 550px;
@@ -138,11 +141,13 @@ td.down * {
   aspect-ratio: 1 / 1;
   position: relative;
 }
+
 #candleChart {
   width: 100%;
   height: 100%;
   display: block;
 }
+
 .tooltip-box {
   position: absolute;
   background: #fff;
@@ -158,6 +163,7 @@ td.down * {
 .tooltip-box .up {
   color: red;
 }
+
 .tooltip-box .down {
   color: blue;
 }
@@ -177,6 +183,7 @@ td.down * {
 .price-change .up {
   color: red;
 }
+
 .price-change .down {
   color: blue;
 }
@@ -187,6 +194,7 @@ td.down * {
   stroke: #e0e0e0;
   stroke-dasharray: 2 2;
 }
+
 .grid path {
   display: none;
 }
