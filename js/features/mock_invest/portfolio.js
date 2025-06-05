@@ -104,8 +104,8 @@ document.addEventListener("DOMContentLoaded", async () => {
       <div class="stock-meta">
         <div class="eval-amount">${order.price.toLocaleString()}원</div>
         <div class="stock-count">${order.stockCount}주</div>
-        <div class="reserve-info">접수 시간: ${new Date(
-          order.createdAt
+        <div class="reserve-info">${new Date(
+          order.modifiedAt
         ).toLocaleString()}</div>
         <button class="cancel-btn" data-id="${order.orderId}" data-count="${
         order.stockCount
