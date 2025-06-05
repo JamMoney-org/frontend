@@ -1,6 +1,20 @@
 import { authorizedFetch } from "../../utils/auth-fetch.js";
 
 document.addEventListener("DOMContentLoaded", async () => {
+    function showPopup(message, type = "error", duration = 3000) {
+        let popup = document.querySelector(".popup-message");
+        if (!popup) {
+            popup = document.createElement("div");
+            popup.className = "popup-message";
+            document.body.appendChild(popup);
+        }
+        popup.textContent = message;
+        popup.className = `popup-message show ${type}`;
+
+        setTimeout(() => {
+            popup.classList.remove("show");
+        }, duration);
+    }
     //정보 불러오기
     const nicknameInput = document.querySelector(".input input[type='text']");
     const emailInput = document.querySelector("input[type='email']");
@@ -17,7 +31,7 @@ document.addEventListener("DOMContentLoaded", async () => {
         e.preventDefault();
         const newNickname = nicknameInput.value.trim();
         if (!newNickname) {
-            alert("닉네임을 입력해주세요.");
+            showPopup("닉네임을 입력해주세요.");
             return;
         }
 
@@ -29,7 +43,7 @@ document.addEventListener("DOMContentLoaded", async () => {
         const updatedRes = await authorizedFetch("http://43.202.211.168:8080/api/user/me");
         const updatedData = await updatedRes.json();
         nicknameInput.value = updatedData.nickname;
-        alert("닉네임이 성공적으로 수정되었습니다!");
+        showPopup("닉네임이 성공적으로 수정되었습니다!");
     });
 
 });
