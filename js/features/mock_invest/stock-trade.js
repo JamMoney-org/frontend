@@ -1,5 +1,7 @@
 import { authorizedFetch } from "../../utils/auth-fetch.js";
 
+let priceInterval;
+
 document.addEventListener("DOMContentLoaded", async () => {
   const params = new URLSearchParams(location.search);
   const companyId = params.get("companyId");
@@ -50,6 +52,34 @@ document.addEventListener("DOMContentLoaded", async () => {
     limitPriceInput.style.display = "none";
     priceTextDiv?.parentElement?.appendChild(limitPriceInput);
   }
+
+  let priceChangeTimer = null;
+
+  limitPriceInput.addEventListener("input", () => {
+    const input = limitPriceInput.value;
+    const numberInputPrice = parseInt(input, 10);
+
+    if (isNaN(numberInputPrice) || numberInputPrice <= 0) return;
+
+    if (priceChangeTimer !== null) clearTimeout(priceChangeTimer);
+
+    // 자동 보정: 호가 간격 기준
+    if (
+      typeof priceInterval === "number" &&
+      numberInputPrice % priceInterval !== 0
+    ) {
+      priceChangeTimer = setTimeout(() => {
+        const remainder = numberInputPrice % priceInterval;
+        const corrected = numberInputPrice - remainder;
+        limitPriceInput.value = corrected;
+        updateTotal();
+
+        showToast(
+          `${corrected.toLocaleString()}원 단위로 자동 보정되었습니다.`
+        );
+      }, 1500);
+    }
+  });
 
   limitPriceInput.addEventListener("focus", () => {
     const isMarket =
@@ -255,6 +285,12 @@ document.addEventListener("DOMContentLoaded", async () => {
     if (!res.ok) throw new Error("호가 정보 로드 실패");
 
     const { stockAskingPriceResponseDto: data } = await res.json();
+
+    // 호가 간격 추출
+    const askp1 = Number(data.askp1);
+    const askp2 = Number(data.askp2);
+    priceInterval = askp2 - askp1;
+
     const priceListContainer = document.querySelector(".price-list");
     priceListContainer.innerHTML = "";
 
