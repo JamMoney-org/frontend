@@ -12,8 +12,8 @@
 
 .category-grid {
     display: grid;
-    grid-template-columns: repeat(2, 0.7fr); 
-    gap: 12px; 
+    grid-template-columns: repeat(2, 0.7fr);
+    gap: 12px;
     padding: 15px;
     margin: 15px;
 }
@@ -24,7 +24,8 @@
     align-items: center;
     justify-content: center;
     padding: 35px 10px;
-    background-color: rgba(93, 194, 158, 0.5); /* 투명도 추가 */
+    background-color: rgba(93, 194, 158, 0.5);
+    /* 투명도 추가 */
     border: 1px solid #D9D9D9;
     border-radius: 8px;
     box-sizing: border-box;
@@ -36,7 +37,8 @@
 }
 
 .category-item:hover {
-    background-color: rgba(93, 194, 158, 0.9); /* 더 밝고 진한 배경색 */
+    background-color: rgba(93, 194, 158, 0.9);
+    /* 더 밝고 진한 배경색 */
 }
 
 .category-icon {
@@ -71,7 +73,8 @@ h2 {
 }
 
 .word-item {
-    position: relative; /* 자식 요소의 절대 위치를 기준으로 함 */
+    position: relative;
+    /* 자식 요소의 절대 위치를 기준으로 함 */
     display: flex;
     justify-content: space-between;
     align-items: center;
@@ -84,8 +87,8 @@ h2 {
 }
 
 .word-item:hover {
-    background-color:  #f8f8f8;
-} 
+    background-color: #f8f8f8;
+}
 
 .word-info {
     display: flex;
@@ -106,8 +109,8 @@ h2 {
 
 /* 프로그래스바 */
 .progress-container {
-    position: fixed; 
-    top: 50px;      
+    position: fixed;
+    top: 50px;
     left: 50%;
     transform: translateX(-50%);
     width: 100%;
@@ -121,7 +124,7 @@ h2 {
 
 /* 프로그래스바 진행 부분 */
 .progress-bar {
-    width: 20%; 
+    width: 20%;
     height: 100%;
     background-color: #5DC29E;
     border-radius: 2px;
@@ -229,7 +232,8 @@ h2 {
 }
 
 /* 이전, 다음 버튼 공통 스타일 */
-#card-next-button, #card-prev-button {
+#card-next-button,
+#card-prev-button {
     padding: 12px 25px;
     background-color: #5DC29E;
     color: white;
@@ -240,7 +244,8 @@ h2 {
     transition: background-color 0.3s ease;
 }
 
-#card-prev-button:hover, #card-next-button:hover {
+#card-prev-button:hover,
+#card-next-button:hover {
     background-color: #326c58;
 }
 
@@ -293,7 +298,8 @@ h2 {
     gap: 15px;
 }
 
-.quiz-confirm, .quiz-cancel {
+.quiz-confirm,
+.quiz-cancel {
     padding: 12px 20px;
     margin: 5px;
     background-color: #5DC29E;
@@ -321,6 +327,7 @@ h2 {
         opacity: 0;
         transform: scale(0.9);
     }
+
     to {
         opacity: 1;
         transform: scale(1);
@@ -354,7 +361,7 @@ h2 {
     font-size: 1.2em;
     font-weight: bold;
     margin: 40px 0 0 0;
-    text-align: center; 
+    text-align: center;
 }
 
 .quiz-box {
@@ -397,15 +404,15 @@ h2 {
 }
 
 .quiz-option.correct {
-  background-color: #5DC29E;
-  color: white;
-  border: none;
+    background-color: #5DC29E;
+    color: white;
+    border: none;
 }
 
 .quiz-option.incorrect {
-  background-color: #FF6B6B;
-  color: white;
-  border: none;
+    background-color: #FF6B6B;
+    color: white;
+    border: none;
 }
 
 .quiz-option:hover {
@@ -420,12 +427,12 @@ h2 {
 
 /* 선지 표시 */
 .correct {
-    background-color: #5DC29E !important; 
+    background-color: #5DC29E !important;
     color: white !important;
 }
 
 .incorrect {
-    background-color: #FF4C4C !important; 
+    background-color: #FF4C4C !important;
     color: white !important;
 }
 
@@ -477,7 +484,7 @@ button:disabled {
     left: 0;
     width: 100vw;
     height: 100vh;
-    background-color: rgba(0, 0, 0, 0.3); 
+    background-color: rgba(0, 0, 0, 0.3);
     z-index: 900;
 }
 
@@ -488,10 +495,10 @@ button:disabled {
     transform: translate(-50%, -50%);
     width: 400px;
     max-width: 80%;
-    background-color: #EFEFEF; 
+    background-color: #EFEFEF;
     padding: 30px 40px;
     border-radius: 12px;
-    box-shadow: 0 8px 16px rgba(0, 0, 0, 0.3); 
+    box-shadow: 0 8px 16px rgba(0, 0, 0, 0.3);
     text-align: center;
     z-index: 1000;
 }
@@ -514,6 +521,7 @@ button:disabled {
 .modal-button:hover {
     background-color: #326c58;
 }
+
 /* 퀴즈 결과 차트 스타일 */
 .chart-container {
     position: relative;
@@ -576,28 +584,28 @@ button:disabled {
 
 /*my_vocabulary.html*/
 .term-example-list {
-  margin-top: 6px;
-  padding-left: 16px;
-  color: #666;
-  font-size: 13px;
+    margin-top: 6px;
+    padding-left: 16px;
+    color: #666;
+    font-size: 13px;
 }
 
 .term-example-list li {
-  list-style: disc;
-  margin-bottom: 4px;
+    list-style: disc;
+    margin-bottom: 4px;
 }
 
 .term-example-empty {
-  color: #aaa;
-  font-size: 13px;
-  margin-top: 6px;
-  font-style: italic;
+    color: #aaa;
+    font-size: 13px;
+    margin-top: 6px;
+    font-style: italic;
 }
 
 .term-meaning {
-  margin-top: 8px; 
-  font-size: 14px;
-  font-weight: 600;
+    margin-top: 8px;
+    font-size: 14px;
+    font-weight: 600;
 }
 
 .myvoca-title {
@@ -607,7 +615,7 @@ button:disabled {
 }
 
 .myword-item {
-    position: relative; 
+    position: relative;
     display: flex;
     justify-content: space-between;
     align-items: center;
