@@ -15,7 +15,6 @@ body {
   padding: 5%;
 }
 
-/* 상단 버튼 영역 */
 .top-button {
   display: flex;
   justify-content: space-between;
@@ -40,11 +39,10 @@ body {
   align-items: center;
 }
 
-/* 캐릭터 공간 */
 .character-area {
   position: relative;
   width: 100%;
-  height: 50%;
+  height: 350px;
   border-radius: 20px;
   overflow: hidden;
   margin-bottom: 30px;
@@ -60,16 +58,16 @@ body {
   display: block;
 }
 
-
 .character-img {
   position: absolute;
   bottom: 10%;
   left: 50%;
   transform: translateX(-50%);
   width: 50%;
+  max-height: 90%;
+  object-fit: contain;
 }
 
-/* 캐릭터 정보 */
 .status-box {
   background: #fff;
   border-radius: 16px;
@@ -127,7 +125,6 @@ body {
   border-radius: 8px;
 }
 
-
 .level-bar-box {
   display: flex;
   align-items: center;
@@ -153,7 +150,6 @@ body {
   height: 100%;
   background: #5dc29e;
   width: 80%;
-  /* 예시값 */
   transition: width 0.3s ease;
 }
 
