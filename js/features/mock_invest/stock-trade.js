@@ -286,13 +286,42 @@ document.addEventListener("DOMContentLoaded", async () => {
 
     const { stockAskingPriceResponseDto: data } = await res.json();
 
+    const priceListContainer = document.querySelector(".price-list");
+    priceListContainer.innerHTML = "";
+
+    for (let i = 10; i >= 1; i--) {
+      const askPrice = data[`askp${i}`];
+      const askQty = data[`askp_rsqn${i}`];
+      const bidPrice = data[`bidp${i}`];
+      const bidQty = data[`bidp_rsqn${i}`];
+
+      const askHTML =
+        askPrice && askQty
+          ? `<div class="ask">
+            <span>${Number(askPrice).toLocaleString()}</span>
+            <span class="price-qty">${Number(askQty).toLocaleString()}</span>
+          </div>`
+          : `<div class="ask"><span>-</span><span class="price-qty">0</span></div>`;
+
+      const bidHTML =
+        bidPrice && bidQty
+          ? `<div class="bid">
+            <span>${Number(bidPrice).toLocaleString()}</span>
+            <span class="price-qty">${Number(bidQty).toLocaleString()}</span>
+          </div>`
+          : `<div class="bid"><span>-</span><span class="price-qty">0</span></div>`;
+
+      priceListContainer.innerHTML += `
+        <div class="price-row">
+          ${askHTML}
+          ${bidHTML}
+        </div>`;
+    }
+
     // 호가 간격 추출
     const askp1 = Number(data.askp1);
     const askp2 = Number(data.askp2);
     priceInterval = askp2 - askp1;
-
-    const priceListContainer = document.querySelector(".price-list");
-    priceListContainer.innerHTML = "";
 
     for (let i = 10; i >= 1; i--) {
       const price = data[`askp${i}`],
