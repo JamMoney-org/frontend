@@ -116,7 +116,6 @@ document.addEventListener("DOMContentLoaded", () => {
         console.log("선택된 아이템 가격:", selectedItem.price);
 
         document.getElementById("selectedItemInfo").style.display = "flex";
-
       });
     });
   }
@@ -134,11 +133,35 @@ document.addEventListener("DOMContentLoaded", () => {
       showPopup("아이템 불러오기 실패: " + err);
     });
 
+  // 이미 구매한 아이템인지 확인하는 함수
+  async function checkIfItemAlreadyPurchased(itemId) {
+    try {
+      const res = await authorizedFetch('http://43.202.211.168:8080/api/item/inventory');
+      if (!res.ok) throw new Error('인벤토리 조회 실패');
+
+      const response = await res.json();
+      const inventory = response.data || response;
+
+      return inventory.some(item => item.itemId === itemId);
+    } catch (err) {
+      showPopup("인벤토리 조회 실패: " + err.message);
+      return false;
+    }
+  }
+
   // 구매하기
   buyButton.addEventListener("click", async () => {
     const confirmBuy = await customConfirm(`🪙 ${selectedItem.price} cash로 "${selectedItem.name}"을 구매할까요?`);
     if (!confirmBuy) return;
 
+    // 이미 구매한 아이템인지 확인
+    const isAlreadyPurchased = await checkIfItemAlreadyPurchased(selectedItem.itemId);
+    if (isAlreadyPurchased) {
+      showPopup("이미 구매한 아이템입니다.");
+      return;
+    }
+
+    // 아이템 구매 요청
     authorizedFetch("http://43.202.211.168:8080/api/item/purchase", {
       method: "POST",
       body: JSON.stringify({ itemId: selectedItem.itemId })
@@ -202,7 +225,3 @@ document.addEventListener("DOMContentLoaded", () => {
 
   loadEquippedItems();
 });
-
-
-
-
