@@ -6,20 +6,35 @@ document.addEventListener("DOMContentLoaded", async () => {
   const companyCode = params.get("companyCode");
 
   if (!companyId || !companyCode) {
-    alert("잘못된 접근입니다.");
+    showError("잘못된 접근입니다.");
     return;
+  }
+
+  let availableCash = 0;
+
+  try {
+    const portfolioRes = await authorizedFetch(
+      "http://43.202.211.168:8080/api/portfolio"
+    );
+    if (!portfolioRes.ok) throw new Error("포트폴리오 로딩 실패");
+
+    const portfolioData = await portfolioRes.json();
+    availableCash = portfolioData.money;
+  } catch (e) {
+    console.error("현금 정보 불러오기 실패:", e);
+    availableCash = 0;
   }
 
   const orderButtons = document.querySelectorAll(".order-button");
   const priceLabel = document.querySelector(".price-display .label");
   const quantityLabel = document.querySelector(".quantity .label");
-  const tradeButton = document.querySelector(".trade-button");
+  const tradeButton = document.querySelector(".trade-btn");
   const priceTextDiv = document.getElementById("price");
   const quantityDisplay = document.getElementById("quantityDisplay");
   const totalAmount = document.getElementById("totalAmount");
   const increaseBtn = document.getElementById("increaseBtn");
   const decreaseBtn = document.getElementById("decreaseBtn");
-  const percentButtons = document.querySelectorAll(".quantity-percent button");
+  const percentButtons = document.querySelectorAll(".quantity-buttons button");
   const orderHistoryContainer = document.querySelector(".order-history");
 
   let limitPriceInput = document.getElementById("limitPriceInput");
@@ -66,15 +81,31 @@ document.addEventListener("DOMContentLoaded", async () => {
     zIndex: 1000,
   });
   modal.innerHTML = `
-    <div style="background:white;padding:24px;border-radius:12px;text-align:center;width:280px">
-      <h3 id="modal-title"></h3>
-      <p id="modal-price"></p>
-      <p id="modal-total"></p>
-      <div style="margin-top:12px">
-        <button id="modal-cancel" style="margin-right:12px">취소</button>
-        <button id="modal-confirm">확인</button>
-      </div>
-    </div>`;
+  <div style="background:white;padding:24px;border-radius:12px;text-align:center;width:280px">
+    <h3 id="modal-title"></h3>
+    <p id="modal-price" style="margin-top: 10px"></p>
+    <p id="modal-total"></p>
+    <div style="margin-top:20px">
+      <button id="modal-cancel" style="
+        margin-right: 12px;
+        padding: 6px 14px;
+        background: #ccc;
+        color: white;
+        border: none;
+        border-radius: 6px;">
+        취소
+      </button>
+      <button id="modal-confirm" style="
+        padding: 6px 14px;
+        background: #51B291;
+        color: white;
+        border: none;
+        border-radius: 6px;">
+        확인
+      </button>
+    </div>
+  </div>`;
+
   document.body.appendChild(modal);
 
   const errorModal = document.createElement("div");
@@ -154,16 +185,27 @@ document.addEventListener("DOMContentLoaded", async () => {
   percentButtons.forEach((btn) => {
     btn.addEventListener("click", () => {
       const percent = Number(btn.dataset.percent);
-      const maxAffordable = 1000000;
       const isMarket =
         document.querySelector('input[name="priceType"]:checked')?.value ===
         "market";
       const price = isMarket
         ? Number(firstValidBid || 0)
         : Number(limitPriceInput?.value) || 0;
-      if (price > 0) {
-        quantity = Math.floor((maxAffordable * percent) / 100 / price);
+
+      if (price > 0 && availableCash > 0) {
+        const budget = (availableCash * percent) / 100;
+        quantity = Math.floor(budget / price);
+
+        if (quantity <= 0) {
+          showToast(`${percent}% 금액으로는 1주도 살 수 없습니다.`);
+          return;
+        }
+
         updateTotal();
+      } else {
+        document.getElementById("error-message").textContent =
+          price <= 0 ? "가격 정보를 확인하세요." : "보유 현금이 없습니다.";
+        errorModal.style.display = "flex";
       }
     });
   });
@@ -184,17 +226,24 @@ document.addEventListener("DOMContentLoaded", async () => {
 
   document.querySelectorAll('input[name="priceType"]').forEach((input) => {
     input.addEventListener("change", () => {
-      if (input.value === "market") {
+      const selected = document.querySelector(
+        'input[name="priceType"]:checked'
+      );
+      if (!selected) return;
+
+      if (selected.value === "market") {
+        // 시장가 UI 활성화
         priceTextDiv.style.display = "block";
         limitPriceInput.style.display = "none";
         priceTextDiv.textContent = `시장가 주문: ${Number(
           firstValidBid || 0
         ).toLocaleString()}원`;
       } else {
+        // 지정가 UI 활성화
         priceTextDiv.style.display = "none";
         limitPriceInput.style.display = "block";
-        limitPriceInput.value = "";
       }
+
       updateTotal();
     });
   });
@@ -234,6 +283,8 @@ document.addEventListener("DOMContentLoaded", async () => {
           bidPrice
         ).toLocaleString()} <span class="percent">선택</span>`;
         priceListContainer.appendChild(selected);
+
+        initializeMarketOrderUI();
         break;
       }
     }
@@ -254,17 +305,28 @@ document.addEventListener("DOMContentLoaded", async () => {
     }
 
     /*호가를 클릭해서 가격을 설정하는 코드 부분*/
-    // priceListContainer.addEventListener("click", (e) => {
-    //   const target = e.target.closest(".price-item");
-    //   if (!target) return;
-    //   const priceText = target.textContent.trim().split(" ")[0].replace(/,/g, "");
-    //   const limitRadio = document.querySelector('input[name="priceType"][value="limit"]');
-    //   if (limitRadio) limitRadio.checked = true;
-    //   priceTextDiv.style.display = "none";
-    //   limitPriceInput.style.display = "block";
-    //   limitPriceInput.value = priceText;
-    //   updateTotal();
-    // });
+    priceListContainer.addEventListener("click", (e) => {
+      const target = e.target.closest(".price-item");
+      if (!target) return;
+
+      const priceText = target.textContent
+        .trim()
+        .split(" ")[0]
+        .replace(/,/g, "");
+
+      const limitRadio = document.querySelector(
+        'input[name="priceType"][value="limit"]'
+      );
+      if (limitRadio) {
+        limitRadio.checked = true;
+
+        priceTextDiv.style.display = "none";
+        limitPriceInput.style.display = "block";
+      }
+
+      limitPriceInput.value = priceText;
+      updateTotal();
+    });
   } catch (error) {
     console.error("호가 정보 로딩 실패:", error);
     document.querySelector(".price-list").innerHTML =
@@ -375,4 +437,32 @@ document.addEventListener("DOMContentLoaded", async () => {
       }
     };
   });
+
+  function initializeMarketOrderUI() {
+    const marketRadio = document.querySelector(
+      'input[name="priceType"][value="market"]'
+    );
+    if (marketRadio) marketRadio.checked = true;
+
+    priceTextDiv.style.display = "block";
+    limitPriceInput.style.display = "none";
+
+    priceTextDiv.textContent = `시장가 주문: ${Number(
+      firstValidBid || 0
+    ).toLocaleString()}원`;
+
+    quantity = 0;
+    quantityDisplay.textContent = "0 주";
+    totalAmount.textContent = "0원";
+  }
 });
+
+function showToast(message) {
+  const toast = document.getElementById("toast");
+  toast.textContent = message;
+  toast.classList.add("show");
+
+  setTimeout(() => {
+    toast.classList.remove("show");
+  }, 2000);
+}
