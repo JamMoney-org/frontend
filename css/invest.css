@@ -325,6 +325,8 @@
 
 }
 
+
+/*포트폴리오 스타일링*/
 .summary-box {
     padding: 16px;
     background-color: #f7f9fc;
@@ -431,13 +433,99 @@
     color: blue;
 }
 
+.chart-title {
+    text-align: center;
+    font-size: 1.1rem;
+    margin-top: 12px;
+    margin-bottom: 8px;
+}
+
 .chart-box {
     margin: 16px;
     padding: 12px;
     background: #fff;
     border-radius: 8px;
+    margin-bottom: 0;
 }
 
 .chart-box canvas {
     max-width: 100%;
+}
+
+.portfolio-tabs {
+    display: flex;
+    justify-content: space-around;
+    margin: 16px;
+    border-bottom: 1px solid #eee;
+}
+
+.tab-button {
+    flex: 1;
+    text-align: center;
+    padding: 12px 0;
+    background-color: transparent;
+    border: none;
+    font-size: 1rem;
+    color: #666;
+    cursor: pointer;
+    transition: all 0.2s ease;
+}
+
+.tab-button.active {
+    color: #51B291;
+    font-weight: bold;
+    border-bottom: 2px solid #51B291;
+}
+
+.tab-content {
+    display: none;
+    padding: 0 16px;
+}
+
+.tab-content.active {
+    display: block;
+}
+
+.cancel-btn {
+    background-color: #989898;
+    color: #fff;
+    border: none;
+    border-radius: 6px;
+    padding: 3px 12px;
+    font-size: 0.7rem;
+    cursor: pointer;
+    transition: background-color 0.2s ease;
+    margin-top: 6px;
+}
+
+.cancel-btn:hover {
+    background-color: #6c6c6c;
+}
+
+.reserve-info {
+    font-size: 0.8rem;
+    /* 기존보다 살짝 작게 */
+    color: #888;
+    /* 회색톤으로 부드럽게 */
+    margin-top: 4px;
+}
+
+.toast {
+    position: fixed;
+    bottom: 30px;
+    left: 50%;
+    transform: translateX(-50%);
+    background-color: #333;
+    color: white;
+    padding: 12px 24px;
+    border-radius: 8px;
+    font-size: 0.9rem;
+    opacity: 0;
+    pointer-events: none;
+    transition: opacity 0.4s ease, bottom 0.4s ease;
+    z-index: 9999;
+}
+
+.toast.show {
+    opacity: 1;
 }
