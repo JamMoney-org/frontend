@@ -4,7 +4,7 @@
     flex-direction: column;
     margin-bottom: 20px;
     overflow-y: auto;
-    max-height: 600px;
+    max-height: 545px;
 }
 
 .price-list {
@@ -86,7 +86,7 @@
 .price-type input[type="radio"] {
     width: 15px;
     height: 15px;
-    accent-color: #51B291;
+    accent-color: #5DC29E;
 }
 
 .quantity {
@@ -126,15 +126,26 @@
 }
 
 /* 거래 버튼 스타일 */
-.trade-button {
-    background-color: #51B291;
-    color: #fff;
-    padding: 9px 12px;
-    font-size: 1em;
-    border-radius: 10px;
-    margin-top: 30px;
+.trade-btn-wrapper {
+    position: fixed;
+    bottom: 44px;
+    width: 600px;
+    height: 50px;
+}
+
+.trade-btn {
+    position: fixed;
+    bottom: 60px;
+    left: 50%;
+    transform: translateX(-50%);
+    max-width: 580px;
+    width: 96.7%;
+    background-color: #5DC29E;
+    color: white;
+    padding: 10px;
     border: none;
-    width: 100%;
+    border-radius: 8px;
+    cursor: pointer;
 }
 
 .quantity-control {
@@ -169,4 +180,35 @@
 
 .content {
     padding: 10px;
+}
+
+html {
+    overflow-y: hidden;
+}
+
+.toast {
+    position: fixed;
+    bottom: 90px;
+    left: 50%;
+    transform: translateX(-50%);
+    background-color: rgba(51, 51, 51, 0.9);
+    color: white;
+    padding: 14px 28px;
+    border-radius: 10px;
+    font-size: 1rem;
+    opacity: 0;
+    pointer-events: none;
+    transition: opacity 0.4s ease, bottom 0.4s ease;
+    z-index: 9999;
+    min-width: 300px;
+    max-width: 90%;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    text-align: center;
+    box-sizing: border-box;
+}
+
+.toast.show {
+    opacity: 1;
 }
