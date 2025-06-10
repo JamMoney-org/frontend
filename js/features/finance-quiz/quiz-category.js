@@ -4,17 +4,20 @@ document.addEventListener("DOMContentLoaded", async () => {
   const categoryItems = document.querySelectorAll(".category-item");
 
   const categoryEnumMap = {
-    "소비": "CONSUMPTION",
-    "저축": "SAVING",
-    "대출": "LOAN",
-    "투자": "INVESTMENT",
-    "세금": "TAX"
+    소비: "CONSUMPTION",
+    저축: "SAVING",
+    대출: "LOAN",
+    투자: "INVESTMENT",
+    세금: "TAX",
   };
 
   try {
-    const response = await authorizedFetch("http://43.202.211.168:8080/api/terms/categories", {
-      method: "GET"
-    });
+    const response = await authorizedFetch(
+      "http://43.202.211.168:8080/api/terms/categories",
+      {
+        method: "GET",
+      }
+    );
 
     const categories = await response.json();
 
@@ -28,7 +31,7 @@ document.addEventListener("DOMContentLoaded", async () => {
       }
     });
 
-    categoryItems.forEach(item => {
+    categoryItems.forEach((item) => {
       item.addEventListener("click", () => {
         const categoryName = item.querySelector("p").textContent;
         const categoryEnum = categoryEnumMap[categoryName];
@@ -38,15 +41,14 @@ document.addEventListener("DOMContentLoaded", async () => {
           return;
         }
 
-        // ✅ 필요한 정보만 로컬스토리지에 저장
         localStorage.setItem("selectedCategoryName", categoryName);
         localStorage.setItem("selectedCategoryEnum", categoryEnum);
 
-        // ✅ 페이지 이동 (ID는 URL에 없음)
-        window.location.href = `/pages/quiz_level_select.html?categoryName=${encodeURIComponent(categoryName)}&categoryEnum=${categoryEnum}`;
+        window.location.href = `/pages/quiz_level_select.html?categoryName=${encodeURIComponent(
+          categoryName
+        )}&categoryEnum=${categoryEnum}`;
       });
     });
-
   } catch (err) {
     console.error("카테고리 로딩 실패:", err);
   }
