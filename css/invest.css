@@ -3,7 +3,7 @@
     background-color: #f5f5f5;
     border-radius: 8px;
     margin: 10px 20px 30px 20px;
-    padding: 20px;
+    padding: 20px 30px;
     border: 1px solid #D9D9D9;
     display: flex;
     justify-content: center;
@@ -78,28 +78,28 @@
 }
 
 .stock-toggle {
-  display: flex;
-  justify-content: center;
-  margin: 8px 0;
-  gap: 8px;
+    display: flex;
+    justify-content: center;
+    margin: 8px 0;
+    gap: 8px;
 }
 
 .stock-tab {
-  flex: 1;
-  text-align: center;
-  border-radius: 20px;
-  border: 1px solid #51B291;
-  background-color: white;
-  color: #51B291;
-  font-size: 14px;
-  padding: 10px 0;
-  cursor: pointer;
-  transition: all 0.2s ease;
+    flex: 1;
+    text-align: center;
+    border-radius: 20px;
+    border: 1px solid #51B291;
+    background-color: white;
+    color: #51B291;
+    font-size: 14px;
+    padding: 10px 0;
+    cursor: pointer;
+    transition: all 0.2s ease;
 }
 
 .stock-tab.active {
-  background-color: #51B291;
-  color: white;
+    background-color: #51B291;
+    color: white;
 }
 
 /* 주식 리스트 항목들 */
@@ -110,12 +110,14 @@
 }
 
 .stock-list li {
-  display: flex;
-  align-items: center;
-  padding: 16px 10px;       /* 기존 12px → 16px로 간격 늘림 */
-  gap: 14px;             /* 로고-텍스트 간 여백도 살짝 늘림 */
-  cursor: pointer;
-  border-bottom: 1px solid #e0e0e0;
+    display: flex;
+    align-items: center;
+    padding: 16px 10px;
+    /* 기존 12px → 16px로 간격 늘림 */
+    gap: 14px;
+    /* 로고-텍스트 간 여백도 살짝 늘림 */
+    cursor: pointer;
+    border-bottom: 1px solid #e0e0e0;
 }
 
 .stock-list li:last-child {
@@ -125,15 +127,16 @@
 .stock-list li div {
     display: flex;
     flex-direction: column;
-    gap: 4px; /* 회사명과 가격 사이 여백 */
+    gap: 4px;
+    /* 회사명과 가격 사이 여백 */
 }
 
 .stock-list img {
     width: 50px;
     height: 50px;
     margin-right: 10px;
-    object-fit: contain;    
-    aspect-ratio: auto;     
+    object-fit: contain;
+    aspect-ratio: auto;
 }
 
 /* 등락률 색상 */
@@ -150,9 +153,379 @@
 }
 
 .stock-list li div span {
-  white-space: nowrap;
+    white-space: nowrap;
 }
 
 .heart-icon {
-  margin-left: auto;
+    margin-left: auto;
+}
+
+.portfolio-btn {
+    padding: 6px 16px;
+    background-color: #b1b1b1;
+    color: white;
+    border: none;
+    border-radius: 8px;
+    font-size: 0.8em;
+    cursor: pointer;
+    transition: background-color 0.2s;
+    width: 100%;
+}
+
+.portfolio-btn:hover {
+    background-color: #797979;
+}
+
+.nickname,
+.nickname strong {
+    font-size: 0.9rem;
+    font-weight: 600;
+    color: #898989;
+}
+
+#profitAmount,
+#profitRate {
+    font-weight: bold;
+}
+
+.card-header.improved {
+    display: flex;
+    align-items: center;
+    gap: 40px;
+}
+
+.portfolio-info {
+    flex: 1;
+}
+
+.total-asset {
+    font-size: 1.3rem;
+    font-weight: 700;
+    margin-bottom: 15px;
+}
+
+.asset-breakdown {
+    list-style: none;
+    padding: 0;
+    margin: 0 0 16px 0;
+}
+
+.asset-breakdown li {
+    font-size: 1rem;
+    margin-bottom: 4px;
+}
+
+.profit-loss {
+    font-weight: bold;
+}
+
+.profit-loss.red {
+    color: red;
+}
+
+.profit-loss.blue {
+    color: blue;
+}
+
+.profit-loss.gray {
+    color: gray;
+}
+
+.dino-container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 14px;
+    padding-left: 40px;
+}
+
+.dino-img {
+    width: 100px;
+    height: auto;
+}
+
+.dino-speech-bubble {
+    position: relative;
+    background: #fff;
+    border-radius: 16px;
+    padding: 10px 14px;
+    box-shadow: 0 2px 6px rgba(0, 0, 0, 0.1);
+    font-size: 0.85rem;
+    line-height: 1.5;
+    max-width: 200px;
+    text-align: center;
+    word-break: keep-all;
+}
+
+.dino-speech-bubble.bottom-tail::after {
+    content: "";
+    position: absolute;
+    bottom: -10px;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 0;
+    height: 0;
+    border-top: 10px solid #fff;
+    border-left: 10px solid transparent;
+    border-right: 10px solid transparent;
+}
+
+@media (max-width: 768px) {
+    .card-header.improved {
+        flex-direction: row;
+        align-items: flex-start;
+        gap: 10px;
+    }
+
+    .portfolio-info {
+        flex: 1;
+        font-size: 0.9rem;
+    }
+
+    .total-asset {
+        font-size: 1.1rem;
+    }
+
+    .asset-breakdown li {
+        font-size: 0.9rem;
+    }
+
+    .portfolio-btn {
+        font-size: 0.7rem;
+        padding: 5px 12px;
+    }
+
+    .portfolio-right {
+        width: auto;
+    }
+
+    .dino-img {
+        width: 80px;
+    }
+
+    .dino-speech-bubble {
+        font-size: 0.75rem;
+        max-width: 120px;
+        padding: 8px 12px;
+    }
+
+    div.investment-card {
+        padding: 20px 10px;
+    }
+
+    .nickname,
+    .nickname strong {
+        font-size: 1rem;
+        color: #898989;
+    }
+
+    .dino-container {
+        padding-left: 0px;
+    }
+
+}
+
+
+/*포트폴리오 스타일링*/
+.summary-box {
+    padding: 16px;
+    background-color: #f7f9fc;
+    border-radius: 12px;
+    margin: 16px;
+    text-align: center;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.05);
+}
+
+.summary-title {
+    font-size: 1.2rem;
+    color: #666;
+}
+
+.summary-amount {
+    font-size: 2rem;
+    font-weight: bold;
+    margin: 8px 0;
+}
+
+.summary-rate {
+    font-size: 1rem;
+    color: #999;
+}
+
+.available-box {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin: 16px;
+    padding: 12px 16px;
+    background-color: #ffffff;
+    border: 1px solid #eee;
+    border-radius: 8px;
+}
+
+.transfer-btn {
+    background-color: #333;
+    color: #fff;
+    padding: 6px 12px;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+}
+
+.stock-list {
+    margin: 16px;
+}
+
+.stock-item {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 12px 16px;
+    margin-bottom: 12px;
+    background-color: #fff;
+    border: 1px solid #eee;
+    border-radius: 8px;
+    box-shadow: 0 1px 2px rgba(0, 0, 0, 0.04);
+}
+
+.stock-item:last-child {
+    margin-bottom: 30px;
+}
+
+.stock-info {
+    display: flex;
+    flex-direction: column;
+}
+
+.company-name {
+    font-weight: bold;
+    font-size: 1rem;
+}
+
+.buy-info {
+    font-size: 0.85rem;
+    color: #999;
+}
+
+.stock-meta {
+    text-align: right;
+}
+
+.eval-amount {
+    font-weight: bold;
+    font-size: 1rem;
+}
+
+.stock-count {
+    font-size: 0.85rem;
+    color: #666;
+}
+
+.profit-rate {
+    font-size: 0.85rem;
+}
+
+.profit-rate.plus {
+    color: red;
+}
+
+.profit-rate.minus {
+    color: blue;
+}
+
+.chart-title {
+    text-align: center;
+    font-size: 1.1rem;
+    margin-top: 12px;
+    margin-bottom: 8px;
+}
+
+.chart-box {
+    margin: 16px;
+    padding: 12px;
+    background: #fff;
+    border-radius: 8px;
+    margin-bottom: 0;
+}
+
+.chart-box canvas {
+    max-width: 100%;
+}
+
+.portfolio-tabs {
+    display: flex;
+    justify-content: space-around;
+    margin: 16px;
+    border-bottom: 1px solid #eee;
+}
+
+.tab-button {
+    flex: 1;
+    text-align: center;
+    padding: 12px 0;
+    background-color: transparent;
+    border: none;
+    font-size: 1rem;
+    color: #666;
+    cursor: pointer;
+    transition: all 0.2s ease;
+}
+
+.tab-button.active {
+    color: #51B291;
+    font-weight: bold;
+    border-bottom: 2px solid #51B291;
+}
+
+.tab-content {
+    display: none;
+    padding: 0 16px;
+}
+
+.tab-content.active {
+    display: block;
+}
+
+.cancel-btn {
+    background-color: #989898;
+    color: #fff;
+    border: none;
+    border-radius: 6px;
+    padding: 3px 12px;
+    font-size: 0.7rem;
+    cursor: pointer;
+    transition: background-color 0.2s ease;
+    margin-top: 6px;
+}
+
+.cancel-btn:hover {
+    background-color: #6c6c6c;
+}
+
+.reserve-info {
+    font-size: 0.8rem;
+    /* 기존보다 살짝 작게 */
+    color: #888;
+    /* 회색톤으로 부드럽게 */
+    margin-top: 4px;
+}
+
+.toast {
+    position: fixed;
+    bottom: 30px;
+    left: 50%;
+    transform: translateX(-50%);
+    background-color: #333;
+    color: white;
+    padding: 12px 24px;
+    border-radius: 8px;
+    font-size: 0.9rem;
+    opacity: 0;
+    pointer-events: none;
+    transition: opacity 0.4s ease, bottom 0.4s ease;
+    z-index: 9999;
+}
+
+.toast.show {
+    opacity: 1;
 }
