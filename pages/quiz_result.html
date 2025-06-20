@@ -23,35 +23,37 @@
                         stroke-linejoin="round" />
                 </svg>
             </button>
-            금융 퀴즈
+            퀴즈 결과
         </header>
 
         <!-- 퀴즈 콘텐츠 영역 -->
         <div class="content">
 
             <!-- 퀴즈 카드 -->
+            <!-- 퀴즈 카드 -->
             <div class="quiz-card">
-                <h2 style="font-size: 23px; margin-top: 30px;">퀴즈 결과</h2>
-
-                <!-- 파이 차트 -->
-                <div class="chart-container">
-                    <canvas id="quizChart" width="200" height="200"></canvas>
-                    <div class="chart-score" id="chart-score">3/5</div>
-                </div>
-
-                <!-- 공룡과 말풍선, 종료 버튼 -->
-                <div class="dino-container">
-                    <!-- 공룡과 말풍선을 수직으로 배치 -->
-                    <div class="dino-speech">
-                        <div class="speech-bubble">더 공부가 필요해요!</div>
-                        <img src="../assets/images/dino.png" alt="공룡" class="dino-image">
+                <div class="result-container">
+                    <!-- 차트와 공룡을 나란히 배치 -->
+                    <div class="result-body">
+                        <!-- 공룡 + 말풍선 -->
+                        <div class="dino-speech">
+                            <div class="speech-bubble">더 공부가 필요해요!</div>
+                            <img src="../assets/images/dino.png" alt="공룡" class="dino-image">
+                        </div>
+                        <!-- 파이 차트 -->
+                        <div class="chart-container">
+                            <canvas id="quizChart" width="200" height="200"></canvas>
+                            <div class="chart-score" id="chart-score">3/5</div>
+                        </div>
                     </div>
+                </div>
+                <!-- 버튼 영역 -->
+                <div class="button-group">
                     <button id="retry-button" class="hidden">다시 풀기</button>
-                    <!-- 퀴즈 종료 버튼을 오른쪽으로 배치 -->
                     <button class="next-button" id="finish-button">퀴즈 종료</button>
                 </div>
-
             </div>
+
         </div>
 
     </div>

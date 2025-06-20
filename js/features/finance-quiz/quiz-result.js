@@ -30,11 +30,12 @@ document.addEventListener("DOMContentLoaded", async () => {
     // 피드백 메시지
     if (passed) {
       feedbackBubble.innerHTML =
-        `잘했어요! 대단해요!<br>` +
-        `🏆 ${rewardExp} 경험치, 💰 ${rewardCoin} 가상머니를<br>획득했어요!`;
+        `<span style="font-weight: bold; font-size: 1.1em;">잘했어요! 대단해요!</span><br><br>` +
+        `<b style="font-size: 1.1em;">+🏆 ${rewardExp} 경험치</b><br>` +
+        `<b style="font-size: 1.1em;">+💰 ${rewardCoin} 잼머니</b>`;
     } else {
-      feedbackBubble.textContent =
-        "더 공부가 필요해요. 퀴즈를 다시 풀어볼까요?!";
+      feedbackBubble.innerHTML =
+        "더 공부가 필요해요.<br>퀴즈를 다시 풀어볼까요?!";
 
       // 다시 풀기 버튼 보여주기
       retryButton.classList.remove("hidden");
