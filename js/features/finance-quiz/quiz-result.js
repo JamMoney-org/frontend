@@ -33,8 +33,8 @@ document.addEventListener("DOMContentLoaded", async () => {
         `잘했어요! 대단해요!<br>` +
         `🏆 ${rewardExp} 경험치, 💰 ${rewardCoin} 가상머니를<br>획득했어요!`;
     } else {
-      feedbackBubble.textContent =
-        "더 공부가 필요해요. 퀴즈를 다시 풀어볼까요?!";
+      feedbackBubble.innerHTML =
+        "더 공부가 필요해요.<br>퀴즈를 다시 풀어볼까요?!";
 
       // 다시 풀기 버튼 보여주기
       retryButton.classList.remove("hidden");
