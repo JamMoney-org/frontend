@@ -123,12 +123,12 @@ function renderCompanyInfo() {
 // 초기 데이터 로드
 async function fetchCompanyData(companyId) {
   const res = await authorizedFetch(
-    `http://43.202.211.168:8080/api/company/${companyId}`
+    `https://jm-money.com/api/company/${companyId}`
   );
   companyData = await res.json();
 
   const chartRes = await authorizedFetch(
-    `http://43.202.211.168:8080/api/company/charts/${companyId}`
+    `https://jm-money.com/api/company/charts/${companyId}`
   );
   chartData = await chartRes.json();
   chartData.sort(

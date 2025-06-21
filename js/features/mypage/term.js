@@ -4,10 +4,10 @@ document.addEventListener("DOMContentLoaded", async () => {
     const listContainer = document.querySelector(".term-list");
 
     try {
-        const userRes = await authorizedFetch("http://43.202.211.168:8080/api/user/me");
+        const userRes = await authorizedFetch("https://jm-money.com/api/user/me");
         if (!userRes.ok) return;
 
-        const res = await authorizedFetch("http://43.202.211.168:8080/api/terms/my-terms");
+        const res = await authorizedFetch("https://jm-money.com/api/terms/my-terms");
         if (!res.ok) return;
 
         const terms = await res.json();

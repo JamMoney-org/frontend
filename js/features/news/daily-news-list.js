@@ -10,7 +10,7 @@ document.addEventListener("DOMContentLoaded", async () => {
   const newsListContainer = document.getElementById("news-list");
 
   try {
-    const response = await authorizedFetch("http://43.202.211.168:8080/api/news");
+    const response = await authorizedFetch("https://jm-money.com/api/news");
 
     if (!response.ok) {
       throw new Error("뉴스 목록을 불러오는 데 실패했습니다.");

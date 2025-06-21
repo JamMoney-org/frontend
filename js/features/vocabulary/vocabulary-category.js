@@ -4,7 +4,7 @@ document.addEventListener("DOMContentLoaded", async () => {
   const categoryItems = document.querySelectorAll(".category-item");
 
   try {
-    const response = await authorizedFetch("http://43.202.211.168:8080/api/terms/categories", {
+    const response = await authorizedFetch("https://jm-money.com/api/terms/categories", {
       method: "GET"
     });
 

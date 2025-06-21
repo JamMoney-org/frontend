@@ -68,7 +68,7 @@ function createScenarioItem(scenario) {
 async function loadScenarioList(category, enumCategory) {
   try {
     const res = await authorizedFetch(
-      `http://43.202.211.168:8080/api/scenario/category/list?category=${enumCategory}`
+      `https://jm-money.com/api/scenario/category/list?category=${enumCategory}`
     );
     const data = await res.json();
 
@@ -93,7 +93,7 @@ async function loadScenarioList(category, enumCategory) {
 }
 
 const statusRes = await authorizedFetch(
-  'http://43.202.211.168:8080/api/pet/status'
+  'https://jm-money.com/api/pet/status'
 );
 const response = await statusRes.json();
 const characterLevel = response.data.level;

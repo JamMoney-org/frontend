@@ -121,7 +121,7 @@ document.addEventListener("DOMContentLoaded", () => {
   }
 
   // 아이템 불러오기
-  authorizedFetch("http://43.202.211.168:8080/api/item/shop")
+  authorizedFetch("https://jm-money.com/api/item/shop")
     .then(res => res.ok ? res.json() : Promise.reject("조회 실패"))
     .then(data => {
       const items = data.data || data || [];
@@ -136,7 +136,7 @@ document.addEventListener("DOMContentLoaded", () => {
   // 이미 구매한 아이템인지 확인하는 함수
   async function checkIfItemAlreadyPurchased(itemId) {
     try {
-      const res = await authorizedFetch('http://43.202.211.168:8080/api/item/inventory');
+      const res = await authorizedFetch('https://jm-money.com/api/item/inventory');
       if (!res.ok) throw new Error('인벤토리 조회 실패');
 
       const response = await res.json();
@@ -162,7 +162,7 @@ document.addEventListener("DOMContentLoaded", () => {
     }
 
     // 아이템 구매 요청
-    authorizedFetch("http://43.202.211.168:8080/api/item/purchase", {
+    authorizedFetch("https://jm-money.com/api/item/purchase", {
       method: "POST",
       body: JSON.stringify({ itemId: selectedItem.itemId })
     })
@@ -178,7 +178,7 @@ document.addEventListener("DOMContentLoaded", () => {
   // 장착 아이템 불러오기
   async function loadEquippedItems() {
     try {
-      const res = await authorizedFetch('http://43.202.211.168:8080/api/item/inventory');
+      const res = await authorizedFetch('https://jm-money.com/api/item/inventory');
       if (!res.ok) throw new Error('인벤토리 조회 실패');
 
       const response = await res.json();

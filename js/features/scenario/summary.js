@@ -24,7 +24,7 @@ import { authorizedFetch } from "../../utils/auth-fetch.js";
 
   try {
     const res = await authorizedFetch(
-      `http://43.202.211.168:8080/api/scenario/summary?scenarioId=${scenarioId}`,
+      `https://jm-money.com/api/scenario/summary?scenarioId=${scenarioId}`,
       {
         method: "POST",
       }

@@ -24,7 +24,7 @@ document.addEventListener("DOMContentLoaded", async () => {
 
   try {
     const response = await authorizedFetch(
-      `http://43.202.211.168:8080/api/terms/quiz/batch?categoryName=${encodeURIComponent(
+      `https://jm-money.com/api/terms/quiz/batch?categoryName=${encodeURIComponent(
         categoryName
       )}&dayIndex=${dayIndex}`,
       { method: "GET" }
@@ -128,7 +128,7 @@ document.addEventListener("DOMContentLoaded", async () => {
           ]
         };
 
-        const response = await authorizedFetch("http://43.202.211.168:8080/api/terms/quiz/submit", {
+        const response = await authorizedFetch("https://jm-money.com/api/terms/quiz/submit", {
           method: "POST",
           body: JSON.stringify(submitPayload)
         });

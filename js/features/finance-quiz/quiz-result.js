@@ -9,7 +9,7 @@ document.addEventListener("DOMContentLoaded", async () => {
 
   try {
     const response = await authorizedFetch(
-      "http://43.202.211.168:8080/api/quiz/complete",
+      "https://jm-money.com/api/quiz/complete",
       {
         method: "POST",
         body: JSON.stringify(quizResults),

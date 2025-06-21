@@ -121,7 +121,7 @@ document.addEventListener("DOMContentLoaded", () => {
       const quiz = quizData[currentQuestionIndex];
 
       try {
-        const response = await authorizedFetch("http://43.202.211.168:8080/api/wrong-notes", {
+        const response = await authorizedFetch("https://jm-money.com/api/wrong-notes", {
           method: "POST",
           body: JSON.stringify({
             question: quiz.question,
@@ -167,7 +167,7 @@ document.addEventListener("DOMContentLoaded", () => {
       quiz.userAnswerIndex = selectedAnswer;
 
       try {
-        const response = await authorizedFetch("http://43.202.211.168:8080/api/quiz/submit", {
+        const response = await authorizedFetch("https://jm-money.com/api/quiz/submit", {
           method: "POST",
           body: JSON.stringify({
             quiz: quiz,
