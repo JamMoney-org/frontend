@@ -18,7 +18,7 @@ export async function authorizedFetch(url, options = {}) {
     if (response.status === 401 && refreshToken) {
       console.warn("accessToken 만료됨 → refresh 시도");
 
-      const refreshRes = await fetch("http://43.202.211.168:8080/auth/refresh", {
+      const refreshRes = await fetch("https://jm-money.com/auth/refresh", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({ refreshToken }),

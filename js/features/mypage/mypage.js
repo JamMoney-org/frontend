@@ -65,7 +65,7 @@ async function fetchUserInfo() {
     const nicknameElem = document.querySelector(".nickname");
     const emailElem = document.querySelector(".email");
 
-    const res = await authorizedFetch("http://43.202.211.168:8080/api/user/me");
+    const res = await authorizedFetch("https://jm-money.com/api/user/me");
     const data = await res.json();
     nicknameElem.textContent = data.nickname + "님";
     emailElem.textContent = data.email;
@@ -75,7 +75,7 @@ fetchUserInfo()
 //보유 자산
 //모의투자 시작할때 포트폴리오가 생성되고 자산을 가져올 수 있음
 async function fetchTotalAsset() {
-    const res = await authorizedFetch("http://43.202.211.168:8080/api/portfolio", {
+    const res = await authorizedFetch("https://jm-money.com/api/portfolio", {
         method: "GET",
     });
 
@@ -100,7 +100,7 @@ document.addEventListener("DOMContentLoaded", () => {
         const confirmed = await customConfirm("정말로 탈퇴하시겠습니까?");
         if (!confirmed) return;
 
-        const res = await authorizedFetch("http://43.202.211.168:8080/api/user", {
+        const res = await authorizedFetch("https://jm-money.com/api/user", {
             method: "DELETE",
         });
 

@@ -16,7 +16,7 @@ document.addEventListener("DOMContentLoaded", async () => {
 
   try {
     const portfolioRes = await authorizedFetch(
-      "http://43.202.211.168:8080/api/portfolio"
+      "https://jm-money.com/api/portfolio"
     );
     if (!portfolioRes.ok) throw new Error("포트폴리오 로딩 실패");
 
@@ -280,7 +280,7 @@ document.addEventListener("DOMContentLoaded", async () => {
 
   try {
     const res = await authorizedFetch(
-      `http://43.202.211.168:8080/api/company/${companyId}`
+      `https://jm-money.com/api/company/${companyId}`
     );
     if (!res.ok) throw new Error("호가 정보 로드 실패");
 
@@ -447,8 +447,8 @@ document.addEventListener("DOMContentLoaded", async () => {
     document.getElementById("modal-confirm").onclick = async () => {
       modal.style.display = "none";
       const endpoint = isBuy
-        ? "http://43.202.211.168:8080/api/order/buy"
-        : "http://43.202.211.168:8080/api/order/sell";
+        ? "https://jm-money.com/api/order/buy"
+        : "https://jm-money.com/api/order/sell";
 
       try {
         const params = new URLSearchParams();

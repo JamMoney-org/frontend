@@ -18,7 +18,7 @@ if (!themeId || !topicId) {
 } else {
   try {
     const response = await authorizedFetch(
-      `http://43.202.211.168:8080/api/themes/${themeId}/topics/${topicId}/details`,
+      `https://jm-money.com/api/themes/${themeId}/topics/${topicId}/details`,
       { method: 'GET' }
     );
 

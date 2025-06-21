@@ -58,7 +58,7 @@ document.addEventListener("DOMContentLoaded", async () => {
       e.stopPropagation();
       const isInterested = interestingCompanyIds.has(companyId);
       const method = isInterested ? "DELETE" : "POST";
-      const url = `http://43.202.211.168:8080/api/interestingStocks?companyId=${companyId}`;
+      const url = `https://jm-money.com/api/interestingStocks?companyId=${companyId}`;
       const res = await authorizedFetch(url, { method });
       if (res.ok) {
         isInterested
@@ -153,7 +153,7 @@ document.addEventListener("DOMContentLoaded", async () => {
 
   try {
     const res = await authorizedFetch(
-      "http://43.202.211.168:8080/api/interestingStocks"
+      "https://jm-money.com/api/interestingStocks"
     );
     if (res.ok) {
       const interestList = await res.json();
@@ -168,7 +168,7 @@ document.addEventListener("DOMContentLoaded", async () => {
   }
 
   try {
-    const res = await authorizedFetch("http://43.202.211.168:8080/api/company");
+    const res = await authorizedFetch("https://jm-money.com/api/company");
     if (!res.ok) throw new Error("회사 목록 로드 실패");
     companies = await res.json();
     renderCompanyList(hotList, companies);
@@ -195,7 +195,7 @@ document.addEventListener("DOMContentLoaded", async () => {
 
   try {
     const res = await authorizedFetch(
-      "http://43.202.211.168:8080/api/portfolio"
+      "https://jm-money.com/api/portfolio"
     );
     if (!res.ok) throw new Error("포트폴리오 로드 실패");
 

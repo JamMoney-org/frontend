@@ -74,7 +74,7 @@ function setCharacterImageByLevel(level) {
 // 캐릭터 상태 불러오기
 async function fetchAndSetCharacterImage() {
     try {
-        const res = await authorizedFetch("http://43.202.211.168:8080/api/pet/status");
+        const res = await authorizedFetch("https://jm-money.com/api/pet/status");
         if (!res.ok) throw new Error("캐릭터 상태 조회 실패");
 
         const data = await res.json();
@@ -186,7 +186,7 @@ let shopItems = [];
 //shop item 가져오기 (가격 계산)
 async function fetchShopItems() {
     try {
-        const res = await authorizedFetch("http://43.202.211.168:8080/api/item/shop");
+        const res = await authorizedFetch("https://jm-money.com/api/item/shop");
         if (!res.ok) throw new Error("상점 아이템 조회 실패");
 
         const data = await res.json();
@@ -213,7 +213,7 @@ document.addEventListener("DOMContentLoaded", () => {
 
     // 아이템 장착/해제 API 호출
     function toggleEquip(itemId, equip) {
-        authorizedFetch("http://43.202.211.168:8080/api/item/equip", {
+        authorizedFetch("https://jm-money.com/api/item/equip", {
             method: "POST",
             body: JSON.stringify({ itemId, equip })
         })
@@ -246,7 +246,7 @@ document.addEventListener("DOMContentLoaded", () => {
 
     // 인벤토리 불러오기
     function fetchInventory() {
-        authorizedFetch("http://43.202.211.168:8080/api/item/inventory")
+        authorizedFetch("https://jm-money.com/api/item/inventory")
             .then(res => res.json())
             .then(data => {
                 inventoryItems = data.data || data.result || [];
@@ -276,7 +276,7 @@ document.addEventListener("DOMContentLoaded", () => {
             const confirmSell = await customConfirm(`"${selectedItem.name}" 아이템을 🪙${sellPrice} cash에 판매하시겠습니까?`);
             if (!confirmSell) return;
 
-            authorizedFetch("http://43.202.211.168:8080/api/item/sell", {
+            authorizedFetch("https://jm-money.com/api/item/sell", {
                 method: "POST",
                 body: JSON.stringify({ itemId: selectedItem.itemId })
             })

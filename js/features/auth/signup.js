@@ -39,7 +39,7 @@ document.addEventListener("DOMContentLoaded", function () {
 
         try {
             // 회원가입 요청 전송
-            const response = await fetch("http://43.202.211.168:8080/auth/signup", {
+            const response = await fetch("https://jm-money.com/auth/signup", {
                 method: "POST",
                 headers: {
                     "Content-Type": "application/json"
