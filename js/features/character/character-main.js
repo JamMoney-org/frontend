@@ -63,7 +63,7 @@ function saveName() {
   const accessToken = localStorage.getItem('accessToken');
   if (!accessToken) {
     showPopup('로그인이 필요합니다.');
-    window.location.href = '/login';
+    window.location.href = '/index.html';
     return;
   }
 
@@ -104,7 +104,7 @@ async function loadCharacterStatus() {
   const accessToken = localStorage.getItem('accessToken');
   if (!accessToken) {
     showPopup('로그인이 필요합니다.');
-    window.location.href = '../pages/login.html';
+    window.location.href = '../pages/index.html';
     return;
   }
 

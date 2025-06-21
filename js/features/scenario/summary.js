@@ -56,7 +56,7 @@ import { authorizedFetch } from "../../utils/auth-fetch.js";
     sessionStorage.removeItem("reward");
   });
   buttons[1].addEventListener("click", () => {
-    location.href = "/pages/index.html";
+    location.href = "/pages/mainpage.html";
     sessionStorage.removeItem("scenarioData");
     sessionStorage.removeItem("reward");
   });

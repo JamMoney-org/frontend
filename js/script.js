@@ -5,7 +5,7 @@ document.addEventListener("DOMContentLoaded", function () {
       document.getElementById("navbar").innerHTML = data;
 
       const protectedRoutes = [
-        "/pages/index.html",
+        "/pages/mainpage.html",
         "/pages/learning_category.html",
         "/pages/mock_invest_list.html",
         "/pages/mypage.html",
