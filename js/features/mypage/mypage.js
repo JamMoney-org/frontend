@@ -122,6 +122,6 @@ async function logout() {
     if (!confirmed) return;
     localStorage.removeItem("accessToken");
     localStorage.removeItem("refreshToken");
-    window.location.href = "../pages/login.html";
+    window.location.href = "../pages/index.html";
 }
 document.querySelector(".logout").addEventListener("click", logout);

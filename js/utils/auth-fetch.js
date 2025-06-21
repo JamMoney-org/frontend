@@ -49,7 +49,7 @@ export async function authorizedFetch(url, options = {}) {
   } catch (err) {
     console.error("authorizedFetch 오류:", err);
     alert("세션이 만료되었습니다. 다시 로그인해주세요.");
-    window.location.href = "/pages/login.html";
+    window.location.href = "/pages/index.html";
     throw err;
   }
 }

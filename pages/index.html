@@ -2,52 +2,50 @@
 <html lang="ko">
 
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>JamMoney - 홈화면</title>
-  <link rel="stylesheet" href="../css/style.css">
-  <link rel="stylesheet" href="../css/mainpage.css">
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>JamMoney - 로그인</title>
+    <link rel="stylesheet" href="../css/style.css">
+    <link rel="stylesheet" href="../css/login.css">
+
 </head>
 
 <body>
-  <!-- 메인 콘텐츠 영역 -->
-  <div class="main-content">
-    <!--로고-->
-    <h3 class="logo">JamMoney</h3>
-    <!-- 캐릭터 공간 -->
-    <div class="character-area">
-      <img src="" class="background-img" id="bgImage" />
-      <img src="" alt="캐릭터 이미지" class="character-img" id="characterImage" />
+    <!-- 메인 콘텐츠 영역 -->
+    <div class="main-content">
+
+        <!-- 헤더 영역 -->
+        <header>
+            <button class="back-button" onclick="history.back();">
+                <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                    <path d="M15 19L8 12L15 5" stroke="currentColor" stroke-width="2" stroke-linecap="round"
+                        stroke-linejoin="round" />
+                </svg>
+            </button>
+            로그인
+        </header>
+
+        <!-- 구현 영역 -->
+        <div class="content">
+            <h3 class="logo">JamMoney</h3>
+            <form class="login-form">
+                <div class="input">
+                    <img src="../assets/icon/email.svg" class="input-icon" alt="이메일 아이콘" />
+                    <input type="text" id="email" class="form-element" placeholder="이메일" required />
+                </div>
+                <div class="input">
+                    <img src="../assets/icon/password.svg" class="input-icon" alt="비밀번호 아이콘" />
+                    <input type="password" id="password" class="form-element" placeholder="비밀번호" required />
+                </div>
+                <button type="submit" class="form-element submit-button">로그인</button>
+                <a href="../pages/signup.html" class="signup-link">회원 가입</a>
+            </form>
+        </div>
     </div>
 
-    <!-- 메뉴 버튼 3개 -->
-    <a href="../pages/learning_category.html" class="menu-card">
-      <div class="text-box">
-        <p class="title">금융 학습</p>
-        <p class="desc">처음부터 차근차근, 쉬운 금융 학습으로 시작해요.</p>
-      </div>
-      <img src="../assets/images/learning.svg.svg" class="icon" alt="금융 학습 아이콘" />
-    </a>
-    <a href="../pages/mock_invest_list.html" class="menu-card">
-      <div class="text-box">
-        <p class="title">모의 투자</p>
-        <p class="desc">가상의 자산으로 실제처럼 연습해요. 실수해도 괜찮아요!</p>
-      </div>
-      <img src="../assets/images/investment.svg" class="icon" alt="모의 투자 아이콘" />
-    </a>
-    <a href="../pages/character_main.html" class="menu-card">
-      <div class="text-box">
-        <p class="title">캐릭터</p>
-        <p class="desc">공부하면 할수록 내 공룡이 점점 자라나요! 🦖</p>
-      </div>
-      <img src="../assets/images/character.svg" class="icon" alt="캐릭터 아이콘" />
-    </a>
-  </div>
-
-  <div id="navbar"></div>
-  <script src="../js/script.js"></script>
-  <script type="module" src="../js/features/mainpage/mainpage.js"></script>
-
+    <div id="navbar"></div>
+    <script src="../js/script.js"></script>
+    <script type="module" src="../js/features/auth/login.js"></script>
 </body>
 
 </html>
