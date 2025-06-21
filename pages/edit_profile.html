@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html lang="ko">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>JamMoney - 회원 정보 수정</title>
+    <link rel="stylesheet" href="../css/style.css">
+    <link rel="stylesheet" href="../css/edit_profile.css">
+</head>
+
+<body>
+    <!-- 메인 콘텐츠 영역 -->
+    <div class="main-content">
+
+        <!-- 헤더 영역 -->
+        <header>
+            <button class="back-button" onclick="history.back();">
+                <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                    <path d="M15 19L8 12L15 5" stroke="currentColor" stroke-width="2" stroke-linecap="round"
+                        stroke-linejoin="round" />
+                </svg>
+            </button>
+            회원 정보 수정
+        </header>
+
+        <!-- 구현 영역 -->
+        <div class="content">
+            <h3 class="logo">JamMoney</h3>
+
+            <form class="edit-form">
+                <div class="input">
+                    <img src="../assets/icon/email.svg" class="input-icon" alt="이메일 아이콘" />
+                    <label class="input-label">이메일</label>
+                    <input type="email" class="form-element" placeholder="생년월일" value="${user.email}" disabled />
+                </div>
+
+                <div class="input">
+                    <img src="../assets/icon/user.svg" class="input-icon" alt="닉네임 아이콘" />
+                    <label class="input-label">닉네임</label>
+                    <input type="text" class="form-element" value="${user.nickname}" />
+                </div>
+                <button type="submit" class="form-element submit-button">저장하기</button>
+            </form>
+        </div>
+
+    </div>
+
+    <div id="navbar"></div>
+    <script src="../js/script.js"></script>
+    <script type="module" src="../js/features/mypage/edit-profile.js"></script>
+</body>
+
+</html>

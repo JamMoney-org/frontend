@@ -1,0 +1,299 @@
+/*mock_invest_trade 스타일링*/
+.price-info {
+    display: flex;
+    flex-direction: column;
+    margin-bottom: 20px;
+    overflow-y: auto;
+    max-height: 545px;
+}
+
+.price-list {
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+}
+
+.price-item {
+    display: flex;
+    justify-content: space-between;
+    padding: 4px 8px;
+}
+
+.price-item .percent {
+    font-size: 0.85em;
+    opacity: 0.8;
+}
+
+.price-item.red {
+    color: #e74c3c;
+}
+
+.price-item.blue {
+    color: #3498db;
+}
+
+.order-section {
+    width: calc(65% - 20px);
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    padding: 13px;
+    background-color: #f9f9f9;
+    border-radius: 10px;
+}
+
+.order-type {
+    display: flex;
+    justify-content: space-between;
+    gap: 5px;
+}
+
+.order-button {
+    flex: 1;
+    padding: 8px 10px;
+    font-size: 0.9em;
+    background-color: #fff;
+    border: 1px solid #ddd;
+    border-radius: 15px;
+    text-align: center;
+}
+
+.price-display {
+    margin: 20px 5px;
+    padding-bottom: 13px;
+    border-bottom: 1.7px solid #e0e0e0;
+}
+
+.price-type {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    margin: 10px 0;
+}
+
+.label {
+    font-size: 15px;
+    font-weight: bold;
+}
+
+.price-type label {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    font-size: 0.9em;
+}
+
+.price-type input[type="radio"] {
+    width: 15px;
+    height: 15px;
+    accent-color: #5DC29E;
+}
+
+.quantity {
+    padding-bottom: 13px;
+    border-bottom: 1.7px solid #e0e0e0;
+}
+
+.quantity-buttons {
+    display: flex;
+    gap: 5px;
+    margin-top: 10px;
+}
+
+.quantity-buttons button {
+    flex: 1;
+    padding: 7px 2px;
+    background-color: #e0e0e0;
+    border: none;
+    border-radius: 5px;
+    text-align: center;
+    margin: 3px;
+    font-size: 0.8em;
+}
+
+
+.total-price {
+    margin-top: 10px;
+    text-align: right;
+    font-weight: 600;
+}
+
+.price {
+    font-weight: 500;
+    font-size: 16px;
+    margin-top: 20px;
+    text-align: right;
+}
+
+/* 거래 버튼 스타일 */
+.trade-btn-wrapper {
+    position: fixed;
+    bottom: 44px;
+    width: 600px;
+    height: 50px;
+}
+
+.trade-btn {
+    position: fixed;
+    bottom: 60px;
+    left: 50%;
+    transform: translateX(-50%);
+    max-width: 580px;
+    width: 96.7%;
+    background-color: #5DC29E;
+    color: white;
+    padding: 10px;
+    border: none;
+    border-radius: 8px;
+    cursor: pointer;
+}
+
+.quantity-control {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    margin: 10px 0;
+    justify-content: flex-end;
+}
+
+.control-btn {
+    width: 30px;
+    height: 30px;
+    background-color: #e0e0e0;
+    border: none;
+    border-radius: 50%;
+    text-align: center;
+    font-size: 1.2em;
+    line-height: 30px;
+}
+
+#quantityDisplay {
+    font-size: 1.1em;
+    margin: 0 5px;
+}
+
+.split-layout {
+    display: flex;
+    justify-content: space-between;
+    gap: 10px;
+}
+
+.content {
+    padding: 10px;
+}
+
+html {
+    overflow-y: hidden;
+}
+
+.toast {
+    position: fixed;
+    bottom: 90px;
+    left: 50%;
+    transform: translateX(-50%);
+    background-color: rgba(51, 51, 51, 0.9);
+    color: white;
+    padding: 14px 28px;
+    border-radius: 10px;
+    font-size: 1rem;
+    opacity: 0;
+    pointer-events: none;
+    transition: opacity 0.4s ease, bottom 0.4s ease;
+    z-index: 9999;
+    min-width: 300px;
+    max-width: 90%;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    text-align: center;
+    box-sizing: border-box;
+}
+
+.toast.show {
+    opacity: 1;
+}
+
+.price-list {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 0;
+    font-size: 14px;
+    font-family: 'Arial', sans-serif;
+    border: 1px solid #ccc;
+    border-radius: 6px;
+    overflow: hidden;
+}
+
+.price-list .ask,
+.price-list .bid {
+    padding: 6px 8px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    height: 32px;
+    border-bottom: 1px solid #eee;
+}
+
+.price-list .ask {
+    background-color: #fff8f8;
+    color: #d9534f;
+}
+
+.price-list .bid {
+    background-color: #f4faff;
+    color: #0275d8;
+}
+
+.price-list .ask:last-child,
+.price-list .bid:last-child {
+    border-bottom: none;
+}
+
+.price-qty {
+    font-size: 12px;
+    opacity: 0.7;
+}
+
+.price-list {
+    display: flex;
+    flex-direction: column;
+    font-size: 14px;
+    font-family: 'Arial', sans-serif;
+    border: 1px solid #ccc;
+    border-radius: 6px;
+    overflow: hidden;
+}
+
+.price-row {
+    display: flex;
+    justify-content: space-between;
+    border-bottom: 1px solid #eee;
+}
+
+.price-row:last-child {
+    border-bottom: none;
+}
+
+.ask,
+.bid {
+    width: 48%;
+    padding: 6px 8px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.ask {
+    background-color: #fff8f8;
+    color: #d9534f;
+}
+
+.bid {
+    background-color: #f4faff;
+    color: #0275d8;
+}
+
+.price-qty {
+    font-size: 12px;
+    opacity: 0.7;
+}
