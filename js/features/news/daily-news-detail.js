@@ -20,7 +20,7 @@ document.addEventListener("DOMContentLoaded", async () => {
   aiOverlay.classList.remove("hidden");
 
   try {
-    const response = await authorizedFetch(`http://43.202.211.168:8080/api/news/${newsId}`);
+    const response = await authorizedFetch(`https://jm-money.com/api/news/${newsId}`);
     if (!response.ok) throw new Error("뉴스 데이터를 불러오지 못했습니다.");
     const news = await response.json();
 
@@ -30,7 +30,7 @@ document.addEventListener("DOMContentLoaded", async () => {
     contentElem.innerHTML = news.content;
 
     try {
-      const easyWordRes = await authorizedFetch(`http://43.202.211.168:8080/api/news/${newsId}/easy-words`);
+      const easyWordRes = await authorizedFetch(`https://jm-money.com/api/news/${newsId}/easy-words`);
       if (!easyWordRes.ok) throw new Error("쉬운말 API 실패");
       const easyWords = await easyWordRes.json();
       highlightEasyWords(contentElem, easyWords, newsId);
@@ -156,7 +156,7 @@ async function showEasyToast(term, newsId) {
     bookmarkBtn.onclick = async (e) => {
       e.stopPropagation();
       try {
-        const res = await authorizedFetch(`http://43.202.211.168:8080/api/news/${newsId}/easy-words`, {
+        const res = await authorizedFetch(`https://jm-money.com/api/news/${newsId}/easy-words`, {
           method: "POST",
           headers: { "Content-Type": "application/json" },
           body: JSON.stringify({ originalWord: word, translatedText: meaning, exampleSentence: example })

@@ -27,7 +27,7 @@ function setCharacterImageByLevel(level) {
 // 캐릭터 상태 불러오기
 async function fetchAndSetCharacterImage() {
     try {
-        const res = await authorizedFetch("http://43.202.211.168:8080/api/pet/status");
+        const res = await authorizedFetch("https://jm-money.com/api/pet/status");
         if (!res.ok) throw new Error("캐릭터 상태 조회 실패");
 
         const data = await res.json();
@@ -41,7 +41,7 @@ async function fetchAndSetCharacterImage() {
 // 장착된 아이템 불러오기
 async function loadEquippedItems() {
     try {
-        const res = await authorizedFetch("http://43.202.211.168:8080/api/item/inventory");
+        const res = await authorizedFetch("https://jm-money.com/api/item/inventory");
         if (!res.ok) throw new Error("인벤토리 조회 실패");
 
         const response = await res.json();

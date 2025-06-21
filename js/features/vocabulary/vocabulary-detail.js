@@ -23,7 +23,7 @@ document.addEventListener("DOMContentLoaded", async () => {
 
   try {
     const response = await authorizedFetch(
-      `http://43.202.211.168:8080/api/terms/categories/${encodeURIComponent(categoryName)}/days/${dayIndex}/terms`,
+      `https://jm-money.com/api/terms/categories/${encodeURIComponent(categoryName)}/days/${dayIndex}/terms`,
       { method: "GET" }
     );
 
@@ -79,7 +79,7 @@ document.addEventListener("DOMContentLoaded", async () => {
     const termId = word.termId;
 
     try {
-      const res = await authorizedFetch(`http://43.202.211.168:8080/api/terms/bookmark/${termId}`, {
+      const res = await authorizedFetch(`https://jm-money.com/api/terms/bookmark/${termId}`, {
         method: word.bookmarked ? "DELETE" : "POST"
       });
 

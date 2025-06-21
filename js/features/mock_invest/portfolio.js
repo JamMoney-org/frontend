@@ -25,7 +25,7 @@ document.addEventListener("DOMContentLoaded", async () => {
 
   try {
     const res = await authorizedFetch(
-      "http://43.202.211.168:8080/api/order/holdingStocks"
+      "https://jm-money.com/api/order/holdingStocks"
     );
     if (!res.ok) throw new Error("보유 주식 불러오기 실패");
     const stocks = await res.json();
@@ -84,7 +84,7 @@ document.addEventListener("DOMContentLoaded", async () => {
 
     // 예약 주문 정보 받아오기
     const waitingRes = await authorizedFetch(
-      "http://43.202.211.168:8080/api/order/waiting"
+      "https://jm-money.com/api/order/waiting"
     );
     if (!waitingRes.ok) throw new Error("예약 주문 불러오기 실패");
     const waitingOrders = await waitingRes.json();
@@ -130,7 +130,7 @@ document.addEventListener("DOMContentLoaded", async () => {
 
       try {
         const res = await authorizedFetch(
-          `http://43.202.211.168:8080/api/order/orders?stockOrderId=${orderId}&stockCount=${stockCount}`,
+          `https://jm-money.com/api/order/orders?stockOrderId=${orderId}&stockCount=${stockCount}`,
           {
             method: "DELETE",
           }

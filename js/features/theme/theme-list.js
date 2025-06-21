@@ -7,7 +7,7 @@ export let themeList = {};
 
 try {
   const response = await authorizedFetch(
-    'http://43.202.211.168:8080/api/themes',
+    'https://jm-money.com/api/themes',
     {
       method: 'GET',
     }
@@ -51,7 +51,7 @@ function renderTabs(themes) {
 async function fetchTopics(themeId) {
   try {
     const response = await authorizedFetch(
-      `http://43.202.211.168:8080/api/themes/${themeId}/topics`,
+      `https://jm-money.com/api/themes/${themeId}/topics`,
       {
         method: 'GET',
       }

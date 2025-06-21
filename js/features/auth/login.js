@@ -36,7 +36,7 @@ document.addEventListener("DOMContentLoaded", function () {
     }
 
     try {
-      const response = await fetch("http://43.202.211.168:8080/auth/login", {
+      const response = await fetch("https://jm-money.com/auth/login", {
         method: "POST",
         headers: {
           "Content-Type": "application/json",

@@ -4,7 +4,7 @@ document.addEventListener("DOMContentLoaded", async () => {
   const wordListContainer = document.getElementById("word-list");
 
   try {
-    const response = await authorizedFetch("http://43.202.211.168:8080/api/terms/my-terms", {
+    const response = await authorizedFetch("https://jm-money.com/api/terms/my-terms", {
       method: "GET"
     });
 

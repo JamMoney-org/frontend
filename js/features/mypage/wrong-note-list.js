@@ -5,12 +5,12 @@ async function loadWrongNotes() {
     const emptyMsgEl = document.getElementById("emptyNoteMessage");
 
     // 로그인 유저 확인
-    const userRes = await authorizedFetch("http://43.202.211.168:8080/Sapi/user/me");
+    const userRes = await authorizedFetch("https://jm-money.com/Sapi/user/me");
     const userJson = await userRes.json();
     console.log("🧑 로그인 유저:", userJson);
 
     // 오답노트 불러오기
-    const res = await authorizedFetch("http://43.202.211.168:8080/api/wrong-notes");
+    const res = await authorizedFetch("https://jm-money.com/api/wrong-notes");
     const json = await res.json();
     const notes = json?.data || [];
     console.log("📦 API 응답 전체:", json);

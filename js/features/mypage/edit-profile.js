@@ -20,7 +20,7 @@ document.addEventListener("DOMContentLoaded", async () => {
     const emailInput = document.querySelector("input[type='email']");
     const form = document.querySelector(".edit-form");
 
-    const res = await authorizedFetch("http://43.202.211.168:8080/api/user/me");
+    const res = await authorizedFetch("https://jm-money.com/api/user/me");
     const data = await res.json();
 
     emailInput.value = data.email;
@@ -36,11 +36,11 @@ document.addEventListener("DOMContentLoaded", async () => {
         }
 
         const res = await authorizedFetch(
-            `http://43.202.211.168:8080/api/user/nickname?newNickname=${encodeURIComponent(newNickname)}`,
+            `https://jm-money.com/api/user/nickname?newNickname=${encodeURIComponent(newNickname)}`,
             { method: "PATCH" }
         );
 
-        const updatedRes = await authorizedFetch("http://43.202.211.168:8080/api/user/me");
+        const updatedRes = await authorizedFetch("https://jm-money.com/api/user/me");
         const updatedData = await updatedRes.json();
         nicknameInput.value = updatedData.nickname;
         showPopup("닉네임이 성공적으로 수정되었습니다!");
