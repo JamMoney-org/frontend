@@ -25,18 +25,6 @@ document.addEventListener("DOMContentLoaded", function () {
         const password = document.getElementById("password").value;
         const confirmPassword = document.getElementById("confirmPassword").value;
 
-        // 입력값 유효성 검사
-        if (!email || !nickname || !password || !confirmPassword) {
-            showPopup("모든 필드를 입력해주세요.");
-            return;
-        }
-
-        // 비밀번호 일치 확인
-        if (password !== confirmPassword) {
-            showPopup("비밀번호가 일치하지 않습니다.");
-            return;
-        }
-
         try {
             // 회원가입 요청 전송
             const response = await fetch("http://43.202.211.168:8080/auth/signup", {
@@ -61,6 +49,12 @@ document.addEventListener("DOMContentLoaded", function () {
                 const errorText = await response.text();
                 showPopup(`회원가입 실패: ${errorText}`);
             }
+
+            showPopup("회원가입 성공!", "success");
+            setTimeout(() => {
+                window.location.href = "../../../pages/index.html";
+            }, 1500);
+
         } catch (error) {
             console.error("회원가입 중 오류 발생:", error);
             showPopup("서버 연결에 실패했습니다.");
