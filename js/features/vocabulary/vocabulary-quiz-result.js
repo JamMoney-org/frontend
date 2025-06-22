@@ -21,10 +21,8 @@ document.addEventListener("DOMContentLoaded", () => {
     if (feedback) {
         if (correctCount >= 3) {
             feedback.textContent = "잘했어요! 대단해요!";
-            feedback.style.backgroundColor = "#5DC29E";
         } else {
             feedback.textContent = "더 공부가 필요해요!";
-            feedback.style.backgroundColor = "#5DC29E";
         }
     }
 
