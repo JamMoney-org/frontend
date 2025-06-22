@@ -253,8 +253,6 @@
   display: grid;
   grid-template-columns: repeat(2, 0.7fr);
   gap: 12px;
-  padding: 15px;
-  margin: 15px;
 }
 
 .category-item {
