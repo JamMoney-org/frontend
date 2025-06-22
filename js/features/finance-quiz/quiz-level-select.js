@@ -11,7 +11,13 @@ document.addEventListener("DOMContentLoaded", () => {
 
   const loadingTip = document.getElementById("quiz-loading-tip");
   const loadingOverlay = document.getElementById("quiz-loading-overlay");
+  const categoryName = localStorage.getItem("selectedCategoryName"); 
+  const categoryTitle = document.getElementById("category-title");   
 
+  if (categoryTitle && categoryName) {
+    categoryTitle.textContent = categoryName;
+  }
+  
   quizItems.forEach(item => {
     item.addEventListener("click", async () => {
       const korDifficulty = item.querySelector(".difficulty-label").textContent.trim();
