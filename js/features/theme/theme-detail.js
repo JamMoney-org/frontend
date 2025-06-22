@@ -1,11 +1,25 @@
 import { authorizedFetch } from '../../utils/auth-fetch.js';
-import { themeList } from './theme-list.js';
 
+let themeList = {};
 // DOM 요소 가져오기
 const headerEl = document.querySelector('.header-title');
 const tagEl = document.querySelector('.tag');
 const titleEl = document.querySelector('.learning-title');
 const contentContainer = document.querySelector('.learning-wrapper');
+
+try {
+  const response = await authorizedFetch('https://jm-money.com/api/themes', {
+    method: 'GET',
+  });
+
+  const themes = await response.json();
+
+  themes.forEach((theme) => {
+    themeList[theme.themeId] = theme.name;
+  });
+} catch (err) {
+  console.error('테마 목록 불러오기 실패:', err);
+}
 
 // URL에서 themeId, topicId 추출
 const params = new URLSearchParams(location.search);
@@ -26,10 +40,8 @@ if (!themeId || !topicId) {
 
     const data = await response.json();
 
-    // ✅ 헤더에 제목 반영
     headerEl.textContent = themeList[themeId];
 
-    // ✅ 태그와 학습 제목 반영
     tagEl.textContent = data.tag;
     titleEl.textContent = data.title;
 
