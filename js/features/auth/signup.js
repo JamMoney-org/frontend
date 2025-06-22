@@ -35,7 +35,8 @@ document.addEventListener("DOMContentLoaded", function () {
                 body: JSON.stringify({
                     email,
                     nickname,
-                    password
+                    password,
+                    confirmPassword
                 })
             });
 
