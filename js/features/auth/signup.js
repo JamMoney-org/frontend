@@ -27,7 +27,7 @@ document.addEventListener("DOMContentLoaded", function () {
 
         try {
             // 회원가입 요청 전송
-            const response = await fetch("http://43.202.211.168:8080/auth/signup", {
+            const response = await fetch("https://jm-money.com/auth/signup", {
                 method: "POST",
                 headers: {
                     "Content-Type": "application/json"
@@ -41,13 +41,11 @@ document.addEventListener("DOMContentLoaded", function () {
             });
 
             // 응답 처리
-            if (response.ok) {
-                const result = await response.text();
-                showPopup(result);
-                window.location.href = "../pages/login.html";
-            } else {
-                const errorText = await response.text();
+            if (!response.ok) {
+                const errorData = await response.json();
+                const errorText = errorData.message;
                 showPopup(`회원가입 실패: ${errorText}`);
+                return;
             }
 
             showPopup("회원가입 성공!", "success");
