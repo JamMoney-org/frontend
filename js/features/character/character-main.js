@@ -26,7 +26,7 @@ function setCharacterImageByLevel(level) {
 
 //이미지 api 연결
 async function fetchAndSetCharacterImage() {
-  const res = await authorizedFetch("http://43.202.211.168:8080/api/pet/status");
+  const res = await authorizedFetch("https://jm-money.com/api/pet/status");
   if (!res.ok) throw new Error("캐릭터 상태 조회 실패");
 
   const data = await res.json();
@@ -44,10 +44,14 @@ document.addEventListener("DOMContentLoaded", () => {
 function initCharacterMainUI(statusData) {
   document.getElementById('level').textContent = statusData.level;
   document.getElementById('xpNow').textContent = statusData.exp;
-  document.getElementById('xpMax').textContent = statusData.nextLevelExp;
   document.getElementById('mood').textContent = `기분 : ${statusData.mood}`;
   document.getElementById('progressBar').style.width = `${statusData.expPercentage}%`;
   document.getElementById('characterName').textContent = statusData.name;
+  if (statusData.level >= 10 || statusData.nextLevelExp === 0) {
+    document.getElementById('xpMax').textContent = "MAX";
+  } else {
+    document.getElementById('xpMax').textContent = statusData.nextLevelExp;
+  }
 }
 
 // 이름 저장 함수
@@ -63,11 +67,11 @@ function saveName() {
   const accessToken = localStorage.getItem('accessToken');
   if (!accessToken) {
     showPopup('로그인이 필요합니다.');
-    window.location.href = '/login';
+    window.location.href = '/index.html';
     return;
   }
 
-  authorizedFetch('http://43.202.211.168:8080/api/pet/rename', {
+  authorizedFetch('https://jm-money.com/api/pet/rename', {
     method: 'POST',
     body: JSON.stringify({ newName })
   })
@@ -104,11 +108,11 @@ async function loadCharacterStatus() {
   const accessToken = localStorage.getItem('accessToken');
   if (!accessToken) {
     showPopup('로그인이 필요합니다.');
-    window.location.href = '../pages/login.html';
+    window.location.href = '../pages/index.html';
     return;
   }
 
-  const statusRes = await authorizedFetch('http://43.202.211.168:8080/api/pet/status');
+  const statusRes = await authorizedFetch('https://jm-money.com/api/pet/status');
   if (!statusRes.ok) throw new Error('캐릭터 상태 조회 실패');
 
   const response = await statusRes.json();
@@ -120,7 +124,7 @@ async function loadCharacterStatus() {
 
 // 경험치 추가
 async function giveExpToPet(expAmount = 5) {
-  const res = await authorizedFetch('http://43.202.211.168:8080/api/pet/add-exp', {
+  const res = await authorizedFetch('https://jm-money.com/api/pet/add-exp', {
     method: 'POST',
     body: JSON.stringify({ exp: expAmount })
   });
@@ -136,22 +140,26 @@ async function giveExpToPet(expAmount = 5) {
 
 // 장착 아이템 불러오기
 async function loadEquippedItems() {
-  const res = await authorizedFetch('http://43.202.211.168:8080/api/item/inventory');
+  const res = await authorizedFetch('https://jm-money.com/api/item/inventory');
   if (!res.ok) throw new Error('인벤토리 조회 실패');
 
   const response = await res.json();
   const inventory = response.result || response.data || response;
 
+  let hasBackground = false;
+
   inventory.forEach(item => {
     if (!item.equipped) return;
 
-    if (item.type === 'BACKGROUND') {
+    if (item.type === 'BACKGROUND' && !hasBackground) {
+      hasBackground = true;
       const bg = document.getElementById('bgImage');
       if (bg) {
         bg.src = item.imageUrl;
         bg.style.display = 'block';
       }
     }
+
     if (item.type === 'OBJECT') {
       const objImg = document.createElement('img');
       objImg.src = item.imageUrl;
@@ -167,17 +175,25 @@ async function loadEquippedItems() {
           break;
         case 'right':
           objImg.style.right = '7%';
-          objImg.style.bottom = '30%';  
+          objImg.style.bottom = '30%';
           objImg.style.width = '15%';
           break;
       }
-      
 
       document.querySelector('.character-area').appendChild(objImg);
     }
-
   });
+
+  // 배경 아이템이 하나도 없으면 기본 배경 적용
+  if (!hasBackground) {
+    const bg = document.getElementById('bgImage');
+    if (bg) {
+      bg.src = '../../../assets/images/default_background.png'; // 기본 배경 경로
+      bg.style.display = 'block';
+    }
+  }
 }
+
 
 document.addEventListener('DOMContentLoaded', () => {
   setupNameEditUI();
