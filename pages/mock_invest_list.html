@@ -1,12 +1,14 @@
 <!DOCTYPE html>
 <html lang="ko">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>모의주식투자 리스트</title>
+    <title>JamMoney - 모의주식투자 리스트</title>
     <link rel="stylesheet" href="../css/style.css">
     <link rel="stylesheet" href="../css/invest.css">
 </head>
+
 <body>
     <!-- 메인 콘텐츠 영역 -->
     <div class="main-content">
@@ -14,30 +16,46 @@
         <header>
             <button class="back-button" onclick="history.back();">
                 <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
-                    <path d="M15 19L8 12L15 5" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                    <path d="M15 19L8 12L15 5" stroke="currentColor" stroke-width="2" stroke-linecap="round"
+                        stroke-linejoin="round" />
                 </svg>
             </button>
-            JamMoney
+            모의투자
         </header>
 
         <!-- 구현 영역 -->
         <div class="content">
             <!-- 모의 투자 상단 카드 -->
             <div class="investment-card">
-                <div class="card-header">
-                    <div class="character-container">
-                        <img src="../assets/images/dino.png" alt="캐릭터" class="character">
-                        <button class="level-btn">Lv. 7</button>
+                <div class="card-header improved">
+
+                    <div class="portfolio-info">
+                        <p class="nickname"><strong>soy</strong>님의 총 자산</p>
+                        <p id="totalAsset" class="total-asset"></p>
+                        <ul class="asset-breakdown">
+                            <li>💵 <strong>보유 현금:</strong> <span id="cashBalance"></span>원</li>
+                            <li>📈 <strong>주식 자산:</strong> <span id="stockAsset"></span>원</li>
+                            <li>
+                                <span id="profitAmount" class="profit-loss"></span>
+                                <span id="profitRate" class="profit-loss"></span>
+                            </li>
+                        </ul>
+                        <button class="portfolio-btn">포트폴리오 확인하기</button>
                     </div>
-                    <div class="asset-info">
-                        <p class="asset-title" style="font-weight: bold;">총 자산</p>
-                        <h3 class="asset-value">3,000,000원</h3>
-                        <p class="profit">0원 (0%)</p>
-                        <p class="daily-rate">당일 수익률: 0%</p>
-                        <p class="daily-profit">당일 손익금액: 0원</p>
+                    <div class="portfolio-right">
+                        <div class="dino-container">
+
+                            <div class="dino-speech-bubble bottom-tail">
+                                <p id="dinoSpeech"></p>
+                            </div>
+                            <img id="dinoImage" src="../assets/images/dino-happy.png" class="dino-img" alt="공룡">
+                        </div>
                     </div>
+
+
                 </div>
             </div>
+
 
             <!-- 주식 리스트 -->
             <div class="stock-list">
@@ -57,4 +75,5 @@
     <script src="../js/script.js"></script>
     <script type="module" src="../js/features/mock_invest/stock-list.js"></script>
 </body>
+
 </html>

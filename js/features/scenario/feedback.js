@@ -36,7 +36,7 @@ const nextBtn = document.querySelector('.next-btn');
 
   try {
     const res = await authorizedFetch(
-      'http://43.202.211.168:8080/api/scenario/next',
+      'https://jm-money.com/api/scenario/next',
       {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },

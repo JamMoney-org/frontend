@@ -13,7 +13,7 @@ document.addEventListener("DOMContentLoaded", async () => {
 
   try {
       const response = await authorizedFetch(
-      `http://43.202.211.168:8080/api/terms/categories/${encodeURIComponent(categoryName)}/days`,
+      `https://jm-money.com/api/terms/categories/${encodeURIComponent(categoryName)}/days`,
       { method: "GET" }
     );
 

@@ -78,7 +78,7 @@ function renderCompanyInfo() {
       : ''
   );
   setValue('시장정보구분(투자주의)', '해당없음');
-  setValue('업종분류', companyData.bstp_kor_isnm);
+  setValue('업종분류', companyData.industry);
   setValue('관리종목', 'N');
   setValue('거래정지', 'N');
   setValue(
@@ -123,12 +123,12 @@ function renderCompanyInfo() {
 // 초기 데이터 로드
 async function fetchCompanyData(companyId) {
   const res = await authorizedFetch(
-    `http://43.202.211.168:8080/api/company/${companyId}`
+    `https://jm-money.com/api/company/${companyId}`
   );
   companyData = await res.json();
 
   const chartRes = await authorizedFetch(
-    `http://43.202.211.168:8080/api/company/charts/${companyId}`
+    `https://jm-money.com/api/company/charts/${companyId}`
   );
   chartData = await chartRes.json();
   chartData.sort(
@@ -484,6 +484,7 @@ function renderDateTable() {
   try {
     await fetchCompanyData(companyId);
     renderHeader();
+    console.log(companyData);
     renderCompanyInfo(); // 기본 탭이 company일 경우
     renderChart();
     setupPeriodButtons();

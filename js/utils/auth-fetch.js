@@ -18,7 +18,7 @@ export async function authorizedFetch(url, options = {}) {
     if (response.status === 401 && refreshToken) {
       console.warn("accessToken 만료됨 → refresh 시도");
 
-      const refreshRes = await fetch("http://43.202.211.168:8080/auth/refresh", {
+      const refreshRes = await fetch("https://jm-money.com/auth/refresh", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({ refreshToken }),
@@ -49,7 +49,7 @@ export async function authorizedFetch(url, options = {}) {
   } catch (err) {
     console.error("authorizedFetch 오류:", err);
     alert("세션이 만료되었습니다. 다시 로그인해주세요.");
-    window.location.href = "/pages/login.html";
+    window.location.href = "/pages/index.html";
     throw err;
   }
 }

@@ -6,7 +6,7 @@ document.addEventListener("DOMContentLoaded", () => {
     // 데이터 유효성 검사
     if (!result || typeof result.correctCount !== "number" || typeof result.totalQuestions !== "number") {
         alert("결과 데이터를 불러오는 데 실패했습니다.");
-        window.location.href = "index.html";  // 오류 시 메인으로 이동
+        window.location.href = "mainpage.html";  // 오류 시 메인으로 이동
         return;
     }
 
@@ -21,10 +21,8 @@ document.addEventListener("DOMContentLoaded", () => {
     if (feedback) {
         if (correctCount >= 3) {
             feedback.textContent = "잘했어요! 대단해요!";
-            feedback.style.backgroundColor = "#5DC29E";
         } else {
             feedback.textContent = "더 공부가 필요해요!";
-            feedback.style.backgroundColor = "#5DC29E";
         }
     }
 
