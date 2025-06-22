@@ -40,10 +40,8 @@ if (!themeId || !topicId) {
 
     const data = await response.json();
 
-    // ✅ 헤더에 제목 반영
     headerEl.textContent = themeList[themeId];
 
-    // ✅ 태그와 학습 제목 반영
     tagEl.textContent = data.tag;
     titleEl.textContent = data.title;
 
