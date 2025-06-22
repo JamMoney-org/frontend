@@ -44,10 +44,14 @@ document.addEventListener("DOMContentLoaded", () => {
 function initCharacterMainUI(statusData) {
   document.getElementById('level').textContent = statusData.level;
   document.getElementById('xpNow').textContent = statusData.exp;
-  document.getElementById('xpMax').textContent = statusData.nextLevelExp;
   document.getElementById('mood').textContent = `기분 : ${statusData.mood}`;
   document.getElementById('progressBar').style.width = `${statusData.expPercentage}%`;
   document.getElementById('characterName').textContent = statusData.name;
+  if (statusData.level >= 10 || statusData.nextLevelExp === 0) {
+    document.getElementById('xpMax').textContent = "MAX";
+  } else {
+    document.getElementById('xpMax').textContent = statusData.nextLevelExp;
+  }
 }
 
 // 이름 저장 함수
