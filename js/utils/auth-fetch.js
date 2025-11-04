@@ -18,7 +18,7 @@ export async function authorizedFetch(url, options = {}) {
     if (response.status === 401 && refreshToken) {
       console.warn("accessToken 만료됨 → refresh 시도");
 
-      const refreshRes = await fetch("https://jm-money.com/auth/refresh", {
+      const refreshRes = await fetch("https://jm-money.com/api/auth/refresh", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({ refreshToken }),
@@ -26,10 +26,8 @@ export async function authorizedFetch(url, options = {}) {
 
       if (!refreshRes.ok) throw new Error("refreshToken도 만료됨");
 
-      const {
-        accessToken: newAccessToken,
-        refreshToken: newRefreshToken,
-      } = await refreshRes.json();
+      const { accessToken: newAccessToken, refreshToken: newRefreshToken } =
+        await refreshRes.json();
 
       localStorage.setItem("accessToken", newAccessToken);
       localStorage.setItem("refreshToken", newRefreshToken);
