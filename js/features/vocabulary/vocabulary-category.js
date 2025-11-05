@@ -16,7 +16,6 @@ document.addEventListener("DOMContentLoaded", async () => {
     categoryItems.forEach((item, index) => {
       const categoryText = item.querySelector("p");
 
-      // 마지막 항목은 "나만의 금융단어장"으로 하드코딩
       if (index < categories.length) {
         categoryText.textContent = categories[index].category;
         item.dataset.id = categories[index].id;

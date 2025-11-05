@@ -35,7 +35,6 @@ document.addEventListener("DOMContentLoaded", () => {
         difficulty: enumDifficulty,
       };
 
-      // 로딩 시작
       loadingTip.classList.remove("hidden");
       loadingOverlay.classList.remove("hidden");
 
