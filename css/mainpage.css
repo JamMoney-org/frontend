@@ -59,7 +59,6 @@ body {
     max-height: 80%;
 }
 
-/* 메뉴 카드 */
 .menu-card {
     width: 100%;
     display: flex;
@@ -75,12 +74,10 @@ body {
     box-sizing: border-box;
 }
 
-/* 호버 효과 */
 .menu-card:hover {
     transform: translateY(-2px);
 }
 
-/* 메뉴 카드 텍스트 */
 .menu-card .text-box {
     display: flex;
     flex-direction: column;
@@ -103,7 +100,6 @@ body {
     line-height: 1.4;
 }
 
-/* 메뉴 카드 아이콘 */
 .menu-card .icon {
     width: 40px;
     height: 40px;

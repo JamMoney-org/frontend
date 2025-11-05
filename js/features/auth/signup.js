@@ -17,16 +17,15 @@ document.addEventListener("DOMContentLoaded", function () {
   }
 
   signupForm.addEventListener("submit", async function (e) {
-    e.preventDefault(); //페이지 새로고침 방지
+    e.preventDefault(); 
 
-    // 입력값 가져오기
+    
     const email = document.getElementById("email").value.trim();
     const nickname = document.getElementById("nickname").value.trim();
     const password = document.getElementById("password").value;
     const confirmPassword = document.getElementById("confirmPassword").value;
 
     try {
-      // 회원가입 요청 전송
       const response = await fetch("https://jm-money.com/api/auth/signup", {
         method: "POST",
         headers: {
@@ -40,7 +39,7 @@ document.addEventListener("DOMContentLoaded", function () {
         }),
       });
 
-      // 응답 처리
+     
       if (!response.ok) {
         const errorData = await response.json();
         const errorText = errorData.message;
@@ -48,9 +47,8 @@ document.addEventListener("DOMContentLoaded", function () {
         return;
       }
 
-      showPopup("회원가입 성공!", "success");
       setTimeout(() => {
-        window.location.href = "../../../pages/index.html";
+        window.location.href = "/index.html";
       }, 1500);
     } catch (error) {
       console.error("회원가입 중 오류 발생:", error);

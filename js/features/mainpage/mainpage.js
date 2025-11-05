@@ -1,6 +1,6 @@
 import { authorizedFetch } from "../../utils/auth-fetch.js";
 
-// 팝업
+
 function showPopup(message, type = "error", duration = 3000) {
     let popup = document.querySelector(".popup-message");
     if (!popup) {
@@ -16,7 +16,7 @@ function showPopup(message, type = "error", duration = 3000) {
     }, duration);
 }
 
-// 캐릭터 레벨에 맞는 이미지 설정
+
 function setCharacterImageByLevel(level) {
     const characterImg = document.getElementById("characterImage");
     if (characterImg) {
@@ -24,7 +24,7 @@ function setCharacterImageByLevel(level) {
     }
 }
 
-// 캐릭터 상태 불러오기
+
 async function fetchAndSetCharacterImage() {
     try {
         const res = await authorizedFetch("https://jm-money.com/api/pet/status");
@@ -38,7 +38,7 @@ async function fetchAndSetCharacterImage() {
     }
 }
 
-// 장착된 아이템 불러오기
+
 async function loadEquippedItems() {
     try {
         const res = await authorizedFetch("https://jm-money.com/api/item/inventory");
@@ -88,11 +88,11 @@ async function loadEquippedItems() {
                 }
             }
         });
-        // 배경 아이템이 하나도 없으면 기본 배경 적용
+       
         if (!hasBackground) {
             const bg = document.getElementById('bgImage');
             if (bg) {
-                bg.src = '../../../assets/images/default_background.png'; // 기본 배경 경로
+                bg.src = '/assets/images/default_background.png'; // 기본 배경 경로
                 bg.style.display = 'block';
             }
         }
@@ -101,7 +101,7 @@ async function loadEquippedItems() {
     }
 }
 
-// DOMContentLoaded 시 실행
+
 document.addEventListener('DOMContentLoaded', () => {
     fetchAndSetCharacterImage();
     loadEquippedItems();

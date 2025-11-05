@@ -18,7 +18,6 @@
     margin-bottom: 24px;
 }
 
-/* 공통 스타일 */
 .quiz-detail p {
     display: flex;
     align-items: flex-start;
@@ -31,19 +30,16 @@
     line-height: 1.5;
 }
 
-/* 선택한 답 */
 .quiz-detail p:nth-of-type(2) {
     background-color: #ffecec;
     color: #d03c3c;
 }
 
-/* 정답 */
 .quiz-detail p:nth-of-type(3) {
     background-color: #e8f7e8;
     color: #207820;
 }
 
-/* 해설 */
 .quiz-detail p:nth-of-type(4) {
     background-color: #f3f3f3;
     color: #555;

@@ -95,7 +95,7 @@ const statusRes = await authorizedFetch('https://jm-money.com/api/pet/status');
 const response = await statusRes.json();
 const characterLevel = response.data.level;
 
-// 진입점
+
 (function () {
   const params = new URLSearchParams(location.search);
   const category = params.get('category');

@@ -1,4 +1,4 @@
-/* 기본 설정 */
+
 html,
 body {
   margin: 0;
@@ -6,14 +6,12 @@ body {
   height: 100%;
 }
 
-/* 전체 영역 */
 .main-content {
   display: flex;
   flex-direction: column;
   height: 100%;
 }
 
-/* 중앙 정렬 */
 .content {
   flex: 1;
   display: flex;
@@ -23,7 +21,6 @@ body {
   position: relative;
 }
 
-/* 로고 */
 .logo {
   position: absolute;
   top: calc(50% - 120px);
@@ -34,7 +31,6 @@ body {
 }
 
 
-/* 회원가입 폼 */
 .signup-form {
   width: 420px;
   margin-left: auto;
@@ -43,7 +39,6 @@ body {
   flex-direction: column;
 }
 
-/* 공통 스타일 */
 .form-element {
   width: 420px;
   max-width: 420px;
@@ -58,8 +53,6 @@ body {
 
 
 
-
-/* 버튼 */
 .submit-button {
   background-color: #5DC29E;
   color: #ffffff;
@@ -68,7 +61,6 @@ body {
   margin-top: 20px;
 }
 
-/* 아이콘 */
 .input {
   position: relative;
   width: 100%;
