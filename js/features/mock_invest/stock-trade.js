@@ -63,7 +63,6 @@ document.addEventListener("DOMContentLoaded", async () => {
 
     if (priceChangeTimer !== null) clearTimeout(priceChangeTimer);
 
-    // 자동 보정: 호가 간격 기준
     if (
       typeof priceInterval === "number" &&
       numberInputPrice % priceInterval !== 0
@@ -85,7 +84,7 @@ document.addEventListener("DOMContentLoaded", async () => {
     const isMarket =
       document.querySelector('input[name="priceType"]:checked')?.value ===
       "market";
-    if (isMarket) return; // 시장가일 때는 아무것도 하지 않음
+    if (isMarket) return;
 
     const limitRadio = document.querySelector(
       'input[name="priceType"][value="limit"]'
@@ -262,14 +261,12 @@ document.addEventListener("DOMContentLoaded", async () => {
       if (!selected) return;
 
       if (selected.value === "market") {
-        // 시장가 UI 활성화
         priceTextDiv.style.display = "block";
         limitPriceInput.style.display = "none";
         priceTextDiv.textContent = `시장가 주문: ${Number(
           firstValidBid || 0
         ).toLocaleString()}원`;
       } else {
-        // 지정가 UI 활성화
         priceTextDiv.style.display = "none";
         limitPriceInput.style.display = "block";
       }
@@ -318,7 +315,6 @@ document.addEventListener("DOMContentLoaded", async () => {
         </div>`;
     }
 
-    // 호가 간격 추출
     const askp1 = Number(data.askp1);
     const askp2 = Number(data.askp2);
     priceInterval = askp2 - askp1;
@@ -369,7 +365,6 @@ document.addEventListener("DOMContentLoaded", async () => {
       }
     }
 
-    /*호가를 클릭해서 가격을 설정하는 코드 부분*/
     priceListContainer.addEventListener("click", (e) => {
       const target = e.target.closest(".price-item");
       if (!target) return;

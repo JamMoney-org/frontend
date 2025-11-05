@@ -37,7 +37,7 @@ document.addEventListener("DOMContentLoaded", async () => {
     for (const key in logoMap) {
       if (korName.includes(key)) return logoMap[key];
     }
-    return "../assets/images/default.png";
+    return "/assets/images/default.png";
   }
 
   function createHeartButton(companyId) {
@@ -48,8 +48,8 @@ document.addEventListener("DOMContentLoaded", async () => {
 
     const updateHeart = () => {
       heart.src = interestingCompanyIds.has(companyId)
-        ? "../assets/icon/heart-fill.svg"
-        : "../assets/icon/heart.svg";
+        ? "/assets/icon/heart-fill.svg"
+        : "/assets/icon/heart.svg";
     };
 
     updateHeart();
@@ -80,7 +80,7 @@ document.addEventListener("DOMContentLoaded", async () => {
 
     const li = document.createElement("li");
     li.addEventListener("click", () => {
-      window.location.href = `mock_invest.html?companyId=${companyId}&companyCode=${code}`;
+      window.location.href = `/pages/mock_invest/mock_invest.html?companyId=${companyId}&companyCode=${code}`;
     });
 
     const img = document.createElement("img");
@@ -249,9 +249,9 @@ document.addEventListener("DOMContentLoaded", async () => {
     }
 
     if (dinoImg) {
-      if (isProfit) dinoImg.src = "../assets/images/dino-happy.png";
-      else if (isLoss) dinoImg.src = "../assets/images/dino-sad.png";
-      else dinoImg.src = "../assets/images/dino-happy.png";
+      if (isProfit) dinoImg.src = "/assets/images/dino-happy.png";
+      else if (isLoss) dinoImg.src = "/assets/images/dino-sad.png";
+      else dinoImg.src = "/assets/images/dino-happy.png";
     }
   } catch (error) {
     console.error("포트폴리오 정보 로딩 실패:", error);
