@@ -46,8 +46,8 @@ document.addEventListener("DOMContentLoaded", async () => {
     progressBar.style.width = `${((index + 1) / words.length) * 100}%`;
 
     bookmarkButton.style.backgroundImage = word.bookmarked
-      ? "url('../assets/icon/bookmark-fill.svg')"
-      : "url('../assets/icon/bookmark.svg')";
+      ? "url('/assets/icon/bookmark-fill.svg')"
+      : "url('/assets/icon/bookmark.svg')";
   }
 
   prevButton.addEventListener("click", () => {

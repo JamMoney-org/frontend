@@ -12,8 +12,8 @@ document.addEventListener("DOMContentLoaded", () => {
   const bookmarkButton = document.querySelector(".bookmark");
 
   const bookmarkIcon = {
-    active: "../assets/icon/bookmark-fill-frame.svg",
-    inactive: "../assets/icon/bookmark.svg",
+    active: "/assets/icon/bookmark-fill-frame.svg",
+    inactive: "/assets/icon/bookmark.svg",
   };
 
   const selectedDifficulty = localStorage.getItem("selectedDifficulty");
