@@ -189,14 +189,11 @@ document.addEventListener("DOMContentLoaded", async () => {
     });
   });
 
-  // 공룡 요소
   const dinoSpeechElem = document.getElementById("dinoSpeech");
   const dinoImg = document.getElementById("dinoImage");
 
   try {
-    const res = await authorizedFetch(
-      "https://jm-money.com/api/portfolio"
-    );
+    const res = await authorizedFetch("https://jm-money.com/api/portfolio");
     if (!res.ok) throw new Error("포트폴리오 로드 실패");
 
     const data = await res.json();
@@ -296,5 +293,5 @@ document.addEventListener("DOMContentLoaded", async () => {
 });
 
 document.querySelector(".portfolio-btn").addEventListener("click", () => {
-  window.location.href = "../pages/portfolio.html";
+  window.location.href = "/pages/mock_invest/portfolio.html";
 });

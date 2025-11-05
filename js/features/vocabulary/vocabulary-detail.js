@@ -23,7 +23,9 @@ document.addEventListener("DOMContentLoaded", async () => {
 
   try {
     const response = await authorizedFetch(
-      `https://jm-money.com/api/terms/categories/${encodeURIComponent(categoryName)}/days/${dayIndex}/terms`,
+      `https://jm-money.com/api/terms/categories/${encodeURIComponent(
+        categoryName
+      )}/days/${dayIndex}/terms`,
       { method: "GET" }
     );
 
@@ -32,9 +34,7 @@ document.addEventListener("DOMContentLoaded", async () => {
     if (!Array.isArray(words) || words.length === 0) return;
 
     renderCard(currentIndex);
-  } catch (err) {
-    
-  }
+  } catch (err) {}
 
   function renderCard(index) {
     const word = words[index];
@@ -67,11 +67,13 @@ document.addEventListener("DOMContentLoaded", async () => {
   });
 
   quizConfirm.addEventListener("click", () => {
-    window.location.href = `/pages/vocabulary_quiz.html?categoryName=${encodeURIComponent(categoryName)}&day=${dayIndex}`;
+    window.location.href = `/pages/vocabulary/vocabulary_quiz.html?categoryName=${encodeURIComponent(
+      categoryName
+    )}&day=${dayIndex}`;
   });
 
   quizCancel.addEventListener("click", () => {
-    window.location.href = "/pages/vocabulary_category.html";
+    window.location.href = "/pages/vocabulary/vocabulary_category.html";
   });
 
   bookmarkButton.addEventListener("click", async () => {
@@ -79,16 +81,17 @@ document.addEventListener("DOMContentLoaded", async () => {
     const termId = word.termId;
 
     try {
-      const res = await authorizedFetch(`https://jm-money.com/api/terms/bookmark/${termId}`, {
-        method: word.bookmarked ? "DELETE" : "POST"
-      });
+      const res = await authorizedFetch(
+        `https://jm-money.com/api/terms/bookmark/${termId}`,
+        {
+          method: word.bookmarked ? "DELETE" : "POST",
+        }
+      );
 
       if (!res.ok) return;
 
       word.bookmarked = !word.bookmarked;
       renderCard(currentIndex);
-    } catch (err) {
-
-    }
+    } catch (err) {}
   });
 });

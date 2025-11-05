@@ -24,10 +24,8 @@ document.addEventListener("DOMContentLoaded", async () => {
     const { totalQuestions, correctCount, rewardExp, rewardCoin, passed } =
       result.data;
 
-    // 점수 표시
     chartScore.textContent = `${correctCount}/${totalQuestions}`;
 
-    // 피드백 메시지
     if (passed) {
       feedbackBubble.innerHTML =
         `<span style="font-weight: bold; font-size: 1.1em;">잘했어요! 대단해요!</span><br><br>` +
@@ -37,10 +35,8 @@ document.addEventListener("DOMContentLoaded", async () => {
       feedbackBubble.innerHTML =
         "더 공부가 필요해요.<br>퀴즈를 다시 풀어볼까요?!";
 
-      // 다시 풀기 버튼 보여주기
       retryButton.classList.remove("hidden");
 
-      // 카테고리 및 난이도 정보 가져오기
       const selectedCategory = localStorage.getItem("selectedCategoryName");
       const selectedDifficulty = localStorage.getItem("selectedDifficulty");
 
@@ -50,14 +46,12 @@ document.addEventListener("DOMContentLoaded", async () => {
           return;
         }
 
-        // 다시 퀴즈 페이지로 이동
-        window.location.href = `/pages/quiz_detail.html?categoryName=${encodeURIComponent(
+        window.location.href = `/pages/finance-quiz/quiz_detail.html?categoryName=${encodeURIComponent(
           selectedCategory
         )}&difficulty=${encodeURIComponent(selectedDifficulty)}`;
       });
     }
 
-    // 차트 그리기
     const ctx = document.getElementById("quizChart").getContext("2d");
     new Chart(ctx, {
       type: "doughnut",
@@ -79,7 +73,6 @@ document.addEventListener("DOMContentLoaded", async () => {
       },
     });
 
-    // 보상 정보 저장
     console.log("🏆 획득 경험치:", rewardExp, " / 가상코인:", rewardCoin);
     localStorage.setItem("lastQuizRewardExp", rewardExp);
     localStorage.setItem("lastQuizRewardCoin", rewardCoin);
@@ -88,8 +81,7 @@ document.addEventListener("DOMContentLoaded", async () => {
     feedbackBubble.textContent = "결과를 불러오는 데 실패했어요.";
   }
 
-  // 종료 버튼 → 홈으로 이동
   finishButton.addEventListener("click", () => {
-    window.location.href = "/pages/quiz_category.html";
+    window.location.href = "/pages/finance-quiz/quiz_category.html";
   });
 });

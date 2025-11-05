@@ -44,7 +44,7 @@ document.addEventListener("DOMContentLoaded", async () => {
         localStorage.setItem("selectedCategoryName", categoryName);
         localStorage.setItem("selectedCategoryEnum", categoryEnum);
 
-        window.location.href = `/pages/quiz_level_select.html?categoryName=${encodeURIComponent(
+        window.location.href = `/pages/finance-quiz/quiz_level_select.html?categoryName=${encodeURIComponent(
           categoryName
         )}&categoryEnum=${categoryEnum}`;
       });
