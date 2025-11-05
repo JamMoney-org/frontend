@@ -1,0 +1,95 @@
+<!DOCTYPE html>
+<html lang="ko">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>JamMoney - 모의주식투자 거래화면</title>
+    <link rel="icon" href="/assets/images/favicon.png" type="image/png" />
+    <link rel="stylesheet" href="/css/style.css" />
+    <link rel="stylesheet" href="/css/invest-trade.css" />
+  </head>
+
+  <body>
+    <div class="main-content">
+      <header>
+        <button class="back-button" onclick="history.back();">
+          <svg
+            width="24"
+            height="24"
+            viewBox="0 0 24 24"
+            fill="none"
+            xmlns="http://www.w3.org/2000/svg"
+          >
+            <path
+              d="M15 19L8 12L15 5"
+              stroke="currentColor"
+              stroke-width="2"
+              stroke-linecap="round"
+              stroke-linejoin="round"
+            />
+          </svg>
+        </button>
+        모의투자
+      </header>
+
+      <div class="content">
+        <div class="split-layout">
+          <div class="price-info">
+            <div class="price-list"></div>
+          </div>
+
+          <div class="order-section">
+            <div class="order-type">
+              <button class="order-button">구매</button>
+              <button class="order-button active">판매</button>
+            </div>
+            <div class="price-display">
+              <span class="label">구매할 가격</span>
+              <div class="price-type">
+                <label>
+                  <input type="radio" name="priceType" value="market" checked />
+                  시장가
+                </label>
+                <label>
+                  <input type="radio" name="priceType" value="limit" /> 지정가
+                </label>
+              </div>
+              <div id="price" class="price"></div>
+            </div>
+
+            <div class="quantity">
+              <span class="label">판매수량</span>
+              <div class="quantity-buttons">
+                <button data-percent="10">10%</button>
+                <button data-percent="25">25%</button>
+                <button data-percent="50">50%</button>
+                <button data-percent="100">최대</button>
+              </div>
+              <div class="quantity-control">
+                <span id="quantityDisplay">0 주</span>
+                <button id="increaseBtn" class="control-btn">+</button>
+                <button id="decreaseBtn" class="control-btn">-</button>
+              </div>
+            </div>
+            <div class="total-price" id="totalPrice">
+              <span>총 주문금액: </span>
+              <span id="totalAmount">0원</span>
+            </div>
+          </div>
+        </div>
+        <div class="trade-btn-wrapper">
+          <button class="trade-btn full-width">구매하기</button>
+        </div>
+      </div>
+    </div>
+
+    <div id="toast" class="toast">알림 메시지</div>
+
+    <div id="navbar"></div>
+    <script src="/js/script.js"></script>
+    <script
+      type="module"
+      src="/js/features/mock_invest/stock-trade.js"
+    ></script>
+  </body>
+</html>

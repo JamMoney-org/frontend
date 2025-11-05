@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html lang="ko">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>JamMoney - 금융기초퀴즈 문제</title>
+    <link rel="icon" href="/assets/images/favicon.png" type="image/png" />
+    <link rel="stylesheet" href="/css/style.css" />
+    <link rel="stylesheet" href="/css/quiz.css" />
+  </head>
+
+  <body>
+    <div class="main-content">
+      <header>
+        <button class="back-button" onclick="history.back();">
+          <svg
+            width="24"
+            height="24"
+            viewBox="0 0 24 24"
+            fill="none"
+            xmlns="http://www.w3.org/2000/svg"
+          >
+            <path
+              d="M15 19L8 12L15 5"
+              stroke="currentColor"
+              stroke-width="2"
+              stroke-linecap="round"
+              stroke-linejoin="round"
+            />
+          </svg>
+        </button>
+        금융 기초 퀴즈
+      </header>
+
+      <div class="progress-container">
+        <div class="progress-bar" id="progress-bar"></div>
+      </div>
+
+      <div class="content">
+        <div class="quiz-card">
+          <button class="bookmark" aria-label="북마크"></button>
+
+          <p class="quiz-title" id="quiz-title"></p>
+
+          <div class="quiz-box">
+            <div class="quiz-options" id="quiz-options"></div>
+          </div>
+
+          <div class="hint-container">
+            <button class="hint-button" onclick="toggleHint()">
+              <img
+                src="/assets/icon/light-bulb.svg"
+                alt="힌트"
+                class="hint-icon"
+              />
+              힌트 보기
+            </button>
+          </div>
+
+          <div class="hint-box" id="hint-box" style="display: none">
+            <p class="hint-title">💡 힌트</p>
+            <p class="hint-content" id="hint-content"></p>
+          </div>
+
+          <div class="quiz-navigation">
+            <p id="quiz-feedback" class="feedback"></p>
+            <button id="quiz-next-button" class="next-button">다음 문제</button>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div id="navbar"></div>
+    <script src="/js/script.js"></script>
+    <script
+      type="module"
+      src="/js/features/finance-quiz/quiz-detail.js"
+    ></script>
+  </body>
+</html>
