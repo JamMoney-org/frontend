@@ -1,4 +1,4 @@
-/* 기본 설정 */
+
 html,
 body {
     margin: 0;
@@ -8,7 +8,7 @@ body {
     background-color: #ffffff;
 }
 
-/* 메인 컨테이너 */
+
 .main-content {
     display: flex;
     flex-direction: column;
@@ -25,7 +25,7 @@ body {
     cursor: pointer;
 }
 
-/* 로고 */
+
 .logo {
     font-size: 24px;
     font-weight: bold;
@@ -34,7 +34,7 @@ body {
     margin-bottom: 50px;
 }
 
-/* 폼 */
+
 .edit-form {
     display: flex;
     flex-direction: column;
@@ -42,31 +42,25 @@ body {
     max-width: 400px;
 }
 
-/* 각 입력 필드 묶음 */
 .input {
     display: flex;
     align-items: center;
-    /* 수직 가운데 정렬 */
     margin-bottom: 12px;
     gap: 8px;
-    /* 아이콘 ~ 라벨 ~ input 간격 */
 }
 
-/* 아이콘 */
 .input-icon {
     width: 18px;
     height: 18px;
     margin-right: 12px;
 }
 
-/* 라벨 */
 .input-label {
     font-size: 15px;
     width: 75px;
     flex-shrink: 0;
 }
 
-/* 인풋 필드 */
 .form-element {
     border: none;
     outline: none;
@@ -84,8 +78,6 @@ body {
 }
 
 
-
-/* 버튼 */
 .submit-button {
     width: 100%;
     max-width: 400px;

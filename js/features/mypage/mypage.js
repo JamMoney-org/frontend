@@ -1,5 +1,5 @@
 import { authorizedFetch } from "../../utils/auth-fetch.js";
-//팝업창
+
 function showPopup(message, type = "error", duration = 3000) {
     let popup = document.querySelector(".popup-message");
     if (!popup) {
@@ -14,7 +14,7 @@ function showPopup(message, type = "error", duration = 3000) {
         popup.classList.remove("show");
     }, duration);
 }
-// 확인창
+
 function customConfirm(message) {
     return new Promise((resolve) => {
         const existingModal = document.querySelector(".custom-confirm-modal");
@@ -60,7 +60,7 @@ function customConfirm(message) {
         document.body.appendChild(modal);
     });
 }
-//회원 정보
+
 async function fetchUserInfo() {
     const nicknameElem = document.querySelector(".nickname");
     const emailElem = document.querySelector(".email");
@@ -72,8 +72,7 @@ async function fetchUserInfo() {
 }
 fetchUserInfo()
 
-//보유 자산
-//모의투자 시작할때 포트폴리오가 생성되고 자산을 가져올 수 있음
+
 async function fetchTotalAsset() {
     const res = await authorizedFetch("https://jm-money.com/api/portfolio", {
         method: "GET",
@@ -85,7 +84,7 @@ async function fetchTotalAsset() {
     }
 
     const data = await res.json();
-    const totalAsset = data.totalAsset ?? 0; //포트폴리오가 없을때 0으로 처리
+    const totalAsset = data.totalAsset ?? 0; 
 
     document.getElementById("asset-value").textContent = totalAsset.toLocaleString() + "원";
 }
@@ -93,7 +92,7 @@ async function fetchTotalAsset() {
 
 fetchTotalAsset();
 
-//회원 탈퇴
+
 document.addEventListener("DOMContentLoaded", () => {
     const deleteBtn = document.querySelector(".delete");
     deleteBtn?.addEventListener("click", async () => {
@@ -108,7 +107,7 @@ document.addEventListener("DOMContentLoaded", () => {
             showPopup("회원 탈퇴가 완료되었습니다.");
             localStorage.removeItem("accessToken");
             localStorage.removeItem("refreshToken");
-            window.location.href = "../pages/main.html";
+            window.location.href = "/pages/auth/signup.html";
         } else {
             showPopup("회원 탈퇴에 실패했습니다.");
         }
@@ -116,12 +115,12 @@ document.addEventListener("DOMContentLoaded", () => {
 });
 
 
-//로그아웃
+
 async function logout() {
     const confirmed = await customConfirm("정말로 로그아웃하시겠습니까?");
     if (!confirmed) return;
     localStorage.removeItem("accessToken");
     localStorage.removeItem("refreshToken");
-    window.location.href = "../pages/index.html";
+    window.location.href = "/index.html";
 }
 document.querySelector(".logout").addEventListener("click", logout);

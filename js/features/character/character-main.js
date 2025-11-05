@@ -1,6 +1,6 @@
 import { authorizedFetch } from "../../utils/auth-fetch.js";
 
-// 팝업
+
 function showPopup(message, type = "error", duration = 3000) {
   let popup = document.querySelector(".popup-message");
   if (!popup) {
@@ -16,7 +16,7 @@ function showPopup(message, type = "error", duration = 3000) {
   }, duration);
 }
 
-//레벨별 이미지 설정
+
 function setCharacterImageByLevel(level) {
   const characterImg = document.getElementById("characterImage");
   if (characterImg) {
@@ -24,7 +24,7 @@ function setCharacterImageByLevel(level) {
   }
 }
 
-//이미지 api 연결
+
 async function fetchAndSetCharacterImage() {
   const res = await authorizedFetch("https://jm-money.com/api/pet/status");
   if (!res.ok) throw new Error("캐릭터 상태 조회 실패");
@@ -40,7 +40,7 @@ document.addEventListener("DOMContentLoaded", () => {
   fetchAndSetCharacterImage();
 });
 
-// 캐릭터 메인 UI 초기화
+
 function initCharacterMainUI(statusData) {
   document.getElementById('level').textContent = statusData.level;
   document.getElementById('xpNow').textContent = statusData.exp;
@@ -54,7 +54,7 @@ function initCharacterMainUI(statusData) {
   }
 }
 
-// 이름 저장 함수
+
 function saveName() {
   const input = document.getElementById('nameInput');
   const newName = input.value.trim();
@@ -86,7 +86,7 @@ function saveName() {
     });
 }
 
-// 이름 수정
+
 function setupNameEditUI() {
   const nameBox = document.getElementById('nameEditBox');
   const editBtn = document.getElementById('editNameBtn');
@@ -103,12 +103,12 @@ function setupNameEditUI() {
   }
 }
 
-// 캐릭터 상태 조회
+
 async function loadCharacterStatus() {
   const accessToken = localStorage.getItem('accessToken');
   if (!accessToken) {
     showPopup('로그인이 필요합니다.');
-    window.location.href = '../pages/index.html';
+    window.location.href = '/index.html';
     return;
   }
 
@@ -122,7 +122,7 @@ async function loadCharacterStatus() {
   initCharacterMainUI(statusData);
 }
 
-// 경험치 추가
+
 async function giveExpToPet(expAmount = 5) {
   const res = await authorizedFetch('https://jm-money.com/api/pet/add-exp', {
     method: 'POST',
@@ -138,7 +138,6 @@ async function giveExpToPet(expAmount = 5) {
 
 
 
-// 장착 아이템 불러오기
 async function loadEquippedItems() {
   const res = await authorizedFetch('https://jm-money.com/api/item/inventory');
   if (!res.ok) throw new Error('인벤토리 조회 실패');
@@ -184,11 +183,11 @@ async function loadEquippedItems() {
     }
   });
 
-  // 배경 아이템이 하나도 없으면 기본 배경 적용
+
   if (!hasBackground) {
     const bg = document.getElementById('bgImage');
     if (bg) {
-      bg.src = '../../../assets/images/default_background.png'; // 기본 배경 경로
+      bg.src = '/assets/images/default_background.png'; 
       bg.style.display = 'block';
     }
   }

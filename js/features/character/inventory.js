@@ -1,6 +1,6 @@
 import { authorizedFetch } from "../../utils/auth-fetch.js";
 
-// 팝업
+
 function showPopup(message, type = "error", duration = 3000) {
     let popup = document.querySelector(".popup-message");
     if (!popup) {
@@ -16,7 +16,7 @@ function showPopup(message, type = "error", duration = 3000) {
     }, duration);
 }
 
-// 확인창
+
 function customConfirm(message) {
     return new Promise((resolve) => {
         const existingModal = document.querySelector(".custom-confirm-modal");
@@ -63,7 +63,7 @@ function customConfirm(message) {
     });
 }
 
-// 캐릭터 레벨에 맞는 이미지 설정
+
 function setCharacterImageByLevel(level) {
     const characterImg = document.getElementById("characterImage");
     if (characterImg) {
@@ -71,7 +71,7 @@ function setCharacterImageByLevel(level) {
     }
 }
 
-// 캐릭터 상태 불러오기
+
 async function fetchAndSetCharacterImage() {
     try {
         const res = await authorizedFetch("https://jm-money.com/api/pet/status");
@@ -85,7 +85,7 @@ async function fetchAndSetCharacterImage() {
     }
 }
 
-// 장착된 아이템 UI에 적용 (통합 버전)
+
 function updateEquippedItems(items) {
     const characterArea = document.querySelector(".character-area");
     if (!characterArea) return;
@@ -127,17 +127,17 @@ function updateEquippedItems(items) {
 
         characterArea.appendChild(img);
     });
-    // 배경 아이템이 하나도 없으면 기본 배경 적용
+    
     if (!hasBackground) {
         const bg = document.getElementById('bgImage');
         if (bg) {
-            bg.src = '../../../assets/images/default_background.png'; // 기본 배경 경로
+            bg.src = '/assets/images/default_background.png'; // 기본 배경 경로
             bg.style.display = 'block';
         }
     }
 }
 
-// 인벤토리 렌더링
+
 function renderInventory(items, previewImg, previewName, previewPrice) {
     const itemGrid = document.querySelector(".item-grid");
     itemGrid.innerHTML = "";
@@ -183,7 +183,7 @@ let selectedItem = null;
 let inventoryItems = [];
 let shopItems = [];
 
-//shop item 가져오기 (가격 계산)
+
 async function fetchShopItems() {
     try {
         const res = await authorizedFetch("https://jm-money.com/api/item/shop");
@@ -202,7 +202,7 @@ function getShopPriceByItemId(itemId) {
 }
 
 
-// DOM 로드 후 초기화
+
 document.addEventListener("DOMContentLoaded", () => {
     const categoryButtons = document.querySelectorAll(".category");
     const previewImg = document.getElementById("selectedItemImage");
@@ -211,7 +211,7 @@ document.addEventListener("DOMContentLoaded", () => {
     const equipButton = document.querySelector(".equip-button");
     const sellButton = document.querySelector(".sell-button");
 
-    // 아이템 장착/해제 API 호출
+    
     function toggleEquip(itemId, equip) {
         authorizedFetch("https://jm-money.com/api/item/equip", {
             method: "POST",
@@ -225,7 +225,7 @@ document.addEventListener("DOMContentLoaded", () => {
             .catch(err => showPopup("장착 요청 실패: " + err.message));
     }
 
-    // 장착 버튼 이벤트
+    
     if (equipButton) {
         equipButton.addEventListener("click", () => {
             if (!selectedItem) return showPopup("아이템을 선택해주세요!");
@@ -233,7 +233,7 @@ document.addEventListener("DOMContentLoaded", () => {
         });
     }
 
-    // 카테고리 필터링
+    
     categoryButtons.forEach(button => {
         button.addEventListener("click", () => {
             const filter = button.dataset.filter;
@@ -244,7 +244,7 @@ document.addEventListener("DOMContentLoaded", () => {
         });
     });
 
-    // 인벤토리 불러오기
+   
     function fetchInventory() {
         authorizedFetch("https://jm-money.com/api/item/inventory")
             .then(res => res.json())
@@ -258,7 +258,7 @@ document.addEventListener("DOMContentLoaded", () => {
 
 
 
-    // 판매하기
+ 
     if (sellButton) {
         sellButton.addEventListener("click", async () => {
             if (!selectedItem) {

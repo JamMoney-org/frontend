@@ -15,7 +15,7 @@ document.addEventListener("DOMContentLoaded", async () => {
             popup.classList.remove("show");
         }, duration);
     }
-    //정보 불러오기
+  
     const nicknameInput = document.querySelector(".input input[type='text']");
     const emailInput = document.querySelector("input[type='email']");
     const form = document.querySelector(".edit-form");
@@ -26,7 +26,7 @@ document.addEventListener("DOMContentLoaded", async () => {
     emailInput.value = data.email;
     nicknameInput.value = data.nickname;
 
-    //닉네임 수정
+   
     form.addEventListener("submit", async (e) => {
         e.preventDefault();
         const newNickname = nicknameInput.value.trim();

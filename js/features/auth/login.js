@@ -50,9 +50,8 @@ document.addEventListener("DOMContentLoaded", function () {
         localStorage.setItem("accessToken", data.accessToken);
         localStorage.setItem("refreshToken", data.refreshToken);
 
-        showPopup("로그인 성공!", "success", 1500);
         setTimeout(() => {
-          window.location.href = "../../../pages/mainpage.html";
+          window.location.href = "/pages/mainpage/mainpage.html";
         }, 1500);
       } else {
         const errorData = await response.json();
