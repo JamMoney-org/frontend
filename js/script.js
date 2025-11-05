@@ -5,10 +5,10 @@ document.addEventListener('DOMContentLoaded', function () {
       document.getElementById('navbar').innerHTML = data;
 
       const protectedRoutes = [
-        '/pages/mainpage.html',
-        '/pages/learning_category.html',
-        '/pages/mock_invest_list.html',
-        '/pages/mypage.html',
+        '/pages/mainpage/mainpage.html',
+        '/pages/category/learning_category.html',
+        '/pages/mock_invest/mock_invest_list.html',
+        '/pages/mypage/mypage.html',
       ];
 
       document.querySelectorAll('.bottom-nav a').forEach((link) => {
