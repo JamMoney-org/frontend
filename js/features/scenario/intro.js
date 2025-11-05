@@ -27,17 +27,15 @@ import { authorizedFetch } from '../../utils/auth-fetch.js';
 
     const scenario = await res.json();
 
-    // 화면 구성
     document.querySelector('.simul-title').textContent = scenario.title;
     document.querySelector('.simul-card p').innerHTML = scenario.description
       .split('\n')
       .join('<br>');
 
-    // 학습 화면에서 쓸 수 있도록 캐싱
     sessionStorage.setItem('scenarioData', JSON.stringify(scenario));
 
     document.querySelector('.start-btn').addEventListener('click', () => {
-      location.href = `/pages/scenario_progress.html`;
+      location.href = `/pages/scenario/scenario_progress.html`;
     });
   } catch (e) {
     document.querySelector('.simul-title').textContent =

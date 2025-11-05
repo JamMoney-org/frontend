@@ -1,7 +1,7 @@
 import { authorizedFetch } from '../../utils/auth-fetch.js';
 
 let themeList = {};
-// DOM 요소 가져오기
+
 const headerEl = document.querySelector('.header-title');
 const tagEl = document.querySelector('.tag');
 const titleEl = document.querySelector('.learning-title');
@@ -21,12 +21,10 @@ try {
   console.error('테마 목록 불러오기 실패:', err);
 }
 
-// URL에서 themeId, topicId 추출
 const params = new URLSearchParams(location.search);
 const themeId = params.get('themeId');
 const topicId = params.get('topicId');
 
-// 잘못된 접근 처리
 if (!themeId || !topicId) {
   contentContainer.innerHTML = '<p>잘못된 접근입니다. URL을 확인해주세요.</p>';
 } else {
@@ -64,7 +62,6 @@ function convertPlainTextToHTML(text) {
     if (!line) return;
 
     if (line.startsWith('????')) {
-      // 새로운 섹션 시작
       currentSection = document.createElement('section');
       currentSection.className = 'section';
 
@@ -82,7 +79,6 @@ function convertPlainTextToHTML(text) {
         ul.appendChild(li);
       }
     } else {
-      // 도입부 문단
       const p = document.createElement('p');
       p.textContent = line;
       fragment.appendChild(p);

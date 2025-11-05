@@ -15,7 +15,6 @@ const nextBtn = document.querySelector('.next-btn');
   nextBtn.disabled = true;
   nextBtn.classList.add('loading-btn');
 
-  // 텍스트를 "질문 생성 중..."에서 물결 효과로 변환
   const loadingText = '질문 생성 중...';
   nextBtn.innerHTML = `<span class="wavy-text">${[...loadingText]
     .map((ch) => `<span>${ch}</span>`)
@@ -66,9 +65,9 @@ const nextBtn = document.querySelector('.next-btn');
 
     nextBtn.addEventListener('click', () => {
       if (data.finalStep) {
-        location.href = `/pages/scenario_summary.html`;
+        location.href = `/pages/scenario/scenario_summary.html`;
       } else {
-        location.href = `/pages/scenario_progress.html`;
+        location.href = `/pages/scenario/scenario_progress.html`;
       }
     });
   } catch (error) {

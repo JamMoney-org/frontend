@@ -23,7 +23,7 @@ const choicesEl = document.querySelector('.choices');
     btn.className = 'choice-btn';
     btn.textContent = `${idx + 1}. ${choice.content}`;
     btn.addEventListener('click', () => {
-      location.href = `/pages/scenario_feedback.html?choiceId=${choice.choiceId}`;
+      location.href = `/pages/scenario/scenario_feedback.html?choiceId=${choice.choiceId}`;
     });
     choicesEl.appendChild(btn);
   });
