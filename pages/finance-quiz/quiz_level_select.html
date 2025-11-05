@@ -6,18 +6,14 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>JamMoney - 금융기초퀴즈 리스트</title>
-    <link rel="icon" href="../assets/images/favicon.png" type="image/png">
-    <link rel="stylesheet" href="../css/style.css">
-    <link rel="stylesheet" href="../css/quiz.css">
+    <link rel="icon" href="/assets/images/favicon.png" type="image/png">
+    <link rel="stylesheet" href="/css/style.css">
+    <link rel="stylesheet" href="/css/quiz.css">
 </head>
 
 
 <body>
-    <!-- 메인 콘텐츠 영역 -->
     <div class="main-content">
-
-
-        <!-- 헤더 영역 -->
         <header>
             <button class="back-button" onclick="history.back();">
                 <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
@@ -28,12 +24,9 @@
             금융 기초 퀴즈
         </header>
 
-        <!-- 구현 영역 -->
         <div class="content">
             <h3 id="category-title"></h3>
 
-
-            <!-- 난이도 선택 리스트 -->
             <div class="quiz-list" id="quiz-list">
                 <div class="quiz-item">
                     <div class="quiz-info">
@@ -58,11 +51,8 @@
         </div>
     </div>
 
-    <!-- 배경을 어둡게 처리하는 레이어 -->
     <div id="quiz-loading-overlay" class="hidden"></div>
 
-
-    <!-- 로딩 안내 팁 -->
     <div id="quiz-loading-tip" class="hidden">
         🦖 퀴즈를 생성하고 있어요!<br>
         곧 퀴즈를 불러올게요!
@@ -72,8 +62,8 @@
     </div>
 
     <div id="navbar"></div>
-    <script src="../js/script.js"></script>
-    <script type="module" src="../js/features/finance-quiz/quiz-level-select.js"></script>
+    <script src="/js/script.js"></script>
+    <script type="module" src="/js/features/finance-quiz/quiz-level-select.js"></script>
 </body>
 
 
