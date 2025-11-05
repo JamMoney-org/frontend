@@ -9,7 +9,6 @@ const setValue = (label, value) => {
   if (el) el.textContent = value ?? '-';
 };
 
-// 상단 가격 및 이름 렌더링
 function renderHeader() {
   const stockInfo = companyData.stockInfoResponseDto;
   const price = Number(stockInfo.stck_prpr);
@@ -17,7 +16,7 @@ function renderHeader() {
   const diffPercent = Number(stockInfo.prdy_ctrt).toFixed(2);
 
   document.querySelector('.company-name').innerHTML = `
-    ${companyData.korName} <img src="../assets/icon/search.svg" alt="" />
+    ${companyData.korName} <img src="/assets/icon/search.svg" alt="" />
   `;
   document.querySelector(
     '.current-price'
@@ -29,7 +28,6 @@ function renderHeader() {
   `;
 }
 
-// 기업 정보 탭 렌더링
 function renderCompanyInfo() {
   const stockInfo = companyData.stockInfoResponseDto;
   const price = Number(stockInfo.stck_prpr);
@@ -120,7 +118,6 @@ function renderCompanyInfo() {
   );
 }
 
-// 초기 데이터 로드
 async function fetchCompanyData(companyId) {
   const res = await authorizedFetch(
     `https://jm-money.com/api/company/${companyId}`
@@ -157,7 +154,6 @@ function renderChart() {
     close: Number(d.stck_prpr),
   }));
 
-  // 2. 범위 필터링
   let data = fullData;
   if (chartViewRange === '1h') {
     const oneHourAgo = new Date(
@@ -196,12 +192,10 @@ function renderChart() {
 
   const paddingRatio = 0.49;
   const xPadding = totalDuration * paddingRatio;
-  // x축: 최신 7시간 기준
   const latest = new Date(data[data.length - 1].date.getTime() + xPadding);
   const earliest = new Date(data[0].date.getTime() - 10 * 60 * 1000);
   const x = d3.scaleTime().domain([earliest, latest]).range([0, width]);
 
-  // y축: high/low 기준 + padding
   const yMin = d3.min(data, (d) => d.low);
   const yMax = d3.max(data, (d) => d.high);
   const padding = (yMax - yMin) * 0.05;
@@ -212,40 +206,35 @@ function renderChart() {
     .range([height, 0])
     .nice();
 
-  // 모바일 여부 판별
   const isMobile = window.innerWidth <= 767;
   const isOver5Hours = totalDuration >= 18000000;
   const xAxisFormat =
     chartViewRange === 'all'
-      ? d3.timeFormat('%Y-%m-%d') // 전체일 때: 날짜만
-      : d3.timeFormat('%H:%M'); // 그 외엔 시:분
+      ? d3.timeFormat('%Y-%m-%d')
+      : d3.timeFormat('%H:%M');
 
-  // x축 눈금 간격 설정
   const xTicks =
     chartViewRange === 'all'
-      ? d3.timeDay.every(1) // 전체일 때: 하루 간격
-      : d3.timeHour.every(isMobile && isOver5Hours ? 2 : 1); // 그 외: 1~2시간 간격
-  // y축: 라벨 (검정색)
+      ? d3.timeDay.every(1)
+      : d3.timeHour.every(isMobile && isOver5Hours ? 2 : 1);
+
   chartGroup
     .append('g')
     .attr('class', 'y axis')
     .attr('transform', `translate(${width},0)`)
     .call(d3.axisRight(y));
 
-  // y축: 그리드 선 (연한색)
   chartGroup
     .append('g')
     .attr('class', 'y grid')
     .call(d3.axisLeft(y).tickSize(-width).tickFormat('').tickSizeOuter(0));
 
-  // x축: 라벨 (검정색)
   chartGroup
     .append('g')
     .attr('class', 'x axis')
     .attr('transform', `translate(0,${height})`)
     .call(d3.axisBottom(x).ticks(xTicks).tickFormat(xAxisFormat));
 
-  // x축: 그리드 선 (연한색)
   chartGroup
     .append('g')
     .attr('class', 'x grid')
@@ -299,7 +288,6 @@ function renderChart() {
     .attr('x2', width)
     .style('display', 'none');
 
-  // 가격 박스 배경
   const yPriceBox = chartGroup
     .append('rect')
     .attr('fill', '#5DC29E')
@@ -307,13 +295,12 @@ function renderChart() {
     .attr('rx', 1)
     .style('display', 'none');
 
-  // 가격 텍스트
   const yLabel = chartGroup
     .append('text')
-    .attr('fill', '#fff') // 흰색 텍스트
+    .attr('fill', '#fff')
     .attr('font-size', '12px')
     .attr('font-weight', 'bold')
-    .attr('dominant-baseline', 'middle') // 수직 중앙 정렬
+    .attr('dominant-baseline', 'middle')
     .style('display', 'none');
 
   svg.on('mousemove', function (event) {
@@ -324,7 +311,6 @@ function renderChart() {
     const d = data[index];
     if (!d) return;
 
-    // 마우스 위치 기반 가격 계산
     const priceAtCursor = y.invert(mouseY - margin.top);
     const yPos = y(priceAtCursor);
 
@@ -333,7 +319,6 @@ function renderChart() {
       .attr('x2', x(d.date))
       .style('display', 'block');
 
-    // 수평선 (커서 위치 기준)
     guidelineH.attr('y1', yPos).attr('y2', yPos).style('display', 'block');
     const prev = data[index - 1];
 
@@ -345,14 +330,13 @@ function renderChart() {
       .attr('y', yPos - 10)
       .attr('width', textWidth + 10)
       .style('display', 'block');
-    // 가격 텍스트
+
     yLabel
       .text(labelText)
-      .attr('x', width + 5) // y축 오른쪽 살짝 바깥
-      .attr('y', yPos + 4) // 텍스트 수직 정렬 살짝 보정
+      .attr('x', width + 5)
+      .attr('y', yPos + 4)
       .style('display', 'block');
 
-    // 퍼센트와 색상 계산
     const getRate = (val) =>
       prev ? ` (${(((val - prev.close) / prev.close) * 100).toFixed(2)}%)` : '';
     const getClass = (val) =>
@@ -424,15 +408,14 @@ function renderDateTable() {
   const diff = Number(stockInfo.prdy_vrss);
   const tableBody = document.querySelector('#date tbody');
   tableBody.innerHTML = '';
-  // 날짜별 그룹핑
+
   const grouped = {};
   chartData.forEach((item) => {
-    const date = new Date(item.stockTradeTime).toISOString().split('T')[0]; // YYYY-MM-DD
+    const date = new Date(item.stockTradeTime).toISOString().split('T')[0];
     if (!grouped[date]) grouped[date] = [];
     grouped[date].push(item);
   });
 
-  // 날짜 내림차순 정렬
   const sortedDates = Object.keys(grouped).sort(
     (a, b) => new Date(b) - new Date(a)
   );
@@ -443,10 +426,9 @@ function renderDateTable() {
   let close = Number(sorted[sorted.length - 1].stck_prpr);
   sortedDates.forEach((date, index) => {
     const items = grouped[date];
-    // 누적 거래량
+
     const volume = items.reduce((sum, cur) => sum + Number(cur.cntg_vol), 0);
 
-    // 대비 (이전날 종가 - 현재 종가 → 현재 날짜에 표시)
     let diffText = '<td>-</td>';
     if (index === 0) {
       const diffClass = diff > 0 ? 'up' : diff < 0 ? 'down' : '';
@@ -462,7 +444,6 @@ function renderDateTable() {
       close -= diff;
     }
 
-    // 테이블 행 렌더링
     const tr = document.createElement('tr');
     tr.innerHTML = `
       <td>${date.replace(/-/g, '.')}</td>
@@ -474,7 +455,6 @@ function renderDateTable() {
   });
 }
 
-// 진입점
 (async function initPage() {
   const params = new URLSearchParams(location.search);
   const companyId = params.get('companyId');
@@ -485,16 +465,14 @@ function renderDateTable() {
     await fetchCompanyData(companyId);
     renderHeader();
     console.log(companyData);
-    renderCompanyInfo(); // 기본 탭이 company일 경우
+    renderCompanyInfo();
     renderChart();
     setupPeriodButtons();
 
-    // 거래 버튼 클릭 이벤트 등록
     document.querySelector('.trade-btn').addEventListener('click', () => {
       window.location.href = `mock_invest_trade.html?companyId=${companyData.companyId}&companyCode=${companyData.code}`;
     });
 
-    // 탭 전환 핸들러
     const buttons = document.querySelectorAll('.tab-menu button');
     const panes = document.querySelectorAll('.tab-pane');
 
