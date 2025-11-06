@@ -127,7 +127,7 @@ function updateEquippedItems(items) {
 
         characterArea.appendChild(img);
     });
-    
+
     if (!hasBackground) {
         const bg = document.getElementById('bgImage');
         if (bg) {
@@ -211,7 +211,7 @@ document.addEventListener("DOMContentLoaded", () => {
     const equipButton = document.querySelector(".equip-button");
     const sellButton = document.querySelector(".sell-button");
 
-    
+
     function toggleEquip(itemId, equip) {
         authorizedFetch("https://jm-money.com/api/item/equip", {
             method: "POST",
@@ -220,12 +220,16 @@ document.addEventListener("DOMContentLoaded", () => {
             .then(res => res.json())
             .then(data => {
                 showPopup(data.message || (equip ? "장착 완료!" : "해제 완료!"));
-                location.reload();
+                fetchInventory();
+                selectedItem.equipped = equip;
+                if (equipButton) {
+                    equipButton.textContent = equip ? "해제하기" : "장착하기";
+                }
             })
             .catch(err => showPopup("장착 요청 실패: " + err.message));
     }
 
-    
+
     if (equipButton) {
         equipButton.addEventListener("click", () => {
             if (!selectedItem) return showPopup("아이템을 선택해주세요!");
@@ -233,7 +237,7 @@ document.addEventListener("DOMContentLoaded", () => {
         });
     }
 
-    
+
     categoryButtons.forEach(button => {
         button.addEventListener("click", () => {
             const filter = button.dataset.filter;
@@ -244,7 +248,7 @@ document.addEventListener("DOMContentLoaded", () => {
         });
     });
 
-   
+
     function fetchInventory() {
         authorizedFetch("https://jm-money.com/api/item/inventory")
             .then(res => res.json())
@@ -258,7 +262,7 @@ document.addEventListener("DOMContentLoaded", () => {
 
 
 
- 
+
     if (sellButton) {
         sellButton.addEventListener("click", async () => {
             if (!selectedItem) {
