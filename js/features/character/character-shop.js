@@ -76,9 +76,18 @@ document.addEventListener("DOMContentLoaded", () => {
 
   const categoryButtons = document.querySelectorAll(".category");
 
+  const allButton = document.querySelector('.category[data-filter="전체"]');
+  if (allButton) {
+    allButton.classList.add("active");
+  }
+
   
   categoryButtons.forEach(button => {
     button.addEventListener("click", () => {
+      categoryButtons.forEach(btn => {
+        btn.classList.remove("active");
+      });
+      button.classList.add("active");
       const filter = button.dataset.filter;
       const filtered = filter === "전체"
         ? shopItems

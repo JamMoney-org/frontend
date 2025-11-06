@@ -210,6 +210,10 @@ document.addEventListener("DOMContentLoaded", () => {
     const previewPrice = document.getElementById("selectedItemPrice");
     const equipButton = document.querySelector(".equip-button");
     const sellButton = document.querySelector(".sell-button");
+    const allButton = document.querySelector('.category[data-filter="전체"]');
+    if (allButton) {
+        allButton.classList.add("active");
+    }
 
 
     function toggleEquip(itemId, equip) {
@@ -240,6 +244,10 @@ document.addEventListener("DOMContentLoaded", () => {
 
     categoryButtons.forEach(button => {
         button.addEventListener("click", () => {
+            categoryButtons.forEach(btn => {
+                btn.classList.remove("active");
+            });
+            button.classList.add("active");
             const filter = button.dataset.filter;
             const filtered = filter === "전체"
                 ? inventoryItems
@@ -287,7 +295,9 @@ document.addEventListener("DOMContentLoaded", () => {
                 .then(res => res.json())
                 .then(data => {
                     showPopup(data.message || "판매 완료!");
-                    setTimeout(() => location.reload(), 300);
+                    fetchInventory();
+                    document.getElementById("selectedItemInfo").style.display = "none";
+                    selectedItem = null;
                 })
                 .catch(err => showPopup("판매 실패: " + err.message));
         });
