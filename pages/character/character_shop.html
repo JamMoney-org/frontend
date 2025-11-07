@@ -26,15 +26,17 @@
 
     <!-- 구현 영역 -->
     <div class="content">
-      <!-- <div>
-        <div class="cash">🪙0 cash</div>
-      </div> -->
+
+      <div class="cash-display">
+        <span class="cash-label">보유 자산</span>
+        <span class="cash" id="currentUserCash"></span>
+      </div>
       <!-- 선택된 아이템 정보 영역 -->
       <div class="selected-item-info" id="selectedItemInfo">
         <img src="" alt="선택된 아이템" class="selected-item-img" id="selectedItemImage" />
         <div class="item-meta">
-          <span class="item-name" id="selectedItemName">아이템 이름</span>
-          <span class="item-price" id="selectedItemPrice">🪙0 cash</span>
+          <span class="item-name" id="selectedItemName"></span>
+          <span class="item-price" id="selectedItemPrice"></span>
           <button class="buy-button">구매하기</button>
 
         </div>
@@ -42,7 +44,7 @@
 
       <!-- 상단 카테고리 버튼 -->
       <div class="category-buttons">
-        <button class="category" data-filter="전체">전체</button>
+        <button class="category active" data-filter="전체">전체</button>
         <button class="category" data-filter="BACKGROUND">배경</button>
         <button class="category" data-filter="OBJECT">장식</button>
       </div>

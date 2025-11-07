@@ -222,3 +222,34 @@ body {
 .custom-confirm-btn.cancel {
   background-color: #a2a2a2;
 }
+
+.cash-display {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-end;
+
+  margin-bottom: 15px;
+  padding: 8px 12px;
+  background-color: none;
+  border: 3px solid hsl(159, 45%, 56%, 0.4);
+  border-radius: 10px;
+  width: fit-content;
+  margin-left: auto;
+}
+
+.cash-label {
+  font-size: 0.9em;
+  font-weight: 600;
+  color: #999;
+}
+
+.cash {
+  font-size: 1.1em;
+  font-weight: 600;
+  color: #333;
+  margin-top: 4px;
+}
+
+.item-box.purchased {
+  display: none;
+}
