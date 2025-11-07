@@ -21,7 +21,10 @@ const choicesEl = document.querySelector('.choices');
   scenario.choices.forEach((choice, idx) => {
     const btn = document.createElement('button');
     btn.className = 'choice-btn';
-    btn.textContent = `${idx + 1}. ${choice.content}`;
+    btn.innerHTML = `
+    <span class="num">${idx + 1}</span>
+    <span class="label">${choice.content}</span>
+  `;
     btn.addEventListener('click', () => {
       location.href = `/pages/scenario/scenario_feedback.html?choiceId=${choice.choiceId}`;
     });
