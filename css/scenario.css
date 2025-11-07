@@ -73,7 +73,6 @@
 }
 
 .simul-wrapper {
-  text-align: center;
   padding-bottom: 2rem;
 }
 
@@ -88,28 +87,47 @@
   padding: 2rem 1.5rem;
   box-shadow: 0 2px 6px rgba(0, 0, 0, 0.05);
   border-top: 5px solid #5DC29E;
+
+  width: min(100%, 500px);
   max-width: 500px;
+  min-width: 320px;
   min-height: 450px;
+  flex: 0 0 auto;
+  box-sizing: border-box;
+
   margin: 0 auto;
   position: relative;
-  justify-content: space-around;
+
   display: flex;
   flex-direction: column;
+  justify-content: space-around;
   gap: 2rem;
-  /* 요소 간 간격 */
 }
 
-.simul-card h3 {
-  font-size: 17px;
-  color: #333;
+.eyebrow {
+  display: inline-block;
+  font-size: 16px;
+  font-weight: 600;
+  letter-spacing: .06em;
+  color: #2c8b71;
+  background: rgba(93, 194, 158, .14);
+  padding: 5px 10px;
+  border-radius: 999px;
 }
 
-.simul-card p {
-  font-size: 15px;
-  color: #444;
-  line-height: 1.6;
-  margin: 0 auto;
-  max-width: 380px;
+.title {
+  font-size: 1.6rem;
+  font-weight: 700;
+  color: #1f1f1f;
+  line-height: 1.55;
+  margin: 4px 0 8px;
+}
+
+.desc {
+  font-size: 16px;
+  color: rgba(0, 0, 0, 0.8);
+  line-height: 1.7;
+  font-weight: 400;
 }
 
 .start-btn {
