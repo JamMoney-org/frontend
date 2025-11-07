@@ -282,6 +282,30 @@
   background-color: #53b38e;
 }
 
+.coach-row {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding-top: 5px;
+  gap: 6px;
+}
+
+.coach {
+  width: clamp(110px, 22vw, 80px);
+  height: auto;
+  image-rendering: pixelated;
+}
+
+.simul-spacing {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  min-height: calc(100dvh - 155px);
+  margin: 0 10px;
+}
+
+
+
 .end {
   text-align: center;
 }
@@ -298,6 +322,7 @@
 .actions {
   display: flex;
   flex-direction: column;
+  align-self: stretch;
   gap: 10px;
 }
 
@@ -497,4 +522,38 @@
   display: block;
   z-index: 0;
   pointer-events: none;
+}
+
+.feedback-text {
+  font-size: 15px;
+  line-height: 1.6;
+  font-weight: 500;
+  padding: 0 6px;
+}
+
+.summary-box {
+  background: #ffffff;
+  border-radius: 16px;
+  padding: 16px 18px;
+  margin: 18px 0;
+  box-shadow: 0 10px 24px rgb(0 0 0 / 46%);
+  position: relative;
+  border-left: 4px solid #5DC29E;
+}
+
+.summary-box::before {
+  content: "";
+  position: absolute;
+  bottom: 100%;
+  left: 36px;
+  border: 10px solid transparent;
+  border-bottom-color: #fff;
+  filter: drop-shadow(0 -4px 6px rgba(0, 0, 0, .15));
+}
+
+.summary-spacing {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  margin: 0 10px;
 }
