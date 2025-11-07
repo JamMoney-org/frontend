@@ -105,4 +105,12 @@ async function loadEquippedItems() {
 document.addEventListener('DOMContentLoaded', () => {
     fetchAndSetCharacterImage();
     loadEquippedItems();
+    const characterArea = document.querySelector('.character-area');
+
+    if (characterArea) {
+        characterArea.style.cursor = 'pointer';
+        characterArea.addEventListener('click', () => {
+            location.href = '/pages/character/character_main.html';
+        });
+    }
 });
