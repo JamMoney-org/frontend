@@ -50,17 +50,20 @@
 .scenario-header {
   display: flex;
   justify-content: space-between;
+  align-items: center;
+  margin-bottom: 0.5rem;
 }
 
 .scenario-title {
-  font-size: 1rem;
-  font-weight: 600;
-  color: #FFFFFF;
+  font-size: 1.2rem;
+  font-weight: 800;
+  color: #fff;
+  text-shadow: 0 1px 2px rgba(0, 0, 0, 0.15);
 }
 
 .scenario-desc {
   font-size: 15px;
-  color: #FFFFFF;
+  color: rgba(230, 230, 230, 1);
   margin-top: 0.3rem;
 }
 
@@ -142,14 +145,11 @@
   content: '';
   position: absolute;
   top: -20px;
-  /* 위쪽으로 꼬리 이동 */
   left: 50px;
-  /* 원하는 위치 조정 (가운데로 하고 싶으면 50% + transform) */
   width: 0;
   height: 0;
   border: 10px solid transparent;
   border-bottom-color: #ffffff;
-  /* 꼬리가 아래를 향하게 */
   filter: drop-shadow(0px -4px 6px rgba(0, 0, 0, 0.2));
 }
 
@@ -251,16 +251,15 @@
 
 .category-grid {
   display: grid;
-  grid-template-columns: repeat(2, 0.7fr);
+  grid-template-columns: repeat(2, minmax(0, 1fr));
   gap: 12px;
   padding: 15px 0;
   margin: 15px 11px;
+  width: 100%;
+  max-width: 720px;
+  margin-inline: auto;
 }
 
-.label-box {
-  padding-left: 0.3em;
-  margin-top: 30px;
-}
 
 .category-item {
   display: flex;
@@ -278,11 +277,21 @@
   font-weight: 600;
   cursor: pointer;
   transition: background-color 0.3s ease;
+  width: 100%;
+}
+
+.center {
+  display: flex;
+  align-items: center;
+  min-height: calc(100dvh - 120px);
+  box-sizing: border-box;
+  padding: 0 1.2rem;
+  width: 100%;
+  flex: 1 1 auto;
 }
 
 .category-item:hover {
   background-color: rgba(93, 194, 158, 0.9);
-  /* 더 밝고 진한 배경색 */
 }
 
 .category-icon {
@@ -341,24 +350,19 @@
 
 .main-content {
   position: relative;
-  /* overlay의 기준이 될 부모 */
 }
 
-/* scenario.css 또는 공통 버튼 스타일 파일에 추가 */
 
 .loading-btn {
   background-color: #ccc !important;
-  /* 회색으로 고정 */
   color: #fff;
   cursor: not-allowed;
   pointer-events: none;
-  /* 클릭 막기 */
   transition: none;
 }
 
 .loading-btn:hover {
   background-color: #ccc;
-  /* hover 색 변화 막기 */
 }
 
 /* 물결 애니메이션 */

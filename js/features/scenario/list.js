@@ -72,7 +72,7 @@ async function loadScenarioList(category, enumCategory) {
     );
     const data = await res.json();
 
-    categoryLabelEl.textContent = `${category} - 상황선택`;
+    categoryLabelEl.textContent = `${category}`;
 
     if (data.length === 0) {
       scenarioListEl.innerHTML = '<p>등록된 시나리오가 없습니다.</p>';
@@ -94,7 +94,6 @@ async function loadScenarioList(category, enumCategory) {
 const statusRes = await authorizedFetch('https://jm-money.com/api/pet/status');
 const response = await statusRes.json();
 const characterLevel = response.data.level;
-
 
 (function () {
   const params = new URLSearchParams(location.search);
