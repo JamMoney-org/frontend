@@ -74,19 +74,27 @@ fetchUserInfo()
 
 
 async function fetchTotalAsset() {
-    const res = await authorizedFetch("https://jm-money.com/api/portfolio", {
-        method: "GET",
-    });
+    try {
+        const res = await authorizedFetch("https://jm-money.com/api/portfolio", {
+            method: "GET",
+        });
 
-    if (!res.ok) {
-        document.getElementById("asset-value").textContent = "0원";
-        return;
+        if (!res.ok) {
+            document.getElementById("asset-value").textContent = "0원";
+            return;
+        }
+
+        const data = await res.json();
+        const money = data.money || 0;
+        const stockAsset = data.stockAsset || 0;
+        const combinedTotalAsset = money + stockAsset;
+
+        document.getElementById("asset-value").textContent = combinedTotalAsset.toLocaleString() + "원";
+
+    } catch (error) {
+        console.error("포트폴리오 정보 로딩 실패:", error);
+        document.getElementById("asset-value").textContent = "정보 로드 실패";
     }
-
-    const data = await res.json();
-    const totalAsset = data.totalAsset ?? 0; 
-
-    document.getElementById("asset-value").textContent = totalAsset.toLocaleString() + "원";
 }
 
 
@@ -113,7 +121,6 @@ document.addEventListener("DOMContentLoaded", () => {
         }
     });
 });
-
 
 
 async function logout() {
