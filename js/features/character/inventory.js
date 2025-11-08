@@ -71,7 +71,7 @@ async function getCurrentTotalCash() {
         }
 
         const data = await res.json();
-        return data.money || 0;
+        return (data.money + data.stockAsset) || 0;
 
     } catch (err) {
         console.error("총 보유 현금 조회 실패:", err);
