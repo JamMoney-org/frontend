@@ -51,6 +51,7 @@ body {
 
 .input input {
   background-color: #ffffff;
+  padding-left: 47px;
 }
 
 
@@ -82,9 +83,7 @@ body {
   pointer-events: none;
 }
 
-.input input {
-  padding-left: 35px;
-}
+
 
 .popup-message {
   position: fixed;
