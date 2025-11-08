@@ -83,28 +83,15 @@ body {
   pointer-events: none;
 }
 
-
-
-.popup-message {
-  position: fixed;
-  top: 100px;
-  left: 50%;
-  transform: translateX(-50%);
-  background: #fff;
-  color: #555;
-  padding: 15px 25px;
-  border-radius: 10px;
-  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.1);
-  font-weight: bold;
-  z-index: 10000;
-  opacity: 0;
-  pointer-events: none;
-  transition: opacity 0.3s ease;
-  max-width: 90%;
-  text-align: center;
-}
-
-.popup-message.show {
-  opacity: 0.8;
-  pointer-events: auto;
+.error-message {
+  color: #e74c3c;
+  font-size: 13px;
+  text-align: left;
+  width: 100%;
+  max-width: 360px;
+  padding-left: 15px;
+  box-sizing: border-box;
+  margin-top: -5px;
+  margin-bottom: 10px;
+  display: none;
 }
