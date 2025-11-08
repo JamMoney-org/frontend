@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="ko">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>JamMoney - 오답노트</title>
+    <link rel="icon" href="/assets/images/favicon.png" type="image/png">
+    <link rel="stylesheet" href="/css/style.css">
+    <link rel="stylesheet" href="/css/wrong_note.css">
+</head>
+
+<body>
+    <!-- 메인 콘텐츠 영역 -->
+    <div class="main-content">
+        <!-- 헤더 영역 -->
+        <header>
+            <button class="back-button" onclick="history.back();">
+                <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                    <path d="M15 19L8 12L15 5" stroke="currentColor" stroke-width="2" stroke-linecap="round"
+                        stroke-linejoin="round" />
+                </svg>
+            </button>
+            오답노트 상세
+        </header>
+
+        <!-- 콘텐츠 -->
+        <div class="content">
+            <div class="quiz-card">
+
+
+                <div class="quiz-detail">
+                    <p class="quiz-title" id="question">문제</p>
+                    <p>❌ 선택한 답: <span id="user-answer"></span></p>
+                    <p>✅ 정답: <span id="correct-answer"></span></p>
+                    <p>📘 해설: <span id="explanation"></span></p>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div id="navbar"></div>
+    <script src="/js/script.js"></script>
+    <script type="module" src="/js/features/mypage/wrong-note.js"></script>
+</body>
+
+</html>

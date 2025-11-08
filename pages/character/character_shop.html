@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html lang="ko">
+
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>JamMoney - 아이템 상점</title>
+  <link rel="icon" href="/assets/images/favicon.png" type="image/png">
+  <link rel="stylesheet" href="/css/style.css" />
+  <link rel="stylesheet" href="/css/character_shop.css" />
+</head>
+
+<body>
+  <!-- 메인 콘텐츠 영역 -->
+  <div class="main-content">
+    <!-- 헤더 영역 -->
+    <header>
+      <button class="back-button" onclick="history.back();">
+        <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+          <path d="M15 19L8 12L15 5" stroke="currentColor" stroke-width="2" stroke-linecap="round"
+            stroke-linejoin="round" />
+        </svg>
+      </button>
+      아이템 상점
+    </header>
+
+    <!-- 구현 영역 -->
+    <div class="content">
+      <!-- <div>
+        <div class="cash">🪙0 cash</div>
+      </div> -->
+      <!-- 선택된 아이템 정보 영역 -->
+      <div class="selected-item-info" id="selectedItemInfo">
+        <img src="" alt="선택된 아이템" class="selected-item-img" id="selectedItemImage" />
+        <div class="item-meta">
+          <span class="item-name" id="selectedItemName">아이템 이름</span>
+          <span class="item-price" id="selectedItemPrice">🪙0 cash</span>
+          <button class="buy-button">구매하기</button>
+
+        </div>
+      </div>
+
+      <!-- 상단 카테고리 버튼 -->
+      <div class="category-buttons">
+        <button class="category" data-filter="전체">전체</button>
+        <button class="category" data-filter="BACKGROUND">배경</button>
+        <button class="category" data-filter="OBJECT">장식</button>
+      </div>
+      <!-- 상품 리스트 -->
+      <div class="item-grid"></div>
+
+    </div>
+  </div>
+
+  <div id="navbar"></div>
+  <script src="/js/script.js"></script>
+  <script type="module" src="/js/features/character/character-shop.js"></script>
+</body>
+
+</html>

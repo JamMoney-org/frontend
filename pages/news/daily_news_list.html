@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html lang="ko">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>JamMoney - 데일리 뉴스</title>
+    <link rel="icon" href="/assets/images/favicon.png" type="image/png" />
+    <link rel="stylesheet" href="/css/style.css" />
+    <link rel="stylesheet" href="/css/news_style.css" />
+  </head>
+
+  <body>
+    <div class="main-content">
+      <header>
+        <button class="back-button" onclick="history.back();">
+          <svg
+            width="24"
+            height="24"
+            viewBox="0 0 24 24"
+            fill="none"
+            xmlns="http://www.w3.org/2000/svg"
+          >
+            <path
+              d="M15 19L8 12L15 5"
+              stroke="currentColor"
+              stroke-width="2"
+              stroke-linecap="round"
+              stroke-linejoin="round"
+            />
+          </svg>
+        </button>
+        데일리 뉴스
+      </header>
+
+      <div class="content">
+        <div class="prompt-box">
+          <div class="prompt-icon">📰</div>
+          <div>
+            <p class="prompt-title">오늘의 금융 뉴스 퀴즈</p>
+            <p class="prompt-sub">
+              뉴스를 읽고 퀴즈로 나의 금융 감각을 테스트해보세요!
+            </p>
+          </div>
+        </div>
+
+        <h3 id="content-title">최신 뉴스</h3>
+
+        <div class="news-list" id="news-list"></div>
+      </div>
+    </div>
+
+    <div id="navbar"></div>
+    <script src="/js/script.js"></script>
+    <script type="module" src="/js/features/news/daily-news-list.js"></script>
+  </body>
+</html>

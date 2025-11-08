@@ -1,0 +1,83 @@
+<!DOCTYPE html>
+<html lang="ko">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>JamMoney - 마이페이지</title>
+  <link rel="icon" href="/assets/images/favicon.png" type="image/png">
+  <link rel="stylesheet" href="/css/style.css">
+  <link rel="stylesheet" href="/css/mypage.css">
+</head>
+
+<body>
+  <!-- 메인 콘텐츠 영역 -->
+  <div class="main-content">
+
+    <!-- 헤더 영역 -->
+    <header>
+      <button class="back-button" onclick="history.back();">
+        <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+          <path d="M15 19L8 12L15 5" stroke="currentColor" stroke-width="2" stroke-linecap="round"
+            stroke-linejoin="round" />
+        </svg>
+      </button>
+      마이페이지
+    </header>
+
+    <!-- 구현 영역 -->
+    <div class="content">
+      <!-- 회원 정보 수정 -->
+      <section class="section">
+        <h4>회원 정보 수정</h4>
+        <a href="/pages/mypage/edit_profile.html" class="profile-card">
+          <div class="profile-text">
+            <p class="nickname"></p>
+            <p class="email"></p>
+          </div>
+          <span class="arrow">›</span>
+        </a>
+      </section>
+
+      <!-- 보유 자산 -->
+      <section class="section">
+        <div class="divider"></div>
+        <h4>보유 자산</h4>
+        <div class="asset-card">
+          <div class="asset-text">
+            <div class="asset-label">현재 보유 자산 💰</div>
+            <div class="asset-value" id="asset-value"></div>
+          </div>
+        </div>
+
+        <div class="divider"></div>
+      </section>
+
+      <!-- 학습 -->
+      <section class="section">
+        <h4>나의 학습 기록</h4>
+        <div class="learning-list">
+          <a href="/pages/vocabulary/my_vocabulary.html" class="learning-item">
+            <span>내가 저장한 단어 🔤</span>
+            <span class="arrow">›</span>
+          </a>
+          <a href="/pages/mypage/wrong_note_list.html" class="learning-item">
+            <span>금융 퀴즈 오답노트 📒</span>
+            <span class="arrow">›</span>
+          </a>
+        </div>
+      </section>
+
+      <!-- 로그아웃/회원탈퇴 -->
+      <button class=logout>로그아웃</button>
+      <button class=delete>회원 탈퇴</button>
+    </div>
+
+  </div>
+
+  <div id="navbar"></div>
+  <script src="/js/script.js"></script>
+  <script type="module" src="/js/features/mypage/mypage.js"></script>
+</body>
+
+</html>

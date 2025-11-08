@@ -59,7 +59,7 @@ function createScenarioItem(scenario) {
     item.addEventListener('click', () => {
       const rewardMap = { EASY: 10, NORMAL: 20, HARD: 30 };
       sessionStorage.setItem('reward', rewardMap[scenario.difficulty]);
-      location.href = `/pages/scenario_intro.html?scenarioId=${scenario.id}`;
+      location.href = `/pages/scenario/scenario_intro.html?scenarioId=${scenario.id}`;
     });
   }
   return item;
@@ -72,7 +72,6 @@ async function loadScenarioList(category, enumCategory) {
     );
     const data = await res.json();
 
-    // 헤더 타이틀 갱신
     categoryLabelEl.textContent = `${category} - 상황선택`;
 
     if (data.length === 0) {
@@ -92,13 +91,11 @@ async function loadScenarioList(category, enumCategory) {
   }
 }
 
-const statusRes = await authorizedFetch(
-  'https://jm-money.com/api/pet/status'
-);
+const statusRes = await authorizedFetch('https://jm-money.com/api/pet/status');
 const response = await statusRes.json();
 const characterLevel = response.data.level;
 
-// 진입점
+
 (function () {
   const params = new URLSearchParams(location.search);
   const category = params.get('category');

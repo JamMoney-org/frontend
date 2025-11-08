@@ -12,15 +12,15 @@ document.addEventListener("DOMContentLoaded", () => {
   const bookmarkButton = document.querySelector(".bookmark");
 
   const bookmarkIcon = {
-    active: "../assets/icon/bookmark-fill-frame.svg",
-    inactive: "../assets/icon/bookmark.svg"
+    active: "/assets/icon/bookmark-fill-frame.svg",
+    inactive: "/assets/icon/bookmark.svg",
   };
 
   const selectedDifficulty = localStorage.getItem("selectedDifficulty");
   const displayMap = {
-    "초급": "초급 퀴즈",
-    "중급": "중급 퀴즈",
-    "고급": "고급 퀴즈"
+    초급: "초급 퀴즈",
+    중급: "중급 퀴즈",
+    고급: "고급 퀴즈",
   };
   const header = document.querySelector("header");
   if (selectedDifficulty && displayMap[selectedDifficulty]) {
@@ -63,7 +63,7 @@ document.addEventListener("DOMContentLoaded", () => {
       button.addEventListener("click", () => {
         if (isAnswered) return;
 
-        document.querySelectorAll(".quiz-option").forEach(btn => {
+        document.querySelectorAll(".quiz-option").forEach((btn) => {
           btn.classList.remove("selected");
         });
         button.classList.add("selected");
@@ -93,7 +93,7 @@ document.addEventListener("DOMContentLoaded", () => {
     const modal = document.createElement("div");
     modal.classList.add("modal");
 
-    const lines = message.split('\n');
+    const lines = message.split("\n");
     const resultLine = lines[0];
     const explanationLines = lines.slice(1).join("<br>");
     const resultClass = isCorrect ? "result correct" : "result incorrect";
@@ -103,7 +103,11 @@ document.addEventListener("DOMContentLoaded", () => {
         <p class="${resultClass}">${resultLine}</p>
         <p class="explanation">${explanationLines}</p>
         <div class="modal-buttons">
-          ${!isCorrect ? `<button id="save-wrong-note" class="modal-button">오답노트 저장</button>` : ""}
+          ${
+            !isCorrect
+              ? `<button id="save-wrong-note" class="modal-button">오답노트 저장</button>`
+              : ""
+          }
           <button id="modal-confirm" class="modal-button">확인</button>
         </div>
       </div>
@@ -116,40 +120,39 @@ document.addEventListener("DOMContentLoaded", () => {
     confirmBtn.addEventListener("click", closeModal);
 
     if (!isCorrect) {
-    const saveBtn = document.getElementById("save-wrong-note");
-    saveBtn.addEventListener("click", async () => {
-      const quiz = quizData[currentQuestionIndex];
+      const saveBtn = document.getElementById("save-wrong-note");
+      saveBtn.addEventListener("click", async () => {
+        const quiz = quizData[currentQuestionIndex];
 
-      try {
-        const response = await authorizedFetch("https://jm-money.com/api/wrong-notes", {
-          method: "POST",
-          body: JSON.stringify({
-            question: quiz.question,
-            selectedOption: quiz.options[quiz.userAnswerIndex],
-            correctAnswer: quiz.options[quiz.correctIndex],
-            explanation: quiz.explanation,
-            hint: quiz.hint,
-            category: quiz.category || "ETC"
-          })
-        });
+        try {
+          const response = await authorizedFetch(
+            "https://jm-money.com/api/wrong-notes",
+            {
+              method: "POST",
+              body: JSON.stringify({
+                question: quiz.question,
+                selectedOption: quiz.options[quiz.userAnswerIndex],
+                correctAnswer: quiz.options[quiz.correctIndex],
+                explanation: quiz.explanation,
+                hint: quiz.hint,
+                category: quiz.category || "ETC",
+              }),
+            }
+          );
 
-        if (!response.ok) {
-          throw new Error("오답노트 저장 실패");
+          if (!response.ok) {
+            throw new Error("오답노트 저장 실패");
+          }
+
+          saveBtn.disabled = true;
+          saveBtn.textContent = "저장 완료";
+          saveBtn.style.backgroundColor = "#CCCCCC";
+        } catch (err) {
+          console.error("오답노트 저장 오류:", err);
         }
-
-        // ✅ 저장 완료 스타일 적용
-        saveBtn.disabled = true;
-        saveBtn.textContent = "저장 완료";
-        saveBtn.style.backgroundColor = "#CCCCCC"; // 회색으로 변경
-
-      } catch (err) {
-        console.error("오답노트 저장 오류:", err);
-      }
-    });
+      });
+    }
   }
-
-}
-
 
   function closeModal() {
     const modal = document.querySelector(".modal");
@@ -167,20 +170,24 @@ document.addEventListener("DOMContentLoaded", () => {
       quiz.userAnswerIndex = selectedAnswer;
 
       try {
-        const response = await authorizedFetch("https://jm-money.com/api/quiz/submit", {
-          method: "POST",
-          body: JSON.stringify({
-            quiz: quiz,
-            userAnswerIndex: selectedAnswer
-          })
-        });
+        const response = await authorizedFetch(
+          "https://jm-money.com/api/quiz/submit",
+          {
+            method: "POST",
+            body: JSON.stringify({
+              quiz: quiz,
+              userAnswerIndex: selectedAnswer,
+            }),
+          }
+        );
 
         const result = await response.json();
         const { correct, explanation } = result.data;
         document.querySelectorAll(".quiz-option").forEach((btn, i) => {
           btn.classList.remove("selected");
           if (i === quiz.correctIndex) btn.classList.add("correct");
-          else if (i === selectedAnswer && i !== quiz.correctIndex) btn.classList.add("incorrect");
+          else if (i === selectedAnswer && i !== quiz.correctIndex)
+            btn.classList.add("incorrect");
         });
 
         const message = correct
@@ -202,15 +209,15 @@ document.addEventListener("DOMContentLoaded", () => {
         isAnswered = false;
         selectedAnswer = null;
       } else {
-        const quizResults = quizData.map(quiz => ({
-        correct: quiz.userAnswerIndex === quiz.correctIndex
-      }));
+        const quizResults = quizData.map((quiz) => ({
+          correct: quiz.userAnswerIndex === quiz.correctIndex,
+        }));
 
-      localStorage.setItem("quizResults", JSON.stringify(quizResults));
-      window.location.href = "/pages/quiz_result.html";
+        localStorage.setItem("quizResults", JSON.stringify(quizResults));
+        window.location.href = "/pages/finance-quiz/quiz_result.html";
       }
     }
   });
-  
+
   renderQuestion(currentQuestionIndex);
 });

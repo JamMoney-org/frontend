@@ -40,7 +40,6 @@ body {
     max-height: 80%;
 }
 
-/* 카테고리 버튼 */
 .category-buttons {
     display: flex;
     justify-content: space-between;
@@ -66,7 +65,6 @@ body {
     font-weight: bold;
 }
 
-/* 아이템 그리드 */
 .item-grid {
     display: grid;
     grid-template-columns: repeat(5, 1fr);
@@ -91,7 +89,6 @@ body {
     box-sizing: border-box;
 }
 
-/* 선택된 아이템 영역 */
 .selected-item-info {
     display: none;
     position: absolute;
@@ -131,7 +128,6 @@ body {
     width: auto;
 }
 
-/* 버튼 */
 .sell-button,
 .equip-button {
     background-color: #5DC29E;

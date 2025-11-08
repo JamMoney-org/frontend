@@ -1,6 +1,5 @@
 export async function authorizedFetch(url, options = {}) {
   let accessToken = localStorage.getItem("accessToken");
-  let refreshToken = localStorage.getItem("refreshToken");
 
   let headers = {
     "Content-Type": "application/json",
@@ -12,27 +11,23 @@ export async function authorizedFetch(url, options = {}) {
     let response = await fetch(url, {
       ...options,
       headers,
+      credentials: "include",
     });
 
-    // accessToken 만료 처리
-    if (response.status === 401 && refreshToken) {
+    if (response.status === 401) {
       console.warn("accessToken 만료됨 → refresh 시도");
 
       const refreshRes = await fetch("https://jm-money.com/api/auth/refresh", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({ refreshToken }),
+        credentials: "include",
       });
 
       if (!refreshRes.ok) throw new Error("refreshToken도 만료됨");
 
-      const { accessToken: newAccessToken, refreshToken: newRefreshToken } =
-        await refreshRes.json();
-
+      const { accessToken: newAccessToken } = await refreshRes.json();
       localStorage.setItem("accessToken", newAccessToken);
-      localStorage.setItem("refreshToken", newRefreshToken);
 
-      // 원래 요청 재시도
       return fetch(url, {
         ...options,
         headers: {
@@ -40,6 +35,7 @@ export async function authorizedFetch(url, options = {}) {
           ...options.headers,
           Authorization: `Bearer ${newAccessToken}`,
         },
+        credentials: "include",
       });
     }
 
@@ -47,7 +43,7 @@ export async function authorizedFetch(url, options = {}) {
   } catch (err) {
     console.error("authorizedFetch 오류:", err);
     alert("세션이 만료되었습니다. 다시 로그인해주세요.");
-    window.location.href = "/pages/index.html";
+    window.location.href = "/";
     throw err;
   }
 }

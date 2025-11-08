@@ -1,0 +1,84 @@
+<!DOCTYPE html>
+<html lang="ko">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>JamMoney - 데일리 뉴스 본문</title>
+    <link rel="icon" href="/assets/images/favicon.png" type="image/png" />
+    <link rel="stylesheet" href="/css/style.css" />
+    <link rel="stylesheet" href="/css/news_style.css" />
+  </head>
+
+  <body>
+    <div class="main-content">
+      <header>
+        <button class="back-button" onclick="history.back();">
+          <svg
+            width="24"
+            height="24"
+            viewBox="0 0 24 24"
+            fill="none"
+            xmlns="http://www.w3.org/2000/svg"
+          >
+            <path
+              d="M15 19L8 12L15 5"
+              stroke="currentColor"
+              stroke-width="2"
+              stroke-linecap="round"
+              stroke-linejoin="round"
+            />
+          </svg>
+        </button>
+        데일리 뉴스
+      </header>
+
+      <div class="content">
+        <article>
+          <h2 class="article-title"></h2>
+          <p id="source"></p>
+          <br />
+          <hr />
+          <div class="ai-summary">
+            <h4 style="font-size: 13px; display: flex; align-items: center">
+              <img
+                src="/assets/icon/light-bulb.svg"
+                alt="AI 요약"
+                style="width: 16px; height: 16px; margin-right: 4px"
+              />
+              AI 요약
+            </h4>
+            <ul></ul>
+          </div>
+          <div class="article-content"></div>
+        </article>
+        <br />
+        <hr />
+
+        <div class="quiz-container">
+          <h4>관련 퀴즈</h4>
+          <p id="question"></p>
+        </div>
+      </div>
+
+      <div id="ai-loading-overlay" class="hidden"></div>
+
+      <div id="ai-loading-tip" class="hidden">
+        🦖 공룡 AI가 뉴스를 읽고 있어요!<br />
+        곧 요약과 쉬운 단어 설명을 보여줄 거예요!
+      </div>
+    </div>
+
+    <div id="navbar"></div>
+    <script src="/js/script.js"></script>
+    <script type="module" src="/js/features/news/daily-news-detail.js"></script>
+
+    <div id="quiz-modal" class="modal" style="display: none">
+      <div class="modal-content">
+        <p id="quiz-modal-message">정답입니다!</p>
+        <button id="quiz-modal-close">확인</button>
+      </div>
+    </div>
+
+    <div id="easy-toast" class="easy-toast"></div>
+  </body>
+</html>

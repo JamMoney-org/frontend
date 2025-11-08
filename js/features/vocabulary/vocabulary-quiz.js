@@ -15,7 +15,7 @@ document.addEventListener("DOMContentLoaded", async () => {
   let currentQuestionIndex = 0;
   let selectedAnswer = null;
   let isAnswered = false;
-  let correctCount = 0; // ✅ 맞은 문제 수 카운트
+  let correctCount = 0;
 
   if (!categoryName || !dayIndex) {
     alert("잘못된 접근입니다.");
@@ -63,7 +63,9 @@ document.addEventListener("DOMContentLoaded", async () => {
 
       btn.addEventListener("click", () => {
         if (isAnswered) return;
-        document.querySelectorAll(".quiz-option").forEach(b => b.classList.remove("selected"));
+        document
+          .querySelectorAll(".quiz-option")
+          .forEach((b) => b.classList.remove("selected"));
         btn.classList.add("selected");
         selectedAnswer = i;
         nextButton.disabled = false;
@@ -100,7 +102,9 @@ document.addEventListener("DOMContentLoaded", async () => {
     document.body.appendChild(backdrop);
     document.body.appendChild(modal);
 
-    document.getElementById("modal-confirm").addEventListener("click", closeModal);
+    document
+      .getElementById("modal-confirm")
+      .addEventListener("click", closeModal);
   }
 
   function closeModal() {
@@ -123,15 +127,18 @@ document.addEventListener("DOMContentLoaded", async () => {
           answers: [
             {
               quizId: quiz.quizId,
-              selectedAnswer: selectedAnswer.toString()
-            }
-          ]
+              selectedAnswer: selectedAnswer.toString(),
+            },
+          ],
         };
 
-        const response = await authorizedFetch("https://jm-money.com/api/terms/quiz/submit", {
-          method: "POST",
-          body: JSON.stringify(submitPayload)
-        });
+        const response = await authorizedFetch(
+          "https://jm-money.com/api/terms/quiz/submit",
+          {
+            method: "POST",
+            body: JSON.stringify(submitPayload),
+          }
+        );
 
         if (!response.ok) {
           const errorText = await response.text();
@@ -147,11 +154,12 @@ document.addEventListener("DOMContentLoaded", async () => {
         document.querySelectorAll(".quiz-option").forEach((btn, i) => {
           btn.classList.remove("selected", "correct", "incorrect");
           if (i === correctAnswer) btn.classList.add("correct");
-          if (i === selected && i !== correctAnswer) btn.classList.add("incorrect");
+          if (i === selected && i !== correctAnswer)
+            btn.classList.add("incorrect");
         });
 
         const message = isCorrect ? "✅ 정답입니다!" : "❌ 오답입니다.";
-        if (isCorrect) correctCount++; // ✅ 맞힌 문제 카운트
+        if (isCorrect) correctCount++;
         showModal(message);
 
         nextButton.textContent = "다음 문제";
@@ -167,14 +175,15 @@ document.addEventListener("DOMContentLoaded", async () => {
         isAnswered = false;
         selectedAnswer = null;
       } else {
-        // ✅ 결과 저장
-        localStorage.setItem("quizResultSummary", JSON.stringify({
-          totalQuestions: quizzes.length,
-          correctCount: correctCount
-        }));
+        localStorage.setItem(
+          "quizResultSummary",
+          JSON.stringify({
+            totalQuestions: quizzes.length,
+            correctCount: correctCount,
+          })
+        );
 
-        // ✅ 결과 페이지로 이동
-        window.location.href = "/pages/vocabulary_quiz_result.html";
+        window.location.href = "/pages/vocabulary/vocabulary_quiz_result.html";
       }
     }
   });

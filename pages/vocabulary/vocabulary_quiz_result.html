@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html lang="ko">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>JamMoney - 금융단어장 퀴즈결과</title>
+    <link rel="icon" href="/assets/images/favicon.png" type="image/png" />
+    <link rel="stylesheet" href="/css/style.css" />
+    <link rel="stylesheet" href="/css/vocabulary.css" />
+  </head>
+
+  <body>
+    <div class="main-content">
+      <header>
+        <button class="back-button" onclick="history.back();">
+          <svg
+            width="24"
+            height="24"
+            viewBox="0 0 24 24"
+            fill="none"
+            xmlns="http://www.w3.org/2000/svg"
+          >
+            <path
+              d="M15 19L8 12L15 5"
+              stroke="currentColor"
+              stroke-width="2"
+              stroke-linecap="round"
+              stroke-linejoin="round"
+            />
+          </svg>
+        </button>
+        금융 단어장
+      </header>
+
+      <div class="content">
+        <div class="quiz-card">
+          <h2 style="font-size: 23px; margin-top: 15px">퀴즈 결과</h2>
+
+          <div class="result-container">
+            <div class="result-body">
+              <div class="dino-speech">
+                <div class="speech-bubble" id="feedback">
+                  더 공부가 필요해요!
+                </div>
+                <img
+                  src="/assets/images/dino.png"
+                  alt="공룡"
+                  class="dino-image"
+                />
+              </div>
+              <div class="chart-container">
+                <canvas id="quizChart" width="200" height="200"></canvas>
+                <div class="chart-score" id="chart-score">3/5</div>
+              </div>
+            </div>
+          </div>
+          <button class="next-button" id="finish-button">종료</button>
+        </div>
+      </div>
+    </div>
+
+    <div id="navbar"></div>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <script src="/js/script.js"></script>
+    <script
+      type="module"
+      src="/js/features/vocabulary/vocabulary-quiz-result.js"
+    ></script>
+  </body>
+</html>

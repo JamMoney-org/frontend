@@ -1,4 +1,3 @@
-// portfolio.js
 import { authorizedFetch } from "../../utils/auth-fetch.js";
 
 document.addEventListener("DOMContentLoaded", async () => {
@@ -53,7 +52,7 @@ document.addEventListener("DOMContentLoaded", async () => {
       card.className = "stock-item";
       card.style.cursor = "pointer";
       card.addEventListener("click", () => {
-        window.location.href = `../pages/mock_invest.html?companyId=${stock.companyId}`;
+        window.location.href = `/pages/mock_invest/mock_invest.html?companyId=${stock.companyId}`;
       });
 
       card.innerHTML = `
@@ -82,14 +81,12 @@ document.addEventListener("DOMContentLoaded", async () => {
 
     const waitingOrderList = document.getElementById("waitingOrderList");
 
-    // 예약 주문 정보 받아오기
     const waitingRes = await authorizedFetch(
       "https://jm-money.com/api/order/waiting"
     );
     if (!waitingRes.ok) throw new Error("예약 주문 불러오기 실패");
     const waitingOrders = await waitingRes.json();
 
-    // 예약 주문 렌더링
     waitingOrders.forEach((order) => {
       const orderCard = document.createElement("div");
       orderCard.className = "stock-item";
@@ -157,7 +154,6 @@ document.addEventListener("DOMContentLoaded", async () => {
       availableCash.textContent = `${(totalEval + 0).toLocaleString()}원`;
     }
 
-    // 비중 파이차트 렌더링
     if (chartContainer && typeof Chart !== "undefined") {
       const canvas = document.createElement("canvas");
       canvas.style.maxHeight = "200px";
@@ -222,7 +218,7 @@ function showToast(message) {
 
   setTimeout(() => {
     toast.classList.remove("show");
-  }, 2000); // 2초 후 자동 사라짐
+  }, 2000);
 }
 
 function showError(message) {

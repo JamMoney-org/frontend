@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="ko">
+
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>JamMoney - 시나리오 학습 AI 피드백</title>
+  <link rel="icon" href="/assets/images/favicon.png" type="image/png">
+  <link rel="stylesheet" href="/css/style.css" />
+  <link rel="stylesheet" href="/css/scenario.css" />
+</head>
+
+<body>
+
+  <div class="main-content">
+
+    <header>
+      <button class="back-button" onclick="history.back();">
+        <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+          <path d="M15 19L8 12L15 5" stroke="currentColor" stroke-width="2" stroke-linecap="round"
+            stroke-linejoin="round" />
+        </svg>
+      </button>
+      <span>시나리오 학습</span>
+    </header>
+
+
+    <div class="content simul-wrapper simul">
+      <h3 class="simul-title"></h3>
+      <img src="/assets/images/dinosaur_broker.png" alt="" width="33%" />
+      <div class="dialogue-box">
+        <div class="character-name">공룡 사회자</div>
+        <div class="dialogue-text"></div>
+      </div>
+      <button class="next-btn">다음</button>
+    </div>
+  </div>
+
+  <div id="navbar"></div>
+  <script src="/js/script.js"></script>
+  <script type="module" src="/js/features/scenario/feedback.js"></script>
+</body>
+
+</html>

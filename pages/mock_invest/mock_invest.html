@@ -1,0 +1,180 @@
+<!DOCTYPE html>
+<html lang="ko">
+
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>JamMoney - 모의 투자</title>
+  <link rel="icon" href="/assets/images/favicon.png" type="image/png">
+  <link rel="stylesheet" href="/css/style.css" />
+  <link rel="stylesheet" href="/css/mock_invest.css" />
+  <script src="https://d3js.org/d3.v7.min.js"></script>
+</head>
+
+<body>
+  <div class="main-content">
+    <header>
+      <button class="back-button" onclick="history.back();">
+        <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+          <path d="M15 19L8 12L15 5" stroke="currentColor" stroke-width="2" stroke-linecap="round"
+            stroke-linejoin="round" />
+        </svg>
+      </button>
+      모의투자
+    </header>
+
+    <div class="content">
+      <div class="stock-header">
+        <h2 class="company-name">
+          <img src="/assets/icon/search.svg" alt="" />
+        </h2>
+        <div class="current-price"></div>
+        <div class="price-change"></div>
+      </div>
+
+      <div class="tab-menu">
+        <button data-tab="chart" class="active">차트</button>
+        <button data-tab="time">시간</button>
+        <button data-tab="date">일자</button>
+        <button data-tab="company">기업정보</button>
+      </div>
+
+      <div id="tab-content">
+        <div id="chart" class="tab-pane active" style="position: relative">
+          <div class="chart-wrapper">
+            <svg id="candleChart"></svg>
+            <div class="tooltip-box" id="tooltip" style="display: none"></div>
+          </div>
+
+          <div class="period-tabs">
+            <button data-range="1h" class="active">1시간</button>
+            <button data-range="1d">1일</button>
+            <button data-range="all">전체</button>
+          </div>
+        </div>
+
+        <div id="time" class="tab-pane">
+          <table>
+            <thead>
+              <tr>
+                <td>시간</td>
+                <td>현재가</td>
+                <td>대비</td>
+                <td>체결수량</td>
+              </tr>
+            </thead>
+            <tbody id="timeTableBody"></tbody>
+          </table>
+        </div>
+
+        <div id="date" class="tab-pane">
+          <table>
+            <thead>
+              <tr>
+                <td>일자</td>
+                <td>종가</td>
+                <td>대비</td>
+                <td>1일 누적거래량</td>
+              </tr>
+            </thead>
+            <tbody></tbody>
+          </table>
+        </div>
+
+        <div id="company" class="tab-pane">
+          <table class="company-info-table">
+            <tbody>
+              <tr>
+                <td class="label">기준가</td>
+                <td class="value" data-label="기준가"></td>
+                <td class="label">전일종가</td>
+                <td class="value" data-label="전일종가"></td>
+              </tr>
+              <tr>
+                <td class="label">시작가</td>
+                <td class="value" data-label="시작가"></td>
+                <td class="label">종가</td>
+                <td class="value" data-label="종가"></td>
+              </tr>
+              <tr>
+                <td class="label">고가</td>
+                <td class="value" data-label="고가"></td>
+                <td class="label">저가</td>
+                <td class="value" data-label="저가"></td>
+              </tr>
+              <tr>
+                <td class="label">상한가</td>
+                <td class="value" data-label="상한가"></td>
+                <td class="label">하한가</td>
+                <td class="value" data-label="하한가"></td>
+              </tr>
+              <tr>
+                <td class="label">누적거래량</td>
+                <td class="value" data-label="누적거래량"></td>
+                <td class="label">거래대금</td>
+                <td class="value" data-label="거래대금"></td>
+              </tr>
+              <tr>
+                <td class="label">시가총액</td>
+                <td class="value" data-label="시가총액"></td>
+                <td class="label">액면가</td>
+                <td class="value" data-label="액면가"></td>
+              </tr>
+              <tr>
+                <td class="label">상장일자</td>
+                <td class="value" data-label="상장일자"></td>
+                <td class="label">상장수량</td>
+                <td class="value" data-label="상장수량"></td>
+              </tr>
+              <tr>
+                <td class="label" colspan="2">시장정보구분(투자주의)</td>
+                <td class="value" colspan="2" data-label="시장정보구분(투자주의)"></td>
+              </tr>
+              <tr>
+                <td class="label" colspan="2">업종분류</td>
+                <td class="value" colspan="2" data-label="업종분류"></td>
+              </tr>
+
+              <tr>
+                <td class="label">관리종목</td>
+                <td class="value" data-label="관리종목"></td>
+                <td class="label">거래정지</td>
+                <td class="value" data-label="거래정지"></td>
+              </tr>
+              <tr>
+                <td class="label">배당수익률</td>
+                <td class="value" data-label="배당수익률"></td>
+                <td class="label">주당배당금</td>
+                <td class="value" data-label="주당배당금"></td>
+              </tr>
+              <tr>
+                <td class="label">EPS</td>
+                <td class="value" data-label="EPS"></td>
+                <td class="label">PER</td>
+                <td class="value" data-label="PER"></td>
+              </tr>
+              <tr>
+                <td class="label">BPS</td>
+                <td class="value" data-label="BPS"></td>
+                <td class="label">PBR</td>
+                <td class="value" data-label="PBR"></td>
+              </tr>
+              <tr>
+                <td class="label">결산월</td>
+                <td class="value" colspan="3" data-label="결산월"></td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+      <div class="trade-btn-wrapper">
+        <button class="trade-btn">거래하기</button>
+      </div>
+    </div>
+  </div>
+  <div id="navbar"></div>
+  <script src="/js/script.js"></script>
+  <script type="module" src="/js/features/mock_invest/mock-info.js"></script>
+</body>
+
+</html>
