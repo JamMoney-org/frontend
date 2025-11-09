@@ -157,7 +157,10 @@ async function showEasyToast(term, newsId) {
   toast.innerHTML = `
     <strong style="display:block; font-size:15px; color: #222;">${word}</strong>
     <div style="margin-top:4px; color: #000;"><span style="color: #ffcc00;">💡</span> ${meaning}</div>
-    <div style="margin-top:4px; color: #000;">예) ${example}</div>
+     <div class="example-box">
+    <span class="example-label">예)</span>
+    <span class="example-text">${example}</span>
+  </div>
     <div style="margin-top:20px; text-align:center">
       <button id="bookmark-btn" class="easy-bookmark-btn">
         ${saved ? "✅ 추가됨" : "나만의 단어장에 추가"}
