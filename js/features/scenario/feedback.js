@@ -1,7 +1,7 @@
 import { authorizedFetch } from '../../utils/auth-fetch.js';
 
 const headerTitle = document.querySelector('.main-content header span');
-const dialogueTextEl = document.querySelector('.dialogue-text');
+const feefbackTextEl = document.querySelector('.feedback-text');
 const nextBtn = document.querySelector('.next-btn');
 
 (async function () {
@@ -21,7 +21,7 @@ const nextBtn = document.querySelector('.next-btn');
     .join('')}</span>`;
 
   if (!choiceId || !scenario) {
-    dialogueTextEl.textContent =
+    feefbackTextEl.textContent =
       '필수 정보가 없습니다. 처음부터 다시 시작해 주세요.';
     return;
   }
@@ -31,7 +31,7 @@ const nextBtn = document.querySelector('.next-btn');
   );
 
   headerTitle.textContent = scenario.title;
-  dialogueTextEl.textContent = selectedChoice.feedback;
+  feefbackTextEl.textContent = selectedChoice.feedback;
 
   try {
     const res = await authorizedFetch(
@@ -72,7 +72,7 @@ const nextBtn = document.querySelector('.next-btn');
     });
   } catch (error) {
     console.error('피드백 로딩 실패:', error);
-    dialogueTextEl.textContent =
+    feefbackTextEl.textContent =
       '피드백을 불러오는 데 실패했습니다. 다시 시도해 주세요.';
   }
 })();

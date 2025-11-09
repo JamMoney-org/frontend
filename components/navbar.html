@@ -1,8 +1,10 @@
 <nav class="bottom-nav">
     <a href="/pages/mainpage/mainpage.html"><img src="/assets/icon/house-door-fill.svg" alt="">홈</a>
-    <a href="/pages/category/learning_category.html"><img src="/assets/icon//book.svg" alt="">금융학습</a>
-    <a href="/pages/mock_invest/mock_invest_list.html"><img src="/assets/icon/graph-up-arrow.svg" alt="">모의투자</a>
-    <a href="/pages/mypage/mypage.html"><img src="/assets/icon/person.svg" alt="">마이페이지</a>
+    <a href="/pages/category/learning_category.html" data-auth="required"><img src="/assets/icon//book.svg"
+            alt="">금융학습</a>
+    <a href="/pages/mock_invest/mock_invest_list.html" data-auth="required"><img src="/assets/icon/graph-up-arrow.svg"
+            alt="">모의투자</a>
+    <a href="/pages/mypage/mypage.html" data-auth="required"><img src="/assets/icon/person.svg" alt="">마이페이지</a>
 </nav>
 
 <div id="toast" class="toast hidden">로그인 후 이용 가능한 기능입니다.</div>
@@ -56,6 +58,7 @@
         pointer-events: none;
         width: 68%;
         max-width: 255px;
+        text-align: center;
     }
 
     .toast.show {

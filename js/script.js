@@ -4,25 +4,16 @@ document.addEventListener('DOMContentLoaded', function () {
     .then((data) => {
       document.getElementById('navbar').innerHTML = data;
 
-      const protectedRoutes = [
-        '/pages/mainpage/mainpage.html',
-        '/pages/category/learning_category.html',
-        '/pages/mock_invest/mock_invest_list.html',
-        '/pages/mypage/mypage.html',
-      ];
-
-      document.querySelectorAll('.bottom-nav a').forEach((link) => {
-        const path = new URL(link.href).pathname;
-
-        if (protectedRoutes.includes(path)) {
+      document
+        .querySelectorAll('.bottom-nav a[data-auth="required"]')
+        .forEach((link) => {
           link.addEventListener('click', function (e) {
             if (!isLoggedIn()) {
               e.preventDefault();
-              showToast();
+              showToast('로그인 후 이용 가능한 기능입니다.');
             }
           });
-        }
-      });
+        });
     });
 });
 
