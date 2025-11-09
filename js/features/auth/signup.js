@@ -42,19 +42,21 @@ document.addEventListener("DOMContentLoaded", function () {
     }
 
     try {
-      const response = await fetch("https://jm-money.com/api/auth/signup", {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-        },
-        body: JSON.stringify({
-          email,
-          nickname,
-          password,
-          confirmPassword,
-        }),
-      });
-
+      const response = await authorizedFetch(
+        "https://jm-money.com/api/auth/signup",
+        {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json",
+          },
+          body: JSON.stringify({
+            email,
+            nickname,
+            password,
+            confirmPassword,
+          }),
+        }
+      );
 
       if (!response.ok) {
         const errorData = await response.json();
@@ -62,14 +64,15 @@ document.addEventListener("DOMContentLoaded", function () {
         errorElement.style.display = "block";
         return;
       }
-      
+
       showPopup("JamMoney 회원이 되신 것을 환영합니다!", "success", 1000);
 
       setTimeout(() => {
         window.location.href = "/index.html";
       }, 1000);
     } catch (error) {
-      errorElement.textContent = "일시적인 오류가 발생했습니다. 잠시 후 다시 시도해 주세요.";
+      errorElement.textContent =
+        "일시적인 오류가 발생했습니다. 잠시 후 다시 시도해 주세요.";
       errorElement.style.display = "block";
     }
   });
