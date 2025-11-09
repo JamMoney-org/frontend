@@ -45,4 +45,13 @@ document.addEventListener("DOMContentLoaded", async () => {
   } catch (err) {
     console.error("카테고리 로딩 실패:", err);
   }
+
+  const progressResponse = await authorizedFetch(
+    "https://jm-money.com/api/terms/progress"
+  );
+  const progressData = await progressResponse.json();
+  const learnedCountEl = document.getElementById("learned-count");
+  if (learnedCountEl) {
+    learnedCountEl.innerHTML = `🦖 벌써 <span> ${progressData.totalLearnedCount} </span>개의 단어를 익혔어요!`;
+  }
 });
