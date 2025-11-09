@@ -2,13 +2,11 @@ body {
     font-family: 'Pretendard', sans-serif;
     background-color: #f9f9f9;
     margin: 0;
-    padding: 20px;
-    display: flex;
-    justify-content: center;
+    padding: 0px;
 }
 
 .content {
-    padding: 0px 20px;
+    padding: 24px 20px;
 }
 
 .section {
@@ -16,10 +14,14 @@ body {
 }
 
 h4 {
-    font-size: 12px;
+    font-size: 15px;
     margin-bottom: 8px;
     padding-left: 15px;
     color: #999;
+}
+
+.section:nth-of-type(n+2) h4 {
+    margin-top: 50px;
 }
 
 .profile-card,
@@ -47,6 +49,8 @@ h4 {
     margin-bottom: 10px;
     text-decoration: none;
     color: #333;
+    border: 1px solid #e1e1e1;
+    box-shadow: 0 2px 6px rgba(0, 0, 0, 0.1);
 
 }
 
@@ -127,12 +131,6 @@ a.learning-item:hover {
     text-decoration: none;
     border: none;
     background: none;
-}
-
-.divider {
-    height: 1px;
-    background-color: #eee;
-    margin: 30px 0;
 }
 
 .popup-message {

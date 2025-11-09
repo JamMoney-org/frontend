@@ -1,10 +1,11 @@
 .content {
     padding: 30px;
+    padding-top: 50px;
 }
 
 .quiz-card {
     background: white;
-    border: 1px solid #e1e1e1;
+    border: 2px solid hsl(159, 45%, 56%, 0.5);
     border-radius: 16px;
     padding: 24px;
     box-shadow: 0 2px 8px rgba(0, 0, 0, 0.05);
@@ -12,10 +13,15 @@
     max-width: 600px;
 }
 
+#question {
+    font-size: 18px !important;
+    color: #555
+}
+
 .quiz-title {
-    font-size: 18px;
     font-weight: bold;
     margin-bottom: 24px;
+    text-align: center;
 }
 
 .quiz-detail p {
@@ -31,13 +37,11 @@
 }
 
 .quiz-detail p:nth-of-type(2) {
-    background-color: #ffecec;
-    color: #d03c3c;
+    background-color: #feeeee;
 }
 
 .quiz-detail p:nth-of-type(3) {
-    background-color: #e8f7e8;
-    color: #207820;
+    background-color: #e6f5ef;
 }
 
 .quiz-detail p:nth-of-type(4) {
