@@ -305,14 +305,14 @@ hr {
   position: fixed;
   bottom: 70px;
   left: 50%;
-  transform: translateX(-50%) translateY(20px); /* 등장 애니메이션 */
+  transform: translateX(-50%) translateY(20px);
   background: #ffffff;
   color: #222;
   padding: 18px 22px;
   border-radius: 12px;
 
-  box-shadow: 0 6px 20px rgba(0, 0, 0, 0.25); /* 그림자 강조 */
-  border: 1px solid rgba(0, 0, 0, 0.12); /* 더 얇고 진한 테두리 */
+  box-shadow: 0 6px 20px rgba(0, 0, 0, 0.25);
+  border: 1px solid rgba(0, 0, 0, 0.12);
 
   font-size: 15px;
   font-weight: 500;
@@ -325,10 +325,20 @@ hr {
   transition: opacity 0.3s ease, transform 0.3s ease;
 }
 
-/* 토스트가 활성화될 때 */
+.example-box {
+  margin-top: 5px;
+}
+
+#easy-toast .example-text,
+#easy-toast .example-label {
+  font-style: italic;
+  color: #999;
+  font-size: 14px;
+}
+
 .easy-toast.visible {
   opacity: 1;
-  transform: translateX(-50%) translateY(0); /* 위로 슥 올라오게 */
+  transform: translateX(-50%) translateY(0);
   pointer-events: auto;
 }
 
