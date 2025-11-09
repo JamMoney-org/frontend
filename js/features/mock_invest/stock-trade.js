@@ -65,6 +65,7 @@ document.addEventListener("DOMContentLoaded", async () => {
 
     if (
       typeof priceInterval === "number" &&
+      priceInterval > 0 &&
       numberInputPrice % priceInterval !== 0
     ) {
       priceChangeTimer = setTimeout(() => {
@@ -72,7 +73,6 @@ document.addEventListener("DOMContentLoaded", async () => {
         const corrected = numberInputPrice - remainder;
         limitPriceInput.value = corrected;
         updateTotal();
-
         showToast(
           `${corrected.toLocaleString()}원 단위로 자동 보정되었습니다.`
         );
@@ -283,103 +283,81 @@ document.addEventListener("DOMContentLoaded", async () => {
 
     const { stockAskingPriceResponseDto: data } = await res.json();
 
+    const askp1 = Number(data.askp1);
+    const askp2 = Number(data.askp2);
+    priceInterval = askp2 > 0 && askp1 > 0 ? askp2 - askp1 : 100;
     const priceListContainer = document.querySelector(".price-list");
     priceListContainer.innerHTML = "";
 
-    for (let i = 10; i >= 1; i--) {
-      const askPrice = data[`askp${i}`];
-      const askQty = data[`askp_rsqn${i}`];
-      const bidPrice = data[`bidp${i}`];
-      const bidQty = data[`bidp_rsqn${i}`];
+    const askKeys = Object.keys(data)
+      .filter((key) => key.startsWith("askp") && !key.includes("_rsqn"))
+      .sort((a, b) => {
+        const numA = parseInt(a.replace("askp", ""), 10);
+        const numB = parseInt(b.replace("askp", ""), 10);
+        return numB - numA; // 큰 값부터 순서대로
+      });
 
-      const askHTML =
-        askPrice && askQty
-          ? `<div class="ask">
-            <span>${Number(askPrice).toLocaleString()}</span>
-            <span class="price-qty">${Number(askQty).toLocaleString()}</span>
-          </div>`
-          : `<div class="ask"><span>-</span><span class="price-qty">0</span></div>`;
+    const bidKeys = Object.keys(data)
+      .filter((key) => key.startsWith("bidp") && !key.includes("_rsqn"))
+      .sort((a, b) => {
+        const numA = parseInt(a.replace("bidp", ""), 10);
+        const numB = parseInt(b.replace("bidp", ""), 10);
+        return numB - numA;
+      });
 
-      const bidHTML =
-        bidPrice && bidQty
-          ? `<div class="bid">
-            <span>${Number(bidPrice).toLocaleString()}</span>
-            <span class="price-qty">${Number(bidQty).toLocaleString()}</span>
-          </div>`
-          : `<div class="bid"><span>-</span><span class="price-qty">0</span></div>`;
+    const maxLength = Math.max(askKeys.length, bidKeys.length);
+
+    for (let i = 0; i < maxLength; i++) {
+      const askPrice = data[askKeys[i]];
+      const askQty = data[`${askKeys[i]}_rsqn`];
+      const bidPrice = data[bidKeys[i]];
+      const bidQty = data[`${bidKeys[i]}_rsqn`];
+
+      const askHTML = `
+    <div class="ask">
+      <span>${askPrice ? Number(askPrice).toLocaleString() : "-"}</span>
+      <span class="price-qty">${
+        askQty ? Number(askQty).toLocaleString() : "0"
+      }</span>
+    </div>`;
+
+      const bidHTML = `
+    <div class="bid">
+      <span>${bidPrice ? Number(bidPrice).toLocaleString() : "-"}</span>
+      <span class="price-qty">${
+        bidQty ? Number(bidQty).toLocaleString() : "0"
+      }</span>
+    </div>`;
 
       priceListContainer.innerHTML += `
-        <div class="price-row">
-          ${askHTML}
-          ${bidHTML}
-        </div>`;
+    <div class="price-row">
+      ${askHTML}
+      ${bidHTML}
+    </div>`;
     }
 
-    const askp1 = Number(data.askp1);
-    const askp2 = Number(data.askp2);
-    priceInterval = askp2 - askp1;
-
-    for (let i = 10; i >= 1; i--) {
-      const price = data[`askp${i}`],
-        qty = data[`askp_rsqn${i}`];
-      if (price && qty) {
-        const item = document.createElement("div");
-        item.className = "price-item red fade-in";
-        item.innerHTML = `${Number(
-          price
-        ).toLocaleString()} <span class="percent">${Number(
-          qty
-        ).toLocaleString()}</span>`;
-        priceListContainer.appendChild(item);
-      }
-    }
-
-    for (let i = 1; i <= 10; i++) {
-      const bidPrice = data[`bidp${i}`];
-      if (bidPrice) {
-        firstValidBid = bidPrice;
-        const selected = document.createElement("div");
-        selected.className = "price-item selected fade-in";
-        selected.innerHTML = `${Number(
-          bidPrice
-        ).toLocaleString()} <span class="percent">선택</span>`;
-        priceListContainer.appendChild(selected);
-
-        initializeMarketOrderUI();
-        break;
-      }
-    }
-
-    for (let i = 1; i <= 10; i++) {
-      const price = data[`bidp${i}`],
-        qty = data[`bidp_rsqn${i}`];
-      if (price && qty) {
-        const item = document.createElement("div");
-        item.className = "price-item blue fade-in";
-        item.innerHTML = `${Number(
-          price
-        ).toLocaleString()} <span class="percent">${Number(
-          qty
-        ).toLocaleString()}</span>`;
-        priceListContainer.appendChild(item);
-      }
-    }
+    initializeMarketOrderUI();
 
     priceListContainer.addEventListener("click", (e) => {
-      const target = e.target.closest(".price-item");
-      if (!target) return;
+      const row = e.target.closest(".price-row");
+      if (!row) return;
 
-      const priceText = target.textContent
-        .trim()
-        .split(" ")[0]
-        .replace(/,/g, "");
+      document
+        .querySelectorAll(".price-row")
+        .forEach((r) => r.classList.remove("selected"));
+      row.classList.add("selected");
+
+      const priceEl = e.target.closest(".ask, .bid")?.querySelector("span");
+      if (!priceEl) return;
+
+      const priceText = priceEl.textContent.replace(/,/g, "");
+      if (!priceText || priceText === "-") return;
 
       const limitRadio = document.querySelector(
         'input[name="priceType"][value="limit"]'
       );
       if (limitRadio) {
         limitRadio.checked = true;
-
         priceTextDiv.style.display = "none";
         limitPriceInput.style.display = "block";
       }
