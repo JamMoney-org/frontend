@@ -25,19 +25,10 @@ function setCharacterImageByLevel(level) {
 }
 
 
-async function fetchAndSetCharacterImage() {
-  const res = await authorizedFetch("https://jm-money.com/api/pet/status");
-  if (!res.ok) throw new Error("캐릭터 상태 조회 실패");
 
-  const data = await res.json();
-  const status = data.result || data;
-
-  setCharacterImageByLevel(status.data.level);
-
-}
 
 document.addEventListener("DOMContentLoaded", () => {
-  fetchAndSetCharacterImage();
+
 });
 
 
@@ -120,6 +111,7 @@ async function loadCharacterStatus() {
   console.log("✅ 최종 statusData:", statusData);
 
   initCharacterMainUI(statusData);
+  setCharacterImageByLevel(statusData.level);
 }
 
 
@@ -144,6 +136,11 @@ async function loadEquippedItems() {
 
   const response = await res.json();
   const inventory = response.result || response.data || response;
+
+  const characterArea = document.querySelector('.character-area');
+  if (characterArea) {
+    characterArea.querySelectorAll('.character-object').forEach(el => el.remove());
+  }
 
   let hasBackground = false;
 
@@ -187,7 +184,7 @@ async function loadEquippedItems() {
   if (!hasBackground) {
     const bg = document.getElementById('bgImage');
     if (bg) {
-      bg.src = '/assets/images/default_background.png'; 
+      bg.src = '/assets/images/default_background.png';
       bg.style.display = 'block';
     }
   }
@@ -196,7 +193,16 @@ async function loadEquippedItems() {
 
 document.addEventListener('DOMContentLoaded', () => {
   setupNameEditUI();
-  loadCharacterStatus();
-  loadEquippedItems();
 });
 
+
+window.addEventListener('pageshow', () => {
+  console.log("페이지가 표시됩니다. (pageshow)");
+  try {
+    loadCharacterStatus();
+    loadEquippedItems();
+  } catch (err) {
+    showPopup("데이터 로딩 중 오류가 발생했습니다.");
+    console.error(err);
+  }
+});

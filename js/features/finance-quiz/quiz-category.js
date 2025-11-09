@@ -19,13 +19,20 @@ document.addEventListener("DOMContentLoaded", async () => {
       }
     );
 
-    const categories = await response.json();
+    let categories = await response.json();
+
+    categories = categories.filter((c) =>
+      ["소비", "저축", "대출", "투자", "세금"].includes(c.category)
+    );
+
+    const orderedCategories = ["소비", "저축", "대출", "투자", "세금"].map(
+      (name) => categories.find((c) => c.category === name)
+    );
 
     categoryItems.forEach((item, index) => {
       const categoryText = item.querySelector("p");
-
-      if (categories[index]) {
-        categoryText.textContent = categories[index].category;
+      if (orderedCategories[index]) {
+        categoryText.textContent = orderedCategories[index].category;
       } else {
         categoryText.textContent = "알 수 없음";
       }

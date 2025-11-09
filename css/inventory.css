@@ -92,7 +92,7 @@ body {
 .selected-item-info {
     display: none;
     position: absolute;
-    bottom: 7%;
+    bottom: 10%;
     left: 50%;
     transform: translateX(-50%);
     flex-direction: row;
@@ -100,7 +100,7 @@ body {
     gap: 10px;
     padding: 10px 16px;
     border-radius: 15px;
-    background-color: rgba(255, 255, 255, 0.8);
+    background-color: hsl(159, 45%, 56%, 0.4);
     border: 1px solid #e1e1e1;
     box-shadow: 0 2px 6px rgba(0, 0, 0, 0.1);
     z-index: 10;
@@ -224,4 +224,35 @@ body {
 
 .custom-confirm-btn.cancel {
     background-color: #a2a2a2;
+}
+
+.cash-display {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-end;
+
+    margin-bottom: 15px;
+    padding: 8px 12px;
+    background-color: none;
+    border: 3px solid hsl(159, 45%, 56%, 0.4);
+    border-radius: 10px;
+    width: fit-content;
+    margin-left: auto;
+}
+
+.cash-label {
+    font-size: 0.9em;
+    font-weight: 600;
+    color: #999;
+}
+
+.cash {
+    font-size: 1.1em;
+    font-weight: 600;
+    color: #333;
+    margin-top: 4px;
+}
+
+.item-box.purchased {
+    display: none;
 }

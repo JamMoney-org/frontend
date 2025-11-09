@@ -42,7 +42,7 @@ body {
 .form-element {
   width: 420px;
   max-width: 420px;
-  padding: 10px 40px;
+  padding: 12px 47px;
   font-size: 15px;
   border-radius: 30px;
   border: 2px solid #5DC29E;
@@ -69,8 +69,8 @@ body {
 
 .input-icon {
   position: absolute;
-  top: 40%;
-  left: 12px;
+  top: 38%;
+  left: 15px;
   transform: translateY(-50%);
   width: 20px;
   height: 20px;
@@ -99,4 +99,33 @@ body {
 .popup-message.show {
   opacity: 0.8;
   pointer-events: auto;
+}
+
+.guide-text {
+  font-size: 12px;
+  color: #888;
+  text-align: left;
+  width: 100%;
+  max-width: 420px;
+  padding-left: 15px;
+  box-sizing: border-box;
+  margin-top: -10px;
+  margin-bottom: 10px;
+}
+
+.guide-text.error {
+  color: #e74c3c;
+  font-weight: bold;
+}
+
+.error-message {
+  color: #e74c3c;
+  font-size: 13px;
+  text-align: left;
+  width: 100%;
+  max-width: 420px;
+  padding-left: 15px;
+  box-sizing: border-box;
+  margin-bottom: 10px;
+  display: none;
 }

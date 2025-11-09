@@ -62,6 +62,30 @@ function customConfirm(message) {
         document.body.appendChild(modal);
     });
 }
+async function getCurrentTotalCash() {
+    try {
+        const res = await authorizedFetch('https://jm-money.com/api/portfolio');
+
+        if (!res.ok) {
+            throw new Error(`서버 응답 오류: ${res.status}`);
+        }
+
+        const data = await res.json();
+        return (data.money + data.stockAsset) || 0;
+
+    } catch (err) {
+        console.error("총 보유 현금 조회 실패:", err);
+        showPopup("보유 현금 정보를 불러오는 데 실패했습니다.", "error");
+        return 0;
+    }
+}
+async function displayUserCash() {
+    const cashElem = document.getElementById("currentUserCash");
+    if (!cashElem) return;
+
+    const currentCash = await getCurrentTotalCash();
+    cashElem.textContent = `🪙 ${currentCash.toLocaleString()} 잼머니`;
+}
 
 
 function setCharacterImageByLevel(level) {
@@ -127,11 +151,11 @@ function updateEquippedItems(items) {
 
         characterArea.appendChild(img);
     });
-    
+
     if (!hasBackground) {
         const bg = document.getElementById('bgImage');
         if (bg) {
-            bg.src = '/assets/images/default_background.png'; // 기본 배경 경로
+            bg.src = '/assets/images/default_background.png';
             bg.style.display = 'block';
         }
     }
@@ -210,8 +234,13 @@ document.addEventListener("DOMContentLoaded", () => {
     const previewPrice = document.getElementById("selectedItemPrice");
     const equipButton = document.querySelector(".equip-button");
     const sellButton = document.querySelector(".sell-button");
+    const allButton = document.querySelector('.category[data-filter="전체"]');
+    if (allButton) {
+        allButton.classList.add("active");
+    }
+    displayUserCash();
 
-    
+
     function toggleEquip(itemId, equip) {
         authorizedFetch("https://jm-money.com/api/item/equip", {
             method: "POST",
@@ -220,12 +249,16 @@ document.addEventListener("DOMContentLoaded", () => {
             .then(res => res.json())
             .then(data => {
                 showPopup(data.message || (equip ? "장착 완료!" : "해제 완료!"));
-                location.reload();
+                fetchInventory();
+                selectedItem.equipped = equip;
+                if (equipButton) {
+                    equipButton.textContent = equip ? "해제하기" : "장착하기";
+                }
             })
             .catch(err => showPopup("장착 요청 실패: " + err.message));
     }
 
-    
+
     if (equipButton) {
         equipButton.addEventListener("click", () => {
             if (!selectedItem) return showPopup("아이템을 선택해주세요!");
@@ -233,9 +266,13 @@ document.addEventListener("DOMContentLoaded", () => {
         });
     }
 
-    
+
     categoryButtons.forEach(button => {
         button.addEventListener("click", () => {
+            categoryButtons.forEach(btn => {
+                btn.classList.remove("active");
+            });
+            button.classList.add("active");
             const filter = button.dataset.filter;
             const filtered = filter === "전체"
                 ? inventoryItems
@@ -244,7 +281,7 @@ document.addEventListener("DOMContentLoaded", () => {
         });
     });
 
-   
+
     function fetchInventory() {
         authorizedFetch("https://jm-money.com/api/item/inventory")
             .then(res => res.json())
@@ -258,7 +295,7 @@ document.addEventListener("DOMContentLoaded", () => {
 
 
 
- 
+
     if (sellButton) {
         sellButton.addEventListener("click", async () => {
             if (!selectedItem) {
@@ -273,7 +310,7 @@ document.addEventListener("DOMContentLoaded", () => {
             const originalPrice = getShopPriceByItemId(selectedItem.itemId);
             const sellPrice = Math.floor(originalPrice * 0.8);
 
-            const confirmSell = await customConfirm(`"${selectedItem.name}" 아이템을 🪙${sellPrice} cash에 판매하시겠습니까?`);
+            const confirmSell = await customConfirm(`"${selectedItem.name}" 아이템을 🪙${sellPrice} 잼머니에 판매하시겠습니까?`);
             if (!confirmSell) return;
 
             authorizedFetch("https://jm-money.com/api/item/sell", {
@@ -283,7 +320,9 @@ document.addEventListener("DOMContentLoaded", () => {
                 .then(res => res.json())
                 .then(data => {
                     showPopup(data.message || "판매 완료!");
-                    setTimeout(() => location.reload(), 300);
+                    fetchInventory();
+                    document.getElementById("selectedItemInfo").style.display = "none";
+                    selectedItem = null;
                 })
                 .catch(err => showPopup("판매 실패: " + err.message));
         });

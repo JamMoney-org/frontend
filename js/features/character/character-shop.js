@@ -63,6 +63,33 @@ function customConfirm(message) {
   });
 }
 
+async function getCurrentTotalCash() {
+  try {
+    const res = await authorizedFetch('https://jm-money.com/api/portfolio');
+
+    if (!res.ok) {
+      throw new Error(`서버 응답 오류: ${res.status}`);
+    }
+
+    const data = await res.json();
+
+    return (data.money + data.stockAsset) || 0;
+
+  } catch (err) {
+    console.error("총 보유 현금 조회 실패:", err);
+    showPopup("보유 현금 정보를 불러오는 데 실패했습니다.", "error");
+    return 0;
+  }
+}
+
+async function displayUserCash() {
+  const cashElem = document.getElementById("currentUserCash");
+  if (!cashElem) return;
+
+  const currentCash = await getCurrentTotalCash();
+  cashElem.textContent = `🪙 ${currentCash.toLocaleString()} 잼머니`;
+}
+
 document.addEventListener("DOMContentLoaded", () => {
   const itemGrid = document.querySelector(".item-grid");
   const previewImg = document.getElementById("selectedItemImage");
@@ -73,12 +100,20 @@ document.addEventListener("DOMContentLoaded", () => {
 
   let selectedItem = null;
   let shopItems = [];
+  let purchasedItemIds = new Set();
 
   const categoryButtons = document.querySelectorAll(".category");
+  const allButton = document.querySelector('.category[data-filter="전체"]');
+  if (allButton) {
+    allButton.classList.add("active");
+  }
 
-  
+  displayUserCash();
+
   categoryButtons.forEach(button => {
     button.addEventListener("click", () => {
+      categoryButtons.forEach(btn => btn.classList.remove("active"));
+      button.classList.add("active");
       const filter = button.dataset.filter;
       const filtered = filter === "전체"
         ? shopItems
@@ -87,7 +122,7 @@ document.addEventListener("DOMContentLoaded", () => {
     });
   });
 
-  
+
   function renderItems(items) {
     itemGrid.innerHTML = "";
     items.forEach(item => {
@@ -97,6 +132,10 @@ document.addEventListener("DOMContentLoaded", () => {
       box.dataset.price = item.price;
       box.dataset.image = item.previewUrl;
       box.dataset.category = item.type;
+
+      if (purchasedItemIds.has(item.itemId)) {
+        box.classList.add("purchased"); 
+      }
 
       const img = document.createElement("img");
       img.src = item.previewUrl;
@@ -109,7 +148,7 @@ document.addEventListener("DOMContentLoaded", () => {
       box.addEventListener("click", () => {
         previewImg.src = item.previewUrl;
         previewName.textContent = item.name;
-        previewPrice.textContent = `🪙 ${item.price} cash`;
+        previewPrice.textContent = `🪙 ${item.price.toLocaleString()} 잼머니`;
         selectedItem = item;
 
         console.log("선택된 아이템 전체 객체:", selectedItem);
@@ -120,62 +159,95 @@ document.addEventListener("DOMContentLoaded", () => {
     });
   }
 
-  
-  authorizedFetch("https://jm-money.com/api/item/shop")
-    .then(res => res.ok ? res.json() : Promise.reject("조회 실패"))
-    .then(data => {
-      const items = data.data || data || [];
-      shopItems = items;
-      renderItems(shopItems);
-    })
-    .catch(err => {
-      console.error("아이템 불러오기 실패:", err);
-      showPopup("아이템 불러오기 실패: " + err);
-    });
 
-  
-  async function checkIfItemAlreadyPurchased(itemId) {
+  async function loadShopAndInventory() {
     try {
-      const res = await authorizedFetch('https://jm-money.com/api/item/inventory');
-      if (!res.ok) throw new Error('인벤토리 조회 실패');
+      const inventoryRes = await authorizedFetch('https://jm-money.com/api/item/inventory');
+      if (inventoryRes.ok) {
+        const inventory = await inventoryRes.json();
+        const inventoryData = inventory.data || inventory;
+        inventoryData.forEach(item => purchasedItemIds.add(item.itemId));
+      } else {
+        throw new Error('인벤토리 조회 실패');
+      }
 
-      const response = await res.json();
-      const inventory = response.data || response;
+      const shopRes = await authorizedFetch("https://jm-money.com/api/item/shop");
+      if (shopRes.ok) {
+        const data = await shopRes.json();
+        shopItems = data.data || data || [];
+        renderItems(shopItems);
+      } else {
+        throw new Error('상점 아이템 조회 실패');
+      }
 
-      return inventory.some(item => item.itemId === itemId);
     } catch (err) {
-      showPopup("인벤토리 조회 실패: " + err.message);
-      return false;
+      console.error("상점 로딩 실패:", err);
+      showPopup("아이템 정보를 불러오는 데 실패했습니다.");
     }
   }
 
+  loadShopAndInventory(); 
   
+  async function checkIfItemAlreadyPurchased(itemId) {
+    return purchasedItemIds.has(itemId);
+  }
+
   buyButton.addEventListener("click", async () => {
-    const confirmBuy = await customConfirm(`🪙 ${selectedItem.price} cash로 "${selectedItem.name}"을 구매할까요?`);
+    if (!selectedItem) {
+      showPopup("아이템을 먼저 선택해주세요.");
+      return;
+    }
+    if (purchasedItemIds.has(selectedItem.itemId)) {
+      showPopup("이미 구매한 아이템입니다.");
+      return;
+    }
+
+    const confirmBuy = await customConfirm(`🪙 ${selectedItem.price.toLocaleString()} 잼머니로 "${selectedItem.name}"을 구매할까요?`);
     if (!confirmBuy) return;
 
-    
+    const currentTotalCash = await getCurrentTotalCash();
+
+    if (currentTotalCash < selectedItem.price) {
+      showPopup(`잔액이 부족합니다! (현재 총 잔액: ${currentTotalCash.toLocaleString()} 잼머니)`, "error");
+      return;
+    }
+
     const isAlreadyPurchased = await checkIfItemAlreadyPurchased(selectedItem.itemId);
     if (isAlreadyPurchased) {
       showPopup("이미 구매한 아이템입니다.");
       return;
     }
 
-    
+
     authorizedFetch("https://jm-money.com/api/item/purchase", {
       method: "POST",
       body: JSON.stringify({ itemId: selectedItem.itemId })
     })
-      .then(res => res.json())
+      .then(async res => {
+        if (!res.ok) {
+          const errorData = await res.json().catch(() => ({ message: "구매 처리 중 오류 발생" }));
+          throw new Error(errorData.message || "구매 실패");
+        }
+        return res.json();
+      })
       .then(data => {
-        showPopup(data.message || "구매 완료!");
+        showPopup(data.message || "구매 완료!", "success");
+        displayUserCash();
+
+        purchasedItemIds.add(selectedItem.itemId);
+
+        const currentFilter = document.querySelector(".category.active").dataset.filter;
+        const filtered = currentFilter === "전체"
+          ? shopItems
+          : shopItems.filter(item => item.type === currentFilter);
+        renderItems(filtered);
       })
       .catch(err => {
-        showPopup("구매에 실패하셨습니다.");
+        showPopup(err.message, "error");
       });
   });
 
-  
+
   async function loadEquippedItems() {
     try {
       const res = await authorizedFetch('https://jm-money.com/api/item/inventory');
