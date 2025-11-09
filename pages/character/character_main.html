@@ -11,9 +11,7 @@
 </head>
 
 <body>
-  <!-- 메인 콘텐츠 영역 -->
   <div class="main-content">
-    <!-- 헤더 영역 -->
     <header>
       <button class="back-button" onclick="history.back();">
         <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
@@ -24,9 +22,7 @@
       캐릭터
     </header>
 
-    <!-- 구현 영역 -->
     <div class="content">
-      <!-- 상단 버튼 영역 -->
       <div class="top-button">
         <button class="shop-button" onclick="location.href='/pages/character/character_shop.html'">
           🛒 캐릭터 상점
@@ -36,23 +32,18 @@
         </button>
       </div>
 
-      <!-- 캐릭터 공간 -->
       <div class="character-area">
-        <img src="" class="background-img" id="bgImage" />
-        <img src="" alt="캐릭터 이미지" class="character-img" id="characterImage" />
+        <img src="/assets/images/default_background.png" class="background-img" id="bgImage" />
+        <img src="https://placehold.co/150x150" alt="캐릭터 이미지" class="character-img" id="characterImage" />
       </div>
 
-      <!-- 캐릭터 정보 -->
       <div class="status-box">
         <div class="name-stage">
           <span class="character-name" id="characterName">공룡 이름</span>
           <button class="edit-button" id="editNameBtn">✏️</button>
-
-          <!--span class="growth-stage" id="growthStage">성장 단계 : 공룡 알</span>-->
           <span class="character-mood" id="mood">기분 : ?</span>
         </div>
 
-        <!-- 이름 수정 (처음에는 숨김) -->
         <div class="name-edit-box" id="nameEditBox">
           <input type="text" id="nameInput" placeholder="이름을 입력하세요" />
           <button id="saveNameBtn">저장</button>
@@ -64,7 +55,6 @@
             <div class="progress" id="progressBar"></div>
           </div>
           <span class="xp"><span id="xpNow"></span> / <span id="xpMax"></span> EXP</span>
-          <!--예시값-->
         </div>
       </div>
     </div>
