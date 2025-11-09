@@ -117,7 +117,10 @@ document.addEventListener("DOMContentLoaded", () => {
     document.body.appendChild(modal);
 
     const confirmBtn = document.getElementById("modal-confirm");
-    confirmBtn.addEventListener("click", closeModal);
+    confirmBtn.addEventListener("click", () => {
+      closeModal();
+      nextButton.click();
+    });
 
     if (!isCorrect) {
       const saveBtn = document.getElementById("save-wrong-note");
