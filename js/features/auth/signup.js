@@ -42,21 +42,19 @@ document.addEventListener("DOMContentLoaded", function () {
     }
 
     try {
-      const response = await authorizedFetch(
-        "https://jm-money.com/api/auth/signup",
-        {
-          method: "POST",
-          headers: {
-            "Content-Type": "application/json",
-          },
-          body: JSON.stringify({
-            email,
-            nickname,
-            password,
-            confirmPassword,
-          }),
-        }
-      );
+      const response = await fetch("https://jm-money.com/api/auth/signup", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({
+          email,
+          nickname,
+          password,
+          confirmPassword,
+        }),
+        credentials: "include",
+      });
 
       if (!response.ok) {
         const errorData = await response.json();
