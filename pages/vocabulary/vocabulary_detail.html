@@ -1,83 +1,67 @@
 <!DOCTYPE html>
 <html lang="ko">
-  <head>
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>JamMoney - 금융단어장 단어카드</title>
-    <link rel="icon" href="/assets/images/favicon.png" type="image/png" />
-    <link rel="stylesheet" href="/css/style.css" />
-    <link rel="stylesheet" href="/css/vocabulary.css" />
-  </head>
 
-  <body>
-    <div class="main-content">
-      <header>
-        <button class="back-button" onclick="history.back();">
-          <svg
-            width="24"
-            height="24"
-            viewBox="0 0 24 24"
-            fill="none"
-            xmlns="http://www.w3.org/2000/svg"
-          >
-            <path
-              d="M15 19L8 12L15 5"
-              stroke="currentColor"
-              stroke-width="2"
-              stroke-linecap="round"
-              stroke-linejoin="round"
-            />
-          </svg>
-        </button>
-        금융 단어장
-      </header>
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>JamMoney - 금융단어장 단어카드</title>
+  <link rel="icon" href="/assets/images/favicon.png" type="image/png" />
+  <link rel="stylesheet" href="/css/style.css" />
+  <link rel="stylesheet" href="/css/vocabulary.css" />
+</head>
 
-      <div class="progress-container">
-        <div class="progress-bar" id="progress-bar"></div>
-      </div>
+<body>
+  <div class="main-content">
+    <header>
+      <button class="back-button" onclick="history.back();">
+        <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+          <path d="M15 19L8 12L15 5" stroke="currentColor" stroke-width="2" stroke-linecap="round"
+            stroke-linejoin="round" />
+        </svg>
+      </button>
+      금융 단어장
+    </header>
 
-      <div class="content">
-        <div class="word-card">
-          <button class="bookmark" aria-label="북마크"></button>
+    <div class="progress-container">
+      <div class="progress-bar" id="progress-bar"></div>
+    </div>
 
-          <p class="word-title">단어 제목</p>
-          <p class="word-desc">단어 정의</p>
+    <div class="content">
+      <div class="word-card">
+        <button class="bookmark" aria-label="북마크"></button>
 
-          <div class="example-box">
-            <div class="example-tag">예시</div>
-            <p class="example-text">예문이 표시됩니다.</p>
-          </div>
+        <p class="word-title"></p>
+        <p class="word-desc"></p>
 
-          <div id="quiz-modal" class="quiz-modal">
-            <div class="quiz-content">
-              <h3>🎉 단어 공부를 마쳤습니다!</h3>
-              <img
-                class="dino-word-bubbling"
-                src="/assets/images/dino_word_bubbling.png"
-                alt=""
-              />
-              <div class="quiz-buttons">
-                <button id="quiz-confirm" class="quiz-confirm">
-                  퀴즈 풀기
-                </button>
-                <button id="quiz-cancel" class="quiz-cancel">돌아가기</button>
-              </div>
+        <div class="example-box">
+          <div class="example-tag">예시</div>
+          <p class="example-text"></p>
+        </div>
+
+        <div id="quiz-modal" class="quiz-modal">
+          <div class="quiz-content">
+            <h3>🎉 단어 공부를 마쳤습니다!</h3>
+            <img class="dino-word-bubbling" src="/assets/images/dino_word_bubbling.png" alt="" />
+            <div class="quiz-buttons">
+              <button id="quiz-confirm" class="quiz-confirm">
+                퀴즈 풀기
+              </button>
+              <button id="quiz-cancel" class="quiz-cancel">돌아가기</button>
             </div>
           </div>
+        </div>
 
-          <div class="navigation-buttons">
-            <button class="prev-button" id="card-prev-button">이전</button>
-            <button class="next-button" id="card-next-button">다음</button>
-          </div>
+        <div class="navigation-buttons">
+          <button class="prev-button" id="card-prev-button">이전</button>
+          <button class="next-button" id="card-next-button">다음</button>
         </div>
       </div>
     </div>
+  </div>
 
-    <div id="navbar"></div>
-    <script src="/js/script.js"></script>
-    <script
-      type="module"
-      src="/js/features/vocabulary/vocabulary-detail.js"
-    ></script>
-  </body>
+  <div id="navbar"></div>
+  <script src="/js/script.js"></script>
+  <script type="module" src="/js/features/vocabulary/vocabulary-detail.js"></script>
+</body>
+
 </html>
