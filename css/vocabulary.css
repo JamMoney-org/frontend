@@ -1,20 +1,8 @@
-/*vocabulary_category 스타일링*/
-.category-label {
-    margin-bottom: 1.5rem;
-    color: #333333;
-    padding-left: 0.2rem;
-}
-
-.label-box {
-    padding-left: 1.5em;
-    margin-top: 30px;
-}
-
 .category-grid {
     display: grid;
     grid-template-columns: repeat(2, 0.7fr);
     gap: 12px;
-    padding: 15px;
+    padding: 8px 15px;
     margin: 15px;
 }
 
@@ -25,7 +13,6 @@
     justify-content: center;
     padding: 35px 10px;
     background-color: rgba(93, 194, 158, 0.5);
-    /* 투명도 추가 */
     border: 1px solid #D9D9D9;
     border-radius: 8px;
     box-sizing: border-box;
@@ -38,7 +25,6 @@
 
 .category-item:hover {
     background-color: rgba(93, 194, 158, 0.9);
-    /* 더 밝고 진한 배경색 */
 }
 
 .category-icon {
@@ -57,7 +43,6 @@ h2 {
 }
 
 
-/*vocabulary_list 스타일링*/
 #category-title {
     margin-top: 60px;
     font-size: 1.4em;
@@ -74,7 +59,6 @@ h2 {
 
 .word-item {
     position: relative;
-    /* 자식 요소의 절대 위치를 기준으로 함 */
     display: flex;
     justify-content: space-between;
     align-items: center;
@@ -107,7 +91,6 @@ h2 {
     margin-bottom: 30px;
 }
 
-/* 프로그래스바 */
 .progress-container {
     position: fixed;
     top: 50px;
@@ -122,7 +105,6 @@ h2 {
     z-index: 15;
 }
 
-/* 프로그래스바 진행 부분 */
 .progress-bar {
     width: 20%;
     height: 100%;
@@ -131,7 +113,6 @@ h2 {
     transition: width 0.3s ease;
 }
 
-/* 단어 카드 */
 .word-card {
     position: relative;
     display: flex;
@@ -154,7 +135,6 @@ h2 {
     text-align: center;
 }
 
-/* 북마크 버튼 스타일 */
 .bookmark {
     position: absolute;
     top: 45px;
@@ -173,7 +153,6 @@ h2 {
     transform: scale(1.1);
 }
 
-/* 단어 설명 */
 .word-desc {
     margin: 15px 0;
     font-size: 15px;
@@ -181,7 +160,6 @@ h2 {
     font-weight: 500;
 }
 
-/* 예시 문장 */
 .example-box {
     display: flex;
     align-items: center;
@@ -204,7 +182,6 @@ h2 {
     }
 }
 
-/* 예시 태그 */
 .example-tag {
     position: absolute;
     top: -10px;
@@ -223,7 +200,6 @@ h2 {
     line-height: 1.5;
 }
 
-/* 버튼 그룹 스타일 */
 .navigation-buttons {
     display: flex;
     justify-content: center;
@@ -231,7 +207,6 @@ h2 {
     margin: 20px 0;
 }
 
-/* 이전, 다음 버튼 공통 스타일 */
 #card-next-button,
 #card-prev-button {
     padding: 12px 25px;
@@ -249,13 +224,11 @@ h2 {
     background-color: #326c58;
 }
 
-/* 이전 버튼 비활성화 상태 */
 #card-prev-button:disabled {
     background-color: #B0E0D2;
     cursor: not-allowed;
 }
 
-/* 퀴즈 모달 스타일 */
 .quiz-modal {
     display: none;
     position: fixed;
@@ -341,7 +314,6 @@ h2 {
     margin-bottom: 10px;
 }
 
-/* vocabulary_quiz 스타일링 */
 .quiz-card {
     position: relative;
     display: flex;
@@ -425,7 +397,6 @@ h2 {
     border: 1px solid #5DC29E;
 }
 
-/* 선지 표시 */
 .correct {
     background-color: #5DC29E !important;
     color: white !important;
@@ -477,7 +448,6 @@ button:disabled {
     color: #FF4C4C;
 }
 
-/* 모달 스타일 */
 .modal-backdrop {
     position: fixed;
     top: 0;
@@ -522,13 +492,11 @@ button:disabled {
     background-color: #326c58;
 }
 
-/*vocabulary_quiz_result.html*/
 .chart-container {
     position: relative;
     width: 200px;
     height: 200px;
     margin: 30px auto 30px auto;
-    /* 위쪽 여백 늘림 */
 }
 
 .result-container {
@@ -550,7 +518,6 @@ button:disabled {
     color: #333;
 }
 
-/* 공룡과 말풍선 그룹 */
 .dino-container {
     display: flex;
     justify-content: center;
@@ -596,7 +563,6 @@ button:disabled {
     margin-left: -8px;
 }
 
-/* 퀴즈 종료 버튼 */
 #finish-button {
     width: 100%;
     margin-top: 30px;
@@ -629,8 +595,6 @@ button:disabled {
 }
 
 @media (max-width: 480px) {
-
-    /* 공룡과 말풍선 그룹 */
     .dino-container {
         display: flex;
         justify-content: center;
@@ -657,7 +621,6 @@ button:disabled {
     flex-wrap: nowrap;
 }
 
-/* 모바일 대응 */
 @media (max-width: 480px) {
     .speech-bubble {
         background-color: #e0e0e0;
@@ -692,7 +655,6 @@ button:disabled {
         width: 140px;
         height: 140px;
         margin: 70px auto 20px auto;
-        /* 위쪽 여백 늘림 */
     }
 
     .next-button {
@@ -708,7 +670,6 @@ button:disabled {
 
 }
 
-/*my_vocabulary.html*/
 .term-example-list {
     margin-top: 6px;
     padding-left: 16px;
