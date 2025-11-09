@@ -50,17 +50,20 @@
 .scenario-header {
   display: flex;
   justify-content: space-between;
+  align-items: center;
+  margin-bottom: 0.5rem;
 }
 
 .scenario-title {
-  font-size: 1rem;
-  font-weight: 600;
-  color: #FFFFFF;
+  font-size: 1.2rem;
+  font-weight: 800;
+  color: #fff;
+  text-shadow: 0 1px 2px rgba(0, 0, 0, 0.15);
 }
 
 .scenario-desc {
   font-size: 15px;
-  color: #FFFFFF;
+  color: rgba(230, 230, 230, 1);
   margin-top: 0.3rem;
 }
 
@@ -70,8 +73,10 @@
 }
 
 .simul-wrapper {
-  text-align: center;
-  padding-bottom: 2rem;
+  position: relative;
+  z-index: 1;
+  padding-top: 1rem;
+  padding-bottom: 260px;
 }
 
 
@@ -85,28 +90,47 @@
   padding: 2rem 1.5rem;
   box-shadow: 0 2px 6px rgba(0, 0, 0, 0.05);
   border-top: 5px solid #5DC29E;
+
+  width: min(100%, 500px);
   max-width: 500px;
+  min-width: 320px;
   min-height: 450px;
+  flex: 0 0 auto;
+  box-sizing: border-box;
+
   margin: 0 auto;
   position: relative;
-  justify-content: space-around;
+
   display: flex;
   flex-direction: column;
+  justify-content: space-around;
   gap: 2rem;
-  /* 요소 간 간격 */
 }
 
-.simul-card h3 {
-  font-size: 17px;
-  color: #333;
+.eyebrow {
+  display: inline-block;
+  font-size: 16px;
+  font-weight: 600;
+  letter-spacing: .06em;
+  color: #2c8b71;
+  background: rgba(93, 194, 158, .14);
+  padding: 5px 10px;
+  border-radius: 999px;
 }
 
-.simul-card p {
-  font-size: 15px;
-  color: #444;
-  line-height: 1.6;
-  margin: 0 auto;
-  max-width: 380px;
+.title {
+  font-size: 1.6rem;
+  font-weight: 700;
+  color: #1f1f1f;
+  line-height: 1.55;
+  margin: 4px 0 8px;
+}
+
+.desc {
+  font-size: 16px;
+  color: rgba(0, 0, 0, 0.8);
+  line-height: 1.7;
+  font-weight: 400;
 }
 
 .start-btn {
@@ -130,40 +154,36 @@
 
 .dialogue-box {
   background: #ffffff;
-  border-radius: 20px;
-  padding: 20px;
-  margin: 20px 0;
-  box-shadow: 0 6px 20px rgba(0, 0, 0, 0.3);
-  text-align: left;
+  border-radius: 16px;
+  padding: 16px 18px;
+  margin: 18px 0;
+  box-shadow: 0 10px 24px rgb(0 0 0 / 46%);
   position: relative;
+  border-left: 4px solid #5DC29E;
 }
 
-.dialogue-box::before {
-  content: '';
+.dialogue-box::after {
+  content: "";
   position: absolute;
-  top: -20px;
-  /* 위쪽으로 꼬리 이동 */
-  left: 50px;
-  /* 원하는 위치 조정 (가운데로 하고 싶으면 50% + transform) */
-  width: 0;
-  height: 0;
+  top: 100%;
+  left: 36px;
   border: 10px solid transparent;
-  border-bottom-color: #ffffff;
-  /* 꼬리가 아래를 향하게 */
-  filter: drop-shadow(0px -4px 6px rgba(0, 0, 0, 0.2));
+  border-top-color: #fff;
+  filter: drop-shadow(0 4px 6px rgba(0, 0, 0, .15));
 }
 
 .character-name {
-  font-weight: bold;
-  font-size: 16px;
-  color: #5DC29E;
-  margin-bottom: 10px;
+  font-weight: 700;
+  font-size: 14px;
+  color: #2c8b71;
+  margin: 5px 0;
 }
 
 .dialogue-text {
   font-size: 15px;
-  font-weight: bold;
+  font-weight: 700;
   line-height: 1.6;
+  padding: 0 6px;
 }
 
 .dialogue-summary {
@@ -172,27 +192,76 @@
   line-height: 1.6;
 }
 
-.choices {
+.choices-head {
   display: flex;
-  flex-direction: column;
-  gap: 10px;
+  align-items: center;
+  gap: 8px;
+  margin: 0 2px 8px 2px;
+}
+
+.chip {
+  display: inline-block;
+  padding: 5px 10px;
+  border-radius: 999px;
+  background: #eef2ef;
+  color: #4b4b4b;
+  font-weight: 700;
+  font-size: 12px;
 }
 
 .choice-btn {
-  background: rgba(255, 255, 255, 0.9);
-  border: 2px solid #88888882;
-  border-radius: 20px;
-  padding: 10px 16px;
-  cursor: pointer;
-  font-size: 14px;
-  font-weight: 500;
+  display: flex;
+  align-items: center;
+  gap: 15px;
+  text-align: left;
+  background: #fff;
+  border: 2px solid #e6ecea;
+  border-radius: 16px;
+  padding: 8px 14px;
+  margin: 5px;
+  font-size: 15px;
+  transition: border-color .15s, box-shadow .15s, background .15s, transform .05s;
+  width: 99%;
+}
+
+.choice-btn .num {
+  min-width: 28px;
+  height: 28px;
+  line-height: 28px;
   text-align: center;
-  transition: background 0.2s, transform 0.2s;
+  border-radius: 999px;
+  background: rgba(93, 194, 158, 0.16);
+  color: #2c8b71;
+  font-weight: 800;
+  font-size: 14px;
 }
 
 .choice-btn:hover {
-  background: #f0f0f0;
-  transform: translateY(-2px);
+  background: #fbfffd;
+  border-color: #cfe7df;
+  box-shadow: 0 6px 16px rgba(93, 194, 158, .12);
+  transform: translateY(1px);
+}
+
+.choice-btn:focus-visible {
+  outline: 3px solid rgba(93, 194, 158, .45);
+  outline-offset: 2px;
+}
+
+.dialogue-meta {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  margin-bottom: 6px;
+}
+
+.badge {
+  background: rgba(93, 194, 158, .14);
+  color: #2c8b71;
+  font-weight: 800;
+  font-size: 12px;
+  padding: 4px 8px;
+  border-radius: 999px;
 }
 
 .next-btn {
@@ -213,6 +282,30 @@
   background-color: #53b38e;
 }
 
+.coach-row {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding-top: 5px;
+  gap: 6px;
+}
+
+.coach {
+  width: clamp(110px, 22vw, 80px);
+  height: auto;
+  image-rendering: pixelated;
+}
+
+.simul-spacing {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  min-height: calc(100dvh - 155px);
+  margin: 0 10px;
+}
+
+
+
 .end {
   text-align: center;
 }
@@ -229,6 +322,7 @@
 .actions {
   display: flex;
   flex-direction: column;
+  align-self: stretch;
   gap: 10px;
 }
 
@@ -251,16 +345,15 @@
 
 .category-grid {
   display: grid;
-  grid-template-columns: repeat(2, 0.7fr);
+  grid-template-columns: repeat(2, minmax(0, 1fr));
   gap: 12px;
   padding: 15px 0;
   margin: 15px 11px;
+  width: 100%;
+  max-width: 720px;
+  margin-inline: auto;
 }
 
-.label-box {
-  padding-left: 0.3em;
-  margin-top: 30px;
-}
 
 .category-item {
   display: flex;
@@ -278,11 +371,21 @@
   font-weight: 600;
   cursor: pointer;
   transition: background-color 0.3s ease;
+  width: 100%;
+}
+
+.center {
+  display: flex;
+  align-items: center;
+  min-height: calc(100dvh - 120px);
+  box-sizing: border-box;
+  padding: 0 1.2rem;
+  width: 100%;
+  flex: 1 1 auto;
 }
 
 .category-item:hover {
   background-color: rgba(93, 194, 158, 0.9);
-  /* 더 밝고 진한 배경색 */
 }
 
 .category-icon {
@@ -341,24 +444,19 @@
 
 .main-content {
   position: relative;
-  /* overlay의 기준이 될 부모 */
 }
 
-/* scenario.css 또는 공통 버튼 스타일 파일에 추가 */
 
 .loading-btn {
   background-color: #ccc !important;
-  /* 회색으로 고정 */
   color: #fff;
   cursor: not-allowed;
   pointer-events: none;
-  /* 클릭 막기 */
   transition: none;
 }
 
 .loading-btn:hover {
   background-color: #ccc;
-  /* hover 색 변화 막기 */
 }
 
 /* 물결 애니메이션 */
@@ -414,7 +512,48 @@
   display: block;
 }
 
-.simul-overlay {
-  margin-top: -7%;
+.scenario-bg {
+  position: absolute;
+  left: 0;
+  right: 0;
+  bottom: -55px;
+  width: 100%;
+  object-fit: cover;
+  display: block;
+  z-index: 0;
+  pointer-events: none;
+}
+
+.feedback-text {
+  font-size: 16px;
+  line-height: 1.6;
+  font-weight: 500;
+  padding: 0 6px;
+}
+
+.summary-box {
+  background: #ffffff;
+  border-radius: 16px;
+  padding: 16px 18px;
+  margin: 18px 0;
+  box-shadow: 0 10px 24px rgb(0 0 0 / 46%);
   position: relative;
+  border-left: 4px solid #5DC29E;
+}
+
+.summary-box::before {
+  content: "";
+  position: absolute;
+  bottom: 100%;
+  left: 36px;
+  border: 10px solid transparent;
+  border-bottom-color: #fff;
+  filter: drop-shadow(0 -4px 6px rgba(0, 0, 0, .15));
+}
+
+.summary-spacing {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  margin: 0 10px;
 }

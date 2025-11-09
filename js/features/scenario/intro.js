@@ -27,8 +27,8 @@ import { authorizedFetch } from '../../utils/auth-fetch.js';
 
     const scenario = await res.json();
 
-    document.querySelector('.simul-title').textContent = scenario.title;
-    document.querySelector('.simul-card p').innerHTML = scenario.description
+    document.querySelector('.title').textContent = scenario.title;
+    document.querySelector('.desc').innerHTML = scenario.description
       .split('\n')
       .join('<br>');
 
