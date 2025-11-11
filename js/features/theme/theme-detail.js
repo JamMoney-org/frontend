@@ -58,31 +58,61 @@ function convertPlainTextToHTML(text) {
   let currentSection = null;
   let ul = null;
 
-  lines.forEach((line) => {
-    if (!line) return;
+  const mdToHTML = (s) => s.replace(/\*\*(.+?)\*\*/g, '<strong>$1</strong>');
 
-    if (line.startsWith('????')) {
-      currentSection = document.createElement('section');
-      currentSection.className = 'section';
+  const openSection = (title) => {
+    ul = null;
+    const section = document.createElement('section');
+    section.className = 'section';
 
-      const h2 = document.createElement('h2');
-      h2.textContent = '📌 ' + line.slice(4).trim();
-      currentSection.appendChild(h2);
+    const h2 = document.createElement('h2');
+    h2.innerHTML = title;
+    section.appendChild(h2);
 
+    fragment.appendChild(section);
+    currentSection = section;
+  };
+
+  const ensureUL = () => {
+    if (!ul) {
+      if (!currentSection) {
+        currentSection = document.createElement('section');
+        currentSection.className = 'section';
+        fragment.appendChild(currentSection);
+      }
       ul = document.createElement('ul');
       currentSection.appendChild(ul);
-      fragment.appendChild(currentSection);
-    } else if (line.startsWith('-')) {
-      if (ul) {
-        const li = document.createElement('li');
-        li.textContent = line.replace(/^-+\s*/, '');
-        ul.appendChild(li);
-      }
-    } else {
-      const p = document.createElement('p');
-      p.textContent = line;
-      fragment.appendChild(p);
     }
+  };
+
+  lines.forEach((line) => {
+    if (!line) {
+      ul = null;
+      return;
+    }
+
+    if (/^\p{Extended_Pictographic}/u.test(line)) {
+      openSection(line);
+      return;
+    }
+
+    if (line.startsWith('????')) {
+      openSection('📌 ' + line.slice(4).trim());
+      return;
+    }
+
+    if (/^-\s+/.test(line)) {
+      ensureUL();
+      const li = document.createElement('li');
+      li.innerHTML = mdToHTML(line.replace(/^-+\s*/, ''));
+      ul.appendChild(li);
+      return;
+    }
+
+    ul = null;
+    const p = document.createElement('p');
+    p.innerHTML = mdToHTML(line);
+    (currentSection ?? fragment).appendChild(p);
   });
 
   return fragment;

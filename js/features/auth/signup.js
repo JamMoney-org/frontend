@@ -53,8 +53,8 @@ document.addEventListener("DOMContentLoaded", function () {
           password,
           confirmPassword,
         }),
+        credentials: "include",
       });
-
 
       if (!response.ok) {
         const errorData = await response.json();
@@ -62,14 +62,15 @@ document.addEventListener("DOMContentLoaded", function () {
         errorElement.style.display = "block";
         return;
       }
-      
+
       showPopup("JamMoney 회원이 되신 것을 환영합니다!", "success", 1000);
 
       setTimeout(() => {
         window.location.href = "/index.html";
       }, 1000);
     } catch (error) {
-      errorElement.textContent = "일시적인 오류가 발생했습니다. 잠시 후 다시 시도해 주세요.";
+      errorElement.textContent =
+        "일시적인 오류가 발생했습니다. 잠시 후 다시 시도해 주세요.";
       errorElement.style.display = "block";
     }
   });

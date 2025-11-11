@@ -105,6 +105,8 @@ function renderTopicList(topics, themeId) {
       imageSrc = savingsImageMap[topic.topicId] || imageSrc;
     } else if (themeId === 2) {
       imageSrc = investImageMap[topic.topicId] || imageSrc;
+    } else if (topic.imageUrl) {
+      imageSrc = topic.imageUrl;
     }
 
     item.innerHTML = `
@@ -132,6 +134,8 @@ function renderCarousel(topics, themeId) {
       imageSrc = savingsImageMap[topic.topicId] || imageSrc;
     } else if (themeId === 2) {
       imageSrc = investImageMap[topic.topicId] || imageSrc;
+    } else if (topic.imageUrl) {
+      imageSrc = topic.imageUrl;
     }
 
     const div = document.createElement('div');
