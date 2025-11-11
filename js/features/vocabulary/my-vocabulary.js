@@ -36,12 +36,15 @@ document.addEventListener("DOMContentLoaded", async () => {
           : `<p class="term-example-empty">예문 없음</p>`;
 
       wordItem.innerHTML = `
-        <div class="word-info">
-          <p class="term-word"><strong>${term.term}</strong></p>
-          <p class="term-meaning">${term.definition}</p>
-          ${exampleListHTML}
+      <div class="word-info">
+        <p class="term-word"><strong>${term.term}</strong></p>
+        <p class="term-meaning">${term.definition}</p>
+        <div class="term-example">
+          <span class="example-label">예시</span>
+          <p class="example-text">${exampleListHTML}</p>
         </div>
-      `;
+      </div>
+    `;
 
       wordListContainer.appendChild(wordItem);
     });
