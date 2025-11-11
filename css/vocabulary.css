@@ -101,7 +101,9 @@ h2 {
 
 .word-info {
   display: flex;
+  width: 100%;
   flex-direction: column;
+  width: 100%;
 }
 
 .day-label {
@@ -693,16 +695,22 @@ button:disabled {
   }
 }
 
+.term-word {
+  font-size: 18px;
+}
+
 .term-example-list {
-  margin-top: 6px;
-  padding-left: 16px;
+  margin-top: 0px;
+  padding-left: 18px;
   color: #666;
   font-size: 13px;
+  font-weight: 450;
 }
 
 .term-example-list li {
   list-style: disc;
   margin-bottom: 4px;
+  color: #326c58;
 }
 
 .term-example-empty {
@@ -713,9 +721,36 @@ button:disabled {
 }
 
 .term-meaning {
-  margin-top: 8px;
+  margin-top: 5px;
   font-size: 14px;
-  font-weight: 600;
+  font-weight: 550;
+}
+
+.term-example {
+  border: 2px solid #5dc29e;
+  border-radius: 12px;
+  padding: 12px;
+  margin-top: 13px;
+  background-color: rgba(93, 194, 158, 0.1);
+  width: 100%;
+  box-sizing: border-box;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: flex-start;
+}
+
+.example-label {
+  display: inline-block;
+  background-color: #5dc29e;
+  color: white;
+  border-radius: 8px;
+  padding: 3px 7px;
+  font-size: 11px;
+}
+
+.example-text {
+  margin-top: 0;
 }
 
 #myvoca-title {
@@ -732,7 +767,7 @@ button:disabled {
   justify-content: space-between;
   align-items: center;
   background-color: #fff;
-  padding: 18px;
+  padding: 15px 18px;
   border-radius: 8px;
   border: 1px solid #d9d9d9;
   box-sizing: border-box;
