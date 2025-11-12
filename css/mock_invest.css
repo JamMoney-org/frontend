@@ -1,6 +1,6 @@
 .company-name {
   margin: 0;
-  font-size: 24px
+  font-size: 24px;
 }
 
 .stock-header {
@@ -42,7 +42,6 @@
   padding-bottom: 60px;
 }
 
-
 .tab-pane {
   display: none;
 }
@@ -61,19 +60,17 @@
 .period-tabs button {
   padding: 8px 20px;
   border: none;
-  background-color: #FFFFFF;
+  background-color: #ffffff;
   font-size: 14px;
   border-radius: 8px;
   cursor: pointer;
   transition: background-color 0.2s ease, font-weight 0.2s ease;
 }
 
-
 .period-tabs .active {
-  background-color: #EEEEEE;
+  background-color: #eeeeee;
   font-weight: 400;
 }
-
 
 table {
   width: 100%;
@@ -87,30 +84,27 @@ td {
   text-align: center;
   vertical-align: middle;
   width: 25%;
-  border-bottom: 1.5px solid #F7F7F7;
+  border-bottom: 1.5px solid #f7f7f7;
 }
 
 .company-info-table td {
-  border: 1.5px solid #F7F7F7;
+  border: 1.5px solid #f7f7f7;
 }
 
 .company-info-table .label {
-  background-color: #F7F7F7;
+  background-color: #f7f7f7;
 }
 
 thead {
-  background-color: #F7F7F7;
+  background-color: #f7f7f7;
 }
 
-
 td.up * {
-  color: #F93040;
-  /* 빨강 */
+  color: #f93040;
 }
 
 td.down * {
-  color: #3969FB;
-  /* 파랑 */
+  color: #3969fb;
 }
 
 .trade-btn-wrapper {
@@ -128,14 +122,13 @@ td.down * {
   transform: translateX(-50%);
   max-width: 580px;
   width: 96.7%;
-  background-color: #5DC29E;
+  background-color: #5dc29e;
   color: white;
   padding: 10px;
   border: none;
   border-radius: 8px;
   cursor: pointer;
 }
-
 
 .chart-wrapper {
   width: 100%;
@@ -189,8 +182,6 @@ td.down * {
   color: blue;
 }
 
-
-/* 연한 회색 그리드 */
 .grid line {
   stroke: #e0e0e0;
   stroke-dasharray: 2 2;
