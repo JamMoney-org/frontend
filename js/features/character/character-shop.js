@@ -73,7 +73,7 @@ async function getCurrentTotalCash() {
 
     const data = await res.json();
 
-    return (data.money + data.stockAsset) || 0;
+    return data.money || 0;
 
   } catch (err) {
     console.error("총 보유 현금 조회 실패:", err);
@@ -134,7 +134,7 @@ document.addEventListener("DOMContentLoaded", () => {
       box.dataset.category = item.type;
 
       if (purchasedItemIds.has(item.itemId)) {
-        box.classList.add("purchased"); 
+        box.classList.add("purchased");
       }
 
       const img = document.createElement("img");
@@ -186,8 +186,8 @@ document.addEventListener("DOMContentLoaded", () => {
     }
   }
 
-  loadShopAndInventory(); 
-  
+  loadShopAndInventory();
+
   async function checkIfItemAlreadyPurchased(itemId) {
     return purchasedItemIds.has(itemId);
   }
@@ -208,7 +208,7 @@ document.addEventListener("DOMContentLoaded", () => {
     const currentTotalCash = await getCurrentTotalCash();
 
     if (currentTotalCash < selectedItem.price) {
-      showPopup(`잔액이 부족합니다! (현재 총 잔액: ${currentTotalCash.toLocaleString()} 잼머니)`, "error");
+      showPopup(`보유 현금이 부족합니다! (현재 보유 현금: ${currentTotalCash.toLocaleString()} 잼머니)`, "error");
       return;
     }
 
