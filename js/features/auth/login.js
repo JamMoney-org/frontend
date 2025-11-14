@@ -1,13 +1,6 @@
 document.addEventListener("DOMContentLoaded", function () {
   const loginForm = document.querySelector(".login-form");
   const errorElement = document.getElementById("login-error-message");
-  const accessToken = localStorage.getItem("accessToken");
-  const refreshToken = localStorage.getItem("refreshToken");
-
-  if (accessToken && refreshToken) {
-    localStorage.removeItem("accessToken");
-    localStorage.removeItem("refreshToken");
-  }
 
   loginForm.addEventListener("submit", async function (e) {
     e.preventDefault();
@@ -36,7 +29,6 @@ document.addEventListener("DOMContentLoaded", function () {
         const data = await response.json();
 
         localStorage.setItem("accessToken", data.accessToken);
-        localStorage.setItem("refreshToken", data.refreshToken);
 
         setTimeout(() => {
           window.location.href = "/pages/mainpage/mainpage.html";

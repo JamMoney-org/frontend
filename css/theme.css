@@ -1,26 +1,28 @@
 .carousel {
   display: flex;
-  justify-content: space-evenly;
-  background-color: white;
+  justify-content: flex-start;
+  align-items: center;
+  gap: 15px;
+  overflow-x: auto;
+  padding: 0 30px;
 }
-.carousel-title{
+
+.carousel-title {
   color: #7A7A7A;
   font-size: 16px;
   padding: 20px;
 }
+
 .carousel-item {
   flex: 0 0 auto;
-  border-radius: 8px;
-  scroll-snap-align: start;
 }
 
-.carousel-item img{
-  max-width: 170px;
-  max-height: 170px;
-  width: 28vw;
-  aspect-ratio: 1/1;
-  border-radius: 10px;
-  cursor: pointer;
+.carousel-item img {
+  display: block;
+  width: 170px;
+  height: 170px;
+  object-fit: cover;
+  border-radius: 12px;
 }
 
 .tabs {
@@ -60,12 +62,12 @@
 .tab.active::after {
   content: "";
   position: absolute;
-  bottom: 0; 
+  bottom: 0;
   left: 0;
-  height: 3px;  
+  height: 3px;
   width: 100%;
   background-color: #5ACDA5;
-  z-index: 1; 
+  z-index: 1;
 }
 
 .topic-list {
@@ -117,34 +119,37 @@
   margin: 0;
 }
 
-.learning-wrapper{
+.learning-wrapper {
   padding: 20px;
   min-height: 640px;
   background-color: #f5faf7;
- font-size: 15px;
+  font-size: 15px;
 }
 
 .learning-title {
   font-size: 18px;
   margin-bottom: 10px;
 }
+
 .section {
   background-color: white;
   border-radius: 10px;
   padding: 16px;
   margin: 16px 0;
-  box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
 }
+
 .section h2 {
   font-size: 16px;
   margin-bottom: 8px;
 }
+
 .section ul {
   padding-left: 20px;
   padding-top: 7px;
   margin: 0;
 }
+
 .section li {
   margin-bottom: 6px;
 }
-

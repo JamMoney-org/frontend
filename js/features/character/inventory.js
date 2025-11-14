@@ -71,7 +71,7 @@ async function getCurrentTotalCash() {
         }
 
         const data = await res.json();
-        return (data.money + data.stockAsset) || 0;
+        return data.money || 0;
 
     } catch (err) {
         console.error("총 보유 현금 조회 실패:", err);
@@ -102,8 +102,8 @@ async function fetchAndSetCharacterImage() {
         if (!res.ok) throw new Error("캐릭터 상태 조회 실패");
 
         const data = await res.json();
-        const status = data.result || data;
-        setCharacterImageByLevel(status.data.level);
+        const status = data.data || data.result || data;
+        setCharacterImageByLevel(status.level);
     } catch (err) {
         showPopup("캐릭터 이미지 로딩 실패: " + err.message);
     }
