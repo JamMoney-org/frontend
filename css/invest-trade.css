@@ -287,3 +287,15 @@ html {
   background: #ccc;
   border-radius: 4px;
 }
+
+.order-button.active {
+  background-color: #5dc29e;
+  color: #fff;
+  border: 1px solid #5dc29e;
+  font-weight: 600;
+  transition: 0.2s;
+}
+
+.order-button:active {
+  transform: scale(0.97);
+}
