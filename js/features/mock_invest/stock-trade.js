@@ -281,9 +281,9 @@ document.addEventListener("DOMContentLoaded", async () => {
 
     for (let i = 10; i >= 1; i--) {
       const askPrice = data[`askp${i}`];
-      const askQty = data[`askp${i}_rsqn`];
+      const askQty = data[`askp_rsqn${i}`];
       const bidPrice = data[`bidp${i}`];
-      const bidQty = data[`bidp${i}_rsqn`];
+      const bidQty = data[`bidp_rsqn${i}`];
 
       const askHTML = `
         <div class="ask">
