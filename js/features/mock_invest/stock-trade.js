@@ -58,14 +58,11 @@ document.addEventListener("DOMContentLoaded", async () => {
   limitPriceInput.addEventListener("input", () => {
     const input = limitPriceInput.value;
     const numberInputPrice = parseInt(input, 10);
-
     if (isNaN(numberInputPrice) || numberInputPrice <= 0) return;
-
     if (priceChangeTimer !== null) clearTimeout(priceChangeTimer);
 
     if (
       typeof priceInterval === "number" &&
-      priceInterval > 0 &&
       numberInputPrice % priceInterval !== 0
     ) {
       priceChangeTimer = setTimeout(() => {
@@ -110,31 +107,15 @@ document.addEventListener("DOMContentLoaded", async () => {
     zIndex: 1000,
   });
   modal.innerHTML = `
-  <div style="background:white;padding:24px;border-radius:12px;text-align:center;width:280px">
-    <h3 id="modal-title"></h3>
-    <p id="modal-price" style="margin-top: 10px"></p>
-    <p id="modal-total"></p>
-    <div style="margin-top:20px">
-      <button id="modal-cancel" style="
-        margin-right: 12px;
-        padding: 6px 14px;
-        background: #ccc;
-        color: white;
-        border: none;
-        border-radius: 6px;">
-        취소
-      </button>
-      <button id="modal-confirm" style="
-        padding: 6px 14px;
-        background: #51B291;
-        color: white;
-        border: none;
-        border-radius: 6px;">
-        확인
-      </button>
-    </div>
-  </div>`;
-
+    <div style="background:white;padding:24px;border-radius:12px;text-align:center;width:280px">
+      <h3 id="modal-title"></h3>
+      <p id="modal-price" style="margin-top:10px"></p>
+      <p id="modal-total"></p>
+      <div style="margin-top:20px">
+        <button id="modal-cancel" style="margin-right:12px;padding:6px 14px;background:#ccc;color:white;border:none;border-radius:6px;">취소</button>
+        <button id="modal-confirm" style="padding:6px 14px;background:#51B291;color:white;border:none;border-radius:6px;">확인</button>
+      </div>
+    </div>`;
   document.body.appendChild(modal);
 
   const errorModal = document.createElement("div");
@@ -196,7 +177,8 @@ document.addEventListener("DOMContentLoaded", async () => {
       ? Number(firstValidBid || 0)
       : Number(limitPriceInput?.value) || 0;
     const price = Math.max(rawPrice, 0);
-    const total = quantity * price;
+    const total = price * quantity;
+
     quantityDisplay.textContent = `${quantity} 주`;
     totalAmount.textContent = `${total.toLocaleString()}원`;
     return { price, total };
@@ -206,6 +188,7 @@ document.addEventListener("DOMContentLoaded", async () => {
     quantity++;
     updateTotal();
   });
+
   decreaseBtn?.addEventListener("click", () => {
     if (quantity > 0) quantity--;
     updateTotal();
@@ -226,14 +209,13 @@ document.addEventListener("DOMContentLoaded", async () => {
         quantity = Math.floor(budget / price);
 
         if (quantity <= 0) {
-          showToast(`${percent}% 금액으로는 1주도 살 수 없습니다.`);
+          showToast(`${percent}% 금액으로는 1주도 구매할 수 없습니다.`);
           return;
         }
-
         updateTotal();
       } else {
         document.getElementById("error-message").textContent =
-          price <= 0 ? "가격 정보를 확인하세요." : "보유 현금이 없습니다.";
+          price <= 0 ? "가격 정보를 확인해주세요." : "보유 현금이 부족합니다.";
         errorModal.style.display = "flex";
       }
     });
@@ -282,58 +264,45 @@ document.addEventListener("DOMContentLoaded", async () => {
     if (!res.ok) throw new Error("호가 정보 로드 실패");
 
     const { stockAskingPriceResponseDto: data } = await res.json();
+    const priceListContainer = document.querySelector(".price-list");
+    priceListContainer.innerHTML = "";
 
     const askp1 = Number(data.askp1);
     const askp2 = Number(data.askp2);
     priceInterval = askp2 > 0 && askp1 > 0 ? askp2 - askp1 : 100;
-    const priceListContainer = document.querySelector(".price-list");
-    priceListContainer.innerHTML = "";
 
-    const askKeys = Object.keys(data)
-      .filter((key) => key.startsWith("askp") && !key.includes("_rsqn"))
-      .sort((a, b) => {
-        const numA = parseInt(a.replace("askp", ""), 10);
-        const numB = parseInt(b.replace("askp", ""), 10);
-        return numB - numA; // 큰 값부터 순서대로
-      });
+    for (let i = 1; i <= 10; i++) {
+      const bidPrice = Number(data[`bidp${i}`]);
+      if (!isNaN(bidPrice) && bidPrice > 0) {
+        firstValidBid = bidPrice;
+        break;
+      }
+    }
 
-    const bidKeys = Object.keys(data)
-      .filter((key) => key.startsWith("bidp") && !key.includes("_rsqn"))
-      .sort((a, b) => {
-        const numA = parseInt(a.replace("bidp", ""), 10);
-        const numB = parseInt(b.replace("bidp", ""), 10);
-        return numB - numA;
-      });
-
-    const maxLength = Math.max(askKeys.length, bidKeys.length);
-
-    for (let i = 0; i < maxLength; i++) {
-      const askPrice = data[askKeys[i]];
-      const askQty = data[`${askKeys[i]}_rsqn`];
-      const bidPrice = data[bidKeys[i]];
-      const bidQty = data[`${bidKeys[i]}_rsqn`];
+    for (let i = 10; i >= 1; i--) {
+      const askPrice = data[`askp${i}`];
+      const askQty = data[`askp${i}_rsqn`];
+      const bidPrice = data[`bidp${i}`];
+      const bidQty = data[`bidp${i}_rsqn`];
 
       const askHTML = `
-    <div class="ask">
-      <span>${askPrice ? Number(askPrice).toLocaleString() : "-"}</span>
-      <span class="price-qty">${
-        askQty ? Number(askQty).toLocaleString() : "0"
-      }</span>
-    </div>`;
+        <div class="ask">
+          <span>${askPrice ? Number(askPrice).toLocaleString() : "-"}</span>
+          <span class="price-qty">${
+            askQty ? Number(askQty).toLocaleString() : "0"
+          }</span>
+        </div>`;
 
       const bidHTML = `
-    <div class="bid">
-      <span>${bidPrice ? Number(bidPrice).toLocaleString() : "-"}</span>
-      <span class="price-qty">${
-        bidQty ? Number(bidQty).toLocaleString() : "0"
-      }</span>
-    </div>`;
+        <div class="bid">
+          <span>${bidPrice ? Number(bidPrice).toLocaleString() : "-"}</span>
+          <span class="price-qty">${
+            bidQty ? Number(bidQty).toLocaleString() : "0"
+          }</span>
+        </div>`;
 
       priceListContainer.innerHTML += `
-    <div class="price-row">
-      ${askHTML}
-      ${bidHTML}
-    </div>`;
+        <div class="price-row">${askHTML}${bidHTML}</div>`;
     }
 
     initializeMarketOrderUI();
@@ -341,11 +310,6 @@ document.addEventListener("DOMContentLoaded", async () => {
     priceListContainer.addEventListener("click", (e) => {
       const row = e.target.closest(".price-row");
       if (!row) return;
-
-      document
-        .querySelectorAll(".price-row")
-        .forEach((r) => r.classList.remove("selected"));
-      row.classList.add("selected");
 
       const priceEl = e.target.closest(".ask, .bid")?.querySelector("span");
       if (!priceEl) return;
@@ -375,6 +339,7 @@ document.addEventListener("DOMContentLoaded", async () => {
     const isBuy =
       document.querySelector(".order-button.active")?.textContent.trim() ===
       "구매";
+
     if (quantity <= 0) {
       document.getElementById("error-message").textContent =
         "수량을 선택해주세요.";
@@ -385,7 +350,8 @@ document.addEventListener("DOMContentLoaded", async () => {
     const isMarket =
       document.querySelector('input[name="priceType"]:checked')?.value ===
       "market";
-    let price;
+
+    let price = 0;
 
     if (isMarket) {
       price = Number(firstValidBid || 0);
@@ -407,10 +373,10 @@ document.addEventListener("DOMContentLoaded", async () => {
     } ${quantity}주`;
     document.getElementById(
       "modal-price"
-    ).textContent = `1주 희망 가격 ${price.toLocaleString()}원`;
+    ).textContent = `1주 희망 가격: ${price.toLocaleString()}원`;
     document.getElementById(
       "modal-total"
-    ).textContent = `총 주문 가격 ${total.toLocaleString()}원`;
+    ).textContent = `총 주문 가격: ${total.toLocaleString()}원`;
     modal.style.display = "flex";
 
     document.getElementById("modal-cancel").onclick = () => {
@@ -453,7 +419,6 @@ document.addEventListener("DOMContentLoaded", async () => {
           return;
         }
 
-        const result = await response.json();
         const confirmedQty = quantity;
         quantity = 0;
         limitPriceInput.value = "";
@@ -470,7 +435,7 @@ document.addEventListener("DOMContentLoaded", async () => {
       } catch (err) {
         console.error("주문 오류:", err);
         document.getElementById("error-message").textContent =
-          "주문 처리 중 네트워크 오류가 발생했습니다.";
+          "네트워크 오류가 발생했습니다.";
         errorModal.style.display = "flex";
       }
     };
@@ -499,7 +464,6 @@ function showToast(message) {
   const toast = document.getElementById("toast");
   toast.textContent = message;
   toast.classList.add("show");
-
   setTimeout(() => {
     toast.classList.remove("show");
   }, 2000);
