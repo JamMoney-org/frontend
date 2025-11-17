@@ -44,8 +44,11 @@
   text-align: left;
 }
 
-.asset-title {
-  font-weight: bold;
+#assetTitle,
+.nickname {
+  font-size: 0.9rem;
+  font-weight: 600;
+  color: #898989;
 }
 
 .profit {
@@ -164,13 +167,6 @@
 
 .portfolio-btn:hover {
   background-color: #797979;
-}
-
-.nickname,
-.nickname strong {
-  font-size: 0.9rem;
-  font-weight: 600;
-  color: #898989;
 }
 
 #profitAmount,
